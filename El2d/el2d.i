@@ -6,15 +6,19 @@ struct el2d {
   float [*,*] sigmaxx;     // Stress xx comp.
   float [*,*] sigmayy;     // Stress yy comp.
   float [*,*] sigmaxy;     // Stress xy comp.
+  float [*,*] sigmayx;     // Stress xy comp.
   float [*,*] vx;     // x-component of particle velocity
   float [*,*] vy;     // y-component of particle velocity
   float [*,*] exx;    // time derivative of strain x-component
   float [*,*] eyy;    // time derivative of strain y-component
   float [*,*] exy;    // time derivative of strain y-component
-  float [*,*] gammax;
-  float [*,*] gammay;
-  float [*,*] thetax;
-  float [*,*] thetay;
+  float [*,*] gammaxx;
+  float [*,*] gammayy;
+  float [*,*] gammaxy;
+  float [*,*] thetaxxx;
+  float [*,*] thetayyy;
+  float [*,*] thetaxyx;
+  float [*,*] thetayxy;
   int ts;             // Timestep no
 }
 

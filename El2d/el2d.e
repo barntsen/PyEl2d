@@ -37,10 +37,14 @@
   El2d.exx=new(float [Model.Nx,Model.Ny]);
   El2d.eyy=new(float [Model.Nx,Model.Ny]);
   El2d.exy=new(float [Model.Nx,Model.Ny]);
-  El2d.gammax=new(float [Model.Nx,Model.Ny]);
-  El2d.gammay=new(float [Model.Nx,Model.Ny]);
-  El2d.thetax=new(float [Model.Nx,Model.Ny]);
-  El2d.thetay=new(float [Model.Nx,Model.Ny]);
+  El2d.gammaxx=new(float [Model.Nx,Model.Ny]);
+  El2d.gammayy=new(float [Model.Nx,Model.Ny]);
+  El2d.gammaxy=new(float [Model.Nx,Model.Ny]);
+  //El2d.gammayx=new(float [Model.Nx,Model.Ny]);
+  El2d.thetaxxx=new(float [Model.Nx,Model.Ny]);
+  El2d.thetayyy=new(float [Model.Nx,Model.Ny]);
+  El2d.thetayxy=new(float [Model.Nx,Model.Ny]);
+  El2d.thetaxyx=new(float [Model.Nx,Model.Ny]);
   
   for (i=0; i<Model.Nx; i=i+1){ 
     for (j=0; j<Model.Ny; j=j+1){ 
@@ -53,10 +57,13 @@
       El2d.exx[i,j]     = 0.0;
       El2d.eyy[i,j]     = 0.0;
       El2d.exy[i,j]     = 0.0;
-      El2d.gammax[i,j]  = 0.0;
-      El2d.gammay[i,j]  = 0.0;
-      El2d.thetax[i,j]  = 0.0;
-      El2d.thetay[i,j]  = 0.0;
+      El2d.gammaxx[i,j]  = 0.0;
+      El2d.gammayy[i,j]  = 0.0;
+      El2d.gammaxy[i,j]  = 0.0;
+      El2d.thetaxxx[i,j]  = 0.0;
+      El2d.thetayyy[i,j]  = 0.0;
+      El2d.thetayxy[i,j]  = 0.0;
+      El2d.thetaxyx[i,j]  = 0.0;
       El2d.ts = 0;
     }
   }
@@ -186,7 +193,14 @@ int El2dvx(struct el2d El2d, struct model Model)
   // Scale with inverse density and advance one time step
   parallel(i=0:nx,j=0:ny){
     El2d.vx[i,j] = Model.Dt*Model.Rho[i,j]*(El2d.exx[i,j] + El2d.exy[i,j])
+                 + Model.Dt*El2d.thetaxxx[i,j]*Model.Drhop[i,j]
+                 + Model.Dt*El2d.thetayxy[i,j]*Model.Drhos[i,j] 
                  + El2d.vx[i,j];
+
+    El2d.thetaxxx[i,j] = Model.Eta1x[i,j]*El2d.thetaxxx[i,j]
+                     + Model.Eta2x[i,j]*El2d.exx[i,j];
+    El2d.thetayxy[i,j] = Model.Nu1y[i,j]*El2d.thetayxy[i,j]
+                     + Model.Nu2y[i,j]*El2d.exy[i,j];
   }
 }
 // El2dvy computes the y-component of particle velocity
@@ -207,7 +221,14 @@ int El2dvy(struct el2d El2d, struct model Model)
   // Scale with inverse density and advance one time step
   parallel(i=0:nx,j=0:ny){
     El2d.vy[i,j] = Model.Dt*Model.Rho[i,j]*(El2d.eyy[i,j] + El2d.exy[i,j])
+                 + Model.Dt*El2d.thetayyy[i,j]*Model.Drhop[i,j]
+                 + Model.Dt*El2d.thetaxyx[i,j]*Model.Drhos[i,j]
                  + El2d.vy[i,j];
+
+    El2d.thetayyy[i,j] = Model.Eta1x[i,j]*El2d.thetayyy[i,j]
+                     + Model.Eta2x[i,j]*El2d.eyy[i,j];
+    El2d.thetaxyx[i,j] = Model.Nu1y[i,j]*El2d.thetaxyx[i,j]
+                     + Model.Nu2y[i,j]*El2d.exy[i,j];
   }
 }
 // El2dexy computes the dexy/dt strain
@@ -242,12 +263,25 @@ int El2dstress(struct el2d El2d, struct model Model){
   parallel(i=0:nx,j=0:ny){
    El2d.sigmaxx[i,j] = Model.Dt*Model.Lambda[i,j]*(El2d.exx[i,j]+El2d.eyy[i,j])  
                      + 2.0*Model.Dt*Model.Mu[i,j]*El2d.exx[i,j]
+                     + Model.Dt*(El2d.gammaxx[i,j] + El2d.gammayy[i,j])*Model.Dlambda[i,j]
+                     + 2.0*Model.Dt*El2d.gammaxx[i,j]*Model.Dmu[i,j]
                      + El2d.sigmaxx[i,j];
 
    El2d.sigmayy[i,j] = Model.Dt*Model.Lambda[i,j]*(El2d.exx[i,j]+El2d.eyy[i,j])  
                      + 2.0*Model.Dt*Model.Mu[i,j]*El2d.eyy[i,j]
+                     + Model.Dt*(El2d.gammaxx[i,j] + El2d.gammayy[i,j])*Model.Dlambda[i,j]
+                     + 2.0*Model.Dt*El2d.gammayy[i,j]*Model.Dmu[i,j]
                      + El2d.sigmayy[i,j];
+
    El2d.sigmaxy[i,j] = 2.0*Model.Dt*Model.Mu[i,j]*El2d.exy[i,j]
+                     + 2.0*Model.Dt*El2d.gammaxy[i,j]*Model.Dmu[i,j]
                      + El2d.sigmaxy[i,j];
+
+   El2d.gammaxx[i,j] = Model.Alpha1x[i,j]*El2d.gammaxx[i,j] 
+                     + Model.Alpha2x[i,j]*El2d.exx[i,j];
+   El2d.gammayy[i,j] = Model.Alpha1y[i,j]*El2d.gammayy[i,j] 
+                     + Model.Alpha2y[i,j]*El2d.eyy[i,j];
+   El2d.gammaxy[i,j] = Model.Beta1y[i,j]*El2d.gammaxy[i,j] 
+                     + Model.Beta2y[i,j]*El2d.exy[i,j];
   }
 }

@@ -35,29 +35,34 @@ class model :
     #Convert 2d numpy float array to eps
     rho=pyeps.Store2df(pyac2d,data);
 
-    #Get the Qp model
+    #Get the Ql model
+    fin = ba.bin(par.fql)
+    data=fin.read((par.ny,par.nx))
+    #Convert 2d numpy float array to eps
+    ql=pyeps.Store2df(pyac2d,data);
+
+    #Get the Qm model
+    fin = ba.bin(par.fqm)
+    data=fin.read((par.ny,par.nx))
+    #Convert 2d numpy float array to eps
+    qm=pyeps.Store2df(pyac2d,data);
+
+    #Get the Qp model                                                          
     fin = ba.bin(par.fqp)
     data=fin.read((par.ny,par.nx))
     #Convert 2d numpy float array to eps
     qp=pyeps.Store2df(pyac2d,data);
 
-    #Get the Qs model
-    fin = ba.bin(par.fqs)
+    #Get the Qs model                                                          
+    fin = ba.bin(par.fqp)
     data=fin.read((par.ny,par.nx))
     #Convert 2d numpy float array to eps
     qs=pyeps.Store2df(pyac2d,data);
-
-    #Get the Qr model                                                          
-    fin = ba.bin(par.fqr)
-    data=fin.read((par.ny,par.nx))
-    #Convert 2d numpy float array to eps
-    qr=pyeps.Store2df(pyac2d,data);
-
     #Create a new model
     # Set argument types
     pyac2d.ModelNew.argtypes=  [c_void_p,c_void_p,c_void_p,c_void_p,
-                                c_void_p,c_float,c_float,c_float,c_int,c_int]
+                                c_void_p, c_void_p, c_void_p,c_float,c_float,c_float,c_int,c_int]
     pyac2d.ModelNew.restype=c_void_p
 
-    self.model=pyac2d.ModelNew (vp,vs,rho,qp,qr,c_float(par.dx),c_float(par.dt),
+    self.model=pyac2d.ModelNew (vp,vs,rho,ql,qm,qp,qs,c_float(par.dx),c_float(par.dt),
                                 c_float(par.w0),c_int(par.nb),c_int(par.rheol))

@@ -144,20 +144,13 @@ struct model {int Nx;
 int Ny;
 int Nb;
 float W0;
-nctempfloat2 *Qp;
-nctempfloat2 *Qr;
+nctempfloat2 *Ql;
+nctempfloat2 *Qm;
 nctempfloat2 *Qs;
-nctempfloat2 *Kappa;
 nctempfloat2 *Lambda;
 nctempfloat2 *Mu;
 nctempfloat2 *Dlambda;
-nctempfloat2 *Dlambdax;
-nctempfloat2 *Dlambday;
 nctempfloat2 *Dmu;
-nctempfloat2 *Dmux;
-nctempfloat2 *Dmuy;
-nctempfloat2 *Dkappax;
-nctempfloat2 *Dkappay;
 nctempfloat2 *Drhox;
 nctempfloat2 *Drhoy;
 nctempfloat2 *Rho;
@@ -165,6 +158,10 @@ nctempfloat2 *Alpha1x;
 nctempfloat2 *Alpha1y;
 nctempfloat2 *Alpha2x;
 nctempfloat2 *Alpha2y;
+nctempfloat2 *Beta1x;
+nctempfloat2 *Beta2x;
+nctempfloat2 *Beta1y;
+nctempfloat2 *Beta2y;
 nctempfloat2 *Eta1x;
 nctempfloat2 *Eta1y;
 nctempfloat2 *Eta2x;
@@ -184,13 +181,15 @@ struct el2d {nctempfloat2 *p;
 nctempfloat2 *sigmaxx;
 nctempfloat2 *sigmayy;
 nctempfloat2 *sigmaxy;
+nctempfloat2 *sigmayx;
 nctempfloat2 *vx;
 nctempfloat2 *vy;
 nctempfloat2 *exx;
 nctempfloat2 *eyy;
 nctempfloat2 *exy;
-nctempfloat2 *gammax;
-nctempfloat2 *gammay;
+nctempfloat2 *gammaxx;
+nctempfloat2 *gammayy;
+nctempfloat2 *gammaxy;
 nctempfloat2 *thetax;
 nctempfloat2 *thetay;
 int ts;
@@ -291,7 +290,7 @@ nctemp111=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
 nctemp111->d[0]=Model->Nx;
 nctemp111->d[1]=Model->Ny;
 nctemp111->a=(float *)RunMalloc(sizeof(float)*nctemp112);
-El2d->gammax=nctemp111;
+El2d->gammaxx=nctemp111;
 int nctemp123=Model->Nx;
 nctemp123=nctemp123*Model->Ny;
 nctempfloat2 *nctemp122;
@@ -299,7 +298,7 @@ nctemp122=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
 nctemp122->d[0]=Model->Nx;
 nctemp122->d[1]=Model->Ny;
 nctemp122->a=(float *)RunMalloc(sizeof(float)*nctemp123);
-El2d->gammay=nctemp122;
+El2d->gammayy=nctemp122;
 int nctemp134=Model->Nx;
 nctemp134=nctemp134*Model->Ny;
 nctempfloat2 *nctemp133;
@@ -307,7 +306,7 @@ nctemp133=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
 nctemp133->d[0]=Model->Nx;
 nctemp133->d[1]=Model->Ny;
 nctemp133->a=(float *)RunMalloc(sizeof(float)*nctemp134);
-El2d->thetax=nctemp133;
+El2d->gammaxy=nctemp133;
 int nctemp145=Model->Nx;
 nctemp145=nctemp145*Model->Ny;
 nctempfloat2 *nctemp144;
@@ -315,196 +314,217 @@ nctemp144=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
 nctemp144->d[0]=Model->Nx;
 nctemp144->d[1]=Model->Ny;
 nctemp144->a=(float *)RunMalloc(sizeof(float)*nctemp145);
-El2d->thetay=nctemp144;
+El2d->thetax=nctemp144;
+int nctemp156=Model->Nx;
+nctemp156=nctemp156*Model->Ny;
+nctempfloat2 *nctemp155;
+nctemp155=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp155->d[0]=Model->Nx;
+nctemp155->d[1]=Model->Ny;
+nctemp155->a=(float *)RunMalloc(sizeof(float)*nctemp156);
+El2d->thetay=nctemp155;
 i =0;
-int nctemp154 = (i < Model->Nx);
-while(nctemp154){
+int nctemp165 = (i < Model->Nx);
+while(nctemp165){
 {
 j =0;
-int nctemp162 = (j < Model->Ny);
-while(nctemp162){
+int nctemp173 = (j < Model->Ny);
+while(nctemp173){
 {
-int nctemp169=i;
+int nctemp180=i;
 if((0>i)||(i>=El2d->p->d[0])){
 nctempstring->a="El2d->p";
 nctempstring->d[0]=strlen("El2d->p")+1;;
-LibeArrayex(47,nctempstring,i,0,El2d->p->d[0]);
+LibeArrayex(49,nctempstring,i,0,El2d->p->d[0]);
 }
-nctemp169=j*El2d->p->d[0]+nctemp169;
+nctemp180=j*El2d->p->d[0]+nctemp180;
 if((0>j)||(j>=El2d->p->d[1])){
 nctempstring->a="El2d->p";
 nctempstring->d[0]=strlen("El2d->p")+1;;
-LibeArrayex(47,nctempstring,j,1,El2d->p->d[1]);
+LibeArrayex(49,nctempstring,j,1,El2d->p->d[1]);
 }
-El2d->p->a[nctemp169] =0.0;
-int nctemp176=i;
+El2d->p->a[nctemp180] =0.0;
+int nctemp187=i;
 if((0>i)||(i>=El2d->sigmaxx->d[0])){
 nctempstring->a="El2d->sigmaxx";
 nctempstring->d[0]=strlen("El2d->sigmaxx")+1;;
-LibeArrayex(48,nctempstring,i,0,El2d->sigmaxx->d[0]);
+LibeArrayex(50,nctempstring,i,0,El2d->sigmaxx->d[0]);
 }
-nctemp176=j*El2d->sigmaxx->d[0]+nctemp176;
+nctemp187=j*El2d->sigmaxx->d[0]+nctemp187;
 if((0>j)||(j>=El2d->sigmaxx->d[1])){
 nctempstring->a="El2d->sigmaxx";
 nctempstring->d[0]=strlen("El2d->sigmaxx")+1;;
-LibeArrayex(48,nctempstring,j,1,El2d->sigmaxx->d[1]);
+LibeArrayex(50,nctempstring,j,1,El2d->sigmaxx->d[1]);
 }
-El2d->sigmaxx->a[nctemp176] =0.0;
-int nctemp183=i;
+El2d->sigmaxx->a[nctemp187] =0.0;
+int nctemp194=i;
 if((0>i)||(i>=El2d->sigmayy->d[0])){
 nctempstring->a="El2d->sigmayy";
 nctempstring->d[0]=strlen("El2d->sigmayy")+1;;
-LibeArrayex(49,nctempstring,i,0,El2d->sigmayy->d[0]);
+LibeArrayex(51,nctempstring,i,0,El2d->sigmayy->d[0]);
 }
-nctemp183=j*El2d->sigmayy->d[0]+nctemp183;
+nctemp194=j*El2d->sigmayy->d[0]+nctemp194;
 if((0>j)||(j>=El2d->sigmayy->d[1])){
 nctempstring->a="El2d->sigmayy";
 nctempstring->d[0]=strlen("El2d->sigmayy")+1;;
-LibeArrayex(49,nctempstring,j,1,El2d->sigmayy->d[1]);
+LibeArrayex(51,nctempstring,j,1,El2d->sigmayy->d[1]);
 }
-El2d->sigmayy->a[nctemp183] =0.0;
-int nctemp190=i;
+El2d->sigmayy->a[nctemp194] =0.0;
+int nctemp201=i;
 if((0>i)||(i>=El2d->sigmaxy->d[0])){
 nctempstring->a="El2d->sigmaxy";
 nctempstring->d[0]=strlen("El2d->sigmaxy")+1;;
-LibeArrayex(50,nctempstring,i,0,El2d->sigmaxy->d[0]);
+LibeArrayex(52,nctempstring,i,0,El2d->sigmaxy->d[0]);
 }
-nctemp190=j*El2d->sigmaxy->d[0]+nctemp190;
+nctemp201=j*El2d->sigmaxy->d[0]+nctemp201;
 if((0>j)||(j>=El2d->sigmaxy->d[1])){
 nctempstring->a="El2d->sigmaxy";
 nctempstring->d[0]=strlen("El2d->sigmaxy")+1;;
-LibeArrayex(50,nctempstring,j,1,El2d->sigmaxy->d[1]);
+LibeArrayex(52,nctempstring,j,1,El2d->sigmaxy->d[1]);
 }
-El2d->sigmaxy->a[nctemp190] =0.0;
-int nctemp197=i;
+El2d->sigmaxy->a[nctemp201] =0.0;
+int nctemp208=i;
 if((0>i)||(i>=El2d->vx->d[0])){
 nctempstring->a="El2d->vx";
 nctempstring->d[0]=strlen("El2d->vx")+1;;
-LibeArrayex(51,nctempstring,i,0,El2d->vx->d[0]);
+LibeArrayex(53,nctempstring,i,0,El2d->vx->d[0]);
 }
-nctemp197=j*El2d->vx->d[0]+nctemp197;
+nctemp208=j*El2d->vx->d[0]+nctemp208;
 if((0>j)||(j>=El2d->vx->d[1])){
 nctempstring->a="El2d->vx";
 nctempstring->d[0]=strlen("El2d->vx")+1;;
-LibeArrayex(51,nctempstring,j,1,El2d->vx->d[1]);
+LibeArrayex(53,nctempstring,j,1,El2d->vx->d[1]);
 }
-El2d->vx->a[nctemp197] =0.0;
-int nctemp204=i;
+El2d->vx->a[nctemp208] =0.0;
+int nctemp215=i;
 if((0>i)||(i>=El2d->vy->d[0])){
 nctempstring->a="El2d->vy";
 nctempstring->d[0]=strlen("El2d->vy")+1;;
-LibeArrayex(52,nctempstring,i,0,El2d->vy->d[0]);
+LibeArrayex(54,nctempstring,i,0,El2d->vy->d[0]);
 }
-nctemp204=j*El2d->vy->d[0]+nctemp204;
+nctemp215=j*El2d->vy->d[0]+nctemp215;
 if((0>j)||(j>=El2d->vy->d[1])){
 nctempstring->a="El2d->vy";
 nctempstring->d[0]=strlen("El2d->vy")+1;;
-LibeArrayex(52,nctempstring,j,1,El2d->vy->d[1]);
+LibeArrayex(54,nctempstring,j,1,El2d->vy->d[1]);
 }
-El2d->vy->a[nctemp204] =0.0;
-int nctemp211=i;
+El2d->vy->a[nctemp215] =0.0;
+int nctemp222=i;
 if((0>i)||(i>=El2d->exx->d[0])){
 nctempstring->a="El2d->exx";
 nctempstring->d[0]=strlen("El2d->exx")+1;;
-LibeArrayex(53,nctempstring,i,0,El2d->exx->d[0]);
+LibeArrayex(55,nctempstring,i,0,El2d->exx->d[0]);
 }
-nctemp211=j*El2d->exx->d[0]+nctemp211;
+nctemp222=j*El2d->exx->d[0]+nctemp222;
 if((0>j)||(j>=El2d->exx->d[1])){
 nctempstring->a="El2d->exx";
 nctempstring->d[0]=strlen("El2d->exx")+1;;
-LibeArrayex(53,nctempstring,j,1,El2d->exx->d[1]);
+LibeArrayex(55,nctempstring,j,1,El2d->exx->d[1]);
 }
-El2d->exx->a[nctemp211] =0.0;
-int nctemp218=i;
+El2d->exx->a[nctemp222] =0.0;
+int nctemp229=i;
 if((0>i)||(i>=El2d->eyy->d[0])){
 nctempstring->a="El2d->eyy";
 nctempstring->d[0]=strlen("El2d->eyy")+1;;
-LibeArrayex(54,nctempstring,i,0,El2d->eyy->d[0]);
+LibeArrayex(56,nctempstring,i,0,El2d->eyy->d[0]);
 }
-nctemp218=j*El2d->eyy->d[0]+nctemp218;
+nctemp229=j*El2d->eyy->d[0]+nctemp229;
 if((0>j)||(j>=El2d->eyy->d[1])){
 nctempstring->a="El2d->eyy";
 nctempstring->d[0]=strlen("El2d->eyy")+1;;
-LibeArrayex(54,nctempstring,j,1,El2d->eyy->d[1]);
+LibeArrayex(56,nctempstring,j,1,El2d->eyy->d[1]);
 }
-El2d->eyy->a[nctemp218] =0.0;
-int nctemp225=i;
+El2d->eyy->a[nctemp229] =0.0;
+int nctemp236=i;
 if((0>i)||(i>=El2d->exy->d[0])){
 nctempstring->a="El2d->exy";
 nctempstring->d[0]=strlen("El2d->exy")+1;;
-LibeArrayex(55,nctempstring,i,0,El2d->exy->d[0]);
+LibeArrayex(57,nctempstring,i,0,El2d->exy->d[0]);
 }
-nctemp225=j*El2d->exy->d[0]+nctemp225;
+nctemp236=j*El2d->exy->d[0]+nctemp236;
 if((0>j)||(j>=El2d->exy->d[1])){
 nctempstring->a="El2d->exy";
 nctempstring->d[0]=strlen("El2d->exy")+1;;
-LibeArrayex(55,nctempstring,j,1,El2d->exy->d[1]);
+LibeArrayex(57,nctempstring,j,1,El2d->exy->d[1]);
 }
-El2d->exy->a[nctemp225] =0.0;
-int nctemp232=i;
-if((0>i)||(i>=El2d->gammax->d[0])){
-nctempstring->a="El2d->gammax";
-nctempstring->d[0]=strlen("El2d->gammax")+1;;
-LibeArrayex(56,nctempstring,i,0,El2d->gammax->d[0]);
+El2d->exy->a[nctemp236] =0.0;
+int nctemp243=i;
+if((0>i)||(i>=El2d->gammaxx->d[0])){
+nctempstring->a="El2d->gammaxx";
+nctempstring->d[0]=strlen("El2d->gammaxx")+1;;
+LibeArrayex(58,nctempstring,i,0,El2d->gammaxx->d[0]);
 }
-nctemp232=j*El2d->gammax->d[0]+nctemp232;
-if((0>j)||(j>=El2d->gammax->d[1])){
-nctempstring->a="El2d->gammax";
-nctempstring->d[0]=strlen("El2d->gammax")+1;;
-LibeArrayex(56,nctempstring,j,1,El2d->gammax->d[1]);
+nctemp243=j*El2d->gammaxx->d[0]+nctemp243;
+if((0>j)||(j>=El2d->gammaxx->d[1])){
+nctempstring->a="El2d->gammaxx";
+nctempstring->d[0]=strlen("El2d->gammaxx")+1;;
+LibeArrayex(58,nctempstring,j,1,El2d->gammaxx->d[1]);
 }
-El2d->gammax->a[nctemp232] =0.0;
-int nctemp239=i;
-if((0>i)||(i>=El2d->gammay->d[0])){
-nctempstring->a="El2d->gammay";
-nctempstring->d[0]=strlen("El2d->gammay")+1;;
-LibeArrayex(57,nctempstring,i,0,El2d->gammay->d[0]);
+El2d->gammaxx->a[nctemp243] =0.0;
+int nctemp250=i;
+if((0>i)||(i>=El2d->gammayy->d[0])){
+nctempstring->a="El2d->gammayy";
+nctempstring->d[0]=strlen("El2d->gammayy")+1;;
+LibeArrayex(59,nctempstring,i,0,El2d->gammayy->d[0]);
 }
-nctemp239=j*El2d->gammay->d[0]+nctemp239;
-if((0>j)||(j>=El2d->gammay->d[1])){
-nctempstring->a="El2d->gammay";
-nctempstring->d[0]=strlen("El2d->gammay")+1;;
-LibeArrayex(57,nctempstring,j,1,El2d->gammay->d[1]);
+nctemp250=j*El2d->gammayy->d[0]+nctemp250;
+if((0>j)||(j>=El2d->gammayy->d[1])){
+nctempstring->a="El2d->gammayy";
+nctempstring->d[0]=strlen("El2d->gammayy")+1;;
+LibeArrayex(59,nctempstring,j,1,El2d->gammayy->d[1]);
 }
-El2d->gammay->a[nctemp239] =0.0;
-int nctemp246=i;
+El2d->gammayy->a[nctemp250] =0.0;
+int nctemp257=i;
+if((0>i)||(i>=El2d->gammaxy->d[0])){
+nctempstring->a="El2d->gammaxy";
+nctempstring->d[0]=strlen("El2d->gammaxy")+1;;
+LibeArrayex(60,nctempstring,i,0,El2d->gammaxy->d[0]);
+}
+nctemp257=j*El2d->gammaxy->d[0]+nctemp257;
+if((0>j)||(j>=El2d->gammaxy->d[1])){
+nctempstring->a="El2d->gammaxy";
+nctempstring->d[0]=strlen("El2d->gammaxy")+1;;
+LibeArrayex(60,nctempstring,j,1,El2d->gammaxy->d[1]);
+}
+El2d->gammaxy->a[nctemp257] =0.0;
+int nctemp264=i;
 if((0>i)||(i>=El2d->thetax->d[0])){
 nctempstring->a="El2d->thetax";
 nctempstring->d[0]=strlen("El2d->thetax")+1;;
-LibeArrayex(58,nctempstring,i,0,El2d->thetax->d[0]);
+LibeArrayex(61,nctempstring,i,0,El2d->thetax->d[0]);
 }
-nctemp246=j*El2d->thetax->d[0]+nctemp246;
+nctemp264=j*El2d->thetax->d[0]+nctemp264;
 if((0>j)||(j>=El2d->thetax->d[1])){
 nctempstring->a="El2d->thetax";
 nctempstring->d[0]=strlen("El2d->thetax")+1;;
-LibeArrayex(58,nctempstring,j,1,El2d->thetax->d[1]);
+LibeArrayex(61,nctempstring,j,1,El2d->thetax->d[1]);
 }
-El2d->thetax->a[nctemp246] =0.0;
-int nctemp253=i;
+El2d->thetax->a[nctemp264] =0.0;
+int nctemp271=i;
 if((0>i)||(i>=El2d->thetay->d[0])){
 nctempstring->a="El2d->thetay";
 nctempstring->d[0]=strlen("El2d->thetay")+1;;
-LibeArrayex(59,nctempstring,i,0,El2d->thetay->d[0]);
+LibeArrayex(62,nctempstring,i,0,El2d->thetay->d[0]);
 }
-nctemp253=j*El2d->thetay->d[0]+nctemp253;
+nctemp271=j*El2d->thetay->d[0]+nctemp271;
 if((0>j)||(j>=El2d->thetay->d[1])){
 nctempstring->a="El2d->thetay";
 nctempstring->d[0]=strlen("El2d->thetay")+1;;
-LibeArrayex(59,nctempstring,j,1,El2d->thetay->d[1]);
+LibeArrayex(62,nctempstring,j,1,El2d->thetay->d[1]);
 }
-El2d->thetay->a[nctemp253] =0.0;
+El2d->thetay->a[nctemp271] =0.0;
 El2d->ts =0;
 }
-int nctemp269 = j + 1;
-j =nctemp269;
-int nctemp270 = (j < Model->Ny);
-nctemp162=nctemp270;
+int nctemp287 = j + 1;
+j =nctemp287;
+int nctemp288 = (j < Model->Ny);
+nctemp173=nctemp288;
 }
 }
-int nctemp282 = i + 1;
-i =nctemp282;
-int nctemp283 = (i < Model->Nx);
-nctemp154=nctemp283;
+int nctemp300 = i + 1;
+i =nctemp300;
+int nctemp301 = (i < Model->Nx);
+nctemp165=nctemp301;
 }
 return El2d;
 }
@@ -522,193 +542,193 @@ int k;
 float perc;
 float oldperc;
 int iperc;
-int nctemp292= l;
-struct diff* nctemp294=DiffNew(nctemp292);
-Diff =nctemp294;
-int nctemp301=Model->Nx;
-nctemp301=nctemp301*Model->Ny;
-nctempfloat2 *nctemp300;
-nctemp300=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp300->d[0]=Model->Nx;
-nctemp300->d[1]=Model->Ny;
-nctemp300->a=(float *)RunMalloc(sizeof(float)*nctemp301);
-tmp1=nctemp300;
-int nctemp312=Model->Nx;
-nctemp312=nctemp312*Model->Ny;
-nctempfloat2 *nctemp311;
-nctemp311=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp311->d[0]=Model->Nx;
-nctemp311->d[1]=Model->Ny;
-nctemp311->a=(float *)RunMalloc(sizeof(float)*nctemp312);
-tmp2=nctemp311;
+int nctemp310= l;
+struct diff* nctemp312=DiffNew(nctemp310);
+Diff =nctemp312;
+int nctemp319=Model->Nx;
+nctemp319=nctemp319*Model->Ny;
+nctempfloat2 *nctemp318;
+nctemp318=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp318->d[0]=Model->Nx;
+nctemp318->d[1]=Model->Ny;
+nctemp318->a=(float *)RunMalloc(sizeof(float)*nctemp319);
+tmp1=nctemp318;
+int nctemp330=Model->Nx;
+nctemp330=nctemp330*Model->Ny;
+nctempfloat2 *nctemp329;
+nctemp329=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp329->d[0]=Model->Nx;
+nctemp329->d[1]=Model->Ny;
+nctemp329->a=(float *)RunMalloc(sizeof(float)*nctemp330);
+tmp2=nctemp329;
 oldperc =0.0;
 ns =El2d->ts;
-int nctemp333 = ns + nt;
-ne =nctemp333;
+int nctemp351 = ns + nt;
+ne =nctemp351;
 i =ns;
-int nctemp338 = (i < ne);
-while(nctemp338){
+int nctemp356 = (i < ne);
+while(nctemp356){
 {
-struct diff* nctemp343= Diff;
-nctempfloat2* nctemp345= El2d->sigmaxx;
-nctempfloat2* nctemp348= El2d->exx;
-float nctemp351= Model->Dx;
-int nctemp353=DiffDxplus(nctemp343,nctemp345,nctemp348,nctemp351);
-struct diff* nctemp355= Diff;
-nctempfloat2* nctemp357= El2d->sigmaxy;
-nctempfloat2* nctemp360= El2d->exy;
-float nctemp363= Model->Dx;
-int nctemp365=DiffDyminus(nctemp355,nctemp357,nctemp360,nctemp363);
-struct el2d* nctemp367= El2d;
-struct model* nctemp369= Model;
-int nctemp371=El2dvx(nctemp367,nctemp369);
+struct diff* nctemp361= Diff;
+nctempfloat2* nctemp363= El2d->sigmaxx;
+nctempfloat2* nctemp366= El2d->exx;
+float nctemp369= Model->Dx;
+int nctemp371=DiffDxplus(nctemp361,nctemp363,nctemp366,nctemp369);
 struct diff* nctemp373= Diff;
-nctempfloat2* nctemp375= El2d->sigmayy;
-nctempfloat2* nctemp378= El2d->eyy;
+nctempfloat2* nctemp375= El2d->sigmaxy;
+nctempfloat2* nctemp378= El2d->exy;
 float nctemp381= Model->Dx;
-int nctemp383=DiffDyplus(nctemp373,nctemp375,nctemp378,nctemp381);
-struct diff* nctemp385= Diff;
-nctempfloat2* nctemp387= El2d->sigmaxy;
-nctempfloat2* nctemp390= El2d->exy;
-float nctemp393= Model->Dx;
-int nctemp395=DiffDxminus(nctemp385,nctemp387,nctemp390,nctemp393);
-struct el2d* nctemp397= El2d;
-struct model* nctemp399= Model;
-int nctemp401=El2dvy(nctemp397,nctemp399);
+int nctemp383=DiffDyminus(nctemp373,nctemp375,nctemp378,nctemp381);
+struct el2d* nctemp385= El2d;
+struct model* nctemp387= Model;
+int nctemp389=El2dvx(nctemp385,nctemp387);
+struct diff* nctemp391= Diff;
+nctempfloat2* nctemp393= El2d->sigmayy;
+nctempfloat2* nctemp396= El2d->eyy;
+float nctemp399= Model->Dx;
+int nctemp401=DiffDyplus(nctemp391,nctemp393,nctemp396,nctemp399);
 struct diff* nctemp403= Diff;
-nctempfloat2* nctemp405= El2d->vx;
-nctempfloat2* nctemp408= El2d->exx;
+nctempfloat2* nctemp405= El2d->sigmaxy;
+nctempfloat2* nctemp408= El2d->exy;
 float nctemp411= Model->Dx;
 int nctemp413=DiffDxminus(nctemp403,nctemp405,nctemp408,nctemp411);
-struct diff* nctemp415= Diff;
-nctempfloat2* nctemp417= El2d->vy;
-nctempfloat2* nctemp420= El2d->eyy;
-float nctemp423= Model->Dx;
-int nctemp425=DiffDyminus(nctemp415,nctemp417,nctemp420,nctemp423);
-struct diff* nctemp427= Diff;
-nctempfloat2* nctemp429= El2d->vy;
-nctempfloat2* nctemp432= tmp1;
-float nctemp435= Model->Dx;
-int nctemp437=DiffDxplus(nctemp427,nctemp429,nctemp432,nctemp435);
-struct diff* nctemp439= Diff;
-nctempfloat2* nctemp441= El2d->vx;
-nctempfloat2* nctemp444= tmp2;
-float nctemp447= Model->Dx;
-int nctemp449=DiffDyplus(nctemp439,nctemp441,nctemp444,nctemp447);
-struct el2d* nctemp451= El2d;
-struct model* nctemp453= Model;
-nctempfloat2* nctemp455= tmp1;
-nctempfloat2* nctemp458= tmp2;
-int nctemp461=El2dexy(nctemp451,nctemp453,nctemp455,nctemp458);
-struct el2d* nctemp463= El2d;
-struct model* nctemp465= Model;
-int nctemp467=El2dstress(nctemp463,nctemp465);
+struct el2d* nctemp415= El2d;
+struct model* nctemp417= Model;
+int nctemp419=El2dvy(nctemp415,nctemp417);
+struct diff* nctemp421= Diff;
+nctempfloat2* nctemp423= El2d->vx;
+nctempfloat2* nctemp426= El2d->exx;
+float nctemp429= Model->Dx;
+int nctemp431=DiffDxminus(nctemp421,nctemp423,nctemp426,nctemp429);
+struct diff* nctemp433= Diff;
+nctempfloat2* nctemp435= El2d->vy;
+nctempfloat2* nctemp438= El2d->eyy;
+float nctemp441= Model->Dx;
+int nctemp443=DiffDyminus(nctemp433,nctemp435,nctemp438,nctemp441);
+struct diff* nctemp445= Diff;
+nctempfloat2* nctemp447= El2d->vy;
+nctempfloat2* nctemp450= tmp1;
+float nctemp453= Model->Dx;
+int nctemp455=DiffDxplus(nctemp445,nctemp447,nctemp450,nctemp453);
+struct diff* nctemp457= Diff;
+nctempfloat2* nctemp459= El2d->vx;
+nctempfloat2* nctemp462= tmp2;
+float nctemp465= Model->Dx;
+int nctemp467=DiffDyplus(nctemp457,nctemp459,nctemp462,nctemp465);
+struct el2d* nctemp469= El2d;
+struct model* nctemp471= Model;
+nctempfloat2* nctemp473= tmp1;
+nctempfloat2* nctemp476= tmp2;
+int nctemp479=El2dexy(nctemp469,nctemp471,nctemp473,nctemp476);
+struct el2d* nctemp481= El2d;
+struct model* nctemp483= Model;
+int nctemp485=El2dstress(nctemp481,nctemp483);
 k =0;
-int nctemp472 = (k < Src->Ns);
-while(nctemp472){
+int nctemp490 = (k < Src->Ns);
+while(nctemp490){
 {
-int nctemp480=k;
+int nctemp498=k;
 if((0>k)||(k>=Src->Sx->d[0])){
 nctempstring->a="Src->Sx";
 nctempstring->d[0]=strlen("Src->Sx")+1;;
-LibeArrayex(139,nctempstring,k,0,Src->Sx->d[0]);
+LibeArrayex(142,nctempstring,k,0,Src->Sx->d[0]);
 }
-sx =Src->Sx->a[nctemp480];
-int nctemp486=k;
+sx =Src->Sx->a[nctemp498];
+int nctemp504=k;
 if((0>k)||(k>=Src->Sy->d[0])){
 nctempstring->a="Src->Sy";
 nctempstring->d[0]=strlen("Src->Sy")+1;;
-LibeArrayex(140,nctempstring,k,0,Src->Sy->d[0]);
+LibeArrayex(143,nctempstring,k,0,Src->Sy->d[0]);
 }
-sy =Src->Sy->a[nctemp486];
-int nctemp491=sx;
+sy =Src->Sy->a[nctemp504];
+int nctemp509=sx;
 if((0>sx)||(sx>=El2d->vy->d[0])){
 nctempstring->a="El2d->vy";
 nctempstring->d[0]=strlen("El2d->vy")+1;;
-LibeArrayex(147,nctempstring,sx,0,El2d->vy->d[0]);
+LibeArrayex(150,nctempstring,sx,0,El2d->vy->d[0]);
 }
-nctemp491=sy*El2d->vy->d[0]+nctemp491;
+nctemp509=sy*El2d->vy->d[0]+nctemp509;
 if((0>sy)||(sy>=El2d->vy->d[1])){
 nctempstring->a="El2d->vy";
 nctempstring->d[0]=strlen("El2d->vy")+1;;
-LibeArrayex(147,nctempstring,sy,1,El2d->vy->d[1]);
+LibeArrayex(150,nctempstring,sy,1,El2d->vy->d[1]);
 }
-int nctemp498=sx;
+int nctemp516=sx;
 if((0>sx)||(sx>=El2d->vy->d[0])){
 nctempstring->a="El2d->vy";
 nctempstring->d[0]=strlen("El2d->vy")+1;;
-LibeArrayex(147,nctempstring,sx,0,El2d->vy->d[0]);
+LibeArrayex(150,nctempstring,sx,0,El2d->vy->d[0]);
 }
-nctemp498=sy*El2d->vy->d[0]+nctemp498;
+nctemp516=sy*El2d->vy->d[0]+nctemp516;
 if((0>sy)||(sy>=El2d->vy->d[1])){
 nctempstring->a="El2d->vy";
 nctempstring->d[0]=strlen("El2d->vy")+1;;
-LibeArrayex(147,nctempstring,sy,1,El2d->vy->d[1]);
+LibeArrayex(150,nctempstring,sy,1,El2d->vy->d[1]);
 }
-int nctemp509=i;
+int nctemp527=i;
 if((0>i)||(i>=Src->Src->d[0])){
 nctempstring->a="Src->Src";
 nctempstring->d[0]=strlen("Src->Src")+1;;
-LibeArrayex(148,nctempstring,i,0,Src->Src->d[0]);
+LibeArrayex(151,nctempstring,i,0,Src->Src->d[0]);
 }
-float nctemp516 = Model->Dx * Model->Dx;
-float nctemp517 = Src->Src->a[nctemp509] / nctemp516;
-float nctemp518 = Model->Dt * nctemp517;
-float nctemp519 = El2d->vy->a[nctemp498] + nctemp518;
-El2d->vy->a[nctemp491] =nctemp519;
+float nctemp534 = Model->Dx * Model->Dx;
+float nctemp535 = Src->Src->a[nctemp527] / nctemp534;
+float nctemp536 = Model->Dt * nctemp535;
+float nctemp537 = El2d->vy->a[nctemp516] + nctemp536;
+El2d->vy->a[nctemp509] =nctemp537;
 }
-int nctemp528 = k + 1;
-k =nctemp528;
-int nctemp529 = (k < Src->Ns);
-nctemp472=nctemp529;
+int nctemp546 = k + 1;
+k =nctemp546;
+int nctemp547 = (k < Src->Ns);
+nctemp490=nctemp547;
 }
-float nctemp544=(float)(i);
-int nctemp557 = ne - ns;
-int nctemp559 = nctemp557 - 1;
-float nctemp548=(float)(nctemp559);
-float nctemp560 = nctemp544 / nctemp548;
-float nctemp561 = 1000.0 * nctemp560;
-perc =nctemp561;
-float nctemp569 = perc - oldperc;
-int nctemp562 = (nctemp569 >= 10.0);
-if(nctemp562)
+float nctemp562=(float)(i);
+int nctemp575 = ne - ns;
+int nctemp577 = nctemp575 - 1;
+float nctemp566=(float)(nctemp577);
+float nctemp578 = nctemp562 / nctemp566;
+float nctemp579 = 1000.0 * nctemp578;
+perc =nctemp579;
+float nctemp587 = perc - oldperc;
+int nctemp580 = (nctemp587 >= 10.0);
+if(nctemp580)
 {
-int nctemp578=(int)(perc);
-int nctemp582 = nctemp578 / 10;
-iperc =nctemp582;
-int nctemp586= iperc;
-int nctemp588= 10;
-int nctemp590=LibeMod(nctemp586,nctemp588);
-int nctemp583 = (nctemp590 ==0);
-if(nctemp583)
+int nctemp596=(int)(perc);
+int nctemp600 = nctemp596 / 10;
+iperc =nctemp600;
+int nctemp604= iperc;
+int nctemp606= 10;
+int nctemp608=LibeMod(nctemp604,nctemp606);
+int nctemp601 = (nctemp608 ==0);
+if(nctemp601)
 {
-int nctemp593= 4;
-int nctemp595= iperc;
-int nctemp597=LibePuti(nctemp593,nctemp595);
-int nctemp599= 4;
-struct nctempchar1 *nctemp603;
-static struct nctempchar1 nctemp604 = {{ 3}, (char*)"\n\0"};
-nctemp603=&nctemp604;
-nctempchar1* nctemp601= nctemp603;
-int nctemp605=LibePuts(nctemp599,nctemp601);
-int nctemp607= 4;
-int nctemp609=LibeFlush(nctemp607);
+int nctemp611= 4;
+int nctemp613= iperc;
+int nctemp615=LibePuti(nctemp611,nctemp613);
+int nctemp617= 4;
+struct nctempchar1 *nctemp621;
+static struct nctempchar1 nctemp622 = {{ 3}, (char*)"\n\0"};
+nctemp621=&nctemp622;
+nctempchar1* nctemp619= nctemp621;
+int nctemp623=LibePuts(nctemp617,nctemp619);
+int nctemp625= 4;
+int nctemp627=LibeFlush(nctemp625);
 }
 oldperc =perc;
 }
-struct rec* nctemp615= Rec;
-int nctemp617= i;
-nctempfloat2* nctemp619= El2d->vx;
-int nctemp622=RecReceiver(nctemp615,nctemp617,nctemp619);
-struct rec* nctemp624= Rec;
-int nctemp626= i;
-nctempfloat2* nctemp628= El2d->vx;
-int nctemp631=RecSnap(nctemp624,nctemp626,nctemp628);
+struct rec* nctemp633= Rec;
+int nctemp635= i;
+nctempfloat2* nctemp637= El2d->vx;
+int nctemp640=RecReceiver(nctemp633,nctemp635,nctemp637);
+struct rec* nctemp642= Rec;
+int nctemp644= i;
+nctempfloat2* nctemp646= El2d->vx;
+int nctemp649=RecSnap(nctemp642,nctemp644,nctemp646);
 }
-int nctemp640 = i + 1;
-i =nctemp640;
-int nctemp641 = (i < ne);
-nctemp338=nctemp641;
+int nctemp658 = i + 1;
+i =nctemp658;
+int nctemp659 = (i < ne);
+nctemp356=nctemp659;
 }
 return 1;
 }
@@ -723,74 +743,73 @@ ny =Model->Ny;
 
  #pragma omp parallel for
 for(j=0;j<ny;j=j+1){for(i=0;i<nx;i=i+1){{
-int nctemp661=i;
+int nctemp679=i;
 if((0>i)||(i>=El2d->vx->d[0])){
 nctempstring->a="El2d->vx";
 nctempstring->d[0]=strlen("El2d->vx")+1;;
-LibeArrayex(188,nctempstring,i,0,El2d->vx->d[0]);
+LibeArrayex(191,nctempstring,i,0,El2d->vx->d[0]);
 }
-nctemp661=j*El2d->vx->d[0]+nctemp661;
+nctemp679=j*El2d->vx->d[0]+nctemp679;
 if((0>j)||(j>=El2d->vx->d[1])){
 nctempstring->a="El2d->vx";
 nctempstring->d[0]=strlen("El2d->vx")+1;;
-LibeArrayex(188,nctempstring,j,1,El2d->vx->d[1]);
+LibeArrayex(191,nctempstring,j,1,El2d->vx->d[1]);
 }
-int nctemp675=i;
+int nctemp693=i;
 if((0>i)||(i>=Model->Rho->d[0])){
 nctempstring->a="Model->Rho";
 nctempstring->d[0]=strlen("Model->Rho")+1;;
-LibeArrayex(188,nctempstring,i,0,Model->Rho->d[0]);
+LibeArrayex(191,nctempstring,i,0,Model->Rho->d[0]);
 }
-nctemp675=j*Model->Rho->d[0]+nctemp675;
+nctemp693=j*Model->Rho->d[0]+nctemp693;
 if((0>j)||(j>=Model->Rho->d[1])){
 nctempstring->a="Model->Rho";
 nctempstring->d[0]=strlen("Model->Rho")+1;;
-LibeArrayex(188,nctempstring,j,1,Model->Rho->d[1]);
+LibeArrayex(191,nctempstring,j,1,Model->Rho->d[1]);
 }
-float nctemp678 = Model->Dt * Model->Rho->a[nctemp675];
-int nctemp683=i;
+float nctemp696 = Model->Dt * Model->Rho->a[nctemp693];
+int nctemp701=i;
 if((0>i)||(i>=El2d->exx->d[0])){
 nctempstring->a="El2d->exx";
 nctempstring->d[0]=strlen("El2d->exx")+1;;
-LibeArrayex(188,nctempstring,i,0,El2d->exx->d[0]);
+LibeArrayex(191,nctempstring,i,0,El2d->exx->d[0]);
 }
-nctemp683=j*El2d->exx->d[0]+nctemp683;
+nctemp701=j*El2d->exx->d[0]+nctemp701;
 if((0>j)||(j>=El2d->exx->d[1])){
 nctempstring->a="El2d->exx";
 nctempstring->d[0]=strlen("El2d->exx")+1;;
-LibeArrayex(188,nctempstring,j,1,El2d->exx->d[1]);
+LibeArrayex(191,nctempstring,j,1,El2d->exx->d[1]);
 }
-int nctemp687=i;
+int nctemp705=i;
 if((0>i)||(i>=El2d->exy->d[0])){
 nctempstring->a="El2d->exy";
 nctempstring->d[0]=strlen("El2d->exy")+1;;
-LibeArrayex(188,nctempstring,i,0,El2d->exy->d[0]);
+LibeArrayex(191,nctempstring,i,0,El2d->exy->d[0]);
 }
-nctemp687=j*El2d->exy->d[0]+nctemp687;
+nctemp705=j*El2d->exy->d[0]+nctemp705;
 if((0>j)||(j>=El2d->exy->d[1])){
 nctempstring->a="El2d->exy";
 nctempstring->d[0]=strlen("El2d->exy")+1;;
-LibeArrayex(188,nctempstring,j,1,El2d->exy->d[1]);
+LibeArrayex(191,nctempstring,j,1,El2d->exy->d[1]);
 }
-float nctemp690 = El2d->exx->a[nctemp683] + El2d->exy->a[nctemp687];
-float nctemp691 = nctemp678 * nctemp690;
-int nctemp693=i;
+float nctemp708 = El2d->exx->a[nctemp701] + El2d->exy->a[nctemp705];
+float nctemp709 = nctemp696 * nctemp708;
+int nctemp711=i;
 if((0>i)||(i>=El2d->vx->d[0])){
 nctempstring->a="El2d->vx";
 nctempstring->d[0]=strlen("El2d->vx")+1;;
-LibeArrayex(189,nctempstring,i,0,El2d->vx->d[0]);
+LibeArrayex(192,nctempstring,i,0,El2d->vx->d[0]);
 }
-nctemp693=j*El2d->vx->d[0]+nctemp693;
+nctemp711=j*El2d->vx->d[0]+nctemp711;
 if((0>j)||(j>=El2d->vx->d[1])){
 nctempstring->a="El2d->vx";
 nctempstring->d[0]=strlen("El2d->vx")+1;;
-LibeArrayex(189,nctempstring,j,1,El2d->vx->d[1]);
+LibeArrayex(192,nctempstring,j,1,El2d->vx->d[1]);
 }
-float nctemp696 = nctemp691 + El2d->vx->a[nctemp693];
-El2d->vx->a[nctemp661] =nctemp696;
+float nctemp714 = nctemp709 + El2d->vx->a[nctemp711];
+El2d->vx->a[nctemp679] =nctemp714;
 }
-}}return 1;
-}
+}}}
 int El2dvy (struct el2d* El2d,struct model* Model)
 {
 int nx;
@@ -802,74 +821,73 @@ ny =Model->Ny;
 
  #pragma omp parallel for
 for(j=0;j<ny;j=j+1){for(i=0;i<nx;i=i+1){{
-int nctemp713=i;
+int nctemp730=i;
 if((0>i)||(i>=El2d->vy->d[0])){
 nctempstring->a="El2d->vy";
 nctempstring->d[0]=strlen("El2d->vy")+1;;
-LibeArrayex(210,nctempstring,i,0,El2d->vy->d[0]);
+LibeArrayex(212,nctempstring,i,0,El2d->vy->d[0]);
 }
-nctemp713=j*El2d->vy->d[0]+nctemp713;
+nctemp730=j*El2d->vy->d[0]+nctemp730;
 if((0>j)||(j>=El2d->vy->d[1])){
 nctempstring->a="El2d->vy";
 nctempstring->d[0]=strlen("El2d->vy")+1;;
-LibeArrayex(210,nctempstring,j,1,El2d->vy->d[1]);
+LibeArrayex(212,nctempstring,j,1,El2d->vy->d[1]);
 }
-int nctemp727=i;
+int nctemp744=i;
 if((0>i)||(i>=Model->Rho->d[0])){
 nctempstring->a="Model->Rho";
 nctempstring->d[0]=strlen("Model->Rho")+1;;
-LibeArrayex(210,nctempstring,i,0,Model->Rho->d[0]);
+LibeArrayex(212,nctempstring,i,0,Model->Rho->d[0]);
 }
-nctemp727=j*Model->Rho->d[0]+nctemp727;
+nctemp744=j*Model->Rho->d[0]+nctemp744;
 if((0>j)||(j>=Model->Rho->d[1])){
 nctempstring->a="Model->Rho";
 nctempstring->d[0]=strlen("Model->Rho")+1;;
-LibeArrayex(210,nctempstring,j,1,Model->Rho->d[1]);
+LibeArrayex(212,nctempstring,j,1,Model->Rho->d[1]);
 }
-float nctemp730 = Model->Dt * Model->Rho->a[nctemp727];
-int nctemp735=i;
+float nctemp747 = Model->Dt * Model->Rho->a[nctemp744];
+int nctemp752=i;
 if((0>i)||(i>=El2d->eyy->d[0])){
 nctempstring->a="El2d->eyy";
 nctempstring->d[0]=strlen("El2d->eyy")+1;;
-LibeArrayex(210,nctempstring,i,0,El2d->eyy->d[0]);
+LibeArrayex(212,nctempstring,i,0,El2d->eyy->d[0]);
 }
-nctemp735=j*El2d->eyy->d[0]+nctemp735;
+nctemp752=j*El2d->eyy->d[0]+nctemp752;
 if((0>j)||(j>=El2d->eyy->d[1])){
 nctempstring->a="El2d->eyy";
 nctempstring->d[0]=strlen("El2d->eyy")+1;;
-LibeArrayex(210,nctempstring,j,1,El2d->eyy->d[1]);
+LibeArrayex(212,nctempstring,j,1,El2d->eyy->d[1]);
 }
-int nctemp739=i;
+int nctemp756=i;
 if((0>i)||(i>=El2d->exy->d[0])){
 nctempstring->a="El2d->exy";
 nctempstring->d[0]=strlen("El2d->exy")+1;;
-LibeArrayex(210,nctempstring,i,0,El2d->exy->d[0]);
+LibeArrayex(212,nctempstring,i,0,El2d->exy->d[0]);
 }
-nctemp739=j*El2d->exy->d[0]+nctemp739;
+nctemp756=j*El2d->exy->d[0]+nctemp756;
 if((0>j)||(j>=El2d->exy->d[1])){
 nctempstring->a="El2d->exy";
 nctempstring->d[0]=strlen("El2d->exy")+1;;
-LibeArrayex(210,nctempstring,j,1,El2d->exy->d[1]);
+LibeArrayex(212,nctempstring,j,1,El2d->exy->d[1]);
 }
-float nctemp742 = El2d->eyy->a[nctemp735] + El2d->exy->a[nctemp739];
-float nctemp743 = nctemp730 * nctemp742;
-int nctemp745=i;
+float nctemp759 = El2d->eyy->a[nctemp752] + El2d->exy->a[nctemp756];
+float nctemp760 = nctemp747 * nctemp759;
+int nctemp762=i;
 if((0>i)||(i>=El2d->vy->d[0])){
 nctempstring->a="El2d->vy";
 nctempstring->d[0]=strlen("El2d->vy")+1;;
-LibeArrayex(211,nctempstring,i,0,El2d->vy->d[0]);
+LibeArrayex(213,nctempstring,i,0,El2d->vy->d[0]);
 }
-nctemp745=j*El2d->vy->d[0]+nctemp745;
+nctemp762=j*El2d->vy->d[0]+nctemp762;
 if((0>j)||(j>=El2d->vy->d[1])){
 nctempstring->a="El2d->vy";
 nctempstring->d[0]=strlen("El2d->vy")+1;;
-LibeArrayex(211,nctempstring,j,1,El2d->vy->d[1]);
+LibeArrayex(213,nctempstring,j,1,El2d->vy->d[1]);
 }
-float nctemp748 = nctemp743 + El2d->vy->a[nctemp745];
-El2d->vy->a[nctemp713] =nctemp748;
+float nctemp765 = nctemp760 + El2d->vy->a[nctemp762];
+El2d->vy->a[nctemp730] =nctemp765;
 }
-}}return 1;
-}
+}}}
 int El2dexy (struct el2d* El2d,struct model* Model,nctempfloat2 *tmp1,nctempfloat2 *tmp2)
 {
 int nx;
@@ -881,48 +899,47 @@ ny =Model->Ny;
 
  #pragma omp parallel for
 for(j=0;j<ny;j=j+1){for(i=0;i<nx;i=i+1){{
-int nctemp765=i;
+int nctemp781=i;
 if((0>i)||(i>=El2d->exy->d[0])){
 nctempstring->a="El2d->exy";
 nctempstring->d[0]=strlen("El2d->exy")+1;;
 LibeArrayex(230,nctempstring,i,0,El2d->exy->d[0]);
 }
-nctemp765=j*El2d->exy->d[0]+nctemp765;
+nctemp781=j*El2d->exy->d[0]+nctemp781;
 if((0>j)||(j>=El2d->exy->d[1])){
 nctempstring->a="El2d->exy";
 nctempstring->d[0]=strlen("El2d->exy")+1;;
 LibeArrayex(230,nctempstring,j,1,El2d->exy->d[1]);
 }
-int nctemp776=i;
+int nctemp792=i;
 if((0>i)||(i>=tmp1->d[0])){
 nctempstring->a="tmp1";
 nctempstring->d[0]=strlen("tmp1")+1;;
 LibeArrayex(230,nctempstring,i,0,tmp1->d[0]);
 }
-nctemp776=j*tmp1->d[0]+nctemp776;
+nctemp792=j*tmp1->d[0]+nctemp792;
 if((0>j)||(j>=tmp1->d[1])){
 nctempstring->a="tmp1";
 nctempstring->d[0]=strlen("tmp1")+1;;
 LibeArrayex(230,nctempstring,j,1,tmp1->d[1]);
 }
-int nctemp780=i;
+int nctemp796=i;
 if((0>i)||(i>=tmp2->d[0])){
 nctempstring->a="tmp2";
 nctempstring->d[0]=strlen("tmp2")+1;;
 LibeArrayex(230,nctempstring,i,0,tmp2->d[0]);
 }
-nctemp780=j*tmp2->d[0]+nctemp780;
+nctemp796=j*tmp2->d[0]+nctemp796;
 if((0>j)||(j>=tmp2->d[1])){
 nctempstring->a="tmp2";
 nctempstring->d[0]=strlen("tmp2")+1;;
 LibeArrayex(230,nctempstring,j,1,tmp2->d[1]);
 }
-float nctemp783 = tmp1->a[nctemp776] + tmp2->a[nctemp780];
-float nctemp784 = 0.5 * nctemp783;
-El2d->exy->a[nctemp765] =nctemp784;
+float nctemp799 = tmp1->a[nctemp792] + tmp2->a[nctemp796];
+float nctemp800 = 0.5 * nctemp799;
+El2d->exy->a[nctemp781] =nctemp800;
 }
-}}return 1;
-}
+}}}
 int El2dstress (struct el2d* El2d,struct model* Model)
 {
 int nx;
@@ -935,245 +952,600 @@ ny =Model->Ny;
 
  #pragma omp parallel for
 for(j=0;j<ny;j=j+1){for(i=0;i<nx;i=i+1){{
-int nctemp801=i;
+int nctemp816=i;
 if((0>i)||(i>=El2d->sigmaxx->d[0])){
 nctempstring->a="El2d->sigmaxx";
 nctempstring->d[0]=strlen("El2d->sigmaxx")+1;;
-LibeArrayex(247,nctempstring,i,0,El2d->sigmaxx->d[0]);
+LibeArrayex(246,nctempstring,i,0,El2d->sigmaxx->d[0]);
 }
-nctemp801=j*El2d->sigmaxx->d[0]+nctemp801;
+nctemp816=j*El2d->sigmaxx->d[0]+nctemp816;
 if((0>j)||(j>=El2d->sigmaxx->d[1])){
 nctempstring->a="El2d->sigmaxx";
 nctempstring->d[0]=strlen("El2d->sigmaxx")+1;;
-LibeArrayex(247,nctempstring,j,1,El2d->sigmaxx->d[1]);
+LibeArrayex(246,nctempstring,j,1,El2d->sigmaxx->d[1]);
 }
-int nctemp818=i;
+int nctemp839=i;
 if((0>i)||(i>=Model->Lambda->d[0])){
 nctempstring->a="Model->Lambda";
 nctempstring->d[0]=strlen("Model->Lambda")+1;;
-LibeArrayex(247,nctempstring,i,0,Model->Lambda->d[0]);
+LibeArrayex(246,nctempstring,i,0,Model->Lambda->d[0]);
 }
-nctemp818=j*Model->Lambda->d[0]+nctemp818;
+nctemp839=j*Model->Lambda->d[0]+nctemp839;
 if((0>j)||(j>=Model->Lambda->d[1])){
 nctempstring->a="Model->Lambda";
 nctempstring->d[0]=strlen("Model->Lambda")+1;;
-LibeArrayex(247,nctempstring,j,1,Model->Lambda->d[1]);
+LibeArrayex(246,nctempstring,j,1,Model->Lambda->d[1]);
 }
-float nctemp821 = Model->Dt * Model->Lambda->a[nctemp818];
-int nctemp826=i;
+float nctemp842 = Model->Dt * Model->Lambda->a[nctemp839];
+int nctemp847=i;
+if((0>i)||(i>=El2d->exx->d[0])){
+nctempstring->a="El2d->exx";
+nctempstring->d[0]=strlen("El2d->exx")+1;;
+LibeArrayex(246,nctempstring,i,0,El2d->exx->d[0]);
+}
+nctemp847=j*El2d->exx->d[0]+nctemp847;
+if((0>j)||(j>=El2d->exx->d[1])){
+nctempstring->a="El2d->exx";
+nctempstring->d[0]=strlen("El2d->exx")+1;;
+LibeArrayex(246,nctempstring,j,1,El2d->exx->d[1]);
+}
+int nctemp851=i;
+if((0>i)||(i>=El2d->eyy->d[0])){
+nctempstring->a="El2d->eyy";
+nctempstring->d[0]=strlen("El2d->eyy")+1;;
+LibeArrayex(246,nctempstring,i,0,El2d->eyy->d[0]);
+}
+nctemp851=j*El2d->eyy->d[0]+nctemp851;
+if((0>j)||(j>=El2d->eyy->d[1])){
+nctempstring->a="El2d->eyy";
+nctempstring->d[0]=strlen("El2d->eyy")+1;;
+LibeArrayex(246,nctempstring,j,1,El2d->eyy->d[1]);
+}
+float nctemp854 = El2d->exx->a[nctemp847] + El2d->eyy->a[nctemp851];
+float nctemp855 = nctemp842 * nctemp854;
+float nctemp867 = 2.0 * Model->Dt;
+int nctemp869=i;
+if((0>i)||(i>=Model->Mu->d[0])){
+nctempstring->a="Model->Mu";
+nctempstring->d[0]=strlen("Model->Mu")+1;;
+LibeArrayex(247,nctempstring,i,0,Model->Mu->d[0]);
+}
+nctemp869=j*Model->Mu->d[0]+nctemp869;
+if((0>j)||(j>=Model->Mu->d[1])){
+nctempstring->a="Model->Mu";
+nctempstring->d[0]=strlen("Model->Mu")+1;;
+LibeArrayex(247,nctempstring,j,1,Model->Mu->d[1]);
+}
+float nctemp872 = nctemp867 * Model->Mu->a[nctemp869];
+int nctemp874=i;
 if((0>i)||(i>=El2d->exx->d[0])){
 nctempstring->a="El2d->exx";
 nctempstring->d[0]=strlen("El2d->exx")+1;;
 LibeArrayex(247,nctempstring,i,0,El2d->exx->d[0]);
 }
-nctemp826=j*El2d->exx->d[0]+nctemp826;
+nctemp874=j*El2d->exx->d[0]+nctemp874;
 if((0>j)||(j>=El2d->exx->d[1])){
 nctempstring->a="El2d->exx";
 nctempstring->d[0]=strlen("El2d->exx")+1;;
 LibeArrayex(247,nctempstring,j,1,El2d->exx->d[1]);
 }
-int nctemp830=i;
-if((0>i)||(i>=El2d->eyy->d[0])){
-nctempstring->a="El2d->eyy";
-nctempstring->d[0]=strlen("El2d->eyy")+1;;
-LibeArrayex(247,nctempstring,i,0,El2d->eyy->d[0]);
+float nctemp877 = nctemp872 * El2d->exx->a[nctemp874];
+float nctemp878 = nctemp855 + nctemp877;
+int nctemp890=i;
+if((0>i)||(i>=El2d->gammaxx->d[0])){
+nctempstring->a="El2d->gammaxx";
+nctempstring->d[0]=strlen("El2d->gammaxx")+1;;
+LibeArrayex(248,nctempstring,i,0,El2d->gammaxx->d[0]);
 }
-nctemp830=j*El2d->eyy->d[0]+nctemp830;
-if((0>j)||(j>=El2d->eyy->d[1])){
-nctempstring->a="El2d->eyy";
-nctempstring->d[0]=strlen("El2d->eyy")+1;;
-LibeArrayex(247,nctempstring,j,1,El2d->eyy->d[1]);
+nctemp890=j*El2d->gammaxx->d[0]+nctemp890;
+if((0>j)||(j>=El2d->gammaxx->d[1])){
+nctempstring->a="El2d->gammaxx";
+nctempstring->d[0]=strlen("El2d->gammaxx")+1;;
+LibeArrayex(248,nctempstring,j,1,El2d->gammaxx->d[1]);
 }
-float nctemp833 = El2d->exx->a[nctemp826] + El2d->eyy->a[nctemp830];
-float nctemp834 = nctemp821 * nctemp833;
-float nctemp846 = 2.0 * Model->Dt;
-int nctemp848=i;
-if((0>i)||(i>=Model->Mu->d[0])){
-nctempstring->a="Model->Mu";
-nctempstring->d[0]=strlen("Model->Mu")+1;;
-LibeArrayex(248,nctempstring,i,0,Model->Mu->d[0]);
+int nctemp894=i;
+if((0>i)||(i>=El2d->gammayy->d[0])){
+nctempstring->a="El2d->gammayy";
+nctempstring->d[0]=strlen("El2d->gammayy")+1;;
+LibeArrayex(248,nctempstring,i,0,El2d->gammayy->d[0]);
 }
-nctemp848=j*Model->Mu->d[0]+nctemp848;
-if((0>j)||(j>=Model->Mu->d[1])){
-nctempstring->a="Model->Mu";
-nctempstring->d[0]=strlen("Model->Mu")+1;;
-LibeArrayex(248,nctempstring,j,1,Model->Mu->d[1]);
+nctemp894=j*El2d->gammayy->d[0]+nctemp894;
+if((0>j)||(j>=El2d->gammayy->d[1])){
+nctempstring->a="El2d->gammayy";
+nctempstring->d[0]=strlen("El2d->gammayy")+1;;
+LibeArrayex(248,nctempstring,j,1,El2d->gammayy->d[1]);
 }
-float nctemp851 = nctemp846 * Model->Mu->a[nctemp848];
-int nctemp853=i;
-if((0>i)||(i>=El2d->exx->d[0])){
-nctempstring->a="El2d->exx";
-nctempstring->d[0]=strlen("El2d->exx")+1;;
-LibeArrayex(248,nctempstring,i,0,El2d->exx->d[0]);
+float nctemp897 = El2d->gammaxx->a[nctemp890] + El2d->gammayy->a[nctemp894];
+float nctemp898 = Model->Dt * nctemp897;
+int nctemp900=i;
+if((0>i)||(i>=Model->Dlambda->d[0])){
+nctempstring->a="Model->Dlambda";
+nctempstring->d[0]=strlen("Model->Dlambda")+1;;
+LibeArrayex(248,nctempstring,i,0,Model->Dlambda->d[0]);
 }
-nctemp853=j*El2d->exx->d[0]+nctemp853;
-if((0>j)||(j>=El2d->exx->d[1])){
-nctempstring->a="El2d->exx";
-nctempstring->d[0]=strlen("El2d->exx")+1;;
-LibeArrayex(248,nctempstring,j,1,El2d->exx->d[1]);
+nctemp900=j*Model->Dlambda->d[0]+nctemp900;
+if((0>j)||(j>=Model->Dlambda->d[1])){
+nctempstring->a="Model->Dlambda";
+nctempstring->d[0]=strlen("Model->Dlambda")+1;;
+LibeArrayex(248,nctempstring,j,1,Model->Dlambda->d[1]);
 }
-float nctemp856 = nctemp851 * El2d->exx->a[nctemp853];
-float nctemp857 = nctemp834 + nctemp856;
-int nctemp859=i;
+float nctemp903 = nctemp898 * Model->Dlambda->a[nctemp900];
+float nctemp904 = nctemp878 + nctemp903;
+float nctemp916 = 2.0 * Model->Dt;
+int nctemp918=i;
+if((0>i)||(i>=El2d->gammaxx->d[0])){
+nctempstring->a="El2d->gammaxx";
+nctempstring->d[0]=strlen("El2d->gammaxx")+1;;
+LibeArrayex(249,nctempstring,i,0,El2d->gammaxx->d[0]);
+}
+nctemp918=j*El2d->gammaxx->d[0]+nctemp918;
+if((0>j)||(j>=El2d->gammaxx->d[1])){
+nctempstring->a="El2d->gammaxx";
+nctempstring->d[0]=strlen("El2d->gammaxx")+1;;
+LibeArrayex(249,nctempstring,j,1,El2d->gammaxx->d[1]);
+}
+float nctemp921 = nctemp916 * El2d->gammaxx->a[nctemp918];
+int nctemp923=i;
+if((0>i)||(i>=Model->Dmu->d[0])){
+nctempstring->a="Model->Dmu";
+nctempstring->d[0]=strlen("Model->Dmu")+1;;
+LibeArrayex(249,nctempstring,i,0,Model->Dmu->d[0]);
+}
+nctemp923=j*Model->Dmu->d[0]+nctemp923;
+if((0>j)||(j>=Model->Dmu->d[1])){
+nctempstring->a="Model->Dmu";
+nctempstring->d[0]=strlen("Model->Dmu")+1;;
+LibeArrayex(249,nctempstring,j,1,Model->Dmu->d[1]);
+}
+float nctemp926 = nctemp921 * Model->Dmu->a[nctemp923];
+float nctemp927 = nctemp904 + nctemp926;
+int nctemp929=i;
 if((0>i)||(i>=El2d->sigmaxx->d[0])){
 nctempstring->a="El2d->sigmaxx";
 nctempstring->d[0]=strlen("El2d->sigmaxx")+1;;
-LibeArrayex(249,nctempstring,i,0,El2d->sigmaxx->d[0]);
+LibeArrayex(250,nctempstring,i,0,El2d->sigmaxx->d[0]);
 }
-nctemp859=j*El2d->sigmaxx->d[0]+nctemp859;
+nctemp929=j*El2d->sigmaxx->d[0]+nctemp929;
 if((0>j)||(j>=El2d->sigmaxx->d[1])){
 nctempstring->a="El2d->sigmaxx";
 nctempstring->d[0]=strlen("El2d->sigmaxx")+1;;
-LibeArrayex(249,nctempstring,j,1,El2d->sigmaxx->d[1]);
+LibeArrayex(250,nctempstring,j,1,El2d->sigmaxx->d[1]);
 }
-float nctemp862 = nctemp857 + El2d->sigmaxx->a[nctemp859];
-El2d->sigmaxx->a[nctemp801] =nctemp862;
-int nctemp866=i;
+float nctemp932 = nctemp927 + El2d->sigmaxx->a[nctemp929];
+El2d->sigmaxx->a[nctemp816] =nctemp932;
+int nctemp936=i;
 if((0>i)||(i>=El2d->sigmayy->d[0])){
 nctempstring->a="El2d->sigmayy";
 nctempstring->d[0]=strlen("El2d->sigmayy")+1;;
-LibeArrayex(251,nctempstring,i,0,El2d->sigmayy->d[0]);
+LibeArrayex(252,nctempstring,i,0,El2d->sigmayy->d[0]);
 }
-nctemp866=j*El2d->sigmayy->d[0]+nctemp866;
+nctemp936=j*El2d->sigmayy->d[0]+nctemp936;
 if((0>j)||(j>=El2d->sigmayy->d[1])){
 nctempstring->a="El2d->sigmayy";
 nctempstring->d[0]=strlen("El2d->sigmayy")+1;;
-LibeArrayex(251,nctempstring,j,1,El2d->sigmayy->d[1]);
+LibeArrayex(252,nctempstring,j,1,El2d->sigmayy->d[1]);
 }
-int nctemp883=i;
+int nctemp959=i;
 if((0>i)||(i>=Model->Lambda->d[0])){
 nctempstring->a="Model->Lambda";
 nctempstring->d[0]=strlen("Model->Lambda")+1;;
-LibeArrayex(251,nctempstring,i,0,Model->Lambda->d[0]);
+LibeArrayex(252,nctempstring,i,0,Model->Lambda->d[0]);
 }
-nctemp883=j*Model->Lambda->d[0]+nctemp883;
+nctemp959=j*Model->Lambda->d[0]+nctemp959;
 if((0>j)||(j>=Model->Lambda->d[1])){
 nctempstring->a="Model->Lambda";
 nctempstring->d[0]=strlen("Model->Lambda")+1;;
-LibeArrayex(251,nctempstring,j,1,Model->Lambda->d[1]);
+LibeArrayex(252,nctempstring,j,1,Model->Lambda->d[1]);
 }
-float nctemp886 = Model->Dt * Model->Lambda->a[nctemp883];
-int nctemp891=i;
+float nctemp962 = Model->Dt * Model->Lambda->a[nctemp959];
+int nctemp967=i;
 if((0>i)||(i>=El2d->exx->d[0])){
 nctempstring->a="El2d->exx";
 nctempstring->d[0]=strlen("El2d->exx")+1;;
-LibeArrayex(251,nctempstring,i,0,El2d->exx->d[0]);
+LibeArrayex(252,nctempstring,i,0,El2d->exx->d[0]);
 }
-nctemp891=j*El2d->exx->d[0]+nctemp891;
+nctemp967=j*El2d->exx->d[0]+nctemp967;
 if((0>j)||(j>=El2d->exx->d[1])){
 nctempstring->a="El2d->exx";
 nctempstring->d[0]=strlen("El2d->exx")+1;;
-LibeArrayex(251,nctempstring,j,1,El2d->exx->d[1]);
+LibeArrayex(252,nctempstring,j,1,El2d->exx->d[1]);
 }
-int nctemp895=i;
-if((0>i)||(i>=El2d->eyy->d[0])){
-nctempstring->a="El2d->eyy";
-nctempstring->d[0]=strlen("El2d->eyy")+1;;
-LibeArrayex(251,nctempstring,i,0,El2d->eyy->d[0]);
-}
-nctemp895=j*El2d->eyy->d[0]+nctemp895;
-if((0>j)||(j>=El2d->eyy->d[1])){
-nctempstring->a="El2d->eyy";
-nctempstring->d[0]=strlen("El2d->eyy")+1;;
-LibeArrayex(251,nctempstring,j,1,El2d->eyy->d[1]);
-}
-float nctemp898 = El2d->exx->a[nctemp891] + El2d->eyy->a[nctemp895];
-float nctemp899 = nctemp886 * nctemp898;
-float nctemp911 = 2.0 * Model->Dt;
-int nctemp913=i;
-if((0>i)||(i>=Model->Mu->d[0])){
-nctempstring->a="Model->Mu";
-nctempstring->d[0]=strlen("Model->Mu")+1;;
-LibeArrayex(252,nctempstring,i,0,Model->Mu->d[0]);
-}
-nctemp913=j*Model->Mu->d[0]+nctemp913;
-if((0>j)||(j>=Model->Mu->d[1])){
-nctempstring->a="Model->Mu";
-nctempstring->d[0]=strlen("Model->Mu")+1;;
-LibeArrayex(252,nctempstring,j,1,Model->Mu->d[1]);
-}
-float nctemp916 = nctemp911 * Model->Mu->a[nctemp913];
-int nctemp918=i;
+int nctemp971=i;
 if((0>i)||(i>=El2d->eyy->d[0])){
 nctempstring->a="El2d->eyy";
 nctempstring->d[0]=strlen("El2d->eyy")+1;;
 LibeArrayex(252,nctempstring,i,0,El2d->eyy->d[0]);
 }
-nctemp918=j*El2d->eyy->d[0]+nctemp918;
+nctemp971=j*El2d->eyy->d[0]+nctemp971;
 if((0>j)||(j>=El2d->eyy->d[1])){
 nctempstring->a="El2d->eyy";
 nctempstring->d[0]=strlen("El2d->eyy")+1;;
 LibeArrayex(252,nctempstring,j,1,El2d->eyy->d[1]);
 }
-float nctemp921 = nctemp916 * El2d->eyy->a[nctemp918];
-float nctemp922 = nctemp899 + nctemp921;
-int nctemp924=i;
-if((0>i)||(i>=El2d->sigmayy->d[0])){
-nctempstring->a="El2d->sigmayy";
-nctempstring->d[0]=strlen("El2d->sigmayy")+1;;
-LibeArrayex(253,nctempstring,i,0,El2d->sigmayy->d[0]);
-}
-nctemp924=j*El2d->sigmayy->d[0]+nctemp924;
-if((0>j)||(j>=El2d->sigmayy->d[1])){
-nctempstring->a="El2d->sigmayy";
-nctempstring->d[0]=strlen("El2d->sigmayy")+1;;
-LibeArrayex(253,nctempstring,j,1,El2d->sigmayy->d[1]);
-}
-float nctemp927 = nctemp922 + El2d->sigmayy->a[nctemp924];
-El2d->sigmayy->a[nctemp866] =nctemp927;
-int nctemp931=i;
-if((0>i)||(i>=El2d->sigmaxy->d[0])){
-nctempstring->a="El2d->sigmaxy";
-nctempstring->d[0]=strlen("El2d->sigmaxy")+1;;
-LibeArrayex(254,nctempstring,i,0,El2d->sigmaxy->d[0]);
-}
-nctemp931=j*El2d->sigmaxy->d[0]+nctemp931;
-if((0>j)||(j>=El2d->sigmaxy->d[1])){
-nctempstring->a="El2d->sigmaxy";
-nctempstring->d[0]=strlen("El2d->sigmaxy")+1;;
-LibeArrayex(254,nctempstring,j,1,El2d->sigmaxy->d[1]);
-}
-float nctemp948 = 2.0 * Model->Dt;
-int nctemp950=i;
+float nctemp974 = El2d->exx->a[nctemp967] + El2d->eyy->a[nctemp971];
+float nctemp975 = nctemp962 * nctemp974;
+float nctemp987 = 2.0 * Model->Dt;
+int nctemp989=i;
 if((0>i)||(i>=Model->Mu->d[0])){
 nctempstring->a="Model->Mu";
 nctempstring->d[0]=strlen("Model->Mu")+1;;
-LibeArrayex(254,nctempstring,i,0,Model->Mu->d[0]);
+LibeArrayex(253,nctempstring,i,0,Model->Mu->d[0]);
 }
-nctemp950=j*Model->Mu->d[0]+nctemp950;
+nctemp989=j*Model->Mu->d[0]+nctemp989;
 if((0>j)||(j>=Model->Mu->d[1])){
 nctempstring->a="Model->Mu";
 nctempstring->d[0]=strlen("Model->Mu")+1;;
-LibeArrayex(254,nctempstring,j,1,Model->Mu->d[1]);
+LibeArrayex(253,nctempstring,j,1,Model->Mu->d[1]);
 }
-float nctemp953 = nctemp948 * Model->Mu->a[nctemp950];
-int nctemp955=i;
-if((0>i)||(i>=El2d->exy->d[0])){
-nctempstring->a="El2d->exy";
-nctempstring->d[0]=strlen("El2d->exy")+1;;
-LibeArrayex(254,nctempstring,i,0,El2d->exy->d[0]);
+float nctemp992 = nctemp987 * Model->Mu->a[nctemp989];
+int nctemp994=i;
+if((0>i)||(i>=El2d->eyy->d[0])){
+nctempstring->a="El2d->eyy";
+nctempstring->d[0]=strlen("El2d->eyy")+1;;
+LibeArrayex(253,nctempstring,i,0,El2d->eyy->d[0]);
 }
-nctemp955=j*El2d->exy->d[0]+nctemp955;
-if((0>j)||(j>=El2d->exy->d[1])){
-nctempstring->a="El2d->exy";
-nctempstring->d[0]=strlen("El2d->exy")+1;;
-LibeArrayex(254,nctempstring,j,1,El2d->exy->d[1]);
+nctemp994=j*El2d->eyy->d[0]+nctemp994;
+if((0>j)||(j>=El2d->eyy->d[1])){
+nctempstring->a="El2d->eyy";
+nctempstring->d[0]=strlen("El2d->eyy")+1;;
+LibeArrayex(253,nctempstring,j,1,El2d->eyy->d[1]);
 }
-float nctemp958 = nctemp953 * El2d->exy->a[nctemp955];
-int nctemp960=i;
+float nctemp997 = nctemp992 * El2d->eyy->a[nctemp994];
+float nctemp998 = nctemp975 + nctemp997;
+int nctemp1010=i;
+if((0>i)||(i>=El2d->gammaxx->d[0])){
+nctempstring->a="El2d->gammaxx";
+nctempstring->d[0]=strlen("El2d->gammaxx")+1;;
+LibeArrayex(254,nctempstring,i,0,El2d->gammaxx->d[0]);
+}
+nctemp1010=j*El2d->gammaxx->d[0]+nctemp1010;
+if((0>j)||(j>=El2d->gammaxx->d[1])){
+nctempstring->a="El2d->gammaxx";
+nctempstring->d[0]=strlen("El2d->gammaxx")+1;;
+LibeArrayex(254,nctempstring,j,1,El2d->gammaxx->d[1]);
+}
+int nctemp1014=i;
+if((0>i)||(i>=El2d->gammayy->d[0])){
+nctempstring->a="El2d->gammayy";
+nctempstring->d[0]=strlen("El2d->gammayy")+1;;
+LibeArrayex(254,nctempstring,i,0,El2d->gammayy->d[0]);
+}
+nctemp1014=j*El2d->gammayy->d[0]+nctemp1014;
+if((0>j)||(j>=El2d->gammayy->d[1])){
+nctempstring->a="El2d->gammayy";
+nctempstring->d[0]=strlen("El2d->gammayy")+1;;
+LibeArrayex(254,nctempstring,j,1,El2d->gammayy->d[1]);
+}
+float nctemp1017 = El2d->gammaxx->a[nctemp1010] + El2d->gammayy->a[nctemp1014];
+float nctemp1018 = Model->Dt * nctemp1017;
+int nctemp1020=i;
+if((0>i)||(i>=Model->Dlambda->d[0])){
+nctempstring->a="Model->Dlambda";
+nctempstring->d[0]=strlen("Model->Dlambda")+1;;
+LibeArrayex(254,nctempstring,i,0,Model->Dlambda->d[0]);
+}
+nctemp1020=j*Model->Dlambda->d[0]+nctemp1020;
+if((0>j)||(j>=Model->Dlambda->d[1])){
+nctempstring->a="Model->Dlambda";
+nctempstring->d[0]=strlen("Model->Dlambda")+1;;
+LibeArrayex(254,nctempstring,j,1,Model->Dlambda->d[1]);
+}
+float nctemp1023 = nctemp1018 * Model->Dlambda->a[nctemp1020];
+float nctemp1024 = nctemp998 + nctemp1023;
+float nctemp1036 = 2.0 * Model->Dt;
+int nctemp1038=i;
+if((0>i)||(i>=El2d->gammayy->d[0])){
+nctempstring->a="El2d->gammayy";
+nctempstring->d[0]=strlen("El2d->gammayy")+1;;
+LibeArrayex(255,nctempstring,i,0,El2d->gammayy->d[0]);
+}
+nctemp1038=j*El2d->gammayy->d[0]+nctemp1038;
+if((0>j)||(j>=El2d->gammayy->d[1])){
+nctempstring->a="El2d->gammayy";
+nctempstring->d[0]=strlen("El2d->gammayy")+1;;
+LibeArrayex(255,nctempstring,j,1,El2d->gammayy->d[1]);
+}
+float nctemp1041 = nctemp1036 * El2d->gammayy->a[nctemp1038];
+int nctemp1043=i;
+if((0>i)||(i>=Model->Dmu->d[0])){
+nctempstring->a="Model->Dmu";
+nctempstring->d[0]=strlen("Model->Dmu")+1;;
+LibeArrayex(255,nctempstring,i,0,Model->Dmu->d[0]);
+}
+nctemp1043=j*Model->Dmu->d[0]+nctemp1043;
+if((0>j)||(j>=Model->Dmu->d[1])){
+nctempstring->a="Model->Dmu";
+nctempstring->d[0]=strlen("Model->Dmu")+1;;
+LibeArrayex(255,nctempstring,j,1,Model->Dmu->d[1]);
+}
+float nctemp1046 = nctemp1041 * Model->Dmu->a[nctemp1043];
+float nctemp1047 = nctemp1024 + nctemp1046;
+int nctemp1049=i;
+if((0>i)||(i>=El2d->sigmayy->d[0])){
+nctempstring->a="El2d->sigmayy";
+nctempstring->d[0]=strlen("El2d->sigmayy")+1;;
+LibeArrayex(256,nctempstring,i,0,El2d->sigmayy->d[0]);
+}
+nctemp1049=j*El2d->sigmayy->d[0]+nctemp1049;
+if((0>j)||(j>=El2d->sigmayy->d[1])){
+nctempstring->a="El2d->sigmayy";
+nctempstring->d[0]=strlen("El2d->sigmayy")+1;;
+LibeArrayex(256,nctempstring,j,1,El2d->sigmayy->d[1]);
+}
+float nctemp1052 = nctemp1047 + El2d->sigmayy->a[nctemp1049];
+El2d->sigmayy->a[nctemp936] =nctemp1052;
+int nctemp1056=i;
 if((0>i)||(i>=El2d->sigmaxy->d[0])){
 nctempstring->a="El2d->sigmaxy";
 nctempstring->d[0]=strlen("El2d->sigmaxy")+1;;
-LibeArrayex(255,nctempstring,i,0,El2d->sigmaxy->d[0]);
+LibeArrayex(258,nctempstring,i,0,El2d->sigmaxy->d[0]);
 }
-nctemp960=j*El2d->sigmaxy->d[0]+nctemp960;
+nctemp1056=j*El2d->sigmaxy->d[0]+nctemp1056;
 if((0>j)||(j>=El2d->sigmaxy->d[1])){
 nctempstring->a="El2d->sigmaxy";
 nctempstring->d[0]=strlen("El2d->sigmaxy")+1;;
-LibeArrayex(255,nctempstring,j,1,El2d->sigmaxy->d[1]);
+LibeArrayex(258,nctempstring,j,1,El2d->sigmaxy->d[1]);
 }
-float nctemp963 = nctemp958 + El2d->sigmaxy->a[nctemp960];
-El2d->sigmaxy->a[nctemp931] =nctemp963;
+float nctemp1076 = 2.0 * Model->Dt;
+int nctemp1078=i;
+if((0>i)||(i>=Model->Mu->d[0])){
+nctempstring->a="Model->Mu";
+nctempstring->d[0]=strlen("Model->Mu")+1;;
+LibeArrayex(258,nctempstring,i,0,Model->Mu->d[0]);
 }
-}}return 1;
+nctemp1078=j*Model->Mu->d[0]+nctemp1078;
+if((0>j)||(j>=Model->Mu->d[1])){
+nctempstring->a="Model->Mu";
+nctempstring->d[0]=strlen("Model->Mu")+1;;
+LibeArrayex(258,nctempstring,j,1,Model->Mu->d[1]);
 }
+float nctemp1081 = nctemp1076 * Model->Mu->a[nctemp1078];
+int nctemp1083=i;
+if((0>i)||(i>=El2d->exy->d[0])){
+nctempstring->a="El2d->exy";
+nctempstring->d[0]=strlen("El2d->exy")+1;;
+LibeArrayex(258,nctempstring,i,0,El2d->exy->d[0]);
+}
+nctemp1083=j*El2d->exy->d[0]+nctemp1083;
+if((0>j)||(j>=El2d->exy->d[1])){
+nctempstring->a="El2d->exy";
+nctempstring->d[0]=strlen("El2d->exy")+1;;
+LibeArrayex(258,nctempstring,j,1,El2d->exy->d[1]);
+}
+float nctemp1086 = nctemp1081 * El2d->exy->a[nctemp1083];
+float nctemp1098 = 2.0 * Model->Dt;
+int nctemp1100=i;
+if((0>i)||(i>=El2d->gammaxy->d[0])){
+nctempstring->a="El2d->gammaxy";
+nctempstring->d[0]=strlen("El2d->gammaxy")+1;;
+LibeArrayex(259,nctempstring,i,0,El2d->gammaxy->d[0]);
+}
+nctemp1100=j*El2d->gammaxy->d[0]+nctemp1100;
+if((0>j)||(j>=El2d->gammaxy->d[1])){
+nctempstring->a="El2d->gammaxy";
+nctempstring->d[0]=strlen("El2d->gammaxy")+1;;
+LibeArrayex(259,nctempstring,j,1,El2d->gammaxy->d[1]);
+}
+float nctemp1103 = nctemp1098 * El2d->gammaxy->a[nctemp1100];
+int nctemp1105=i;
+if((0>i)||(i>=Model->Dmu->d[0])){
+nctempstring->a="Model->Dmu";
+nctempstring->d[0]=strlen("Model->Dmu")+1;;
+LibeArrayex(259,nctempstring,i,0,Model->Dmu->d[0]);
+}
+nctemp1105=j*Model->Dmu->d[0]+nctemp1105;
+if((0>j)||(j>=Model->Dmu->d[1])){
+nctempstring->a="Model->Dmu";
+nctempstring->d[0]=strlen("Model->Dmu")+1;;
+LibeArrayex(259,nctempstring,j,1,Model->Dmu->d[1]);
+}
+float nctemp1108 = nctemp1103 * Model->Dmu->a[nctemp1105];
+float nctemp1109 = nctemp1086 + nctemp1108;
+int nctemp1111=i;
+if((0>i)||(i>=El2d->sigmaxy->d[0])){
+nctempstring->a="El2d->sigmaxy";
+nctempstring->d[0]=strlen("El2d->sigmaxy")+1;;
+LibeArrayex(260,nctempstring,i,0,El2d->sigmaxy->d[0]);
+}
+nctemp1111=j*El2d->sigmaxy->d[0]+nctemp1111;
+if((0>j)||(j>=El2d->sigmaxy->d[1])){
+nctempstring->a="El2d->sigmaxy";
+nctempstring->d[0]=strlen("El2d->sigmaxy")+1;;
+LibeArrayex(260,nctempstring,j,1,El2d->sigmaxy->d[1]);
+}
+float nctemp1114 = nctemp1109 + El2d->sigmaxy->a[nctemp1111];
+El2d->sigmaxy->a[nctemp1056] =nctemp1114;
+int nctemp1118=i;
+if((0>i)||(i>=El2d->gammaxx->d[0])){
+nctempstring->a="El2d->gammaxx";
+nctempstring->d[0]=strlen("El2d->gammaxx")+1;;
+LibeArrayex(262,nctempstring,i,0,El2d->gammaxx->d[0]);
+}
+nctemp1118=j*El2d->gammaxx->d[0]+nctemp1118;
+if((0>j)||(j>=El2d->gammaxx->d[1])){
+nctempstring->a="El2d->gammaxx";
+nctempstring->d[0]=strlen("El2d->gammaxx")+1;;
+LibeArrayex(262,nctempstring,j,1,El2d->gammaxx->d[1]);
+}
+int nctemp1128=i;
+if((0>i)||(i>=Model->Alpha1x->d[0])){
+nctempstring->a="Model->Alpha1x";
+nctempstring->d[0]=strlen("Model->Alpha1x")+1;;
+LibeArrayex(262,nctempstring,i,0,Model->Alpha1x->d[0]);
+}
+nctemp1128=j*Model->Alpha1x->d[0]+nctemp1128;
+if((0>j)||(j>=Model->Alpha1x->d[1])){
+nctempstring->a="Model->Alpha1x";
+nctempstring->d[0]=strlen("Model->Alpha1x")+1;;
+LibeArrayex(262,nctempstring,j,1,Model->Alpha1x->d[1]);
+}
+int nctemp1132=i;
+if((0>i)||(i>=El2d->gammaxx->d[0])){
+nctempstring->a="El2d->gammaxx";
+nctempstring->d[0]=strlen("El2d->gammaxx")+1;;
+LibeArrayex(262,nctempstring,i,0,El2d->gammaxx->d[0]);
+}
+nctemp1132=j*El2d->gammaxx->d[0]+nctemp1132;
+if((0>j)||(j>=El2d->gammaxx->d[1])){
+nctempstring->a="El2d->gammaxx";
+nctempstring->d[0]=strlen("El2d->gammaxx")+1;;
+LibeArrayex(262,nctempstring,j,1,El2d->gammaxx->d[1]);
+}
+float nctemp1135 = Model->Alpha1x->a[nctemp1128] * El2d->gammaxx->a[nctemp1132];
+int nctemp1140=i;
+if((0>i)||(i>=Model->Alpha2x->d[0])){
+nctempstring->a="Model->Alpha2x";
+nctempstring->d[0]=strlen("Model->Alpha2x")+1;;
+LibeArrayex(263,nctempstring,i,0,Model->Alpha2x->d[0]);
+}
+nctemp1140=j*Model->Alpha2x->d[0]+nctemp1140;
+if((0>j)||(j>=Model->Alpha2x->d[1])){
+nctempstring->a="Model->Alpha2x";
+nctempstring->d[0]=strlen("Model->Alpha2x")+1;;
+LibeArrayex(263,nctempstring,j,1,Model->Alpha2x->d[1]);
+}
+int nctemp1144=i;
+if((0>i)||(i>=El2d->exx->d[0])){
+nctempstring->a="El2d->exx";
+nctempstring->d[0]=strlen("El2d->exx")+1;;
+LibeArrayex(263,nctempstring,i,0,El2d->exx->d[0]);
+}
+nctemp1144=j*El2d->exx->d[0]+nctemp1144;
+if((0>j)||(j>=El2d->exx->d[1])){
+nctempstring->a="El2d->exx";
+nctempstring->d[0]=strlen("El2d->exx")+1;;
+LibeArrayex(263,nctempstring,j,1,El2d->exx->d[1]);
+}
+float nctemp1147 = Model->Alpha2x->a[nctemp1140] * El2d->exx->a[nctemp1144];
+float nctemp1148 = nctemp1135 + nctemp1147;
+El2d->gammaxx->a[nctemp1118] =nctemp1148;
+int nctemp1152=i;
+if((0>i)||(i>=El2d->gammayy->d[0])){
+nctempstring->a="El2d->gammayy";
+nctempstring->d[0]=strlen("El2d->gammayy")+1;;
+LibeArrayex(264,nctempstring,i,0,El2d->gammayy->d[0]);
+}
+nctemp1152=j*El2d->gammayy->d[0]+nctemp1152;
+if((0>j)||(j>=El2d->gammayy->d[1])){
+nctempstring->a="El2d->gammayy";
+nctempstring->d[0]=strlen("El2d->gammayy")+1;;
+LibeArrayex(264,nctempstring,j,1,El2d->gammayy->d[1]);
+}
+int nctemp1162=i;
+if((0>i)||(i>=Model->Alpha1y->d[0])){
+nctempstring->a="Model->Alpha1y";
+nctempstring->d[0]=strlen("Model->Alpha1y")+1;;
+LibeArrayex(264,nctempstring,i,0,Model->Alpha1y->d[0]);
+}
+nctemp1162=j*Model->Alpha1y->d[0]+nctemp1162;
+if((0>j)||(j>=Model->Alpha1y->d[1])){
+nctempstring->a="Model->Alpha1y";
+nctempstring->d[0]=strlen("Model->Alpha1y")+1;;
+LibeArrayex(264,nctempstring,j,1,Model->Alpha1y->d[1]);
+}
+int nctemp1166=i;
+if((0>i)||(i>=El2d->gammayy->d[0])){
+nctempstring->a="El2d->gammayy";
+nctempstring->d[0]=strlen("El2d->gammayy")+1;;
+LibeArrayex(264,nctempstring,i,0,El2d->gammayy->d[0]);
+}
+nctemp1166=j*El2d->gammayy->d[0]+nctemp1166;
+if((0>j)||(j>=El2d->gammayy->d[1])){
+nctempstring->a="El2d->gammayy";
+nctempstring->d[0]=strlen("El2d->gammayy")+1;;
+LibeArrayex(264,nctempstring,j,1,El2d->gammayy->d[1]);
+}
+float nctemp1169 = Model->Alpha1y->a[nctemp1162] * El2d->gammayy->a[nctemp1166];
+int nctemp1174=i;
+if((0>i)||(i>=Model->Alpha2y->d[0])){
+nctempstring->a="Model->Alpha2y";
+nctempstring->d[0]=strlen("Model->Alpha2y")+1;;
+LibeArrayex(265,nctempstring,i,0,Model->Alpha2y->d[0]);
+}
+nctemp1174=j*Model->Alpha2y->d[0]+nctemp1174;
+if((0>j)||(j>=Model->Alpha2y->d[1])){
+nctempstring->a="Model->Alpha2y";
+nctempstring->d[0]=strlen("Model->Alpha2y")+1;;
+LibeArrayex(265,nctempstring,j,1,Model->Alpha2y->d[1]);
+}
+int nctemp1178=i;
+if((0>i)||(i>=El2d->eyy->d[0])){
+nctempstring->a="El2d->eyy";
+nctempstring->d[0]=strlen("El2d->eyy")+1;;
+LibeArrayex(265,nctempstring,i,0,El2d->eyy->d[0]);
+}
+nctemp1178=j*El2d->eyy->d[0]+nctemp1178;
+if((0>j)||(j>=El2d->eyy->d[1])){
+nctempstring->a="El2d->eyy";
+nctempstring->d[0]=strlen("El2d->eyy")+1;;
+LibeArrayex(265,nctempstring,j,1,El2d->eyy->d[1]);
+}
+float nctemp1181 = Model->Alpha2y->a[nctemp1174] * El2d->eyy->a[nctemp1178];
+float nctemp1182 = nctemp1169 + nctemp1181;
+El2d->gammayy->a[nctemp1152] =nctemp1182;
+int nctemp1186=i;
+if((0>i)||(i>=El2d->gammaxy->d[0])){
+nctempstring->a="El2d->gammaxy";
+nctempstring->d[0]=strlen("El2d->gammaxy")+1;;
+LibeArrayex(266,nctempstring,i,0,El2d->gammaxy->d[0]);
+}
+nctemp1186=j*El2d->gammaxy->d[0]+nctemp1186;
+if((0>j)||(j>=El2d->gammaxy->d[1])){
+nctempstring->a="El2d->gammaxy";
+nctempstring->d[0]=strlen("El2d->gammaxy")+1;;
+LibeArrayex(266,nctempstring,j,1,El2d->gammaxy->d[1]);
+}
+int nctemp1196=i;
+if((0>i)||(i>=Model->Beta1y->d[0])){
+nctempstring->a="Model->Beta1y";
+nctempstring->d[0]=strlen("Model->Beta1y")+1;;
+LibeArrayex(266,nctempstring,i,0,Model->Beta1y->d[0]);
+}
+nctemp1196=j*Model->Beta1y->d[0]+nctemp1196;
+if((0>j)||(j>=Model->Beta1y->d[1])){
+nctempstring->a="Model->Beta1y";
+nctempstring->d[0]=strlen("Model->Beta1y")+1;;
+LibeArrayex(266,nctempstring,j,1,Model->Beta1y->d[1]);
+}
+int nctemp1200=i;
+if((0>i)||(i>=El2d->gammaxy->d[0])){
+nctempstring->a="El2d->gammaxy";
+nctempstring->d[0]=strlen("El2d->gammaxy")+1;;
+LibeArrayex(266,nctempstring,i,0,El2d->gammaxy->d[0]);
+}
+nctemp1200=j*El2d->gammaxy->d[0]+nctemp1200;
+if((0>j)||(j>=El2d->gammaxy->d[1])){
+nctempstring->a="El2d->gammaxy";
+nctempstring->d[0]=strlen("El2d->gammaxy")+1;;
+LibeArrayex(266,nctempstring,j,1,El2d->gammaxy->d[1]);
+}
+float nctemp1203 = Model->Beta1y->a[nctemp1196] * El2d->gammaxy->a[nctemp1200];
+int nctemp1208=i;
+if((0>i)||(i>=Model->Beta2y->d[0])){
+nctempstring->a="Model->Beta2y";
+nctempstring->d[0]=strlen("Model->Beta2y")+1;;
+LibeArrayex(267,nctempstring,i,0,Model->Beta2y->d[0]);
+}
+nctemp1208=j*Model->Beta2y->d[0]+nctemp1208;
+if((0>j)||(j>=Model->Beta2y->d[1])){
+nctempstring->a="Model->Beta2y";
+nctempstring->d[0]=strlen("Model->Beta2y")+1;;
+LibeArrayex(267,nctempstring,j,1,Model->Beta2y->d[1]);
+}
+int nctemp1212=i;
+if((0>i)||(i>=El2d->exy->d[0])){
+nctempstring->a="El2d->exy";
+nctempstring->d[0]=strlen("El2d->exy")+1;;
+LibeArrayex(267,nctempstring,i,0,El2d->exy->d[0]);
+}
+nctemp1212=j*El2d->exy->d[0]+nctemp1212;
+if((0>j)||(j>=El2d->exy->d[1])){
+nctempstring->a="El2d->exy";
+nctempstring->d[0]=strlen("El2d->exy")+1;;
+LibeArrayex(267,nctempstring,j,1,El2d->exy->d[1]);
+}
+float nctemp1215 = Model->Beta2y->a[nctemp1208] * El2d->exy->a[nctemp1212];
+float nctemp1216 = nctemp1203 + nctemp1215;
+El2d->gammaxy->a[nctemp1186] =nctemp1216;
+}
+}}}
