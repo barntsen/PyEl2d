@@ -565,17 +565,19 @@ Using the numerical differentiators the equations of motion becomes:
 \begin{eqnarray}
   \dot{v}_x & = & \rho^{-1}_x\left(d^+_x \sigma_{xx} +d^-_y \sigma_{xy}\right) 
              +   \rho^{-1}_x \dot{f}_x                             \nonumber\\ 
-            & + & \sum_{l=0}^N\theta^l_{xxx}\Delta\rho^{-1}_{l}
-             +  \sum_{l=0}^N\theta^l_{yxy}\Delta\rho^{-1}_{l}      \nonumber\\
+            & + & \sum_{l=0}^N\theta^l_{xxx}\Delta\rho^{-1}_{lx}
+             +  \sum_{l=0}^N\theta^l_{yxy}\Delta\rho^{-1}_{lix}      \nonumber\\
   \dot{v}_y & = & \rho^{-1}_y\left(d^-_x \sigma_{xy} +d^+_y \sigma_{yy}\right) 
              +   \rho^{-1}_y \dot{f}_y.                            \nonumber\\
-            & + & \sum_{l=0}^N\theta^l_{xyx}\Delta\rho^{-1}_{l}
-           +  \sum_{l=0}^N\theta^l_{yyy}\Delta\rho^{-1}_{l}.        \nonumber \\
+            & + & \sum_{l=0}^N\theta^l_{xyx}\Delta\rho^{-1}_{ly}
+           +  \sum_{l=0}^N\theta^l_{yyy}\Delta\rho^{-1}_{ly}.        \nonumber \\
 \end{eqnarray}
 \begin{eqnarray}
     \dot{e}_{xx} & = & d^-_x v_x, \nonumber \\
     \dot{e}_{yy} & = & d^-_y v_y, \nonumber \\
     \dot{e}_{xy} & = & \frac{1}{2}(d^+_x v_y + d^+_y v_x),\nonumber\\
+                \label{eq:strains}
+    \dot{e}_{yx} & = & \frac{1}{2}(d^+_x v_y + d^+_y v_x),\nonumber\\
                 \label{eq:strains}
 \end{eqnarray}
 \begin{eqnarray}
@@ -596,6 +598,9 @@ Using the numerical differentiators the equations of motion becomes:
   \dot{\sigma}_{xy} 
   &  = &   2\mu \dot{e}_{xy} + 2\sum_{l=1}^N\gamma^l_{xy}
           \Delta\mu_l+\dot{q}_{xy}.                              \nonumber\\
+  \dot{\sigma}_{yx} 
+  &  = &   2\mu \dot{e}_{yx} + 2\sum_{l=1}^N\gamma^l_{xy}
+          \Delta\mu_l+\dot{q}_{xy}.                              \nonumber\\
 \end{eqnarray}
 
 The time derivatives is approximated by the central difference
@@ -613,14 +618,15 @@ v_x(t+\Delta t/2)
       & = & \Delta t\rho_x^{-1}\left[d^+_x \sigma_{xx}(t) 
             +d^+_y \sigma_{xy}(t)\right] 
             + \Delta t \rho_x^{-1}f_x(t) +                    \nonumber\\ 
-      & + & \Delta t\sum_{l=0}^N\theta^l_{xxx}(t)\Delta\rho^{-1}_{l}
-            + \Delta t\sum_{l=0}^N\theta^l_{yxy}(t)\Delta\rho^{-1}_{l} 
+      & + & \Delta t\sum_{l=0}^N\theta^l_{xxx}(t)\Delta\rho^{-1}_{lx}
+            + \Delta t\sum_{l=0}^N\theta^l_{yxy}(t)\Delta\rho^{-1}_{lx} 
             +v_x(t-\Delta t/2),\nonumber\\
-v_y(t+\Delta t/2) & = &  \Delta t \rho_z^{-1}\left[d^+_x \sigma_{yx}(t) 
-                        +d^+_y \sigma_{yy}(t)\right] 
-                        +\Delta t \rho_y^{-1}f_y(t)\nonumber\\  
-      & + & \Delta t\sum_{l=0}^N\theta^l_{yyy}(t)\Delta\rho^{-1}_{l}
-            +  \Delta t\sum_{l=0}^N\theta^l_{yxy}(t)\Delta\rho^{-1}_{l} 
+v_y(t+\Delta t/2) & = &  \Delta t \rho_z^{-1}\left[
+            d^+_x \sigma_{yx}(t) 
+            +d^+_y \sigma_{yy}(t)\right] 
+            +\Delta t \rho_y^{-1}f_y(t)\nonumber\\  
+      & + & \Delta t\sum_{l=0}^N\theta^l_{yyy}(t)\Delta\rho^{-1}_{ly}
+            +  \Delta t\sum_{l=0}^N\theta^l_{yxy}(t)\Delta\rho^{-1}_{ly} 
             +v_y(t-\Delta t/2),\nonumber\\
                        \label{eq:vi-2d}
 \end{eqnarray}

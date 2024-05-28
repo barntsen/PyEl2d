@@ -16,13 +16,13 @@ cp $EPS/Src/libe.i .
 cp $EPS/Src/m-cpu.i m.i
 cp $EPS/Src/run.i .
 cp $EPS/Src/runcpu.e .
-ec -c  -C pyeps.e
-ec -c  -C model.e
-ec -c  -C src.e
-ec -c  -C rec.e
-ec -c  -C el2d.e
-ec -c  -C diff.e
-ec -c  -C libe.e
+ec -c  pyeps.e
+ec -c  model.e
+ec -c  src.e
+ec -c  rec.e
+ec -c  el2d.e
+ec -c  diff.e
+ec -c  libe.e
 cp runcpu.e runcpu.c
 
 gcc -O2 -fPIC -c libe.c runcpu.c \

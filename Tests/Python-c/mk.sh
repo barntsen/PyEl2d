@@ -28,7 +28,7 @@ spike -n1 $n1 -n2 $n2 -val 100000.0 qs.bin
 spike -n1 $n1 -n2 $n2 -val 100000.0 ql.bin
 
 #Create Qm 
-spike -n1 $n1 -n2 $n2 -val 100000.0 ql.bin
+spike -n1 $n1 -n2 $n2 -val 100000.0 qm.bin
 
 #Run modelling
 BIN=../../Bin

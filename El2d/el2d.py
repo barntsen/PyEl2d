@@ -42,9 +42,8 @@ class el2d :
     # Run the pyel2d solver.
     m=model.model
     # Set argument types
-    # DEBUG
-    print("call solve:")
-
     pyel2d.El2dSolve.argtypes=[c_void_p,c_void_p,c_void_p,c_void_p,c_int,c_int]
+
+    # Make call to solver
     pyel2d.El2dSolve(self.el2d,m,src.src,rec.rec,c_int(par.nt),c_int(par.l))
 

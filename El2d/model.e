@@ -52,9 +52,12 @@ struct model ModelNew(float [*,*] vp, float [*,*] vs,  float [*,*] rho, float [*
 {
   struct model m;
 
+  LibePs("Rheol: "); LibePi(Rheol); LibePs("\n");
   if(Rheol == MAXWELL){
+  LibePs("Maxwell \n"); 
     m = Modelmaxwell(vp, rho, Qp, Qs, Dx, Dt, W0, Nb); 
   } else if(Rheol == SLS){
+  LibePs("Sls \n"); 
     m= Modelsls(vp, vs, rho, Ql, Qm, Qp, Qs, Dx, Dt, W0, Nb);
   }
   else{
@@ -144,8 +147,10 @@ int Modelalphasls(struct model Model){
 
       // Fill in values for the visco elastic modification 
       // of  lambda
-      Model.Dlambda[i,j]   = Model.Lambda[i,j]
+      Model.Dlambdax[i,j]   = Model.Lambda[i,j]
                              *(1.0-tausx/tauex);
+      Model.Dlambday[i,j]   = Model.Lambda[i,j]
+                             *(1.0-tausy/tauey);
     }
   }
   return(OK);
@@ -206,7 +211,7 @@ int Modelbetasls(struct model Model){
       tausmax = 1.0/tausmax;
       tauex = tauemin + (tauemax-tauemin)*Model.dx[i];
       tausx = tausmin + (tausmax-tausmin)*Model.dx[i];
-      Qmax  = Model.Ql[i,Model.Nb];
+      Qmax  = Model.Qm[i,Model.Nb];
       tauemax = (tau0/Qmin)*(LibeSqrt(Qmax*Qmax+1.0)+1.0);
       tauemax = 1.0/tauemax;
       tausmax = (tau0/Qmin)*(LibeSqrt(Qmax*Qmax+1.0)-1.0);
@@ -230,14 +235,16 @@ int Modelbetasls(struct model Model){
 
       // Fill in values for the visco elastic modification 
       // of stiffness and density.
-      Model.Dmu[i,j]     = (Model.Mu[i,j])
+      Model.Dmuy[i,j]     = (Model.Mu[i,j])
                           *(1.0-tausy/tauey);
+      Model.Dmux[i,j]     = (Model.Mu[i,j])
+                          *(1.0-tausx/tauex);
     }
   }
   return(OK);
 }
 
-// Modeletasls computes the standard linear solid  beta coefficients
+// Modeletasls computes the standard linear solid  eta coefficients
 //
 // Parameters :
 // - Model  : Model struct
@@ -315,8 +322,10 @@ int Modeletasls(struct model Model){
 
       // Fill in values for the visco elastic modification 
       // of stiffness and density.
-      Model.Drhop[i,j]     = (Model.Rho[i,j])
+      Model.Drhopy[i,j]     = (Model.Rho[i,j])
                           *(1.0-tausy/tauey);
+      Model.Drhopx[i,j]     = (Model.Rho[i,j])
+                          *(1.0-tausx/tauex);
     }
   }
   return(OK);
@@ -332,7 +341,7 @@ int Modeletasls(struct model Model){
 // See the Modelsls documentation for
 // the actual formulas used.
 // 
-// The beta coefficients for the sls model is computed
+// The nu coefficients for the sls model is computed
 int Modelnusls(struct model Model){
 
   int Nx,Ny;
@@ -399,9 +408,11 @@ int Modelnusls(struct model Model){
       Model.Nu2y[i,j]  = Model.Dt*tauey;
 
       // Fill in values for the visco elastic modification 
-      // of stiffness and density.
-      Model.Drhos[i,j]     = (Model.Rho[i,j])
+      // of density.
+      Model.Drhosy[i,j]     = (Model.Rho[i,j])
                           *(1.0-tausy/tauey);
+      Model.Drhosx[i,j]     = (Model.Rho[i,j])
+                          *(1.0-tausx/tauex);
     }
   }
   return(OK);
@@ -539,8 +550,8 @@ struct model Modelmaxwell(float [*,*] vp, float [*,*] rho, float [*,*] Qp, float
   // bulk modulus caused by visco-elasticity
   // A separate factor is used for the x- and y-directions
   // due to tapering
-  Model.Dlambda = new(float [Nx,Ny]);  
-  Model.Drhop     = new(float [Nx,Ny]);
+  Model.Dlambdax = new(float [Nx,Ny]);  
+  Model.Drhopx     = new(float [Nx,Ny]);
 
   // Coeffcients used for updating memory functions
   Model.Alpha1x   =  new(float [Nx,Ny]);
@@ -581,8 +592,8 @@ struct model Modelmaxwell(float [*,*] vp, float [*,*] rho, float [*,*] Qp, float
     for(i=0; i<Nx;i=i+1){
       // For the Maxwell solid Dkappa = kappa and Drho = 1/rho
       // to comply with the solver algorithm in ac2d.e
-      Model.Dlambda[i,j]   = Model.Lambda[i,j];
-      Model.Drhop[i,j]     = Model.Rho[i,j];
+      Model.Dlambdax[i,j]   = Model.Lambda[i,j];
+      Model.Drhopx[i,j]     = Model.Rho[i,j];
     }
   }
   return(Model);
@@ -855,11 +866,14 @@ struct model Modelsls(float [*,*] vp, float [*,*] vs, float [*,*] rho, float [*,
   // bulk modulus caused by visco-elasticity
   // A separate factor is used for the x- and y-directions
   // due to tapering
-  Model.Dlambda = new(float [Nx,Ny]);  
-  Model.Dmu     = new(float [Nx,Ny]);  
-  Model.Dmu     = new(float [Nx,Ny]);
-  Model.Drhop    = new(float [Nx,Ny]);
-  Model.Drhos    = new(float [Nx,Ny]);
+  Model.Dlambdax = new(float [Nx,Ny]);  
+  Model.Dlambday = new(float [Nx,Ny]);  
+  Model.Dmux     = new(float [Nx,Ny]);  
+  Model.Dmuy     = new(float [Nx,Ny]);
+  Model.Drhopx    = new(float [Nx,Ny]);
+  Model.Drhopy    = new(float [Nx,Ny]);
+  Model.Drhosx    = new(float [Nx,Ny]);
+  Model.Drhosy    = new(float [Nx,Ny]);
 
   // Coeffcients used for updating memory functions
   Model.Alpha1x   =  new(float [Nx,Ny]);

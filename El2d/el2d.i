@@ -12,9 +12,11 @@ struct el2d {
   float [*,*] exx;    // time derivative of strain x-component
   float [*,*] eyy;    // time derivative of strain y-component
   float [*,*] exy;    // time derivative of strain y-component
+  float [*,*] eyx;    // time derivative of strain y-component
   float [*,*] gammaxx;
   float [*,*] gammayy;
   float [*,*] gammaxy;
+  float [*,*] gammayx;
   float [*,*] thetaxxx;
   float [*,*] thetayyy;
   float [*,*] thetaxyx;
