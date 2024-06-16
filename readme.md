@@ -24,9 +24,9 @@ install a simple script (el2dmod) for running simulations.
 
  - El2d        -epsilon and Python source code for the library
  - Python      -Python-only version (not completed)
- - Python-c    -C code for the wave propagation library.
- - Python-cuda -Cuda code for the wave propagation library.
- - Python-hip  -Hip code for the wave propagation library.
+ - Python-c    -C code for the wave propagation library (machine generated).
+ - Python-cuda -Cuda code for the wave propagation library (machine generated).
+ - Python-hip  -Hip code for the wave propagation library (machine generated)
  - Python-omp  -C code with openmp for the wave propagation library.
  - Scripts     -Support scripts for plotting, model creation etc..
  - Examples    -Simulation examples

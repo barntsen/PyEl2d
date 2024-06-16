@@ -5,8 +5,6 @@ typedef struct nctempfloat1 { int d[1]; float *a;} nctempfloat1;
 typedef struct nctempint1 { int d[1]; int *a;} nctempint1; 
 typedef struct nctempchar1 { int d[1]; char *a;} nctempchar1; 
 typedef struct nctempcomplex1 { int d[1]; complex *a;} nctempcomplex1; 
-static struct nctempchar1 nctempstringx = {0, NULL};
-static struct nctempchar1 *nctempstring = &nctempstringx;
 typedef struct nctempfloat2 { int d[2]; float *a;} nctempfloat2; 
 typedef struct nctempint2 { int d[2]; int *a;} nctempint2; 
 typedef struct nctempchar2 { int d[2]; char *a;} nctempchar2; 
@@ -289,74 +287,24 @@ int nctemp205 = (i < 40);
 while(nctemp205){
 {
 int nctemp212=i;
-if((0>i)||(i>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(275,nctempstring,i,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp212].cnt =0;
 int nctemp218=i;
-if((0>i)||(i>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(276,nctempstring,i,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp218].ptr =0;
 int nctemp224=i;
-if((0>i)||(i>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(277,nctempstring,i,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp224].bufsize =0;
 int nctemp230=i;
-if((0>i)||(i>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(278,nctempstring,i,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp230].base=(0);
 int nctemp237=i;
-if((0>i)||(i>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(279,nctempstring,i,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp237].readflg =0;
 int nctemp243=i;
-if((0>i)||(i>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(280,nctempstring,i,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp243].writflg =0;
 int nctemp249=i;
-if((0>i)||(i>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(281,nctempstring,i,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp249].unbflg =0;
 int nctemp255=i;
-if((0>i)||(i>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(282,nctempstring,i,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp255].errflg =1;
 int nctemp261=i;
-if((0>i)||(i>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(283,nctempstring,i,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp261].eoflg =0;
 int nctemp267=i;
-if((0>i)||(i>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(284,nctempstring,i,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp267].fd =0;
 }
 int nctemp278 = i + 1;
@@ -365,76 +313,26 @@ int nctemp279 = (i < 40);
 nctemp205=nctemp279;
 }
 int nctemp286=0;
-if((0>0)||(0>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(288,nctempstring,0,0,LibeFarr->d[0]);
-}
 int nctemp288= -1;
 LibeFarr->a[nctemp286].fd =nctemp288;
 int nctemp292=0;
-if((0>0)||(0>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(289,nctempstring,0,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp292].readflg =1;
 int nctemp298=1;
-if((0>1)||(1>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(290,nctempstring,1,0,LibeFarr->d[0]);
-}
 int nctemp300= -1;
 LibeFarr->a[nctemp298].fd =nctemp300;
 int nctemp304=1;
-if((0>1)||(1>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(291,nctempstring,1,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp304].readflg =1;
 int nctemp310=2;
-if((0>2)||(2>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(296,nctempstring,2,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp310].fd =0;
 int nctemp316=2;
-if((0>2)||(2>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(297,nctempstring,2,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp316].readflg =1;
 int nctemp322=3;
-if((0>3)||(3>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(298,nctempstring,3,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp322].fd =1;
 int nctemp328=3;
-if((0>3)||(3>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(299,nctempstring,3,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp328].writflg =1;
 int nctemp334=4;
-if((0>4)||(4>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(300,nctempstring,4,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp334].fd =2;
 int nctemp340=4;
-if((0>4)||(4>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(301,nctempstring,4,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp340].writflg =1;
 int nctemp349=64;
 nctempchar1 *nctemp348;
@@ -464,11 +362,6 @@ int nctemp374 = (i < 40);
 while(nctemp374){
 {
 int nctemp381=i;
-if((0>i)||(i>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(331,nctempstring,i,0,LibeFarr->d[0]);
-}
 nctempchar1 *nctemp379 =LibeFarr->a[nctemp381].base;
 int nctemp378 =(nctemp379!=0);
 if(nctemp378)
@@ -477,11 +370,6 @@ int nctemp385 = (i > 4);
 if(nctemp385)
 {
 int nctemp393=i;
-if((0>i)||(i>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(335,nctempstring,i,0,LibeFarr->d[0]);
-}
 fd =LibeFarr->a[nctemp393].fd;
 int nctemp399= fd;
 int nctemp401=RunClose(nctemp399);
@@ -500,11 +388,6 @@ int nctemp421= i;
 int nctemp423=LibeFlush(nctemp421);
 stat =nctemp423;
 int nctemp426=i;
-if((0>i)||(i>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(343,nctempstring,i,0,LibeFarr->d[0]);
-}
 RunFree(LibeFarr->a[nctemp426].base->a);
 RunFree(LibeFarr->a[nctemp426].base);
 }
@@ -524,31 +407,16 @@ int fd;
 int slot;
 int i;
 int nctemp449=0;
-if((0>0)||(0>=mode->d[0])){
-nctempstring->a="mode";
-nctempstring->d[0]=strlen("mode")+1;;
-LibeArrayex(384,nctempstring,0,0,mode->d[0]);
-}
 char nctemp452=(char)('r');
 int nctemp446 = (mode->a[nctemp449] !=nctemp452);
 if(nctemp446)
 {
 int nctemp458=0;
-if((0>0)||(0>=mode->d[0])){
-nctempstring->a="mode";
-nctempstring->d[0]=strlen("mode")+1;;
-LibeArrayex(385,nctempstring,0,0,mode->d[0]);
-}
 char nctemp461=(char)('w');
 int nctemp455 = (mode->a[nctemp458] !=nctemp461);
 if(nctemp455)
 {
 int nctemp467=0;
-if((0>0)||(0>=mode->d[0])){
-nctempstring->a="mode";
-nctempstring->d[0]=strlen("mode")+1;;
-LibeArrayex(386,nctempstring,0,0,mode->d[0]);
-}
 char nctemp470=(char)('a');
 int nctemp464 = (mode->a[nctemp467] !=nctemp470);
 if(nctemp464)
@@ -572,18 +440,8 @@ int nctemp505=nctemp493;
 while(nctemp505)
 {{
 int nctemp512=i;
-if((0>i)||(i>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(397,nctempstring,i,0,LibeFarr->d[0]);
-}
 int nctemp509 = (LibeFarr->a[nctemp512].readflg ==0);
 int nctemp519=i;
-if((0>i)||(i>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(397,nctempstring,i,0,LibeFarr->d[0]);
-}
 int nctemp516 = (LibeFarr->a[nctemp519].writflg ==0);
 int nctemp506 = (nctemp509 && nctemp516);
 if(nctemp506)
@@ -607,11 +465,6 @@ LibeErrno =(-104);
 return 0;
 }
 int nctemp569=0;
-if((0>0)||(0>=mode->d[0])){
-nctempstring->a="mode";
-nctempstring->d[0]=strlen("mode")+1;;
-LibeArrayex(411,nctempstring,0,0,mode->d[0]);
-}
 int nctemp566=(int)(mode->a[nctemp569]);
 int nctemp563 = (nctemp566 =='w');
 if(nctemp563)
@@ -622,11 +475,6 @@ fd =nctemp579;
 }
 else{
 int nctemp586=0;
-if((0>0)||(0>=mode->d[0])){
-nctempstring->a="mode";
-nctempstring->d[0]=strlen("mode")+1;;
-LibeArrayex(413,nctempstring,0,0,mode->d[0]);
-}
 int nctemp583=(int)(mode->a[nctemp586]);
 int nctemp580 = (nctemp583 =='a');
 if(nctemp580)
@@ -651,11 +499,6 @@ fd =nctemp622;
 }
 else{
 int nctemp629=0;
-if((0>0)||(0>=mode->d[0])){
-nctempstring->a="mode";
-nctempstring->d[0]=strlen("mode")+1;;
-LibeArrayex(419,nctempstring,0,0,mode->d[0]);
-}
 int nctemp626=(int)(mode->a[nctemp629]);
 int nctemp623 = (nctemp626 =='r');
 if(nctemp623)
@@ -686,51 +529,21 @@ LibeErrno =(-105);
 return 0;
 }
 int nctemp674=slot;
-if((0>slot)||(slot>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(439,nctempstring,slot,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp674].fd =fd;
 int nctemp680=slot;
-if((0>slot)||(slot>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(440,nctempstring,slot,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp680].cnt =0;
 int nctemp686=slot;
-if((0>slot)||(slot>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(441,nctempstring,slot,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp686].base=(0);
 int nctemp696=0;
-if((0>0)||(0>=mode->d[0])){
-nctempstring->a="mode";
-nctempstring->d[0]=strlen("mode")+1;;
-LibeArrayex(446,nctempstring,0,0,mode->d[0]);
-}
 int nctemp693=(int)(mode->a[nctemp696]);
 int nctemp690 = (nctemp693 =='r');
 if(nctemp690)
 {
 int nctemp702=slot;
-if((0>slot)||(slot>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(447,nctempstring,slot,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp702].readflg =1;
 }
 else{
 int nctemp708=slot;
-if((0>slot)||(slot>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(449,nctempstring,slot,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp708].writflg =1;
 }
 return slot;
@@ -740,11 +553,6 @@ int LibeClose (int fp)
 int fd;
 int stat;
 int nctemp715=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(477,nctempstring,fp,0,LibeFarr->d[0]);
-}
 nctempchar1 *nctemp713 =LibeFarr->a[nctemp715].base;
 int nctemp712 =(nctemp713!=0);
 if(nctemp712)
@@ -753,11 +561,6 @@ int nctemp720= fp;
 int nctemp722=LibeFlush(nctemp720);
 }
 int nctemp727=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(483,nctempstring,fp,0,LibeFarr->d[0]);
-}
 fd =LibeFarr->a[nctemp727].fd;
 int nctemp733= fd;
 int nctemp735=RunClose(nctemp733);
@@ -766,11 +569,6 @@ int nctemp736 = (stat ==0);
 if(nctemp736)
 {
 int nctemp743=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(486,nctempstring,fp,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp743].errflg =1;
 struct nctempchar1 *nctemp751;
 static struct nctempchar1 nctemp752 = {{ 21}, (char*)"Could not close file\0"};
@@ -780,104 +578,39 @@ LibeErrno =(-106);
 return 0;
 }
 int nctemp761=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(494,nctempstring,fp,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp761].cnt =0;
 int nctemp767=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(495,nctempstring,fp,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp767].ptr =0;
 int nctemp773=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(496,nctempstring,fp,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp773].bufsize =0;
 int nctemp779=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(497,nctempstring,fp,0,LibeFarr->d[0]);
-}
 nctempchar1 *nctemp777 =LibeFarr->a[nctemp779].base;
 int nctemp776 =(nctemp777!=0);
 if(nctemp776)
 {
 int nctemp785=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(498,nctempstring,fp,0,LibeFarr->d[0]);
-}
 RunFree(LibeFarr->a[nctemp785].base->a);
 RunFree(LibeFarr->a[nctemp785].base);
 }
 int nctemp791=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(500,nctempstring,fp,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp791].base=(0);
 int nctemp798=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(501,nctempstring,fp,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp798].readflg =0;
 int nctemp804=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(502,nctempstring,fp,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp804].writflg =0;
 int nctemp810=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(503,nctempstring,fp,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp810].unbflg =0;
 int nctemp816=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(504,nctempstring,fp,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp816].errflg =0;
 int nctemp822=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(505,nctempstring,fp,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp822].eoflg =0;
 int nctemp828=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(506,nctempstring,fp,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp828].fd =0;
 return 1;
 }
 int LibeGetc (int fp)
 {
 int nctemp835=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(529,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp832 = (LibeFarr->a[nctemp835].cnt ==0);
 if(nctemp832)
 {
@@ -887,52 +620,17 @@ return nctemp841;
 }
 else{
 int nctemp845=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(532,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp851=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(532,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp854 = LibeFarr->a[nctemp851].cnt - 1;
 LibeFarr->a[nctemp845].cnt =nctemp854;
 int nctemp858=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(533,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp864=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(533,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp867 = LibeFarr->a[nctemp864].ptr + 1;
 LibeFarr->a[nctemp858].ptr =nctemp867;
 int nctemp872=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(534,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp878=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(534,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp881 = LibeFarr->a[nctemp878].ptr - 1;
 int nctemp874=nctemp881;
-if((0>nctemp881)||(nctemp881>=LibeFarr->a[nctemp872].base->d[0])){
-nctempstring->a="LibeFarr->a[nctemp872].base";
-nctempstring->d[0]=strlen("LibeFarr->a[nctemp872].base")+1;;
-LibeArrayex(534,nctempstring,nctemp881,0,LibeFarr->a[nctemp872].base->d[0]);
-}
 int nctemp869=(int)(LibeFarr->a[nctemp872].base->a[nctemp874]);
 return nctemp869;
 }
@@ -940,116 +638,41 @@ return nctemp869;
 int LibeUngetc (int fp)
 {
 int nctemp885=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(577,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp882 = (LibeFarr->a[nctemp885].eoflg ==1);
 if(nctemp882)
 {
 return (-1);
 }
 int nctemp892=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(582,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp895=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(582,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp889 = (LibeFarr->a[nctemp892].cnt < LibeFarr->a[nctemp895].bufsize);
 if(nctemp889)
 {
 int nctemp900=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(583,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp906=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(583,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp909 = LibeFarr->a[nctemp906].cnt + 1;
 LibeFarr->a[nctemp900].cnt =nctemp909;
 int nctemp913=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(584,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp919=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(584,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp922 = LibeFarr->a[nctemp919].ptr - 1;
 LibeFarr->a[nctemp913].ptr =nctemp922;
 int nctemp926=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(588,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp932=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(588,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp935 = LibeFarr->a[nctemp932].bufsize - 1;
 int nctemp923 = (LibeFarr->a[nctemp926].ptr ==nctemp935);
 if(nctemp923)
 {
 int nctemp940=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(589,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp944=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(589,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp942=LibeFarr->a[nctemp944].ptr;
-if((0>LibeFarr->a[nctemp944].ptr)||(LibeFarr->a[nctemp944].ptr>=LibeFarr->a[nctemp940].base->d[0])){
-nctempstring->a="LibeFarr->a[nctemp940].base";
-nctempstring->d[0]=strlen("LibeFarr->a[nctemp940].base")+1;;
-LibeArrayex(589,nctempstring,LibeFarr->a[nctemp944].ptr,0,LibeFarr->a[nctemp940].base->d[0]);
-}
 int nctemp937=(int)(LibeFarr->a[nctemp940].base->a[nctemp942]);
 return nctemp937;
 }
 else{
 int nctemp950=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(591,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp956=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(591,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp959 = LibeFarr->a[nctemp956].ptr + 1;
 int nctemp952=nctemp959;
-if((0>nctemp959)||(nctemp959>=LibeFarr->a[nctemp950].base->d[0])){
-nctempstring->a="LibeFarr->a[nctemp950].base";
-nctempstring->d[0]=strlen("LibeFarr->a[nctemp950].base")+1;;
-LibeArrayex(591,nctempstring,nctemp959,0,LibeFarr->a[nctemp950].base->d[0]);
-}
 int nctemp947=(int)(LibeFarr->a[nctemp950].base->a[nctemp952]);
 return nctemp947;
 }
@@ -1113,22 +736,12 @@ if(nctemp1069)
 int nctemp1090= fp;
 int nctemp1092=LibeUngetc(nctemp1090);
 int nctemp1096=p;
-if((0>p)||(p>=text->d[0])){
-nctempstring->a="text";
-nctempstring->d[0]=strlen("text")+1;;
-LibeArrayex(626,nctempstring,p,0,text->d[0]);
-}
 char nctemp1099=(char)(0);
 text->a[nctemp1096] =nctemp1099;
 return 1;
 }
 else{
 int nctemp1106=p;
-if((0>p)||(p>=text->d[0])){
-nctempstring->a="text";
-nctempstring->d[0]=strlen("text")+1;;
-LibeArrayex(630,nctempstring,p,0,text->d[0]);
-}
 char nctemp1109=(char)(ch);
 text->a[nctemp1106] =nctemp1109;
 int nctemp1120 = p + 1;
@@ -1161,11 +774,6 @@ int LibePutc (int fp,int c)
 {
 int rval;
 int nctemp1154=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(666,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp1151 = (LibeFarr->a[nctemp1154].cnt ==0);
 if(nctemp1151)
 {
@@ -1173,17 +781,7 @@ int nctemp1158= fp;
 int nctemp1160=LibeFlushbuff(nctemp1158);
 }
 int nctemp1164=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(667,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp1167=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(667,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp1161 = (LibeFarr->a[nctemp1164].cnt ==LibeFarr->a[nctemp1167].bufsize);
 if(nctemp1161)
 {
@@ -1191,102 +789,32 @@ int nctemp1173= fp;
 int nctemp1175=LibeFlushbuff(nctemp1173);
 rval =nctemp1175;
 int nctemp1179=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(669,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp1183=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(669,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp1181=LibeFarr->a[nctemp1183].ptr;
-if((0>LibeFarr->a[nctemp1183].ptr)||(LibeFarr->a[nctemp1183].ptr>=LibeFarr->a[nctemp1179].base->d[0])){
-nctempstring->a="LibeFarr->a[nctemp1179].base";
-nctempstring->d[0]=strlen("LibeFarr->a[nctemp1179].base")+1;;
-LibeArrayex(669,nctempstring,LibeFarr->a[nctemp1183].ptr,0,LibeFarr->a[nctemp1179].base->d[0]);
-}
 char nctemp1186=(char)(c);
 LibeFarr->a[nctemp1179].base->a[nctemp1181] =nctemp1186;
 int nctemp1192=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(670,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp1198=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(670,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp1201 = LibeFarr->a[nctemp1198].ptr + 1;
 LibeFarr->a[nctemp1192].ptr =nctemp1201;
 int nctemp1205=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(671,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp1211=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(671,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp1214 = LibeFarr->a[nctemp1211].cnt + 1;
 LibeFarr->a[nctemp1205].cnt =nctemp1214;
 return rval;
 }
 else{
 int nctemp1219=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(675,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp1223=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(675,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp1221=LibeFarr->a[nctemp1223].ptr;
-if((0>LibeFarr->a[nctemp1223].ptr)||(LibeFarr->a[nctemp1223].ptr>=LibeFarr->a[nctemp1219].base->d[0])){
-nctempstring->a="LibeFarr->a[nctemp1219].base";
-nctempstring->d[0]=strlen("LibeFarr->a[nctemp1219].base")+1;;
-LibeArrayex(675,nctempstring,LibeFarr->a[nctemp1223].ptr,0,LibeFarr->a[nctemp1219].base->d[0]);
-}
 char nctemp1226=(char)(c);
 LibeFarr->a[nctemp1219].base->a[nctemp1221] =nctemp1226;
 int nctemp1232=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(676,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp1238=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(676,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp1241 = LibeFarr->a[nctemp1238].cnt + 1;
 LibeFarr->a[nctemp1232].cnt =nctemp1241;
 int nctemp1245=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(677,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp1251=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(677,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp1254 = LibeFarr->a[nctemp1251].ptr + 1;
 LibeFarr->a[nctemp1245].ptr =nctemp1254;
 return 1;
@@ -1324,11 +852,6 @@ int i;
 int nctemp1286=s->d[0];ls =nctemp1286;
 i =0;
 int nctemp1303=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(715,nctempstring,i,0,s->d[0]);
-}
 int nctemp1300=(int)(s->a[nctemp1303]);
 int nctemp1297 = (nctemp1300 !=0);
 int nctemp1307 = (i < ls);
@@ -1338,11 +861,6 @@ while(nctemp1311)
 {{
 int nctemp1315= fp;
 int nctemp1322=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(716,nctempstring,i,0,s->d[0]);
-}
 int nctemp1319=(int)(s->a[nctemp1322]);
 int nctemp1317= nctemp1319;
 int nctemp1324=LibePutc(nctemp1315,nctemp1317);
@@ -1362,11 +880,6 @@ i =nctemp1346;
 }
 }
 int nctemp1356=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(715,nctempstring,i,0,s->d[0]);
-}
 int nctemp1353=(int)(s->a[nctemp1356]);
 int nctemp1350 = (nctemp1353 !=0);
 int nctemp1360 = (i < ls);
@@ -1400,11 +913,6 @@ int LibeRead (int fp,int n,nctempchar1 *buffer)
 {
 int rval;
 int nctemp1403=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(779,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp1400 = (LibeFarr->a[nctemp1403].readflg !=1);
 if(nctemp1400)
 {
@@ -1426,11 +934,6 @@ LibeErrstr=nctemp1435;
 return 0;
 }
 int nctemp1444=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(789,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp1442= LibeFarr->a[nctemp1444].fd;
 int nctemp1446= n;
 nctempchar1* nctemp1448= buffer;
@@ -1440,11 +943,6 @@ int nctemp1452 = (rval ==(-1));
 if(nctemp1452)
 {
 int nctemp1459=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(791,nctempstring,fp,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp1459].eoflg =1;
 rval =(-1);
 }
@@ -1453,11 +951,6 @@ int nctemp1466 = (rval ==0);
 if(nctemp1466)
 {
 int nctemp1473=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(795,nctempstring,fp,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp1473].errflg =1;
 struct nctempchar1 *nctemp1481;
 static struct nctempchar1 nctemp1482 = {{ 11}, (char*)"read error\0"};
@@ -1465,11 +958,6 @@ nctemp1481=&nctemp1482;
 LibeErrstr=nctemp1481;
 LibeErrno =0;
 int nctemp1490=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(798,nctempstring,fp,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp1490].errflg =0;
 rval =0;
 }
@@ -1490,11 +978,6 @@ LibeErrstr=nctemp1515;
 return 0;
 }
 int nctemp1521=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(820,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp1518 = (LibeFarr->a[nctemp1521].writflg !=1);
 if(nctemp1518)
 {
@@ -1506,11 +989,6 @@ LibeErrno =(-110);
 return 0;
 }
 int nctemp1542=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(825,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp1540= LibeFarr->a[nctemp1542].fd;
 int nctemp1544= n;
 nctempchar1* nctemp1546= buffer;
@@ -1520,11 +998,6 @@ int nctemp1550 = (rval ==0);
 if(nctemp1550)
 {
 int nctemp1557=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(827,nctempstring,fp,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp1557].errflg =1;
 struct nctempchar1 *nctemp1565;
 static struct nctempchar1 nctemp1566 = {{ 12}, (char*)"write error\0"};
@@ -1532,11 +1005,6 @@ nctemp1565=&nctemp1566;
 LibeErrstr=nctemp1565;
 LibeErrno =0;
 int nctemp1574=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(830,nctempstring,fp,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp1574].errflg =0;
 rval =0;
 }
@@ -1546,11 +1014,6 @@ int LibeSeek (int fp,int pos,int flag)
 {
 int rval;
 int nctemp1588=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(847,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp1586= LibeFarr->a[nctemp1588].fd;
 int nctemp1590= pos;
 int nctemp1592= flag;
@@ -1560,11 +1023,6 @@ int nctemp1595 = (rval ==0);
 if(nctemp1595)
 {
 int nctemp1602=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(849,nctempstring,fp,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp1602].errflg =1;
 struct nctempchar1 *nctemp1610;
 static struct nctempchar1 nctemp1611 = {{ 11}, (char*)"Seek error\0"};
@@ -1572,11 +1030,6 @@ nctemp1610=&nctemp1611;
 LibeErrstr=nctemp1610;
 LibeErrno =0;
 int nctemp1619=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(852,nctempstring,fp,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp1619].errflg =0;
 rval =0;
 }
@@ -1593,11 +1046,6 @@ int LibeFillbuff (int fp)
 int size;
 int rval;
 int nctemp1634=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(888,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp1631 = (LibeFarr->a[nctemp1634].readflg !=1);
 if(nctemp1631)
 {
@@ -1609,54 +1057,24 @@ LibeErrno =(-110);
 return (-1);
 }
 int nctemp1652=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(893,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp1649 = (LibeFarr->a[nctemp1652].unbflg ==1);
 if(nctemp1649)
 {
 int nctemp1658=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(894,nctempstring,fp,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp1658].bufsize =1;
 }
 else{
 int nctemp1664=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(896,nctempstring,fp,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp1664].bufsize =1024;
 }
 int nctemp1670=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(897,nctempstring,fp,0,LibeFarr->d[0]);
-}
 nctempchar1 *nctemp1668 =LibeFarr->a[nctemp1670].base;
 int nctemp1667 =(nctemp1668==0);
 if(nctemp1667)
 {
 int nctemp1678=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(898,nctempstring,fp,0,LibeFarr->d[0]);
-}
 size =LibeFarr->a[nctemp1678].bufsize;
 int nctemp1686=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(899,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp1691=size;
 nctempchar1 *nctemp1690;
 nctemp1690=(nctempchar1*)RunMalloc(sizeof(nctempchar1));
@@ -1676,75 +1094,30 @@ return (-1);
 }
 }
 int nctemp1710=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(905,nctempstring,fp,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp1710].ptr =0;
 int nctemp1716=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(906,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp1721=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(906,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp1719= LibeFarr->a[nctemp1721].fd;
 int nctemp1725=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(906,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp1723= LibeFarr->a[nctemp1725].bufsize;
 int nctemp1729=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(907,nctempstring,fp,0,LibeFarr->d[0]);
-}
 nctempchar1* nctemp1727= LibeFarr->a[nctemp1729].base;
 int nctemp1732=RunRead(nctemp1719,nctemp1723,nctemp1727);
 LibeFarr->a[nctemp1716].cnt =nctemp1732;
 int nctemp1736=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(908,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp1733 = (LibeFarr->a[nctemp1736].cnt <= 0);
 if(nctemp1733)
 {
 int nctemp1742=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(909,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp1739 = (LibeFarr->a[nctemp1742].cnt ==(-1));
 if(nctemp1739)
 {
 int nctemp1748=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(910,nctempstring,fp,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp1748].eoflg =1;
 rval =(-1);
 }
 else{
 int nctemp1758=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(914,nctempstring,fp,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp1758].errflg =1;
 struct nctempchar1 *nctemp1766;
 static struct nctempchar1 nctemp1767 = {{ 11}, (char*)"read error\0"};
@@ -1754,61 +1127,21 @@ LibeErrno =(-111);
 rval =(-1);
 }
 int nctemp1779=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(919,nctempstring,fp,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp1779].cnt =0;
 return rval;
 }
 int nctemp1786=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(922,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp1792=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(922,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp1795 = LibeFarr->a[nctemp1792].ptr + 1;
 LibeFarr->a[nctemp1786].ptr =nctemp1795;
 int nctemp1799=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(923,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp1805=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(923,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp1808 = LibeFarr->a[nctemp1805].cnt - 1;
 LibeFarr->a[nctemp1799].cnt =nctemp1808;
 int nctemp1813=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(924,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp1819=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(924,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp1822 = LibeFarr->a[nctemp1819].ptr - 1;
 int nctemp1815=nctemp1822;
-if((0>nctemp1822)||(nctemp1822>=LibeFarr->a[nctemp1813].base->d[0])){
-nctempstring->a="LibeFarr->a[nctemp1813].base";
-nctempstring->d[0]=strlen("LibeFarr->a[nctemp1813].base")+1;;
-LibeArrayex(924,nctempstring,nctemp1822,0,LibeFarr->a[nctemp1813].base->d[0]);
-}
 int nctemp1810=(int)(LibeFarr->a[nctemp1813].base->a[nctemp1815]);
 return nctemp1810;
 }
@@ -1817,11 +1150,6 @@ int LibeFlushbuff (int fp)
 int st;
 int size;
 int nctemp1826=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(945,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp1823 = (LibeFarr->a[nctemp1826].writflg !=1);
 if(nctemp1823)
 {
@@ -1833,54 +1161,24 @@ LibeErrno =(-110);
 return 0;
 }
 int nctemp1844=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(950,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp1841 = (LibeFarr->a[nctemp1844].unbflg ==1);
 if(nctemp1841)
 {
 int nctemp1850=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(951,nctempstring,fp,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp1850].bufsize =1;
 }
 else{
 int nctemp1856=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(953,nctempstring,fp,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp1856].bufsize =1024;
 }
 int nctemp1862=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(955,nctempstring,fp,0,LibeFarr->d[0]);
-}
 nctempchar1 *nctemp1860 =LibeFarr->a[nctemp1862].base;
 int nctemp1859 =(nctemp1860==0);
 if(nctemp1859)
 {
 int nctemp1870=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(956,nctempstring,fp,0,LibeFarr->d[0]);
-}
 size =LibeFarr->a[nctemp1870].bufsize;
 int nctemp1878=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(957,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp1883=size;
 nctempchar1 *nctemp1882;
 nctemp1882=(nctempchar1*)RunMalloc(sizeof(nctempchar1));
@@ -1900,50 +1198,20 @@ return 0;
 }
 }
 int nctemp1902=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(963,nctempstring,fp,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp1902].ptr =0;
 int nctemp1911=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(964,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp1909= LibeFarr->a[nctemp1911].fd;
 int nctemp1915=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(964,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp1913= LibeFarr->a[nctemp1915].cnt;
 int nctemp1919=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(964,nctempstring,fp,0,LibeFarr->d[0]);
-}
 nctempchar1* nctemp1917= LibeFarr->a[nctemp1919].base;
 int nctemp1922=RunWrite(nctemp1909,nctemp1913,nctemp1917);
 st =nctemp1922;
 int nctemp1927=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(965,nctempstring,fp,0,LibeFarr->d[0]);
-}
 int nctemp1923 = (st !=LibeFarr->a[nctemp1927].cnt);
 if(nctemp1923)
 {
 int nctemp1932=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(966,nctempstring,fp,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp1932].errflg =1;
 struct nctempchar1 *nctemp1940;
 static struct nctempchar1 nctemp1941 = {{ 12}, (char*)"write error\0"};
@@ -1951,35 +1219,15 @@ nctemp1940=&nctemp1941;
 LibeErrstr=nctemp1940;
 LibeErrno =(-112);
 int nctemp1949=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(969,nctempstring,fp,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp1949].cnt =0;
 int nctemp1955=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(970,nctempstring,fp,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp1955].ptr =0;
 return 0;
 }
 else{
 int nctemp1962=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(974,nctempstring,fp,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp1962].cnt =0;
 int nctemp1968=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-nctempstring->a="LibeFarr";
-nctempstring->d[0]=strlen("LibeFarr")+1;;
-LibeArrayex(975,nctempstring,fp,0,LibeFarr->d[0]);
-}
 LibeFarr->a[nctemp1968].ptr =0;
 return 1;
 }
@@ -1991,11 +1239,6 @@ int i;
 int nctemp1976=s->d[0];ls =nctemp1976;
 i =0;
 int nctemp1993=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(994,nctempstring,i,0,s->d[0]);
-}
 int nctemp1990=(int)(s->a[nctemp1993]);
 int nctemp1987 = (nctemp1990 !=0);
 int nctemp1997 = (i < ls);
@@ -2007,11 +1250,6 @@ int nctemp2010 = i + 1;
 i =nctemp2010;
 }
 int nctemp2020=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(994,nctempstring,i,0,s->d[0]);
-}
 int nctemp2017=(int)(s->a[nctemp2020]);
 int nctemp2014 = (nctemp2017 !=0);
 int nctemp2024 = (i < ls);
@@ -2025,17 +1263,7 @@ int i;
 int nctemp2033=s->d[0];ls =nctemp2033;
 i =0;
 int nctemp2047=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1011,nctempstring,i,0,s->d[0]);
-}
 int nctemp2050=i;
-if((0>i)||(i>=t->d[0])){
-nctempstring->a="t";
-nctempstring->d[0]=strlen("t")+1;;
-LibeArrayex(1011,nctempstring,i,0,t->d[0]);
-}
 int nctemp2044 = (s->a[nctemp2047] ==t->a[nctemp2050]);
 int nctemp2053 = (i < ls);
 int nctemp2041 = (nctemp2044 && nctemp2053);
@@ -2043,11 +1271,6 @@ int nctemp2057=nctemp2041;
 while(nctemp2057)
 {{
 int nctemp2064=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1012,nctempstring,i,0,s->d[0]);
-}
 int nctemp2061=(int)(s->a[nctemp2064]);
 int nctemp2058 = (nctemp2061 ==0);
 if(nctemp2058)
@@ -2058,17 +1281,7 @@ int nctemp2076 = i + 1;
 i =nctemp2076;
 }
 int nctemp2083=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1011,nctempstring,i,0,s->d[0]);
-}
 int nctemp2086=i;
-if((0>i)||(i>=t->d[0])){
-nctempstring->a="t";
-nctempstring->d[0]=strlen("t")+1;;
-LibeArrayex(1011,nctempstring,i,0,t->d[0]);
-}
 int nctemp2080 = (s->a[nctemp2083] ==t->a[nctemp2086]);
 int nctemp2089 = (i < ls);
 int nctemp2077 = (nctemp2080 && nctemp2089);
@@ -2089,31 +1302,11 @@ int nctemp2115=nctemp2111;
 while(nctemp2115)
 {{
 int nctemp2120=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1035,nctempstring,i,0,s->d[0]);
-}
 c =s->a[nctemp2120];
 int nctemp2125=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1036,nctempstring,i,0,s->d[0]);
-}
 int nctemp2128=j;
-if((0>j)||(j>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1036,nctempstring,j,0,s->d[0]);
-}
 s->a[nctemp2125] =s->a[nctemp2128];
 int nctemp2133=j;
-if((0>j)||(j>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1037,nctempstring,j,0,s->d[0]);
-}
 s->a[nctemp2133] =c;
 int nctemp2144 = i + 1;
 i =nctemp2144;
@@ -2145,17 +1338,7 @@ int nctemp2185 = (i <= ls);
 while(nctemp2185){
 {
 int nctemp2192=i;
-if((0>i)||(i>=t->d[0])){
-nctempstring->a="t";
-nctempstring->d[0]=strlen("t")+1;;
-LibeArrayex(1063,nctempstring,i,0,t->d[0]);
-}
 int nctemp2195=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1063,nctempstring,i,0,s->d[0]);
-}
 t->a[nctemp2192] =s->a[nctemp2195];
 }
 int nctemp2205 = i + 1;
@@ -2188,18 +1371,8 @@ int nctemp2245 = (i < nctemp2253);
 while(nctemp2245){
 {
 int nctemp2257=i;
-if((0>i)||(i>=t->d[0])){
-nctempstring->a="t";
-nctempstring->d[0]=strlen("t")+1;;
-LibeArrayex(1085,nctempstring,i,0,t->d[0]);
-}
 int nctemp2265 = i - lt;
 int nctemp2260=nctemp2265;
-if((0>nctemp2265)||(nctemp2265>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1085,nctempstring,nctemp2265,0,s->d[0]);
-}
 t->a[nctemp2257] =s->a[nctemp2260];
 }
 int nctemp2274 = i + 1;
@@ -2210,11 +1383,6 @@ nctemp2245=nctemp2275;
 }
 int nctemp2292 = ls + lt;
 int nctemp2287=nctemp2292;
-if((0>nctemp2292)||(nctemp2292>=t->d[0])){
-nctempstring->a="t";
-nctempstring->d[0]=strlen("t")+1;;
-LibeArrayex(1087,nctempstring,nctemp2292,0,t->d[0]);
-}
 char nctemp2294=(char)(0);
 t->a[nctemp2287] =nctemp2294;
 return 1;
@@ -2246,17 +1414,7 @@ int nctemp2345 = (i < lt);
 while(nctemp2345){
 {
 int nctemp2352=i;
-if((0>i)||(i>=r->d[0])){
-nctempstring->a="r";
-nctempstring->d[0]=strlen("r")+1;;
-LibeArrayex(1103,nctempstring,i,0,r->d[0]);
-}
 int nctemp2355=i;
-if((0>i)||(i>=t->d[0])){
-nctempstring->a="t";
-nctempstring->d[0]=strlen("t")+1;;
-LibeArrayex(1103,nctempstring,i,0,t->d[0]);
-}
 r->a[nctemp2352] =t->a[nctemp2355];
 }
 int nctemp2365 = i + 1;
@@ -2270,18 +1428,8 @@ int nctemp2374 = (i < nctemp2382);
 while(nctemp2374){
 {
 int nctemp2386=i;
-if((0>i)||(i>=r->d[0])){
-nctempstring->a="r";
-nctempstring->d[0]=strlen("r")+1;;
-LibeArrayex(1106,nctempstring,i,0,r->d[0]);
-}
 int nctemp2394 = i - lt;
 int nctemp2389=nctemp2394;
-if((0>nctemp2394)||(nctemp2394>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1106,nctempstring,nctemp2394,0,s->d[0]);
-}
 r->a[nctemp2386] =s->a[nctemp2389];
 }
 int nctemp2403 = i + 1;
@@ -2292,11 +1440,6 @@ nctemp2374=nctemp2404;
 }
 int nctemp2421 = ls + lt;
 int nctemp2416=nctemp2421;
-if((0>nctemp2421)||(nctemp2421>=r->d[0])){
-nctempstring->a="r";
-nctempstring->d[0]=strlen("r")+1;;
-LibeArrayex(1108,nctempstring,nctemp2421,0,r->d[0]);
-}
 char nctemp2423=(char)(0);
 r->a[nctemp2416] =nctemp2423;
 return r;
@@ -2393,28 +1536,13 @@ int i;
 int n;
 i =0;
 int nctemp2577=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1216,nctempstring,i,0,s->d[0]);
-}
 char nctemp2580=(char)(' ');
 int nctemp2574 = (s->a[nctemp2577] ==nctemp2580);
 int nctemp2587=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1216,nctempstring,i,0,s->d[0]);
-}
 char nctemp2590=(char)(10);
 int nctemp2584 = (s->a[nctemp2587] ==nctemp2590);
 int nctemp2571 = (nctemp2574 || nctemp2584);
 int nctemp2597=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1217,nctempstring,i,0,s->d[0]);
-}
 char nctemp2600=(char)(9);
 int nctemp2594 = (s->a[nctemp2597] ==nctemp2600);
 int nctemp2568 = (nctemp2571 || nctemp2594);
@@ -2425,37 +1553,17 @@ int nctemp2612 = i + 1;
 i =nctemp2612;
 }
 int nctemp2622=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1216,nctempstring,i,0,s->d[0]);
-}
 char nctemp2625=(char)(' ');
 int nctemp2619 = (s->a[nctemp2622] ==nctemp2625);
 int nctemp2632=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1216,nctempstring,i,0,s->d[0]);
-}
 char nctemp2635=(char)(10);
 int nctemp2629 = (s->a[nctemp2632] ==nctemp2635);
 int nctemp2616 = (nctemp2619 || nctemp2629);
 int nctemp2642=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1217,nctempstring,i,0,s->d[0]);
-}
 char nctemp2645=(char)(9);
 int nctemp2639 = (s->a[nctemp2642] ==nctemp2645);
 int nctemp2613 = (nctemp2616 || nctemp2639);
 nctemp2603=nctemp2613;}int nctemp2651=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1223,nctempstring,i,0,s->d[0]);
-}
 char nctemp2654=(char)('-');
 int nctemp2648 = (s->a[nctemp2651] ==nctemp2654);
 if(nctemp2648)
@@ -2467,11 +1575,6 @@ i =nctemp2669;
 }
 else{
 int nctemp2673=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1227,nctempstring,i,0,s->d[0]);
-}
 char nctemp2676=(char)('+');
 int nctemp2670 = (s->a[nctemp2673] ==nctemp2676);
 if(nctemp2670)
@@ -2486,11 +1589,6 @@ sign =1;
 }
 n =0;
 int nctemp2706=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1236,nctempstring,i,0,s->d[0]);
-}
 int nctemp2703=(int)(s->a[nctemp2706]);
 int nctemp2701= nctemp2703;
 int nctemp2708=LibeIsdigit(nctemp2701);
@@ -2498,11 +1596,6 @@ while(nctemp2708){
 {
 int nctemp2723 = 10 * n;
 int nctemp2728=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1237,nctempstring,i,0,s->d[0]);
-}
 int nctemp2725=(int)(s->a[nctemp2728]);
 int nctemp2730 = nctemp2723 + nctemp2725;
 int nctemp2732 = nctemp2730 - '0';
@@ -2511,11 +1604,6 @@ n =nctemp2732;
 int nctemp2741 = i + 1;
 i =nctemp2741;
 int nctemp2748=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1236,nctempstring,i,0,s->d[0]);
-}
 int nctemp2745=(int)(s->a[nctemp2748]);
 int nctemp2743= nctemp2745;
 int nctemp2750=LibeIsdigit(nctemp2743);
@@ -2543,11 +1631,6 @@ n =nctemp2773;
 }
 i =0;
 int nctemp2781=0;
-if((0>0)||(0>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1263,nctempstring,0,0,s->d[0]);
-}
 int nctemp2789= n;
 int nctemp2791= 10;
 int nctemp2793=LibeMod(nctemp2789,nctemp2791);
@@ -2570,11 +1653,6 @@ return 0;
 int nctemp2841 = i + 1;
 i =nctemp2841;
 int nctemp2832=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1266,nctempstring,i,0,s->d[0]);
-}
 int nctemp2848= n;
 int nctemp2850= 10;
 int nctemp2852=LibeMod(nctemp2848,nctemp2850);
@@ -2598,11 +1676,6 @@ return 0;
 int nctemp2903 = i + 1;
 i =nctemp2903;
 int nctemp2894=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1270,nctempstring,i,0,s->d[0]);
-}
 char nctemp2905=(char)(45);
 s->a[nctemp2894] =nctemp2905;
 }
@@ -2616,11 +1689,6 @@ return 0;
 int nctemp2939 = i + 1;
 i =nctemp2939;
 int nctemp2930=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1273,nctempstring,i,0,s->d[0]);
-}
 char nctemp2941=(char)(0);
 s->a[nctemp2930] =nctemp2941;
 nctempchar1* nctemp2945= s;
@@ -2646,11 +1714,6 @@ int nctemp2966 = (nctemp2973 <= 9);
 if(nctemp2966)
 {
 int nctemp2978=0;
-if((0>0)||(0>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1293,nctempstring,0,0,s->d[0]);
-}
 int nctemp2986= n;
 int nctemp2988= 16;
 int nctemp2990=LibeMod(nctemp2986,nctemp2988);
@@ -2660,11 +1723,6 @@ s->a[nctemp2978] =nctemp2981;
 }
 else{
 int nctemp2996=0;
-if((0>0)||(0>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1296,nctempstring,0,0,s->d[0]);
-}
 int nctemp3007= n;
 int nctemp3009= 16;
 int nctemp3011=LibeMod(nctemp3007,nctemp3009);
@@ -2688,11 +1746,6 @@ if(nctemp3030)
 int nctemp3051 = i + 1;
 i =nctemp3051;
 int nctemp3042=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1300,nctempstring,i,0,s->d[0]);
-}
 int nctemp3058= n;
 int nctemp3060= 16;
 int nctemp3062=LibeMod(nctemp3058,nctemp3060);
@@ -2704,11 +1757,6 @@ else{
 int nctemp3077 = i + 1;
 i =nctemp3077;
 int nctemp3068=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1303,nctempstring,i,0,s->d[0]);
-}
 int nctemp3087= n;
 int nctemp3089= 16;
 int nctemp3091=LibeMod(nctemp3087,nctemp3089);
@@ -2727,22 +1775,12 @@ if(nctemp3109)
 int nctemp3125 = i + 1;
 i =nctemp3125;
 int nctemp3116=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1307,nctempstring,i,0,s->d[0]);
-}
 char nctemp3127=(char)(45);
 s->a[nctemp3116] =nctemp3127;
 }
 int nctemp3142 = i + 1;
 i =nctemp3142;
 int nctemp3133=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1308,nctempstring,i,0,s->d[0]);
-}
 char nctemp3144=(char)(0);
 s->a[nctemp3133] =nctemp3144;
 nctempchar1* nctemp3148= s;
@@ -2764,11 +1802,6 @@ exponent =0;
 esign =1;
 i =0;
 int nctemp3180=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1332,nctempstring,i,0,s->d[0]);
-}
 char nctemp3183=(char)(' ');
 int nctemp3177 = (s->a[nctemp3180] ==nctemp3183);
 int nctemp3186=nctemp3177;
@@ -2778,38 +1811,18 @@ int nctemp3195 = i + 1;
 i =nctemp3195;
 }
 int nctemp3199=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1332,nctempstring,i,0,s->d[0]);
-}
 char nctemp3202=(char)(' ');
 int nctemp3196 = (s->a[nctemp3199] ==nctemp3202);
 nctemp3186=nctemp3196;}int nctemp3211=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1334,nctempstring,i,0,s->d[0]);
-}
 char nctemp3214=(char)('+');
 int nctemp3208 = (s->a[nctemp3211] ==nctemp3214);
 int nctemp3221=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1334,nctempstring,i,0,s->d[0]);
-}
 char nctemp3224=(char)('-');
 int nctemp3218 = (s->a[nctemp3221] ==nctemp3224);
 int nctemp3205 = (nctemp3208 || nctemp3218);
 if(nctemp3205)
 {
 int nctemp3230=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1335,nctempstring,i,0,s->d[0]);
-}
 char nctemp3233=(char)('-');
 int nctemp3227 = (s->a[nctemp3230] ==nctemp3233);
 if(nctemp3227)
@@ -2821,11 +1834,6 @@ int nctemp3248 = i + 1;
 i =nctemp3248;
 }
 int nctemp3255=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1338,nctempstring,i,0,s->d[0]);
-}
 int nctemp3252=(int)(s->a[nctemp3255]);
 int nctemp3250= nctemp3252;
 int nctemp3257=LibeIsdigit(nctemp3250);
@@ -2834,11 +1842,6 @@ while(nctemp3258)
 {{
 float nctemp3270 = 10.0 * val;
 int nctemp3280=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1339,nctempstring,i,0,s->d[0]);
-}
 int nctemp3277=(int)(s->a[nctemp3280]);
 int nctemp3283 = nctemp3277 - '0';
 float nctemp3272=(float)(nctemp3283);
@@ -2848,20 +1851,10 @@ int nctemp3293 = i + 1;
 i =nctemp3293;
 }
 int nctemp3300=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1338,nctempstring,i,0,s->d[0]);
-}
 int nctemp3297=(int)(s->a[nctemp3300]);
 int nctemp3295= nctemp3297;
 int nctemp3302=LibeIsdigit(nctemp3295);
 nctemp3258=nctemp3302;}int nctemp3306=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1342,nctempstring,i,0,s->d[0]);
-}
 char nctemp3309=(char)('.');
 int nctemp3303 = (s->a[nctemp3306] ==nctemp3309);
 if(nctemp3303)
@@ -2869,11 +1862,6 @@ if(nctemp3303)
 int nctemp3320 = i + 1;
 i =nctemp3320;
 int nctemp3327=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1344,nctempstring,i,0,s->d[0]);
-}
 int nctemp3324=(int)(s->a[nctemp3327]);
 int nctemp3322= nctemp3324;
 int nctemp3329=LibeIsdigit(nctemp3322);
@@ -2882,11 +1870,6 @@ while(nctemp3330)
 {{
 float nctemp3342 = 10.0 * val;
 int nctemp3352=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1345,nctempstring,i,0,s->d[0]);
-}
 int nctemp3349=(int)(s->a[nctemp3352]);
 int nctemp3355 = nctemp3349 - '0';
 float nctemp3344=(float)(nctemp3355);
@@ -2898,29 +1881,14 @@ float nctemp3374 = 10.0 * power;
 power =nctemp3374;
 }
 int nctemp3381=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1344,nctempstring,i,0,s->d[0]);
-}
 int nctemp3378=(int)(s->a[nctemp3381]);
 int nctemp3376= nctemp3378;
 int nctemp3383=LibeIsdigit(nctemp3376);
 nctemp3330=nctemp3383;}}
 int nctemp3390=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1350,nctempstring,i,0,s->d[0]);
-}
 char nctemp3393=(char)('e');
 int nctemp3387 = (s->a[nctemp3390] ==nctemp3393);
 int nctemp3400=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1350,nctempstring,i,0,s->d[0]);
-}
 char nctemp3403=(char)('E');
 int nctemp3397 = (s->a[nctemp3400] ==nctemp3403);
 int nctemp3384 = (nctemp3387 || nctemp3397);
@@ -2929,30 +1897,15 @@ if(nctemp3384)
 int nctemp3414 = i + 1;
 i =nctemp3414;
 int nctemp3421=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1352,nctempstring,i,0,s->d[0]);
-}
 char nctemp3424=(char)('+');
 int nctemp3418 = (s->a[nctemp3421] ==nctemp3424);
 int nctemp3431=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1352,nctempstring,i,0,s->d[0]);
-}
 char nctemp3434=(char)('-');
 int nctemp3428 = (s->a[nctemp3431] ==nctemp3434);
 int nctemp3415 = (nctemp3418 || nctemp3428);
 if(nctemp3415)
 {
 int nctemp3440=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1353,nctempstring,i,0,s->d[0]);
-}
 char nctemp3443=(char)('-');
 int nctemp3437 = (s->a[nctemp3440] ==nctemp3443);
 if(nctemp3437)
@@ -2964,11 +1917,6 @@ int nctemp3458 = i + 1;
 i =nctemp3458;
 }
 int nctemp3465=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1356,nctempstring,i,0,s->d[0]);
-}
 int nctemp3462=(int)(s->a[nctemp3465]);
 int nctemp3460= nctemp3462;
 int nctemp3467=LibeIsdigit(nctemp3460);
@@ -2977,11 +1925,6 @@ while(nctemp3468)
 {{
 int nctemp3483 = 10 * exponent;
 int nctemp3488=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1357,nctempstring,i,0,s->d[0]);
-}
 int nctemp3485=(int)(s->a[nctemp3488]);
 int nctemp3490 = nctemp3483 + nctemp3485;
 int nctemp3492 = nctemp3490 - '0';
@@ -2990,11 +1933,6 @@ int nctemp3501 = i + 1;
 i =nctemp3501;
 }
 int nctemp3508=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1356,nctempstring,i,0,s->d[0]);
-}
 int nctemp3505=(int)(s->a[nctemp3508]);
 int nctemp3503= nctemp3505;
 int nctemp3510=LibeIsdigit(nctemp3503);
@@ -3031,11 +1969,6 @@ l =nctemp3561;
 p =0;
 q =0;
 int nctemp3577=p;
-if((0>p)||(p>=fmt->d[0])){
-nctempstring->a="fmt";
-nctempstring->d[0]=strlen("fmt")+1;;
-LibeArrayex(1391,nctempstring,p,0,fmt->d[0]);
-}
 int nctemp3574=(int)(fmt->a[nctemp3577]);
 c =nctemp3574;
 int nctemp3579 = (c =='g');
@@ -3056,17 +1989,7 @@ int nctemp3601=nctemp3594;
 while(nctemp3601)
 {{
 int nctemp3605=q;
-if((0>q)||(q>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1399,nctempstring,q,0,s->d[0]);
-}
 int nctemp3608=p;
-if((0>p)||(p>=fmt->d[0])){
-nctempstring->a="fmt";
-nctempstring->d[0]=strlen("fmt")+1;;
-LibeArrayex(1399,nctempstring,p,0,fmt->d[0]);
-}
 s->a[nctemp3605] =fmt->a[nctemp3608];
 int nctemp3621 = p + 1;
 p =nctemp3621;
@@ -3078,11 +2001,6 @@ return 0;
 int nctemp3632 = q + 1;
 q =nctemp3632;
 int nctemp3640=p;
-if((0>p)||(p>=fmt->d[0])){
-nctempstring->a="fmt";
-nctempstring->d[0]=strlen("fmt")+1;;
-LibeArrayex(1403,nctempstring,p,0,fmt->d[0]);
-}
 int nctemp3637=(int)(fmt->a[nctemp3640]);
 c =nctemp3637;
 }
@@ -3090,11 +2008,6 @@ int nctemp3645= c;
 int nctemp3647=LibeIsdigit(nctemp3645);
 int nctemp3642 = (nctemp3647 ==1);
 nctemp3601=nctemp3642;}int nctemp3652=q;
-if((0>q)||(q>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1405,nctempstring,q,0,s->d[0]);
-}
 char nctemp3655=(char)(0);
 s->a[nctemp3652] =nctemp3655;
 nctempchar1* nctemp3662= s;
@@ -3117,11 +2030,6 @@ if(nctemp3672)
 return 0;
 }
 int nctemp3693=p;
-if((0>p)||(p>=fmt->d[0])){
-nctempstring->a="fmt";
-nctempstring->d[0]=strlen("fmt")+1;;
-LibeArrayex(1416,nctempstring,p,0,fmt->d[0]);
-}
 int nctemp3690=(int)(fmt->a[nctemp3693]);
 c =nctemp3690;
 q =0;
@@ -3137,17 +2045,7 @@ int nctemp3713=nctemp3706;
 while(nctemp3713)
 {{
 int nctemp3717=q;
-if((0>q)||(q>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1421,nctempstring,q,0,s->d[0]);
-}
 int nctemp3720=p;
-if((0>p)||(p>=fmt->d[0])){
-nctempstring->a="fmt";
-nctempstring->d[0]=strlen("fmt")+1;;
-LibeArrayex(1421,nctempstring,p,0,fmt->d[0]);
-}
 s->a[nctemp3717] =fmt->a[nctemp3720];
 int nctemp3733 = p + 1;
 p =nctemp3733;
@@ -3159,11 +2057,6 @@ return 0;
 int nctemp3744 = q + 1;
 q =nctemp3744;
 int nctemp3752=p;
-if((0>p)||(p>=fmt->d[0])){
-nctempstring->a="fmt";
-nctempstring->d[0]=strlen("fmt")+1;;
-LibeArrayex(1425,nctempstring,p,0,fmt->d[0]);
-}
 int nctemp3749=(int)(fmt->a[nctemp3752]);
 c =nctemp3749;
 }
@@ -3171,11 +2064,6 @@ int nctemp3757= c;
 int nctemp3759=LibeIsdigit(nctemp3757);
 int nctemp3754 = (nctemp3759 ==1);
 nctemp3713=nctemp3754;}int nctemp3764=q;
-if((0>q)||(q>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1427,nctempstring,q,0,s->d[0]);
-}
 char nctemp3767=(char)(0);
 s->a[nctemp3764] =nctemp3767;
 nctempchar1* nctemp3774= s;
@@ -3333,11 +2221,6 @@ int nctemp4106 = (i < nfield);
 while(nctemp4106){
 {
 int nctemp4113=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1506,nctempstring,i,0,s->d[0]);
-}
 char nctemp4116=(char)('*');
 s->a[nctemp4113] =nctemp4116;
 }
@@ -3347,11 +2230,6 @@ int nctemp4128 = (i < nfield);
 nctemp4106=nctemp4128;
 }
 int nctemp4135=nfield;
-if((0>nfield)||(nfield>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1508,nctempstring,nfield,0,s->d[0]);
-}
 char nctemp4138=(char)(0);
 s->a[nctemp4135] =nctemp4138;
 return 0;
@@ -3365,11 +2243,6 @@ int nctemp4155 = (i < tp);
 while(nctemp4155){
 {
 int nctemp4162=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1515,nctempstring,i,0,s->d[0]);
-}
 char nctemp4165=(char)(' ');
 s->a[nctemp4162] =nctemp4165;
 }
@@ -3385,36 +2258,16 @@ int nctemp4188 = (sign < 0);
 if(nctemp4188)
 {
 int nctemp4195=tp;
-if((0>tp)||(tp>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1521,nctempstring,tp,0,s->d[0]);
-}
 char nctemp4198=(char)('-');
 s->a[nctemp4195] =nctemp4198;
 int nctemp4209 = tp + 1;
 tp =nctemp4209;
 }
 int nctemp4213=tp;
-if((0>tp)||(tp>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1525,nctempstring,tp,0,s->d[0]);
-}
 int nctemp4216=0;
-if((0>0)||(0>=t->d[0])){
-nctempstring->a="t";
-nctempstring->d[0]=strlen("t")+1;;
-LibeArrayex(1525,nctempstring,0,0,t->d[0]);
-}
 s->a[nctemp4213] =t->a[nctemp4216];
 int nctemp4226 = tp + 1;
 int nctemp4221=nctemp4226;
-if((0>nctemp4226)||(nctemp4226>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1526,nctempstring,nctemp4226,0,s->d[0]);
-}
 char nctemp4228=(char)('.');
 s->a[nctemp4221] =nctemp4228;
 i =0;
@@ -3424,18 +2277,8 @@ while(nctemp4235){
 int nctemp4250 = tp + 2;
 int nctemp4252 = nctemp4250 + i;
 int nctemp4242=nctemp4252;
-if((0>nctemp4252)||(nctemp4252>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1529,nctempstring,nctemp4252,0,s->d[0]);
-}
 int nctemp4259 = i + 1;
 int nctemp4254=nctemp4259;
-if((0>nctemp4259)||(nctemp4259>=t->d[0])){
-nctempstring->a="t";
-nctempstring->d[0]=strlen("t")+1;;
-LibeArrayex(1529,nctempstring,nctemp4259,0,t->d[0]);
-}
 s->a[nctemp4242] =t->a[nctemp4254];
 }
 int nctemp4268 = i + 1;
@@ -3446,11 +2289,6 @@ nctemp4235=nctemp4269;
 int nctemp4284 = tp + 2;
 int nctemp4286 = nctemp4284 + nfrac;
 int nctemp4276=nctemp4286;
-if((0>nctemp4286)||(nctemp4286>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1531,nctempstring,nctemp4286,0,s->d[0]);
-}
 char nctemp4288=(char)(0);
 s->a[nctemp4276] =nctemp4288;
 sign =1;
@@ -3550,11 +2388,6 @@ int nctemp4444 = (i < nfield);
 while(nctemp4444){
 {
 int nctemp4451=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1586,nctempstring,i,0,s->d[0]);
-}
 char nctemp4454=(char)('*');
 s->a[nctemp4451] =nctemp4454;
 }
@@ -3564,11 +2397,6 @@ int nctemp4466 = (i < nfield);
 nctemp4444=nctemp4466;
 }
 int nctemp4473=nfield;
-if((0>nfield)||(nfield>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1588,nctempstring,nfield,0,s->d[0]);
-}
 char nctemp4476=(char)(0);
 s->a[nctemp4473] =nctemp4476;
 return 0;
@@ -3593,11 +2421,6 @@ int nctemp4517 = (i < tp);
 while(nctemp4517){
 {
 int nctemp4524=i;
-if((0>i)||(i>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1599,nctempstring,i,0,s->d[0]);
-}
 char nctemp4527=(char)(' ');
 s->a[nctemp4524] =nctemp4527;
 }
@@ -3614,11 +2437,6 @@ int nctemp4547 = (sign ==nctemp4550);
 if(nctemp4547)
 {
 int nctemp4554=tp;
-if((0>tp)||(tp>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1604,nctempstring,tp,0,s->d[0]);
-}
 char nctemp4557=(char)('-');
 s->a[nctemp4554] =nctemp4557;
 int nctemp4568 = tp + 1;
@@ -3630,17 +2448,7 @@ while(nctemp4573){
 {
 int nctemp4585 = i + tp;
 int nctemp4580=nctemp4585;
-if((0>nctemp4585)||(nctemp4585>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1608,nctempstring,nctemp4585,0,s->d[0]);
-}
 int nctemp4587=i;
-if((0>i)||(i>=t->d[0])){
-nctempstring->a="t";
-nctempstring->d[0]=strlen("t")+1;;
-LibeArrayex(1608,nctempstring,i,0,t->d[0]);
-}
 s->a[nctemp4580] =t->a[nctemp4587];
 }
 int nctemp4597 = i + 1;
@@ -3654,11 +2462,6 @@ if(nctemp4602)
 int nctemp4617 = tp + nexp;
 int nctemp4619 = nctemp4617 + 1;
 int nctemp4609=nctemp4619;
-if((0>nctemp4619)||(nctemp4619>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1611,nctempstring,nctemp4619,0,s->d[0]);
-}
 char nctemp4621=(char)('.');
 s->a[nctemp4609] =nctemp4621;
 }
@@ -3674,11 +2477,6 @@ int nctemp4655 = nctemp4653 + 1;
 int nctemp4657 = nctemp4655 + 1;
 int nctemp4659 = nctemp4657 + i;
 int nctemp4639=nctemp4659;
-if((0>nctemp4659)||(nctemp4659>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1615,nctempstring,nctemp4659,0,s->d[0]);
-}
 char nctemp4661=(char)('0');
 s->a[nctemp4639] =nctemp4661;
 }
@@ -3688,19 +2486,9 @@ int nctemp4683 = nctemp4681 + 1;
 int nctemp4685 = nctemp4683 + 1;
 int nctemp4687 = nctemp4685 + i;
 int nctemp4667=nctemp4687;
-if((0>nctemp4687)||(nctemp4687>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1617,nctempstring,nctemp4687,0,s->d[0]);
-}
 int nctemp4697 = nexp + 1;
 int nctemp4699 = nctemp4697 + i;
 int nctemp4689=nctemp4699;
-if((0>nctemp4699)||(nctemp4699>=t->d[0])){
-nctempstring->a="t";
-nctempstring->d[0]=strlen("t")+1;;
-LibeArrayex(1617,nctempstring,nctemp4699,0,t->d[0]);
-}
 s->a[nctemp4667] =t->a[nctemp4689];
 }
 }
@@ -3717,11 +2505,6 @@ int nctemp4736 = nctemp4734 + 1;
 int nctemp4738 = nctemp4736 + 1;
 int nctemp4740 = nctemp4738 + nfrac;
 int nctemp4720=nctemp4740;
-if((0>nctemp4740)||(nctemp4740>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1620,nctempstring,nctemp4740,0,s->d[0]);
-}
 char nctemp4742=(char)(0);
 s->a[nctemp4720] =nctemp4742;
 }
@@ -3729,11 +2512,6 @@ else{
 int nctemp4756 = tp + nexp;
 int nctemp4758 = nctemp4756 + 1;
 int nctemp4748=nctemp4758;
-if((0>nctemp4758)||(nctemp4758>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1622,nctempstring,nctemp4758,0,s->d[0]);
-}
 char nctemp4760=(char)(0);
 s->a[nctemp4748] =nctemp4760;
 }
@@ -3746,31 +2524,16 @@ int nctemp4767 = (sign ==nctemp4770);
 if(nctemp4767)
 {
 int nctemp4774=tp;
-if((0>tp)||(tp>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1628,nctempstring,tp,0,s->d[0]);
-}
 char nctemp4777=(char)('-');
 s->a[nctemp4774] =nctemp4777;
 int nctemp4788 = tp + 1;
 tp =nctemp4788;
 }
 int nctemp4792=tp;
-if((0>tp)||(tp>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1631,nctempstring,tp,0,s->d[0]);
-}
 char nctemp4795=(char)('0');
 s->a[nctemp4792] =nctemp4795;
 int nctemp4806 = tp + 1;
 int nctemp4801=nctemp4806;
-if((0>nctemp4806)||(nctemp4806>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1632,nctempstring,nctemp4806,0,s->d[0]);
-}
 char nctemp4808=(char)('.');
 s->a[nctemp4801] =nctemp4808;
 i =0;
@@ -3781,11 +2544,6 @@ while(nctemp4815){
 int nctemp4835 = i + tp;
 int nctemp4837 = nctemp4835 + 2;
 int nctemp4827=nctemp4837;
-if((0>nctemp4837)||(nctemp4837>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1634,nctempstring,nctemp4837,0,s->d[0]);
-}
 char nctemp4839=(char)('0');
 s->a[nctemp4827] =nctemp4839;
 }
@@ -3806,17 +2564,7 @@ int nctemp4897 = nctemp4895 + i;
 int nctemp4899 = nctemp4897 + nexp;
 int nctemp4901 = nctemp4899 - 1;
 int nctemp4881=nctemp4901;
-if((0>nctemp4901)||(nctemp4901>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1637,nctempstring,nctemp4901,0,s->d[0]);
-}
 int nctemp4903=i;
-if((0>i)||(i>=t->d[0])){
-nctempstring->a="t";
-nctempstring->d[0]=strlen("t")+1;;
-LibeArrayex(1637,nctempstring,i,0,t->d[0]);
-}
 s->a[nctemp4881] =t->a[nctemp4903];
 }
 int nctemp4913 = i + 1;
@@ -3829,11 +2577,6 @@ nctemp4864=nctemp4914;
 int nctemp4939 = tp + 2;
 int nctemp4941 = nctemp4939 + nfrac;
 int nctemp4931=nctemp4941;
-if((0>nctemp4941)||(nctemp4941>=s->d[0])){
-nctempstring->a="s";
-nctempstring->d[0]=strlen("s")+1;;
-LibeArrayex(1639,nctempstring,nctemp4941,0,s->d[0]);
-}
 char nctemp4943=(char)(0);
 s->a[nctemp4931] =nctemp4943;
 }

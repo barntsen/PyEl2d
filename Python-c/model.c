@@ -5,8 +5,6 @@ typedef struct nctempfloat1 { int d[1]; float *a;} nctempfloat1;
 typedef struct nctempint1 { int d[1]; int *a;} nctempint1; 
 typedef struct nctempchar1 { int d[1]; char *a;} nctempchar1; 
 typedef struct nctempcomplex1 { int d[1]; complex *a;} nctempcomplex1; 
-static struct nctempchar1 nctempstringx = {0, NULL};
-static struct nctempchar1 *nctempstring = &nctempstringx;
 typedef struct nctempfloat2 { int d[2]; float *a;} nctempfloat2; 
 typedef struct nctempint2 { int d[2]; int *a;} nctempint2; 
 typedef struct nctempchar2 { int d[2]; char *a;} nctempchar2; 
@@ -133,6 +131,10 @@ nctempfloat2 *Nu2x;
 nctempfloat2 *Nu2y;
 nctempfloat1 *dx;
 nctempfloat1 *dy;
+nctempfloat1 *dx1;
+nctempfloat1 *dy1;
+nctempfloat1 *dx2;
+nctempfloat1 *dy2;
 float Dx;
 float Dt;
 };
@@ -144,2071 +146,257 @@ struct model* ModelNew (nctempfloat2 *vp,nctempfloat2 *vs,nctempfloat2 *rho,ncte
 float ModelStability (struct model* Model);
 struct model* Modelmaxwell (nctempfloat2 *vp,nctempfloat2 *rho,nctempfloat2 *Qp,nctempfloat2 *Qr,float Dx,float Dt,float W0,int Nb);
 struct model* Modelsls (nctempfloat2 *vp,nctempfloat2 *vs,nctempfloat2 *rho,nctempfloat2 *Ql,nctempfloat2 *Qm,nctempfloat2 *Qp,nctempfloat2 *Qs,float Dx,float Dt,float W0,int Nb);
+struct model* Modelcpml (nctempfloat2 *vp,nctempfloat2 *vs,nctempfloat2 *rho,nctempfloat2 *Ql,nctempfloat2 *Qm,nctempfloat2 *Qp,nctempfloat2 *Qs,float Dx,float Dt,float W0,int Nb);
+int Modelslscoeffs (nctempfloat2 *Q,nctempfloat2 *modx,nctempfloat2 *mody,nctempfloat2 *coeff1x,nctempfloat2 *coeff1y,nctempfloat2 *coeff2x,nctempfloat2 *coeff2y,struct model* Model);
+int Modelcpmlcoeffs (struct model* Model);
 int Modeld (nctempfloat1 *d,float dx,int nb);
-float Modeltaus (float Q,float w0);
-float Modeltaue (float Q,float w0);
-int Modelalphamax (struct model* Model);
-int Modelthetamax (struct model* Model);
-int Modelalphasls (struct model* Model);
-int Modelbetasls (struct model* Model);
-int Modeletasls (struct model* Model);
-int Modelnusls (struct model* Model);
+int Modeld1 (nctempfloat1 *d,float dx,int nb);
+int Modeld2 (nctempfloat1 *d,float dx,int nb);
+int Modelslscoeffs (nctempfloat2 *Q,nctempfloat2 *modx,nctempfloat2 *mody,nctempfloat2 *coeff1x,nctempfloat2 *coeff1y,nctempfloat2 *coeff2x,nctempfloat2 *coeff2y,struct model* Model)
+{
+int Nx;
+int Ny;
+int i;
+int j;
+float Qmin;
+float Qmax;
+float argx;
+float argy;
+float tau0;
+float tauemax;
+float tauemin;
+float tausmax;
+float tausmin;
+float tauex;
+float tausx;
+float tauey;
+float tausy;
+Nx =Model->Nx;
+Ny =Model->Ny;
+j =0;
+int nctemp13 = (j < Ny);
+while(nctemp13){
+{
+i =0;
+int nctemp21 = (i < Nx);
+while(nctemp21){
+{
+float nctemp33 = 1.0 / Model->W0;
+tau0 =nctemp33;
+Qmin =1.1;
+float nctemp49 = tau0 / Qmin;
+float nctemp62 = Qmin * Qmin;
+float nctemp64 = nctemp62 + 1.0;
+float nctemp54= nctemp64;
+float nctemp65=LibeSqrt(nctemp54);
+float nctemp67 = nctemp65 + 1.0;
+float nctemp68 = nctemp49 * nctemp67;
+tauemin =nctemp68;
+float nctemp77 = 1.0 / tauemin;
+tauemin =nctemp77;
+float nctemp89 = tau0 / Qmin;
+float nctemp102 = Qmin * Qmin;
+float nctemp104 = nctemp102 + 1.0;
+float nctemp94= nctemp104;
+float nctemp105=LibeSqrt(nctemp94);
+float nctemp107 = nctemp105 - 1.0;
+float nctemp108 = nctemp89 * nctemp107;
+tausmin =nctemp108;
+float nctemp117 = 1.0 / tausmin;
+tausmin =nctemp117;
+int nctemp122=Model->Nb;
+nctemp122=j*Q->d[0]+nctemp122;
+Qmax =Q->a[nctemp122];
+float nctemp136 = tau0 / Qmin;
+float nctemp149 = Qmax * Qmax;
+float nctemp151 = nctemp149 + 1.0;
+float nctemp141= nctemp151;
+float nctemp152=LibeSqrt(nctemp141);
+float nctemp154 = nctemp152 + 1.0;
+float nctemp155 = nctemp136 * nctemp154;
+tauemax =nctemp155;
+float nctemp164 = 1.0 / tauemax;
+tauemax =nctemp164;
+float nctemp176 = tau0 / Qmin;
+float nctemp189 = Qmax * Qmax;
+float nctemp191 = nctemp189 + 1.0;
+float nctemp181= nctemp191;
+float nctemp192=LibeSqrt(nctemp181);
+float nctemp194 = nctemp192 - 1.0;
+float nctemp195 = nctemp176 * nctemp194;
+tausmax =nctemp195;
+float nctemp204 = 1.0 / tausmax;
+tausmax =nctemp204;
+float nctemp220 = tauemax - tauemin;
+int nctemp222=i;
+float nctemp224 = nctemp220 * Model->dx->a[nctemp222];
+float nctemp225 = tauemin + nctemp224;
+tauex =nctemp225;
+float nctemp241 = tausmax - tausmin;
+int nctemp243=i;
+float nctemp245 = nctemp241 * Model->dx->a[nctemp243];
+float nctemp246 = tausmin + nctemp245;
+tausx =nctemp246;
+int nctemp251=i;
+nctemp251=Model->Nb*Q->d[0]+nctemp251;
+Qmax =Q->a[nctemp251];
+float nctemp265 = tau0 / Qmin;
+float nctemp278 = Qmax * Qmax;
+float nctemp280 = nctemp278 + 1.0;
+float nctemp270= nctemp280;
+float nctemp281=LibeSqrt(nctemp270);
+float nctemp283 = nctemp281 + 1.0;
+float nctemp284 = nctemp265 * nctemp283;
+tauemax =nctemp284;
+float nctemp293 = 1.0 / tauemax;
+tauemax =nctemp293;
+float nctemp305 = tau0 / Qmin;
+float nctemp318 = Qmax * Qmax;
+float nctemp320 = nctemp318 + 1.0;
+float nctemp310= nctemp320;
+float nctemp321=LibeSqrt(nctemp310);
+float nctemp323 = nctemp321 - 1.0;
+float nctemp324 = nctemp305 * nctemp323;
+tausmax =nctemp324;
+float nctemp333 = 1.0 / tausmax;
+tausmax =nctemp333;
+float nctemp349 = tauemax - tauemin;
+int nctemp351=j;
+float nctemp353 = nctemp349 * Model->dy->a[nctemp351];
+float nctemp354 = tauemin + nctemp353;
+tauey =nctemp354;
+float nctemp370 = tausmax - tausmin;
+int nctemp372=j;
+float nctemp374 = nctemp370 * Model->dy->a[nctemp372];
+float nctemp375 = tausmin + nctemp374;
+tausy =nctemp375;
+int nctemp380=i;
+argx =Model->dx->a[nctemp380];
+int nctemp386=j;
+argy =Model->dy->a[nctemp386];
+int nctemp391=i;
+nctemp391=j*coeff1x->d[0]+nctemp391;
+float nctemp399= -argx;
+float nctemp398= nctemp399;
+float nctemp400=LibeExp(nctemp398);
+float nctemp405= -Model->Dt;
+float nctemp407 = nctemp405 * tausx;
+float nctemp402= nctemp407;
+float nctemp408=LibeExp(nctemp402);
+float nctemp409 = nctemp400 * nctemp408;
+coeff1x->a[nctemp391] =nctemp409;
+int nctemp413=i;
+nctemp413=j*coeff1y->d[0]+nctemp413;
+float nctemp421= -argy;
+float nctemp420= nctemp421;
+float nctemp422=LibeExp(nctemp420);
+float nctemp427= -Model->Dt;
+float nctemp429 = nctemp427 * tausy;
+float nctemp424= nctemp429;
+float nctemp430=LibeExp(nctemp424);
+float nctemp431 = nctemp422 * nctemp430;
+coeff1y->a[nctemp413] =nctemp431;
+int nctemp435=i;
+nctemp435=j*coeff2x->d[0]+nctemp435;
+float nctemp443 = Model->Dt * tauex;
+coeff2x->a[nctemp435] =nctemp443;
+int nctemp447=i;
+nctemp447=j*coeff2y->d[0]+nctemp447;
+float nctemp455 = Model->Dt * tauey;
+coeff2y->a[nctemp447] =nctemp455;
+int nctemp459=i;
+nctemp459=j*modx->d[0]+nctemp459;
+int nctemp466=i;
+nctemp466=j*modx->d[0]+nctemp466;
+float nctemp478 = tausx / tauex;
+float nctemp479 = 1.0 - nctemp478;
+float nctemp480 = modx->a[nctemp466] * nctemp479;
+modx->a[nctemp459] =nctemp480;
+int nctemp484=i;
+nctemp484=j*mody->d[0]+nctemp484;
+int nctemp491=i;
+nctemp491=j*mody->d[0]+nctemp491;
+float nctemp503 = tausy / tauey;
+float nctemp504 = 1.0 - nctemp503;
+float nctemp505 = mody->a[nctemp491] * nctemp504;
+mody->a[nctemp484] =nctemp505;
+}
+int nctemp514 = i + 1;
+i =nctemp514;
+int nctemp515 = (i < Nx);
+nctemp21=nctemp515;
+}
+}
+int nctemp527 = j + 1;
+j =nctemp527;
+int nctemp528 = (j < Ny);
+nctemp13=nctemp528;
+}
+return 1;
+}
 struct model* ModelNew (nctempfloat2 *vp,nctempfloat2 *vs,nctempfloat2 *rho,nctempfloat2 *Ql,nctempfloat2 *Qm,nctempfloat2 *Qp,nctempfloat2 *Qs,float Dx,float Dt,float W0,int Nb,int Rheol)
 {
 struct model* m;
-struct nctempchar1 *nctemp4;
-static struct nctempchar1 nctemp5 = {{ 8}, (char*)"Rheol: \0"};
-nctemp4=&nctemp5;
-nctempchar1* nctemp2= nctemp4;
-int nctemp6=LibePs(nctemp2);
-int nctemp8= Rheol;
-int nctemp10=LibePi(nctemp8);
-struct nctempchar1 *nctemp14;
-static struct nctempchar1 nctemp15 = {{ 3}, (char*)"\n\0"};
-nctemp14=&nctemp15;
-nctempchar1* nctemp12= nctemp14;
-int nctemp16=LibePs(nctemp12);
-int nctemp17 = (Rheol ==1);
-if(nctemp17)
+struct nctempchar1 *nctemp536;
+static struct nctempchar1 nctemp537 = {{ 8}, (char*)"Rheol: \0"};
+nctemp536=&nctemp537;
+nctempchar1* nctemp534= nctemp536;
+int nctemp538=LibePs(nctemp534);
+int nctemp540= Rheol;
+int nctemp542=LibePi(nctemp540);
+struct nctempchar1 *nctemp546;
+static struct nctempchar1 nctemp547 = {{ 3}, (char*)"\n\0"};
+nctemp546=&nctemp547;
+nctempchar1* nctemp544= nctemp546;
+int nctemp548=LibePs(nctemp544);
+int nctemp549 = (Rheol ==2);
+if(nctemp549)
 {
-struct nctempchar1 *nctemp24;
-static struct nctempchar1 nctemp25 = {{ 11}, (char*)"Maxwell \n\0"};
-nctemp24=&nctemp25;
-nctempchar1* nctemp22= nctemp24;
-int nctemp26=LibePs(nctemp22);
-nctempfloat2* nctemp31= vp;
-nctempfloat2* nctemp34= rho;
-nctempfloat2* nctemp37= Qp;
-nctempfloat2* nctemp40= Qs;
-float nctemp43= Dx;
-float nctemp45= Dt;
-float nctemp47= W0;
-int nctemp49= Nb;
-struct model* nctemp51=Modelmaxwell(nctemp31,nctemp34,nctemp37,nctemp40,nctemp43,nctemp45,nctemp47,nctemp49);
-m =nctemp51;
+nctempfloat2* nctemp557= vp;
+nctempfloat2* nctemp560= vs;
+nctempfloat2* nctemp563= rho;
+nctempfloat2* nctemp566= Ql;
+nctempfloat2* nctemp569= Qm;
+nctempfloat2* nctemp572= Qp;
+nctempfloat2* nctemp575= Qs;
+float nctemp578= Dx;
+float nctemp580= Dt;
+float nctemp582= W0;
+int nctemp584= Nb;
+struct model* nctemp586=Modelsls(nctemp557,nctemp560,nctemp563,nctemp566,nctemp569,nctemp572,nctemp575,nctemp578,nctemp580,nctemp582,nctemp584);
+m =nctemp586;
 }
 else{
-int nctemp52 = (Rheol ==2);
-if(nctemp52)
+int nctemp587 = (Rheol ==4);
+if(nctemp587)
 {
-struct nctempchar1 *nctemp59;
-static struct nctempchar1 nctemp60 = {{ 7}, (char*)"Sls \n\0"};
-nctemp59=&nctemp60;
-nctempchar1* nctemp57= nctemp59;
-int nctemp61=LibePs(nctemp57);
-nctempfloat2* nctemp66= vp;
-nctempfloat2* nctemp69= vs;
-nctempfloat2* nctemp72= rho;
-nctempfloat2* nctemp75= Ql;
-nctempfloat2* nctemp78= Qm;
-nctempfloat2* nctemp81= Qp;
-nctempfloat2* nctemp84= Qs;
-float nctemp87= Dx;
-float nctemp89= Dt;
-float nctemp91= W0;
-int nctemp93= Nb;
-struct model* nctemp95=Modelsls(nctemp66,nctemp69,nctemp72,nctemp75,nctemp78,nctemp81,nctemp84,nctemp87,nctemp89,nctemp91,nctemp93);
-m =nctemp95;
+nctempfloat2* nctemp595= vp;
+nctempfloat2* nctemp598= vs;
+nctempfloat2* nctemp601= rho;
+nctempfloat2* nctemp604= Ql;
+nctempfloat2* nctemp607= Qm;
+nctempfloat2* nctemp610= Qp;
+nctempfloat2* nctemp613= Qs;
+float nctemp616= Dx;
+float nctemp618= Dt;
+float nctemp620= W0;
+int nctemp622= Nb;
+struct model* nctemp624=Modelcpml(nctemp595,nctemp598,nctemp601,nctemp604,nctemp607,nctemp610,nctemp613,nctemp616,nctemp618,nctemp620,nctemp622);
+m =nctemp624;
 }
 else{
-int nctemp97= 4;
-struct nctempchar1 *nctemp101;
-static struct nctempchar1 nctemp102 = {{ 18}, (char*)"Unknown Q-model\n\0"};
-nctemp101=&nctemp102;
-nctempchar1* nctemp99= nctemp101;
-int nctemp103=LibePuts(nctemp97,nctemp99);
-int nctemp105= 4;
-int nctemp107=LibeFlush(nctemp105);
-int nctemp109=LibeExit();
+int nctemp626= 4;
+struct nctempchar1 *nctemp630;
+static struct nctempchar1 nctemp631 = {{ 18}, (char*)"Unknown Q-model\n\0"};
+nctemp630=&nctemp631;
+nctempchar1* nctemp628= nctemp630;
+int nctemp632=LibePuts(nctemp626,nctemp628);
+int nctemp634= 4;
+int nctemp636=LibeFlush(nctemp634);
+int nctemp638=LibeExit();
 }
 }
 return m;
-}
-int Modelalphasls (struct model* Model)
-{
-int Nx;
-int Ny;
-int i;
-int j;
-float Qmin;
-float Qmax;
-float argx;
-float argy;
-float tau0;
-float tauemax;
-float tauemin;
-float tausmax;
-float tausmin;
-float tauex;
-float tausx;
-float tauey;
-float tausy;
-Nx =Model->Nx;
-Ny =Model->Ny;
-j =0;
-int nctemp123 = (j < Ny);
-while(nctemp123){
-{
-i =0;
-int nctemp131 = (i < Nx);
-while(nctemp131){
-{
-float nctemp143 = 1.0 / Model->W0;
-tau0 =nctemp143;
-Qmin =1.1;
-float nctemp159 = tau0 / Qmin;
-float nctemp172 = Qmin * Qmin;
-float nctemp174 = nctemp172 + 1.0;
-float nctemp164= nctemp174;
-float nctemp175=LibeSqrt(nctemp164);
-float nctemp177 = nctemp175 + 1.0;
-float nctemp178 = nctemp159 * nctemp177;
-tauemin =nctemp178;
-float nctemp187 = 1.0 / tauemin;
-tauemin =nctemp187;
-float nctemp199 = tau0 / Qmin;
-float nctemp212 = Qmin * Qmin;
-float nctemp214 = nctemp212 + 1.0;
-float nctemp204= nctemp214;
-float nctemp215=LibeSqrt(nctemp204);
-float nctemp217 = nctemp215 - 1.0;
-float nctemp218 = nctemp199 * nctemp217;
-tausmin =nctemp218;
-float nctemp227 = 1.0 / tausmin;
-tausmin =nctemp227;
-int nctemp232=Model->Nb;
-if((0>Model->Nb)||(Model->Nb>=Model->Ql->d[0])){
-nctempstring->a="Model->Ql";
-nctempstring->d[0]=strlen("Model->Ql")+1;;
-LibeArrayex(114,nctempstring,Model->Nb,0,Model->Ql->d[0]);
-}
-nctemp232=j*Model->Ql->d[0]+nctemp232;
-if((0>j)||(j>=Model->Ql->d[1])){
-nctempstring->a="Model->Ql";
-nctempstring->d[0]=strlen("Model->Ql")+1;;
-LibeArrayex(114,nctempstring,j,1,Model->Ql->d[1]);
-}
-Qmax =Model->Ql->a[nctemp232];
-float nctemp246 = tau0 / Qmin;
-float nctemp259 = Qmax * Qmax;
-float nctemp261 = nctemp259 + 1.0;
-float nctemp251= nctemp261;
-float nctemp262=LibeSqrt(nctemp251);
-float nctemp264 = nctemp262 + 1.0;
-float nctemp265 = nctemp246 * nctemp264;
-tauemax =nctemp265;
-float nctemp274 = 1.0 / tauemax;
-tauemax =nctemp274;
-float nctemp286 = tau0 / Qmin;
-float nctemp299 = Qmax * Qmax;
-float nctemp301 = nctemp299 + 1.0;
-float nctemp291= nctemp301;
-float nctemp302=LibeSqrt(nctemp291);
-float nctemp304 = nctemp302 - 1.0;
-float nctemp305 = nctemp286 * nctemp304;
-tausmax =nctemp305;
-float nctemp314 = 1.0 / tausmax;
-tausmax =nctemp314;
-float nctemp330 = tauemax - tauemin;
-int nctemp332=i;
-if((0>i)||(i>=Model->dx->d[0])){
-nctempstring->a="Model->dx";
-nctempstring->d[0]=strlen("Model->dx")+1;;
-LibeArrayex(124,nctempstring,i,0,Model->dx->d[0]);
-}
-float nctemp334 = nctemp330 * Model->dx->a[nctemp332];
-float nctemp335 = tauemin + nctemp334;
-tauex =nctemp335;
-float nctemp351 = tausmax - tausmin;
-int nctemp353=i;
-if((0>i)||(i>=Model->dx->d[0])){
-nctempstring->a="Model->dx";
-nctempstring->d[0]=strlen("Model->dx")+1;;
-LibeArrayex(125,nctempstring,i,0,Model->dx->d[0]);
-}
-float nctemp355 = nctemp351 * Model->dx->a[nctemp353];
-float nctemp356 = tausmin + nctemp355;
-tausx =nctemp356;
-int nctemp361=i;
-if((0>i)||(i>=Model->Ql->d[0])){
-nctempstring->a="Model->Ql";
-nctempstring->d[0]=strlen("Model->Ql")+1;;
-LibeArrayex(126,nctempstring,i,0,Model->Ql->d[0]);
-}
-nctemp361=Model->Nb*Model->Ql->d[0]+nctemp361;
-if((0>Model->Nb)||(Model->Nb>=Model->Ql->d[1])){
-nctempstring->a="Model->Ql";
-nctempstring->d[0]=strlen("Model->Ql")+1;;
-LibeArrayex(126,nctempstring,Model->Nb,1,Model->Ql->d[1]);
-}
-Qmax =Model->Ql->a[nctemp361];
-float nctemp375 = tau0 / Qmin;
-float nctemp388 = Qmax * Qmax;
-float nctemp390 = nctemp388 + 1.0;
-float nctemp380= nctemp390;
-float nctemp391=LibeSqrt(nctemp380);
-float nctemp393 = nctemp391 + 1.0;
-float nctemp394 = nctemp375 * nctemp393;
-tauemax =nctemp394;
-float nctemp403 = 1.0 / tauemax;
-tauemax =nctemp403;
-float nctemp415 = tau0 / Qmin;
-float nctemp428 = Qmax * Qmax;
-float nctemp430 = nctemp428 + 1.0;
-float nctemp420= nctemp430;
-float nctemp431=LibeSqrt(nctemp420);
-float nctemp433 = nctemp431 - 1.0;
-float nctemp434 = nctemp415 * nctemp433;
-tausmax =nctemp434;
-float nctemp443 = 1.0 / tausmax;
-tausmax =nctemp443;
-float nctemp459 = tauemax - tauemin;
-int nctemp461=j;
-if((0>j)||(j>=Model->dy->d[0])){
-nctempstring->a="Model->dy";
-nctempstring->d[0]=strlen("Model->dy")+1;;
-LibeArrayex(133,nctempstring,j,0,Model->dy->d[0]);
-}
-float nctemp463 = nctemp459 * Model->dy->a[nctemp461];
-float nctemp464 = tauemin + nctemp463;
-tauey =nctemp464;
-float nctemp480 = tausmax - tausmin;
-int nctemp482=j;
-if((0>j)||(j>=Model->dy->d[0])){
-nctempstring->a="Model->dy";
-nctempstring->d[0]=strlen("Model->dy")+1;;
-LibeArrayex(134,nctempstring,j,0,Model->dy->d[0]);
-}
-float nctemp484 = nctemp480 * Model->dy->a[nctemp482];
-float nctemp485 = tausmin + nctemp484;
-tausy =nctemp485;
-int nctemp490=i;
-if((0>i)||(i>=Model->dx->d[0])){
-nctempstring->a="Model->dx";
-nctempstring->d[0]=strlen("Model->dx")+1;;
-LibeArrayex(139,nctempstring,i,0,Model->dx->d[0]);
-}
-argx =Model->dx->a[nctemp490];
-int nctemp496=j;
-if((0>j)||(j>=Model->dy->d[0])){
-nctempstring->a="Model->dy";
-nctempstring->d[0]=strlen("Model->dy")+1;;
-LibeArrayex(140,nctempstring,j,0,Model->dy->d[0]);
-}
-argy =Model->dy->a[nctemp496];
-int nctemp501=i;
-if((0>i)||(i>=Model->Alpha1x->d[0])){
-nctempstring->a="Model->Alpha1x";
-nctempstring->d[0]=strlen("Model->Alpha1x")+1;;
-LibeArrayex(143,nctempstring,i,0,Model->Alpha1x->d[0]);
-}
-nctemp501=j*Model->Alpha1x->d[0]+nctemp501;
-if((0>j)||(j>=Model->Alpha1x->d[1])){
-nctempstring->a="Model->Alpha1x";
-nctempstring->d[0]=strlen("Model->Alpha1x")+1;;
-LibeArrayex(143,nctempstring,j,1,Model->Alpha1x->d[1]);
-}
-float nctemp509= -argx;
-float nctemp508= nctemp509;
-float nctemp510=LibeExp(nctemp508);
-float nctemp515= -Model->Dt;
-float nctemp517 = nctemp515 * tausx;
-float nctemp512= nctemp517;
-float nctemp518=LibeExp(nctemp512);
-float nctemp519 = nctemp510 * nctemp518;
-Model->Alpha1x->a[nctemp501] =nctemp519;
-int nctemp523=i;
-if((0>i)||(i>=Model->Alpha1y->d[0])){
-nctempstring->a="Model->Alpha1y";
-nctempstring->d[0]=strlen("Model->Alpha1y")+1;;
-LibeArrayex(144,nctempstring,i,0,Model->Alpha1y->d[0]);
-}
-nctemp523=j*Model->Alpha1y->d[0]+nctemp523;
-if((0>j)||(j>=Model->Alpha1y->d[1])){
-nctempstring->a="Model->Alpha1y";
-nctempstring->d[0]=strlen("Model->Alpha1y")+1;;
-LibeArrayex(144,nctempstring,j,1,Model->Alpha1y->d[1]);
-}
-float nctemp531= -argy;
-float nctemp530= nctemp531;
-float nctemp532=LibeExp(nctemp530);
-float nctemp537= -Model->Dt;
-float nctemp539 = nctemp537 * tausy;
-float nctemp534= nctemp539;
-float nctemp540=LibeExp(nctemp534);
-float nctemp541 = nctemp532 * nctemp540;
-Model->Alpha1y->a[nctemp523] =nctemp541;
-int nctemp545=i;
-if((0>i)||(i>=Model->Alpha2x->d[0])){
-nctempstring->a="Model->Alpha2x";
-nctempstring->d[0]=strlen("Model->Alpha2x")+1;;
-LibeArrayex(145,nctempstring,i,0,Model->Alpha2x->d[0]);
-}
-nctemp545=j*Model->Alpha2x->d[0]+nctemp545;
-if((0>j)||(j>=Model->Alpha2x->d[1])){
-nctempstring->a="Model->Alpha2x";
-nctempstring->d[0]=strlen("Model->Alpha2x")+1;;
-LibeArrayex(145,nctempstring,j,1,Model->Alpha2x->d[1]);
-}
-float nctemp553 = Model->Dt * tauex;
-Model->Alpha2x->a[nctemp545] =nctemp553;
-int nctemp557=i;
-if((0>i)||(i>=Model->Alpha2y->d[0])){
-nctempstring->a="Model->Alpha2y";
-nctempstring->d[0]=strlen("Model->Alpha2y")+1;;
-LibeArrayex(146,nctempstring,i,0,Model->Alpha2y->d[0]);
-}
-nctemp557=j*Model->Alpha2y->d[0]+nctemp557;
-if((0>j)||(j>=Model->Alpha2y->d[1])){
-nctempstring->a="Model->Alpha2y";
-nctempstring->d[0]=strlen("Model->Alpha2y")+1;;
-LibeArrayex(146,nctempstring,j,1,Model->Alpha2y->d[1]);
-}
-float nctemp565 = Model->Dt * tauey;
-Model->Alpha2y->a[nctemp557] =nctemp565;
-int nctemp569=i;
-if((0>i)||(i>=Model->Dlambdax->d[0])){
-nctempstring->a="Model->Dlambdax";
-nctempstring->d[0]=strlen("Model->Dlambdax")+1;;
-LibeArrayex(150,nctempstring,i,0,Model->Dlambdax->d[0]);
-}
-nctemp569=j*Model->Dlambdax->d[0]+nctemp569;
-if((0>j)||(j>=Model->Dlambdax->d[1])){
-nctempstring->a="Model->Dlambdax";
-nctempstring->d[0]=strlen("Model->Dlambdax")+1;;
-LibeArrayex(150,nctempstring,j,1,Model->Dlambdax->d[1]);
-}
-int nctemp576=i;
-if((0>i)||(i>=Model->Lambda->d[0])){
-nctempstring->a="Model->Lambda";
-nctempstring->d[0]=strlen("Model->Lambda")+1;;
-LibeArrayex(150,nctempstring,i,0,Model->Lambda->d[0]);
-}
-nctemp576=j*Model->Lambda->d[0]+nctemp576;
-if((0>j)||(j>=Model->Lambda->d[1])){
-nctempstring->a="Model->Lambda";
-nctempstring->d[0]=strlen("Model->Lambda")+1;;
-LibeArrayex(150,nctempstring,j,1,Model->Lambda->d[1]);
-}
-float nctemp588 = tausx / tauex;
-float nctemp589 = 1.0 - nctemp588;
-float nctemp590 = Model->Lambda->a[nctemp576] * nctemp589;
-Model->Dlambdax->a[nctemp569] =nctemp590;
-int nctemp594=i;
-if((0>i)||(i>=Model->Dlambday->d[0])){
-nctempstring->a="Model->Dlambday";
-nctempstring->d[0]=strlen("Model->Dlambday")+1;;
-LibeArrayex(152,nctempstring,i,0,Model->Dlambday->d[0]);
-}
-nctemp594=j*Model->Dlambday->d[0]+nctemp594;
-if((0>j)||(j>=Model->Dlambday->d[1])){
-nctempstring->a="Model->Dlambday";
-nctempstring->d[0]=strlen("Model->Dlambday")+1;;
-LibeArrayex(152,nctempstring,j,1,Model->Dlambday->d[1]);
-}
-int nctemp601=i;
-if((0>i)||(i>=Model->Lambda->d[0])){
-nctempstring->a="Model->Lambda";
-nctempstring->d[0]=strlen("Model->Lambda")+1;;
-LibeArrayex(152,nctempstring,i,0,Model->Lambda->d[0]);
-}
-nctemp601=j*Model->Lambda->d[0]+nctemp601;
-if((0>j)||(j>=Model->Lambda->d[1])){
-nctempstring->a="Model->Lambda";
-nctempstring->d[0]=strlen("Model->Lambda")+1;;
-LibeArrayex(152,nctempstring,j,1,Model->Lambda->d[1]);
-}
-float nctemp613 = tausy / tauey;
-float nctemp614 = 1.0 - nctemp613;
-float nctemp615 = Model->Lambda->a[nctemp601] * nctemp614;
-Model->Dlambday->a[nctemp594] =nctemp615;
-}
-int nctemp624 = i + 1;
-i =nctemp624;
-int nctemp625 = (i < Nx);
-nctemp131=nctemp625;
-}
-}
-int nctemp637 = j + 1;
-j =nctemp637;
-int nctemp638 = (j < Ny);
-nctemp123=nctemp638;
-}
-return 1;
-}
-int Modelbetasls (struct model* Model)
-{
-int Nx;
-int Ny;
-int i;
-int j;
-float Qmin;
-float Qmax;
-float argx;
-float argy;
-float tau0;
-float tauemax;
-float tauemin;
-float tausmax;
-float tausmin;
-float tauex;
-float tausx;
-float tauey;
-float tausy;
-Nx =Model->Nx;
-Ny =Model->Ny;
-j =0;
-int nctemp655 = (j < Ny);
-while(nctemp655){
-{
-i =0;
-int nctemp663 = (i < Nx);
-while(nctemp663){
-{
-float nctemp675 = 1.0 / Model->W0;
-tau0 =nctemp675;
-Qmin =1.1;
-float nctemp691 = tau0 / Qmin;
-float nctemp704 = Qmin * Qmin;
-float nctemp706 = nctemp704 + 1.0;
-float nctemp696= nctemp706;
-float nctemp707=LibeSqrt(nctemp696);
-float nctemp709 = nctemp707 + 1.0;
-float nctemp710 = nctemp691 * nctemp709;
-tauemin =nctemp710;
-float nctemp719 = 1.0 / tauemin;
-tauemin =nctemp719;
-float nctemp731 = tau0 / Qmin;
-float nctemp744 = Qmin * Qmin;
-float nctemp746 = nctemp744 + 1.0;
-float nctemp736= nctemp746;
-float nctemp747=LibeSqrt(nctemp736);
-float nctemp749 = nctemp747 - 1.0;
-float nctemp750 = nctemp731 * nctemp749;
-tausmin =nctemp750;
-float nctemp759 = 1.0 / tausmin;
-tausmin =nctemp759;
-int nctemp764=Model->Nb;
-if((0>Model->Nb)||(Model->Nb>=Model->Qm->d[0])){
-nctempstring->a="Model->Qm";
-nctempstring->d[0]=strlen("Model->Qm")+1;;
-LibeArrayex(202,nctempstring,Model->Nb,0,Model->Qm->d[0]);
-}
-nctemp764=j*Model->Qm->d[0]+nctemp764;
-if((0>j)||(j>=Model->Qm->d[1])){
-nctempstring->a="Model->Qm";
-nctempstring->d[0]=strlen("Model->Qm")+1;;
-LibeArrayex(202,nctempstring,j,1,Model->Qm->d[1]);
-}
-Qmax =Model->Qm->a[nctemp764];
-float nctemp778 = tau0 / Qmin;
-float nctemp791 = Qmax * Qmax;
-float nctemp793 = nctemp791 + 1.0;
-float nctemp783= nctemp793;
-float nctemp794=LibeSqrt(nctemp783);
-float nctemp796 = nctemp794 + 1.0;
-float nctemp797 = nctemp778 * nctemp796;
-tauemax =nctemp797;
-float nctemp806 = 1.0 / tauemax;
-tauemax =nctemp806;
-float nctemp818 = tau0 / Qmin;
-float nctemp831 = Qmax * Qmax;
-float nctemp833 = nctemp831 + 1.0;
-float nctemp823= nctemp833;
-float nctemp834=LibeSqrt(nctemp823);
-float nctemp836 = nctemp834 - 1.0;
-float nctemp837 = nctemp818 * nctemp836;
-tausmax =nctemp837;
-float nctemp846 = 1.0 / tausmax;
-tausmax =nctemp846;
-float nctemp862 = tauemax - tauemin;
-int nctemp864=i;
-if((0>i)||(i>=Model->dx->d[0])){
-nctempstring->a="Model->dx";
-nctempstring->d[0]=strlen("Model->dx")+1;;
-LibeArrayex(212,nctempstring,i,0,Model->dx->d[0]);
-}
-float nctemp866 = nctemp862 * Model->dx->a[nctemp864];
-float nctemp867 = tauemin + nctemp866;
-tauex =nctemp867;
-float nctemp883 = tausmax - tausmin;
-int nctemp885=i;
-if((0>i)||(i>=Model->dx->d[0])){
-nctempstring->a="Model->dx";
-nctempstring->d[0]=strlen("Model->dx")+1;;
-LibeArrayex(213,nctempstring,i,0,Model->dx->d[0]);
-}
-float nctemp887 = nctemp883 * Model->dx->a[nctemp885];
-float nctemp888 = tausmin + nctemp887;
-tausx =nctemp888;
-int nctemp893=i;
-if((0>i)||(i>=Model->Qm->d[0])){
-nctempstring->a="Model->Qm";
-nctempstring->d[0]=strlen("Model->Qm")+1;;
-LibeArrayex(214,nctempstring,i,0,Model->Qm->d[0]);
-}
-nctemp893=Model->Nb*Model->Qm->d[0]+nctemp893;
-if((0>Model->Nb)||(Model->Nb>=Model->Qm->d[1])){
-nctempstring->a="Model->Qm";
-nctempstring->d[0]=strlen("Model->Qm")+1;;
-LibeArrayex(214,nctempstring,Model->Nb,1,Model->Qm->d[1]);
-}
-Qmax =Model->Qm->a[nctemp893];
-float nctemp907 = tau0 / Qmin;
-float nctemp920 = Qmax * Qmax;
-float nctemp922 = nctemp920 + 1.0;
-float nctemp912= nctemp922;
-float nctemp923=LibeSqrt(nctemp912);
-float nctemp925 = nctemp923 + 1.0;
-float nctemp926 = nctemp907 * nctemp925;
-tauemax =nctemp926;
-float nctemp935 = 1.0 / tauemax;
-tauemax =nctemp935;
-float nctemp947 = tau0 / Qmin;
-float nctemp960 = Qmax * Qmax;
-float nctemp962 = nctemp960 + 1.0;
-float nctemp952= nctemp962;
-float nctemp963=LibeSqrt(nctemp952);
-float nctemp965 = nctemp963 - 1.0;
-float nctemp966 = nctemp947 * nctemp965;
-tausmax =nctemp966;
-float nctemp975 = 1.0 / tausmax;
-tausmax =nctemp975;
-float nctemp991 = tauemax - tauemin;
-int nctemp993=j;
-if((0>j)||(j>=Model->dy->d[0])){
-nctempstring->a="Model->dy";
-nctempstring->d[0]=strlen("Model->dy")+1;;
-LibeArrayex(221,nctempstring,j,0,Model->dy->d[0]);
-}
-float nctemp995 = nctemp991 * Model->dy->a[nctemp993];
-float nctemp996 = tauemin + nctemp995;
-tauey =nctemp996;
-float nctemp1012 = tausmax - tausmin;
-int nctemp1014=j;
-if((0>j)||(j>=Model->dy->d[0])){
-nctempstring->a="Model->dy";
-nctempstring->d[0]=strlen("Model->dy")+1;;
-LibeArrayex(222,nctempstring,j,0,Model->dy->d[0]);
-}
-float nctemp1016 = nctemp1012 * Model->dy->a[nctemp1014];
-float nctemp1017 = tausmin + nctemp1016;
-tausy =nctemp1017;
-int nctemp1022=i;
-if((0>i)||(i>=Model->dx->d[0])){
-nctempstring->a="Model->dx";
-nctempstring->d[0]=strlen("Model->dx")+1;;
-LibeArrayex(227,nctempstring,i,0,Model->dx->d[0]);
-}
-argx =Model->dx->a[nctemp1022];
-int nctemp1028=j;
-if((0>j)||(j>=Model->dy->d[0])){
-nctempstring->a="Model->dy";
-nctempstring->d[0]=strlen("Model->dy")+1;;
-LibeArrayex(228,nctempstring,j,0,Model->dy->d[0]);
-}
-argy =Model->dy->a[nctemp1028];
-int nctemp1033=i;
-if((0>i)||(i>=Model->Beta1x->d[0])){
-nctempstring->a="Model->Beta1x";
-nctempstring->d[0]=strlen("Model->Beta1x")+1;;
-LibeArrayex(231,nctempstring,i,0,Model->Beta1x->d[0]);
-}
-nctemp1033=j*Model->Beta1x->d[0]+nctemp1033;
-if((0>j)||(j>=Model->Beta1x->d[1])){
-nctempstring->a="Model->Beta1x";
-nctempstring->d[0]=strlen("Model->Beta1x")+1;;
-LibeArrayex(231,nctempstring,j,1,Model->Beta1x->d[1]);
-}
-float nctemp1041= -argx;
-float nctemp1040= nctemp1041;
-float nctemp1042=LibeExp(nctemp1040);
-float nctemp1047= -Model->Dt;
-float nctemp1049 = nctemp1047 * tausx;
-float nctemp1044= nctemp1049;
-float nctemp1050=LibeExp(nctemp1044);
-float nctemp1051 = nctemp1042 * nctemp1050;
-Model->Beta1x->a[nctemp1033] =nctemp1051;
-int nctemp1055=i;
-if((0>i)||(i>=Model->Beta1y->d[0])){
-nctempstring->a="Model->Beta1y";
-nctempstring->d[0]=strlen("Model->Beta1y")+1;;
-LibeArrayex(232,nctempstring,i,0,Model->Beta1y->d[0]);
-}
-nctemp1055=j*Model->Beta1y->d[0]+nctemp1055;
-if((0>j)||(j>=Model->Beta1y->d[1])){
-nctempstring->a="Model->Beta1y";
-nctempstring->d[0]=strlen("Model->Beta1y")+1;;
-LibeArrayex(232,nctempstring,j,1,Model->Beta1y->d[1]);
-}
-float nctemp1063= -argy;
-float nctemp1062= nctemp1063;
-float nctemp1064=LibeExp(nctemp1062);
-float nctemp1069= -Model->Dt;
-float nctemp1071 = nctemp1069 * tausy;
-float nctemp1066= nctemp1071;
-float nctemp1072=LibeExp(nctemp1066);
-float nctemp1073 = nctemp1064 * nctemp1072;
-Model->Beta1y->a[nctemp1055] =nctemp1073;
-int nctemp1077=i;
-if((0>i)||(i>=Model->Beta2x->d[0])){
-nctempstring->a="Model->Beta2x";
-nctempstring->d[0]=strlen("Model->Beta2x")+1;;
-LibeArrayex(233,nctempstring,i,0,Model->Beta2x->d[0]);
-}
-nctemp1077=j*Model->Beta2x->d[0]+nctemp1077;
-if((0>j)||(j>=Model->Beta2x->d[1])){
-nctempstring->a="Model->Beta2x";
-nctempstring->d[0]=strlen("Model->Beta2x")+1;;
-LibeArrayex(233,nctempstring,j,1,Model->Beta2x->d[1]);
-}
-float nctemp1085 = Model->Dt * tauex;
-Model->Beta2x->a[nctemp1077] =nctemp1085;
-int nctemp1089=i;
-if((0>i)||(i>=Model->Beta2y->d[0])){
-nctempstring->a="Model->Beta2y";
-nctempstring->d[0]=strlen("Model->Beta2y")+1;;
-LibeArrayex(234,nctempstring,i,0,Model->Beta2y->d[0]);
-}
-nctemp1089=j*Model->Beta2y->d[0]+nctemp1089;
-if((0>j)||(j>=Model->Beta2y->d[1])){
-nctempstring->a="Model->Beta2y";
-nctempstring->d[0]=strlen("Model->Beta2y")+1;;
-LibeArrayex(234,nctempstring,j,1,Model->Beta2y->d[1]);
-}
-float nctemp1097 = Model->Dt * tauey;
-Model->Beta2y->a[nctemp1089] =nctemp1097;
-int nctemp1101=i;
-if((0>i)||(i>=Model->Dmuy->d[0])){
-nctempstring->a="Model->Dmuy";
-nctempstring->d[0]=strlen("Model->Dmuy")+1;;
-LibeArrayex(238,nctempstring,i,0,Model->Dmuy->d[0]);
-}
-nctemp1101=j*Model->Dmuy->d[0]+nctemp1101;
-if((0>j)||(j>=Model->Dmuy->d[1])){
-nctempstring->a="Model->Dmuy";
-nctempstring->d[0]=strlen("Model->Dmuy")+1;;
-LibeArrayex(238,nctempstring,j,1,Model->Dmuy->d[1]);
-}
-int nctemp1108=i;
-if((0>i)||(i>=Model->Mu->d[0])){
-nctempstring->a="Model->Mu";
-nctempstring->d[0]=strlen("Model->Mu")+1;;
-LibeArrayex(238,nctempstring,i,0,Model->Mu->d[0]);
-}
-nctemp1108=j*Model->Mu->d[0]+nctemp1108;
-if((0>j)||(j>=Model->Mu->d[1])){
-nctempstring->a="Model->Mu";
-nctempstring->d[0]=strlen("Model->Mu")+1;;
-LibeArrayex(238,nctempstring,j,1,Model->Mu->d[1]);
-}
-float nctemp1120 = tausy / tauey;
-float nctemp1121 = 1.0 - nctemp1120;
-float nctemp1122 = Model->Mu->a[nctemp1108] * nctemp1121;
-Model->Dmuy->a[nctemp1101] =nctemp1122;
-int nctemp1126=i;
-if((0>i)||(i>=Model->Dmux->d[0])){
-nctempstring->a="Model->Dmux";
-nctempstring->d[0]=strlen("Model->Dmux")+1;;
-LibeArrayex(240,nctempstring,i,0,Model->Dmux->d[0]);
-}
-nctemp1126=j*Model->Dmux->d[0]+nctemp1126;
-if((0>j)||(j>=Model->Dmux->d[1])){
-nctempstring->a="Model->Dmux";
-nctempstring->d[0]=strlen("Model->Dmux")+1;;
-LibeArrayex(240,nctempstring,j,1,Model->Dmux->d[1]);
-}
-int nctemp1133=i;
-if((0>i)||(i>=Model->Mu->d[0])){
-nctempstring->a="Model->Mu";
-nctempstring->d[0]=strlen("Model->Mu")+1;;
-LibeArrayex(240,nctempstring,i,0,Model->Mu->d[0]);
-}
-nctemp1133=j*Model->Mu->d[0]+nctemp1133;
-if((0>j)||(j>=Model->Mu->d[1])){
-nctempstring->a="Model->Mu";
-nctempstring->d[0]=strlen("Model->Mu")+1;;
-LibeArrayex(240,nctempstring,j,1,Model->Mu->d[1]);
-}
-float nctemp1145 = tausx / tauex;
-float nctemp1146 = 1.0 - nctemp1145;
-float nctemp1147 = Model->Mu->a[nctemp1133] * nctemp1146;
-Model->Dmux->a[nctemp1126] =nctemp1147;
-}
-int nctemp1156 = i + 1;
-i =nctemp1156;
-int nctemp1157 = (i < Nx);
-nctemp663=nctemp1157;
-}
-}
-int nctemp1169 = j + 1;
-j =nctemp1169;
-int nctemp1170 = (j < Ny);
-nctemp655=nctemp1170;
-}
-return 1;
-}
-int Modeletasls (struct model* Model)
-{
-int Nx;
-int Ny;
-int i;
-int j;
-float Qmin;
-float Qmax;
-float argx;
-float argy;
-float tau0;
-float tauemax;
-float tauemin;
-float tausmax;
-float tausmin;
-float tauex;
-float tausx;
-float tauey;
-float tausy;
-Nx =Model->Nx;
-Ny =Model->Ny;
-j =0;
-int nctemp1187 = (j < Ny);
-while(nctemp1187){
-{
-i =0;
-int nctemp1195 = (i < Nx);
-while(nctemp1195){
-{
-float nctemp1207 = 1.0 / Model->W0;
-tau0 =nctemp1207;
-Qmin =1.1;
-float nctemp1223 = tau0 / Qmin;
-float nctemp1236 = Qmin * Qmin;
-float nctemp1238 = nctemp1236 + 1.0;
-float nctemp1228= nctemp1238;
-float nctemp1239=LibeSqrt(nctemp1228);
-float nctemp1241 = nctemp1239 + 1.0;
-float nctemp1242 = nctemp1223 * nctemp1241;
-tauemin =nctemp1242;
-float nctemp1251 = 1.0 / tauemin;
-tauemin =nctemp1251;
-float nctemp1263 = tau0 / Qmin;
-float nctemp1276 = Qmin * Qmin;
-float nctemp1278 = nctemp1276 + 1.0;
-float nctemp1268= nctemp1278;
-float nctemp1279=LibeSqrt(nctemp1268);
-float nctemp1281 = nctemp1279 - 1.0;
-float nctemp1282 = nctemp1263 * nctemp1281;
-tausmin =nctemp1282;
-float nctemp1291 = 1.0 / tausmin;
-tausmin =nctemp1291;
-int nctemp1296=Model->Nb;
-if((0>Model->Nb)||(Model->Nb>=Model->Qp->d[0])){
-nctempstring->a="Model->Qp";
-nctempstring->d[0]=strlen("Model->Qp")+1;;
-LibeArrayex(289,nctempstring,Model->Nb,0,Model->Qp->d[0]);
-}
-nctemp1296=j*Model->Qp->d[0]+nctemp1296;
-if((0>j)||(j>=Model->Qp->d[1])){
-nctempstring->a="Model->Qp";
-nctempstring->d[0]=strlen("Model->Qp")+1;;
-LibeArrayex(289,nctempstring,j,1,Model->Qp->d[1]);
-}
-Qmax =Model->Qp->a[nctemp1296];
-float nctemp1310 = tau0 / Qmin;
-float nctemp1323 = Qmax * Qmax;
-float nctemp1325 = nctemp1323 + 1.0;
-float nctemp1315= nctemp1325;
-float nctemp1326=LibeSqrt(nctemp1315);
-float nctemp1328 = nctemp1326 + 1.0;
-float nctemp1329 = nctemp1310 * nctemp1328;
-tauemax =nctemp1329;
-float nctemp1338 = 1.0 / tauemax;
-tauemax =nctemp1338;
-float nctemp1350 = tau0 / Qmin;
-float nctemp1363 = Qmax * Qmax;
-float nctemp1365 = nctemp1363 + 1.0;
-float nctemp1355= nctemp1365;
-float nctemp1366=LibeSqrt(nctemp1355);
-float nctemp1368 = nctemp1366 - 1.0;
-float nctemp1369 = nctemp1350 * nctemp1368;
-tausmax =nctemp1369;
-float nctemp1378 = 1.0 / tausmax;
-tausmax =nctemp1378;
-float nctemp1394 = tauemax - tauemin;
-int nctemp1396=i;
-if((0>i)||(i>=Model->dx->d[0])){
-nctempstring->a="Model->dx";
-nctempstring->d[0]=strlen("Model->dx")+1;;
-LibeArrayex(299,nctempstring,i,0,Model->dx->d[0]);
-}
-float nctemp1398 = nctemp1394 * Model->dx->a[nctemp1396];
-float nctemp1399 = tauemin + nctemp1398;
-tauex =nctemp1399;
-float nctemp1415 = tausmax - tausmin;
-int nctemp1417=i;
-if((0>i)||(i>=Model->dx->d[0])){
-nctempstring->a="Model->dx";
-nctempstring->d[0]=strlen("Model->dx")+1;;
-LibeArrayex(300,nctempstring,i,0,Model->dx->d[0]);
-}
-float nctemp1419 = nctemp1415 * Model->dx->a[nctemp1417];
-float nctemp1420 = tausmin + nctemp1419;
-tausx =nctemp1420;
-int nctemp1425=i;
-if((0>i)||(i>=Model->Qp->d[0])){
-nctempstring->a="Model->Qp";
-nctempstring->d[0]=strlen("Model->Qp")+1;;
-LibeArrayex(301,nctempstring,i,0,Model->Qp->d[0]);
-}
-nctemp1425=Model->Nb*Model->Qp->d[0]+nctemp1425;
-if((0>Model->Nb)||(Model->Nb>=Model->Qp->d[1])){
-nctempstring->a="Model->Qp";
-nctempstring->d[0]=strlen("Model->Qp")+1;;
-LibeArrayex(301,nctempstring,Model->Nb,1,Model->Qp->d[1]);
-}
-Qmax =Model->Qp->a[nctemp1425];
-float nctemp1439 = tau0 / Qmin;
-float nctemp1452 = Qmax * Qmax;
-float nctemp1454 = nctemp1452 + 1.0;
-float nctemp1444= nctemp1454;
-float nctemp1455=LibeSqrt(nctemp1444);
-float nctemp1457 = nctemp1455 + 1.0;
-float nctemp1458 = nctemp1439 * nctemp1457;
-tauemax =nctemp1458;
-float nctemp1467 = 1.0 / tauemax;
-tauemax =nctemp1467;
-float nctemp1479 = tau0 / Qmin;
-float nctemp1492 = Qmax * Qmax;
-float nctemp1494 = nctemp1492 + 1.0;
-float nctemp1484= nctemp1494;
-float nctemp1495=LibeSqrt(nctemp1484);
-float nctemp1497 = nctemp1495 - 1.0;
-float nctemp1498 = nctemp1479 * nctemp1497;
-tausmax =nctemp1498;
-float nctemp1507 = 1.0 / tausmax;
-tausmax =nctemp1507;
-float nctemp1523 = tauemax - tauemin;
-int nctemp1525=j;
-if((0>j)||(j>=Model->dy->d[0])){
-nctempstring->a="Model->dy";
-nctempstring->d[0]=strlen("Model->dy")+1;;
-LibeArrayex(308,nctempstring,j,0,Model->dy->d[0]);
-}
-float nctemp1527 = nctemp1523 * Model->dy->a[nctemp1525];
-float nctemp1528 = tauemin + nctemp1527;
-tauey =nctemp1528;
-float nctemp1544 = tausmax - tausmin;
-int nctemp1546=j;
-if((0>j)||(j>=Model->dy->d[0])){
-nctempstring->a="Model->dy";
-nctempstring->d[0]=strlen("Model->dy")+1;;
-LibeArrayex(309,nctempstring,j,0,Model->dy->d[0]);
-}
-float nctemp1548 = nctemp1544 * Model->dy->a[nctemp1546];
-float nctemp1549 = tausmin + nctemp1548;
-tausy =nctemp1549;
-int nctemp1554=i;
-if((0>i)||(i>=Model->dx->d[0])){
-nctempstring->a="Model->dx";
-nctempstring->d[0]=strlen("Model->dx")+1;;
-LibeArrayex(314,nctempstring,i,0,Model->dx->d[0]);
-}
-argx =Model->dx->a[nctemp1554];
-int nctemp1560=j;
-if((0>j)||(j>=Model->dy->d[0])){
-nctempstring->a="Model->dy";
-nctempstring->d[0]=strlen("Model->dy")+1;;
-LibeArrayex(315,nctempstring,j,0,Model->dy->d[0]);
-}
-argy =Model->dy->a[nctemp1560];
-int nctemp1565=i;
-if((0>i)||(i>=Model->Eta1x->d[0])){
-nctempstring->a="Model->Eta1x";
-nctempstring->d[0]=strlen("Model->Eta1x")+1;;
-LibeArrayex(318,nctempstring,i,0,Model->Eta1x->d[0]);
-}
-nctemp1565=j*Model->Eta1x->d[0]+nctemp1565;
-if((0>j)||(j>=Model->Eta1x->d[1])){
-nctempstring->a="Model->Eta1x";
-nctempstring->d[0]=strlen("Model->Eta1x")+1;;
-LibeArrayex(318,nctempstring,j,1,Model->Eta1x->d[1]);
-}
-float nctemp1573= -argx;
-float nctemp1572= nctemp1573;
-float nctemp1574=LibeExp(nctemp1572);
-float nctemp1579= -Model->Dt;
-float nctemp1581 = nctemp1579 * tausx;
-float nctemp1576= nctemp1581;
-float nctemp1582=LibeExp(nctemp1576);
-float nctemp1583 = nctemp1574 * nctemp1582;
-Model->Eta1x->a[nctemp1565] =nctemp1583;
-int nctemp1587=i;
-if((0>i)||(i>=Model->Eta1y->d[0])){
-nctempstring->a="Model->Eta1y";
-nctempstring->d[0]=strlen("Model->Eta1y")+1;;
-LibeArrayex(319,nctempstring,i,0,Model->Eta1y->d[0]);
-}
-nctemp1587=j*Model->Eta1y->d[0]+nctemp1587;
-if((0>j)||(j>=Model->Eta1y->d[1])){
-nctempstring->a="Model->Eta1y";
-nctempstring->d[0]=strlen("Model->Eta1y")+1;;
-LibeArrayex(319,nctempstring,j,1,Model->Eta1y->d[1]);
-}
-float nctemp1595= -argy;
-float nctemp1594= nctemp1595;
-float nctemp1596=LibeExp(nctemp1594);
-float nctemp1601= -Model->Dt;
-float nctemp1603 = nctemp1601 * tausy;
-float nctemp1598= nctemp1603;
-float nctemp1604=LibeExp(nctemp1598);
-float nctemp1605 = nctemp1596 * nctemp1604;
-Model->Eta1y->a[nctemp1587] =nctemp1605;
-int nctemp1609=i;
-if((0>i)||(i>=Model->Eta2x->d[0])){
-nctempstring->a="Model->Eta2x";
-nctempstring->d[0]=strlen("Model->Eta2x")+1;;
-LibeArrayex(320,nctempstring,i,0,Model->Eta2x->d[0]);
-}
-nctemp1609=j*Model->Eta2x->d[0]+nctemp1609;
-if((0>j)||(j>=Model->Eta2x->d[1])){
-nctempstring->a="Model->Eta2x";
-nctempstring->d[0]=strlen("Model->Eta2x")+1;;
-LibeArrayex(320,nctempstring,j,1,Model->Eta2x->d[1]);
-}
-float nctemp1617 = Model->Dt * tauex;
-Model->Eta2x->a[nctemp1609] =nctemp1617;
-int nctemp1621=i;
-if((0>i)||(i>=Model->Eta2y->d[0])){
-nctempstring->a="Model->Eta2y";
-nctempstring->d[0]=strlen("Model->Eta2y")+1;;
-LibeArrayex(321,nctempstring,i,0,Model->Eta2y->d[0]);
-}
-nctemp1621=j*Model->Eta2y->d[0]+nctemp1621;
-if((0>j)||(j>=Model->Eta2y->d[1])){
-nctempstring->a="Model->Eta2y";
-nctempstring->d[0]=strlen("Model->Eta2y")+1;;
-LibeArrayex(321,nctempstring,j,1,Model->Eta2y->d[1]);
-}
-float nctemp1629 = Model->Dt * tauey;
-Model->Eta2y->a[nctemp1621] =nctemp1629;
-int nctemp1633=i;
-if((0>i)||(i>=Model->Drhopy->d[0])){
-nctempstring->a="Model->Drhopy";
-nctempstring->d[0]=strlen("Model->Drhopy")+1;;
-LibeArrayex(325,nctempstring,i,0,Model->Drhopy->d[0]);
-}
-nctemp1633=j*Model->Drhopy->d[0]+nctemp1633;
-if((0>j)||(j>=Model->Drhopy->d[1])){
-nctempstring->a="Model->Drhopy";
-nctempstring->d[0]=strlen("Model->Drhopy")+1;;
-LibeArrayex(325,nctempstring,j,1,Model->Drhopy->d[1]);
-}
-int nctemp1640=i;
-if((0>i)||(i>=Model->Rho->d[0])){
-nctempstring->a="Model->Rho";
-nctempstring->d[0]=strlen("Model->Rho")+1;;
-LibeArrayex(325,nctempstring,i,0,Model->Rho->d[0]);
-}
-nctemp1640=j*Model->Rho->d[0]+nctemp1640;
-if((0>j)||(j>=Model->Rho->d[1])){
-nctempstring->a="Model->Rho";
-nctempstring->d[0]=strlen("Model->Rho")+1;;
-LibeArrayex(325,nctempstring,j,1,Model->Rho->d[1]);
-}
-float nctemp1652 = tausy / tauey;
-float nctemp1653 = 1.0 - nctemp1652;
-float nctemp1654 = Model->Rho->a[nctemp1640] * nctemp1653;
-Model->Drhopy->a[nctemp1633] =nctemp1654;
-int nctemp1658=i;
-if((0>i)||(i>=Model->Drhopx->d[0])){
-nctempstring->a="Model->Drhopx";
-nctempstring->d[0]=strlen("Model->Drhopx")+1;;
-LibeArrayex(327,nctempstring,i,0,Model->Drhopx->d[0]);
-}
-nctemp1658=j*Model->Drhopx->d[0]+nctemp1658;
-if((0>j)||(j>=Model->Drhopx->d[1])){
-nctempstring->a="Model->Drhopx";
-nctempstring->d[0]=strlen("Model->Drhopx")+1;;
-LibeArrayex(327,nctempstring,j,1,Model->Drhopx->d[1]);
-}
-int nctemp1665=i;
-if((0>i)||(i>=Model->Rho->d[0])){
-nctempstring->a="Model->Rho";
-nctempstring->d[0]=strlen("Model->Rho")+1;;
-LibeArrayex(327,nctempstring,i,0,Model->Rho->d[0]);
-}
-nctemp1665=j*Model->Rho->d[0]+nctemp1665;
-if((0>j)||(j>=Model->Rho->d[1])){
-nctempstring->a="Model->Rho";
-nctempstring->d[0]=strlen("Model->Rho")+1;;
-LibeArrayex(327,nctempstring,j,1,Model->Rho->d[1]);
-}
-float nctemp1677 = tausx / tauex;
-float nctemp1678 = 1.0 - nctemp1677;
-float nctemp1679 = Model->Rho->a[nctemp1665] * nctemp1678;
-Model->Drhopx->a[nctemp1658] =nctemp1679;
-}
-int nctemp1688 = i + 1;
-i =nctemp1688;
-int nctemp1689 = (i < Nx);
-nctemp1195=nctemp1689;
-}
-}
-int nctemp1701 = j + 1;
-j =nctemp1701;
-int nctemp1702 = (j < Ny);
-nctemp1187=nctemp1702;
-}
-return 1;
-}
-int Modelnusls (struct model* Model)
-{
-int Nx;
-int Ny;
-int i;
-int j;
-float Qmin;
-float Qmax;
-float argx;
-float argy;
-float tau0;
-float tauemax;
-float tauemin;
-float tausmax;
-float tausmin;
-float tauex;
-float tausx;
-float tauey;
-float tausy;
-Nx =Model->Nx;
-Ny =Model->Ny;
-j =0;
-int nctemp1719 = (j < Ny);
-while(nctemp1719){
-{
-i =0;
-int nctemp1727 = (i < Nx);
-while(nctemp1727){
-{
-float nctemp1739 = 1.0 / Model->W0;
-tau0 =nctemp1739;
-Qmin =1.1;
-float nctemp1755 = tau0 / Qmin;
-float nctemp1768 = Qmin * Qmin;
-float nctemp1770 = nctemp1768 + 1.0;
-float nctemp1760= nctemp1770;
-float nctemp1771=LibeSqrt(nctemp1760);
-float nctemp1773 = nctemp1771 + 1.0;
-float nctemp1774 = nctemp1755 * nctemp1773;
-tauemin =nctemp1774;
-float nctemp1783 = 1.0 / tauemin;
-tauemin =nctemp1783;
-float nctemp1795 = tau0 / Qmin;
-float nctemp1808 = Qmin * Qmin;
-float nctemp1810 = nctemp1808 + 1.0;
-float nctemp1800= nctemp1810;
-float nctemp1811=LibeSqrt(nctemp1800);
-float nctemp1813 = nctemp1811 - 1.0;
-float nctemp1814 = nctemp1795 * nctemp1813;
-tausmin =nctemp1814;
-float nctemp1823 = 1.0 / tausmin;
-tausmin =nctemp1823;
-int nctemp1828=Model->Nb;
-if((0>Model->Nb)||(Model->Nb>=Model->Qs->d[0])){
-nctempstring->a="Model->Qs";
-nctempstring->d[0]=strlen("Model->Qs")+1;;
-LibeArrayex(376,nctempstring,Model->Nb,0,Model->Qs->d[0]);
-}
-nctemp1828=j*Model->Qs->d[0]+nctemp1828;
-if((0>j)||(j>=Model->Qs->d[1])){
-nctempstring->a="Model->Qs";
-nctempstring->d[0]=strlen("Model->Qs")+1;;
-LibeArrayex(376,nctempstring,j,1,Model->Qs->d[1]);
-}
-Qmax =Model->Qs->a[nctemp1828];
-float nctemp1842 = tau0 / Qmin;
-float nctemp1855 = Qmax * Qmax;
-float nctemp1857 = nctemp1855 + 1.0;
-float nctemp1847= nctemp1857;
-float nctemp1858=LibeSqrt(nctemp1847);
-float nctemp1860 = nctemp1858 + 1.0;
-float nctemp1861 = nctemp1842 * nctemp1860;
-tauemax =nctemp1861;
-float nctemp1870 = 1.0 / tauemax;
-tauemax =nctemp1870;
-float nctemp1882 = tau0 / Qmin;
-float nctemp1895 = Qmax * Qmax;
-float nctemp1897 = nctemp1895 + 1.0;
-float nctemp1887= nctemp1897;
-float nctemp1898=LibeSqrt(nctemp1887);
-float nctemp1900 = nctemp1898 - 1.0;
-float nctemp1901 = nctemp1882 * nctemp1900;
-tausmax =nctemp1901;
-float nctemp1910 = 1.0 / tausmax;
-tausmax =nctemp1910;
-float nctemp1926 = tauemax - tauemin;
-int nctemp1928=i;
-if((0>i)||(i>=Model->dx->d[0])){
-nctempstring->a="Model->dx";
-nctempstring->d[0]=strlen("Model->dx")+1;;
-LibeArrayex(386,nctempstring,i,0,Model->dx->d[0]);
-}
-float nctemp1930 = nctemp1926 * Model->dx->a[nctemp1928];
-float nctemp1931 = tauemin + nctemp1930;
-tauex =nctemp1931;
-float nctemp1947 = tausmax - tausmin;
-int nctemp1949=i;
-if((0>i)||(i>=Model->dx->d[0])){
-nctempstring->a="Model->dx";
-nctempstring->d[0]=strlen("Model->dx")+1;;
-LibeArrayex(387,nctempstring,i,0,Model->dx->d[0]);
-}
-float nctemp1951 = nctemp1947 * Model->dx->a[nctemp1949];
-float nctemp1952 = tausmin + nctemp1951;
-tausx =nctemp1952;
-int nctemp1957=i;
-if((0>i)||(i>=Model->Qs->d[0])){
-nctempstring->a="Model->Qs";
-nctempstring->d[0]=strlen("Model->Qs")+1;;
-LibeArrayex(388,nctempstring,i,0,Model->Qs->d[0]);
-}
-nctemp1957=Model->Nb*Model->Qs->d[0]+nctemp1957;
-if((0>Model->Nb)||(Model->Nb>=Model->Qs->d[1])){
-nctempstring->a="Model->Qs";
-nctempstring->d[0]=strlen("Model->Qs")+1;;
-LibeArrayex(388,nctempstring,Model->Nb,1,Model->Qs->d[1]);
-}
-Qmax =Model->Qs->a[nctemp1957];
-float nctemp1971 = tau0 / Qmin;
-float nctemp1984 = Qmax * Qmax;
-float nctemp1986 = nctemp1984 + 1.0;
-float nctemp1976= nctemp1986;
-float nctemp1987=LibeSqrt(nctemp1976);
-float nctemp1989 = nctemp1987 + 1.0;
-float nctemp1990 = nctemp1971 * nctemp1989;
-tauemax =nctemp1990;
-float nctemp1999 = 1.0 / tauemax;
-tauemax =nctemp1999;
-float nctemp2011 = tau0 / Qmin;
-float nctemp2024 = Qmax * Qmax;
-float nctemp2026 = nctemp2024 + 1.0;
-float nctemp2016= nctemp2026;
-float nctemp2027=LibeSqrt(nctemp2016);
-float nctemp2029 = nctemp2027 - 1.0;
-float nctemp2030 = nctemp2011 * nctemp2029;
-tausmax =nctemp2030;
-float nctemp2039 = 1.0 / tausmax;
-tausmax =nctemp2039;
-float nctemp2055 = tauemax - tauemin;
-int nctemp2057=j;
-if((0>j)||(j>=Model->dy->d[0])){
-nctempstring->a="Model->dy";
-nctempstring->d[0]=strlen("Model->dy")+1;;
-LibeArrayex(395,nctempstring,j,0,Model->dy->d[0]);
-}
-float nctemp2059 = nctemp2055 * Model->dy->a[nctemp2057];
-float nctemp2060 = tauemin + nctemp2059;
-tauey =nctemp2060;
-float nctemp2076 = tausmax - tausmin;
-int nctemp2078=j;
-if((0>j)||(j>=Model->dy->d[0])){
-nctempstring->a="Model->dy";
-nctempstring->d[0]=strlen("Model->dy")+1;;
-LibeArrayex(396,nctempstring,j,0,Model->dy->d[0]);
-}
-float nctemp2080 = nctemp2076 * Model->dy->a[nctemp2078];
-float nctemp2081 = tausmin + nctemp2080;
-tausy =nctemp2081;
-int nctemp2086=i;
-if((0>i)||(i>=Model->dx->d[0])){
-nctempstring->a="Model->dx";
-nctempstring->d[0]=strlen("Model->dx")+1;;
-LibeArrayex(401,nctempstring,i,0,Model->dx->d[0]);
-}
-argx =Model->dx->a[nctemp2086];
-int nctemp2092=j;
-if((0>j)||(j>=Model->dy->d[0])){
-nctempstring->a="Model->dy";
-nctempstring->d[0]=strlen("Model->dy")+1;;
-LibeArrayex(402,nctempstring,j,0,Model->dy->d[0]);
-}
-argy =Model->dy->a[nctemp2092];
-int nctemp2097=i;
-if((0>i)||(i>=Model->Nu1x->d[0])){
-nctempstring->a="Model->Nu1x";
-nctempstring->d[0]=strlen("Model->Nu1x")+1;;
-LibeArrayex(405,nctempstring,i,0,Model->Nu1x->d[0]);
-}
-nctemp2097=j*Model->Nu1x->d[0]+nctemp2097;
-if((0>j)||(j>=Model->Nu1x->d[1])){
-nctempstring->a="Model->Nu1x";
-nctempstring->d[0]=strlen("Model->Nu1x")+1;;
-LibeArrayex(405,nctempstring,j,1,Model->Nu1x->d[1]);
-}
-float nctemp2105= -argx;
-float nctemp2104= nctemp2105;
-float nctemp2106=LibeExp(nctemp2104);
-float nctemp2111= -Model->Dt;
-float nctemp2113 = nctemp2111 * tausx;
-float nctemp2108= nctemp2113;
-float nctemp2114=LibeExp(nctemp2108);
-float nctemp2115 = nctemp2106 * nctemp2114;
-Model->Nu1x->a[nctemp2097] =nctemp2115;
-int nctemp2119=i;
-if((0>i)||(i>=Model->Nu1y->d[0])){
-nctempstring->a="Model->Nu1y";
-nctempstring->d[0]=strlen("Model->Nu1y")+1;;
-LibeArrayex(406,nctempstring,i,0,Model->Nu1y->d[0]);
-}
-nctemp2119=j*Model->Nu1y->d[0]+nctemp2119;
-if((0>j)||(j>=Model->Nu1y->d[1])){
-nctempstring->a="Model->Nu1y";
-nctempstring->d[0]=strlen("Model->Nu1y")+1;;
-LibeArrayex(406,nctempstring,j,1,Model->Nu1y->d[1]);
-}
-float nctemp2127= -argy;
-float nctemp2126= nctemp2127;
-float nctemp2128=LibeExp(nctemp2126);
-float nctemp2133= -Model->Dt;
-float nctemp2135 = nctemp2133 * tausy;
-float nctemp2130= nctemp2135;
-float nctemp2136=LibeExp(nctemp2130);
-float nctemp2137 = nctemp2128 * nctemp2136;
-Model->Nu1y->a[nctemp2119] =nctemp2137;
-int nctemp2141=i;
-if((0>i)||(i>=Model->Nu2x->d[0])){
-nctempstring->a="Model->Nu2x";
-nctempstring->d[0]=strlen("Model->Nu2x")+1;;
-LibeArrayex(407,nctempstring,i,0,Model->Nu2x->d[0]);
-}
-nctemp2141=j*Model->Nu2x->d[0]+nctemp2141;
-if((0>j)||(j>=Model->Nu2x->d[1])){
-nctempstring->a="Model->Nu2x";
-nctempstring->d[0]=strlen("Model->Nu2x")+1;;
-LibeArrayex(407,nctempstring,j,1,Model->Nu2x->d[1]);
-}
-float nctemp2149 = Model->Dt * tauex;
-Model->Nu2x->a[nctemp2141] =nctemp2149;
-int nctemp2153=i;
-if((0>i)||(i>=Model->Nu2y->d[0])){
-nctempstring->a="Model->Nu2y";
-nctempstring->d[0]=strlen("Model->Nu2y")+1;;
-LibeArrayex(408,nctempstring,i,0,Model->Nu2y->d[0]);
-}
-nctemp2153=j*Model->Nu2y->d[0]+nctemp2153;
-if((0>j)||(j>=Model->Nu2y->d[1])){
-nctempstring->a="Model->Nu2y";
-nctempstring->d[0]=strlen("Model->Nu2y")+1;;
-LibeArrayex(408,nctempstring,j,1,Model->Nu2y->d[1]);
-}
-float nctemp2161 = Model->Dt * tauey;
-Model->Nu2y->a[nctemp2153] =nctemp2161;
-int nctemp2165=i;
-if((0>i)||(i>=Model->Drhosy->d[0])){
-nctempstring->a="Model->Drhosy";
-nctempstring->d[0]=strlen("Model->Drhosy")+1;;
-LibeArrayex(412,nctempstring,i,0,Model->Drhosy->d[0]);
-}
-nctemp2165=j*Model->Drhosy->d[0]+nctemp2165;
-if((0>j)||(j>=Model->Drhosy->d[1])){
-nctempstring->a="Model->Drhosy";
-nctempstring->d[0]=strlen("Model->Drhosy")+1;;
-LibeArrayex(412,nctempstring,j,1,Model->Drhosy->d[1]);
-}
-int nctemp2172=i;
-if((0>i)||(i>=Model->Rho->d[0])){
-nctempstring->a="Model->Rho";
-nctempstring->d[0]=strlen("Model->Rho")+1;;
-LibeArrayex(412,nctempstring,i,0,Model->Rho->d[0]);
-}
-nctemp2172=j*Model->Rho->d[0]+nctemp2172;
-if((0>j)||(j>=Model->Rho->d[1])){
-nctempstring->a="Model->Rho";
-nctempstring->d[0]=strlen("Model->Rho")+1;;
-LibeArrayex(412,nctempstring,j,1,Model->Rho->d[1]);
-}
-float nctemp2184 = tausy / tauey;
-float nctemp2185 = 1.0 - nctemp2184;
-float nctemp2186 = Model->Rho->a[nctemp2172] * nctemp2185;
-Model->Drhosy->a[nctemp2165] =nctemp2186;
-int nctemp2190=i;
-if((0>i)||(i>=Model->Drhosx->d[0])){
-nctempstring->a="Model->Drhosx";
-nctempstring->d[0]=strlen("Model->Drhosx")+1;;
-LibeArrayex(414,nctempstring,i,0,Model->Drhosx->d[0]);
-}
-nctemp2190=j*Model->Drhosx->d[0]+nctemp2190;
-if((0>j)||(j>=Model->Drhosx->d[1])){
-nctempstring->a="Model->Drhosx";
-nctempstring->d[0]=strlen("Model->Drhosx")+1;;
-LibeArrayex(414,nctempstring,j,1,Model->Drhosx->d[1]);
-}
-int nctemp2197=i;
-if((0>i)||(i>=Model->Rho->d[0])){
-nctempstring->a="Model->Rho";
-nctempstring->d[0]=strlen("Model->Rho")+1;;
-LibeArrayex(414,nctempstring,i,0,Model->Rho->d[0]);
-}
-nctemp2197=j*Model->Rho->d[0]+nctemp2197;
-if((0>j)||(j>=Model->Rho->d[1])){
-nctempstring->a="Model->Rho";
-nctempstring->d[0]=strlen("Model->Rho")+1;;
-LibeArrayex(414,nctempstring,j,1,Model->Rho->d[1]);
-}
-float nctemp2209 = tausx / tauex;
-float nctemp2210 = 1.0 - nctemp2209;
-float nctemp2211 = Model->Rho->a[nctemp2197] * nctemp2210;
-Model->Drhosx->a[nctemp2190] =nctemp2211;
-}
-int nctemp2220 = i + 1;
-i =nctemp2220;
-int nctemp2221 = (i < Nx);
-nctemp1727=nctemp2221;
-}
-}
-int nctemp2233 = j + 1;
-j =nctemp2233;
-int nctemp2234 = (j < Ny);
-nctemp1719=nctemp2234;
-}
-return 1;
-}
-struct model* Modelmaxwell (nctempfloat2 *vp,nctempfloat2 *rho,nctempfloat2 *Qp,nctempfloat2 *Qr,float Dx,float Dt,float W0,int Nb)
-{
-struct model* Model;
-int Nx;
-int Ny;
-int i;
-int j;
-struct model *nctemp2243=(struct model*)RunMalloc(sizeof(struct model));
-Model =nctemp2243;
-Model->Dx =Dx;
-Model->Dt =Dt;
-int nctemp2257=vp->d[0];Model->Nx =nctemp2257;
-int nctemp2265=vp->d[1];Model->Ny =nctemp2265;
-Model->Nb =Nb;
-Model->W0 =W0;
-Nx =Model->Nx;
-Ny =Model->Ny;
-int nctemp2291=Nx;
-nctemp2291=nctemp2291*Ny;
-nctempfloat2 *nctemp2290;
-nctemp2290=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp2290->d[0]=Nx;
-nctemp2290->d[1]=Ny;
-nctemp2290->a=(float *)RunMalloc(sizeof(float)*nctemp2291);
-Model->Rho=nctemp2290;
-int nctemp2302=Nx;
-nctemp2302=nctemp2302*Ny;
-nctempfloat2 *nctemp2301;
-nctemp2301=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp2301->d[0]=Nx;
-nctemp2301->d[1]=Ny;
-nctemp2301->a=(float *)RunMalloc(sizeof(float)*nctemp2302);
-Model->Ql=nctemp2301;
-int nctemp2313=Nx;
-nctemp2313=nctemp2313*Ny;
-nctempfloat2 *nctemp2312;
-nctemp2312=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp2312->d[0]=Nx;
-nctemp2312->d[1]=Ny;
-nctemp2312->a=(float *)RunMalloc(sizeof(float)*nctemp2313);
-Model->Qm=nctemp2312;
-int nctemp2324=Nx;
-nctemp2324=nctemp2324*Ny;
-nctempfloat2 *nctemp2323;
-nctemp2323=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp2323->d[0]=Nx;
-nctemp2323->d[1]=Ny;
-nctemp2323->a=(float *)RunMalloc(sizeof(float)*nctemp2324);
-Model->Lambda=nctemp2323;
-int nctemp2335=Nx;
-nctemp2335=nctemp2335*Ny;
-nctempfloat2 *nctemp2334;
-nctemp2334=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp2334->d[0]=Nx;
-nctemp2334->d[1]=Ny;
-nctemp2334->a=(float *)RunMalloc(sizeof(float)*nctemp2335);
-Model->Dlambdax=nctemp2334;
-int nctemp2346=Nx;
-nctemp2346=nctemp2346*Ny;
-nctempfloat2 *nctemp2345;
-nctemp2345=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp2345->d[0]=Nx;
-nctemp2345->d[1]=Ny;
-nctemp2345->a=(float *)RunMalloc(sizeof(float)*nctemp2346);
-Model->Drhopx=nctemp2345;
-int nctemp2357=Nx;
-nctemp2357=nctemp2357*Ny;
-nctempfloat2 *nctemp2356;
-nctemp2356=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp2356->d[0]=Nx;
-nctemp2356->d[1]=Ny;
-nctemp2356->a=(float *)RunMalloc(sizeof(float)*nctemp2357);
-Model->Alpha1x=nctemp2356;
-int nctemp2368=Nx;
-nctemp2368=nctemp2368*Ny;
-nctempfloat2 *nctemp2367;
-nctemp2367=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp2367->d[0]=Nx;
-nctemp2367->d[1]=Ny;
-nctemp2367->a=(float *)RunMalloc(sizeof(float)*nctemp2368);
-Model->Alpha1y=nctemp2367;
-int nctemp2379=Nx;
-nctemp2379=nctemp2379*Ny;
-nctempfloat2 *nctemp2378;
-nctemp2378=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp2378->d[0]=Nx;
-nctemp2378->d[1]=Ny;
-nctemp2378->a=(float *)RunMalloc(sizeof(float)*nctemp2379);
-Model->Alpha2x=nctemp2378;
-int nctemp2390=Nx;
-nctemp2390=nctemp2390*Ny;
-nctempfloat2 *nctemp2389;
-nctemp2389=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp2389->d[0]=Nx;
-nctemp2389->d[1]=Ny;
-nctemp2389->a=(float *)RunMalloc(sizeof(float)*nctemp2390);
-Model->Alpha2y=nctemp2389;
-int nctemp2401=Nx;
-nctemp2401=nctemp2401*Ny;
-nctempfloat2 *nctemp2400;
-nctemp2400=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp2400->d[0]=Nx;
-nctemp2400->d[1]=Ny;
-nctemp2400->a=(float *)RunMalloc(sizeof(float)*nctemp2401);
-Model->Eta1x=nctemp2400;
-int nctemp2412=Nx;
-nctemp2412=nctemp2412*Ny;
-nctempfloat2 *nctemp2411;
-nctemp2411=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp2411->d[0]=Nx;
-nctemp2411->d[1]=Ny;
-nctemp2411->a=(float *)RunMalloc(sizeof(float)*nctemp2412);
-Model->Eta1y=nctemp2411;
-int nctemp2423=Nx;
-nctemp2423=nctemp2423*Ny;
-nctempfloat2 *nctemp2422;
-nctemp2422=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp2422->d[0]=Nx;
-nctemp2422->d[1]=Ny;
-nctemp2422->a=(float *)RunMalloc(sizeof(float)*nctemp2423);
-Model->Eta2x=nctemp2422;
-int nctemp2434=Nx;
-nctemp2434=nctemp2434*Ny;
-nctempfloat2 *nctemp2433;
-nctemp2433=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp2433->d[0]=Nx;
-nctemp2433->d[1]=Ny;
-nctemp2433->a=(float *)RunMalloc(sizeof(float)*nctemp2434);
-Model->Eta2y=nctemp2433;
-int nctemp2445=Nx;
-nctempfloat1 *nctemp2444;
-nctemp2444=(nctempfloat1*)RunMalloc(sizeof(nctempfloat1));
-nctemp2444->d[0]=Nx;
-nctemp2444->a=(float *)RunMalloc(sizeof(float)*nctemp2445);
-Model->dx=nctemp2444;
-int nctemp2454=Ny;
-nctempfloat1 *nctemp2453;
-nctemp2453=(nctempfloat1*)RunMalloc(sizeof(nctempfloat1));
-nctemp2453->d[0]=Ny;
-nctemp2453->a=(float *)RunMalloc(sizeof(float)*nctemp2454);
-Model->dy=nctemp2453;
-j =0;
-int nctemp2461 = (j < Ny);
-while(nctemp2461){
-{
-i =0;
-int nctemp2469 = (i < Nx);
-while(nctemp2469){
-{
-int nctemp2476=i;
-if((0>i)||(i>=Model->Lambda->d[0])){
-nctempstring->a="Model->Lambda";
-nctempstring->d[0]=strlen("Model->Lambda")+1;;
-LibeArrayex(574,nctempstring,i,0,Model->Lambda->d[0]);
-}
-nctemp2476=j*Model->Lambda->d[0]+nctemp2476;
-if((0>j)||(j>=Model->Lambda->d[1])){
-nctempstring->a="Model->Lambda";
-nctempstring->d[0]=strlen("Model->Lambda")+1;;
-LibeArrayex(574,nctempstring,j,1,Model->Lambda->d[1]);
-}
-int nctemp2486=i;
-if((0>i)||(i>=rho->d[0])){
-nctempstring->a="rho";
-nctempstring->d[0]=strlen("rho")+1;;
-LibeArrayex(574,nctempstring,i,0,rho->d[0]);
-}
-nctemp2486=j*rho->d[0]+nctemp2486;
-if((0>j)||(j>=rho->d[1])){
-nctempstring->a="rho";
-nctempstring->d[0]=strlen("rho")+1;;
-LibeArrayex(574,nctempstring,j,1,rho->d[1]);
-}
-int nctemp2490=i;
-if((0>i)||(i>=vp->d[0])){
-nctempstring->a="vp";
-nctempstring->d[0]=strlen("vp")+1;;
-LibeArrayex(574,nctempstring,i,0,vp->d[0]);
-}
-nctemp2490=j*vp->d[0]+nctemp2490;
-if((0>j)||(j>=vp->d[1])){
-nctempstring->a="vp";
-nctempstring->d[0]=strlen("vp")+1;;
-LibeArrayex(574,nctempstring,j,1,vp->d[1]);
-}
-float nctemp2493 = rho->a[nctemp2486] * vp->a[nctemp2490];
-int nctemp2495=i;
-if((0>i)||(i>=vp->d[0])){
-nctempstring->a="vp";
-nctempstring->d[0]=strlen("vp")+1;;
-LibeArrayex(574,nctempstring,i,0,vp->d[0]);
-}
-nctemp2495=j*vp->d[0]+nctemp2495;
-if((0>j)||(j>=vp->d[1])){
-nctempstring->a="vp";
-nctempstring->d[0]=strlen("vp")+1;;
-LibeArrayex(574,nctempstring,j,1,vp->d[1]);
-}
-float nctemp2498 = nctemp2493 * vp->a[nctemp2495];
-Model->Lambda->a[nctemp2476] =nctemp2498;
-int nctemp2502=i;
-if((0>i)||(i>=Model->Rho->d[0])){
-nctempstring->a="Model->Rho";
-nctempstring->d[0]=strlen("Model->Rho")+1;;
-LibeArrayex(575,nctempstring,i,0,Model->Rho->d[0]);
-}
-nctemp2502=j*Model->Rho->d[0]+nctemp2502;
-if((0>j)||(j>=Model->Rho->d[1])){
-nctempstring->a="Model->Rho";
-nctempstring->d[0]=strlen("Model->Rho")+1;;
-LibeArrayex(575,nctempstring,j,1,Model->Rho->d[1]);
-}
-int nctemp2510=i;
-if((0>i)||(i>=rho->d[0])){
-nctempstring->a="rho";
-nctempstring->d[0]=strlen("rho")+1;;
-LibeArrayex(575,nctempstring,i,0,rho->d[0]);
-}
-nctemp2510=j*rho->d[0]+nctemp2510;
-if((0>j)||(j>=rho->d[1])){
-nctempstring->a="rho";
-nctempstring->d[0]=strlen("rho")+1;;
-LibeArrayex(575,nctempstring,j,1,rho->d[1]);
-}
-float nctemp2513 = 1.0 / rho->a[nctemp2510];
-Model->Rho->a[nctemp2502] =nctemp2513;
-int nctemp2517=i;
-if((0>i)||(i>=Model->Ql->d[0])){
-nctempstring->a="Model->Ql";
-nctempstring->d[0]=strlen("Model->Ql")+1;;
-LibeArrayex(576,nctempstring,i,0,Model->Ql->d[0]);
-}
-nctemp2517=j*Model->Ql->d[0]+nctemp2517;
-if((0>j)||(j>=Model->Ql->d[1])){
-nctempstring->a="Model->Ql";
-nctempstring->d[0]=strlen("Model->Ql")+1;;
-LibeArrayex(576,nctempstring,j,1,Model->Ql->d[1]);
-}
-int nctemp2521=i;
-if((0>i)||(i>=Qp->d[0])){
-nctempstring->a="Qp";
-nctempstring->d[0]=strlen("Qp")+1;;
-LibeArrayex(576,nctempstring,i,0,Qp->d[0]);
-}
-nctemp2521=j*Qp->d[0]+nctemp2521;
-if((0>j)||(j>=Qp->d[1])){
-nctempstring->a="Qp";
-nctempstring->d[0]=strlen("Qp")+1;;
-LibeArrayex(576,nctempstring,j,1,Qp->d[1]);
-}
-Model->Ql->a[nctemp2517] =Qp->a[nctemp2521];
-int nctemp2527=i;
-if((0>i)||(i>=Model->Qm->d[0])){
-nctempstring->a="Model->Qm";
-nctempstring->d[0]=strlen("Model->Qm")+1;;
-LibeArrayex(577,nctempstring,i,0,Model->Qm->d[0]);
-}
-nctemp2527=j*Model->Qm->d[0]+nctemp2527;
-if((0>j)||(j>=Model->Qm->d[1])){
-nctempstring->a="Model->Qm";
-nctempstring->d[0]=strlen("Model->Qm")+1;;
-LibeArrayex(577,nctempstring,j,1,Model->Qm->d[1]);
-}
-int nctemp2531=i;
-if((0>i)||(i>=Qr->d[0])){
-nctempstring->a="Qr";
-nctempstring->d[0]=strlen("Qr")+1;;
-LibeArrayex(577,nctempstring,i,0,Qr->d[0]);
-}
-nctemp2531=j*Qr->d[0]+nctemp2531;
-if((0>j)||(j>=Qr->d[1])){
-nctempstring->a="Qr";
-nctempstring->d[0]=strlen("Qr")+1;;
-LibeArrayex(577,nctempstring,j,1,Qr->d[1]);
-}
-Model->Qm->a[nctemp2527] =Qr->a[nctemp2531];
-}
-int nctemp2542 = i + 1;
-i =nctemp2542;
-int nctemp2543 = (i < Nx);
-nctemp2469=nctemp2543;
-}
-}
-int nctemp2555 = j + 1;
-j =nctemp2555;
-int nctemp2556 = (j < Ny);
-nctemp2461=nctemp2556;
-}
-nctempfloat1* nctemp2561= Model->dx;
-float nctemp2564= Model->Dx;
-int nctemp2566= Model->Nb;
-int nctemp2568=Modeld(nctemp2561,nctemp2564,nctemp2566);
-nctempfloat1* nctemp2570= Model->dy;
-float nctemp2573= Model->Dx;
-int nctemp2575= Model->Nb;
-int nctemp2577=Modeld(nctemp2570,nctemp2573,nctemp2575);
-struct model* nctemp2579= Model;
-int nctemp2581=Modelalphamax(nctemp2579);
-struct model* nctemp2583= Model;
-int nctemp2585=Modelthetamax(nctemp2583);
-j =0;
-int nctemp2590 = (j < Ny);
-while(nctemp2590){
-{
-i =0;
-int nctemp2598 = (i < Nx);
-while(nctemp2598){
-{
-int nctemp2605=i;
-if((0>i)||(i>=Model->Dlambdax->d[0])){
-nctempstring->a="Model->Dlambdax";
-nctempstring->d[0]=strlen("Model->Dlambdax")+1;;
-LibeArrayex(595,nctempstring,i,0,Model->Dlambdax->d[0]);
-}
-nctemp2605=j*Model->Dlambdax->d[0]+nctemp2605;
-if((0>j)||(j>=Model->Dlambdax->d[1])){
-nctempstring->a="Model->Dlambdax";
-nctempstring->d[0]=strlen("Model->Dlambdax")+1;;
-LibeArrayex(595,nctempstring,j,1,Model->Dlambdax->d[1]);
-}
-int nctemp2609=i;
-if((0>i)||(i>=Model->Lambda->d[0])){
-nctempstring->a="Model->Lambda";
-nctempstring->d[0]=strlen("Model->Lambda")+1;;
-LibeArrayex(595,nctempstring,i,0,Model->Lambda->d[0]);
-}
-nctemp2609=j*Model->Lambda->d[0]+nctemp2609;
-if((0>j)||(j>=Model->Lambda->d[1])){
-nctempstring->a="Model->Lambda";
-nctempstring->d[0]=strlen("Model->Lambda")+1;;
-LibeArrayex(595,nctempstring,j,1,Model->Lambda->d[1]);
-}
-Model->Dlambdax->a[nctemp2605] =Model->Lambda->a[nctemp2609];
-int nctemp2615=i;
-if((0>i)||(i>=Model->Drhopx->d[0])){
-nctempstring->a="Model->Drhopx";
-nctempstring->d[0]=strlen("Model->Drhopx")+1;;
-LibeArrayex(596,nctempstring,i,0,Model->Drhopx->d[0]);
-}
-nctemp2615=j*Model->Drhopx->d[0]+nctemp2615;
-if((0>j)||(j>=Model->Drhopx->d[1])){
-nctempstring->a="Model->Drhopx";
-nctempstring->d[0]=strlen("Model->Drhopx")+1;;
-LibeArrayex(596,nctempstring,j,1,Model->Drhopx->d[1]);
-}
-int nctemp2619=i;
-if((0>i)||(i>=Model->Rho->d[0])){
-nctempstring->a="Model->Rho";
-nctempstring->d[0]=strlen("Model->Rho")+1;;
-LibeArrayex(596,nctempstring,i,0,Model->Rho->d[0]);
-}
-nctemp2619=j*Model->Rho->d[0]+nctemp2619;
-if((0>j)||(j>=Model->Rho->d[1])){
-nctempstring->a="Model->Rho";
-nctempstring->d[0]=strlen("Model->Rho")+1;;
-LibeArrayex(596,nctempstring,j,1,Model->Rho->d[1]);
-}
-Model->Drhopx->a[nctemp2615] =Model->Rho->a[nctemp2619];
-}
-int nctemp2630 = i + 1;
-i =nctemp2630;
-int nctemp2631 = (i < Nx);
-nctemp2598=nctemp2631;
-}
-}
-int nctemp2643 = j + 1;
-j =nctemp2643;
-int nctemp2644 = (j < Ny);
-nctemp2590=nctemp2644;
-}
-return Model;
-}
-int Modelalphamax (struct model* Model)
-{
-int Nx;
-int Ny;
-int i;
-int j;
-float Qmin;
-float Qmax;
-float tau0min;
-float tau0max;
-float tau0x;
-float tau0y;
-float argx;
-float argy;
-Nx =Model->Nx;
-Ny =Model->Ny;
-j =0;
-int nctemp2661 = (j < Ny);
-while(nctemp2661){
-{
-i =0;
-int nctemp2669 = (i < Nx);
-while(nctemp2669){
-{
-Qmin =1.1;
-float nctemp2685 = Qmin / Model->W0;
-tau0min =nctemp2685;
-float nctemp2694 = 1.0 / tau0min;
-tau0min =nctemp2694;
-int nctemp2699=Model->Nb;
-if((0>Model->Nb)||(Model->Nb>=Model->Ql->d[0])){
-nctempstring->a="Model->Ql";
-nctempstring->d[0]=strlen("Model->Ql")+1;;
-LibeArrayex(634,nctempstring,Model->Nb,0,Model->Ql->d[0]);
-}
-nctemp2699=j*Model->Ql->d[0]+nctemp2699;
-if((0>j)||(j>=Model->Ql->d[1])){
-nctempstring->a="Model->Ql";
-nctempstring->d[0]=strlen("Model->Ql")+1;;
-LibeArrayex(634,nctempstring,j,1,Model->Ql->d[1]);
-}
-Qmax =Model->Ql->a[nctemp2699];
-float nctemp2710 = Qmax / Model->W0;
-tau0max =nctemp2710;
-float nctemp2719 = 1.0 / tau0max;
-tau0max =nctemp2719;
-float nctemp2735 = tau0max - tau0min;
-int nctemp2737=i;
-if((0>i)||(i>=Model->dx->d[0])){
-nctempstring->a="Model->dx";
-nctempstring->d[0]=strlen("Model->dx")+1;;
-LibeArrayex(639,nctempstring,i,0,Model->dx->d[0]);
-}
-float nctemp2739 = nctemp2735 * Model->dx->a[nctemp2737];
-float nctemp2740 = tau0min + nctemp2739;
-tau0x =nctemp2740;
-int nctemp2745=i;
-if((0>i)||(i>=Model->Ql->d[0])){
-nctempstring->a="Model->Ql";
-nctempstring->d[0]=strlen("Model->Ql")+1;;
-LibeArrayex(641,nctempstring,i,0,Model->Ql->d[0]);
-}
-nctemp2745=Model->Nb*Model->Ql->d[0]+nctemp2745;
-if((0>Model->Nb)||(Model->Nb>=Model->Ql->d[1])){
-nctempstring->a="Model->Ql";
-nctempstring->d[0]=strlen("Model->Ql")+1;;
-LibeArrayex(641,nctempstring,Model->Nb,1,Model->Ql->d[1]);
-}
-Qmax =Model->Ql->a[nctemp2745];
-float nctemp2756 = Qmax / Model->W0;
-tau0max =nctemp2756;
-float nctemp2765 = 1.0 / tau0max;
-tau0max =nctemp2765;
-float nctemp2781 = tau0max - tau0min;
-int nctemp2783=j;
-if((0>j)||(j>=Model->dy->d[0])){
-nctempstring->a="Model->dy";
-nctempstring->d[0]=strlen("Model->dy")+1;;
-LibeArrayex(646,nctempstring,j,0,Model->dy->d[0]);
-}
-float nctemp2785 = nctemp2781 * Model->dy->a[nctemp2783];
-float nctemp2786 = tau0min + nctemp2785;
-tau0y =nctemp2786;
-int nctemp2791=i;
-if((0>i)||(i>=Model->dx->d[0])){
-nctempstring->a="Model->dx";
-nctempstring->d[0]=strlen("Model->dx")+1;;
-LibeArrayex(651,nctempstring,i,0,Model->dx->d[0]);
-}
-argx =Model->dx->a[nctemp2791];
-int nctemp2797=j;
-if((0>j)||(j>=Model->dy->d[0])){
-nctempstring->a="Model->dy";
-nctempstring->d[0]=strlen("Model->dy")+1;;
-LibeArrayex(652,nctempstring,j,0,Model->dy->d[0]);
-}
-argy =Model->dy->a[nctemp2797];
-int nctemp2802=i;
-if((0>i)||(i>=Model->Alpha1x->d[0])){
-nctempstring->a="Model->Alpha1x";
-nctempstring->d[0]=strlen("Model->Alpha1x")+1;;
-LibeArrayex(655,nctempstring,i,0,Model->Alpha1x->d[0]);
-}
-nctemp2802=j*Model->Alpha1x->d[0]+nctemp2802;
-if((0>j)||(j>=Model->Alpha1x->d[1])){
-nctempstring->a="Model->Alpha1x";
-nctempstring->d[0]=strlen("Model->Alpha1x")+1;;
-LibeArrayex(655,nctempstring,j,1,Model->Alpha1x->d[1]);
-}
-float nctemp2810= -argx;
-float nctemp2809= nctemp2810;
-float nctemp2811=LibeExp(nctemp2809);
-float nctemp2816= -Model->Dt;
-float nctemp2818 = nctemp2816 * tau0x;
-float nctemp2813= nctemp2818;
-float nctemp2819=LibeExp(nctemp2813);
-float nctemp2820 = nctemp2811 * nctemp2819;
-Model->Alpha1x->a[nctemp2802] =nctemp2820;
-int nctemp2824=i;
-if((0>i)||(i>=Model->Alpha1y->d[0])){
-nctempstring->a="Model->Alpha1y";
-nctempstring->d[0]=strlen("Model->Alpha1y")+1;;
-LibeArrayex(656,nctempstring,i,0,Model->Alpha1y->d[0]);
-}
-nctemp2824=j*Model->Alpha1y->d[0]+nctemp2824;
-if((0>j)||(j>=Model->Alpha1y->d[1])){
-nctempstring->a="Model->Alpha1y";
-nctempstring->d[0]=strlen("Model->Alpha1y")+1;;
-LibeArrayex(656,nctempstring,j,1,Model->Alpha1y->d[1]);
-}
-float nctemp2832= -argy;
-float nctemp2831= nctemp2832;
-float nctemp2833=LibeExp(nctemp2831);
-float nctemp2838= -Model->Dt;
-float nctemp2840 = nctemp2838 * tau0y;
-float nctemp2835= nctemp2840;
-float nctemp2841=LibeExp(nctemp2835);
-float nctemp2842 = nctemp2833 * nctemp2841;
-Model->Alpha1y->a[nctemp2824] =nctemp2842;
-int nctemp2846=i;
-if((0>i)||(i>=Model->Alpha2x->d[0])){
-nctempstring->a="Model->Alpha2x";
-nctempstring->d[0]=strlen("Model->Alpha2x")+1;;
-LibeArrayex(657,nctempstring,i,0,Model->Alpha2x->d[0]);
-}
-nctemp2846=j*Model->Alpha2x->d[0]+nctemp2846;
-if((0>j)||(j>=Model->Alpha2x->d[1])){
-nctempstring->a="Model->Alpha2x";
-nctempstring->d[0]=strlen("Model->Alpha2x")+1;;
-LibeArrayex(657,nctempstring,j,1,Model->Alpha2x->d[1]);
-}
-float nctemp2852= -Model->Dt;
-float nctemp2854 = nctemp2852 * tau0x;
-Model->Alpha2x->a[nctemp2846] =nctemp2854;
-int nctemp2858=i;
-if((0>i)||(i>=Model->Alpha2y->d[0])){
-nctempstring->a="Model->Alpha2y";
-nctempstring->d[0]=strlen("Model->Alpha2y")+1;;
-LibeArrayex(658,nctempstring,i,0,Model->Alpha2y->d[0]);
-}
-nctemp2858=j*Model->Alpha2y->d[0]+nctemp2858;
-if((0>j)||(j>=Model->Alpha2y->d[1])){
-nctempstring->a="Model->Alpha2y";
-nctempstring->d[0]=strlen("Model->Alpha2y")+1;;
-LibeArrayex(658,nctempstring,j,1,Model->Alpha2y->d[1]);
-}
-float nctemp2864= -Model->Dt;
-float nctemp2866 = nctemp2864 * tau0y;
-Model->Alpha2y->a[nctemp2858] =nctemp2866;
-}
-int nctemp2875 = i + 1;
-i =nctemp2875;
-int nctemp2876 = (i < Nx);
-nctemp2669=nctemp2876;
-}
-}
-int nctemp2888 = j + 1;
-j =nctemp2888;
-int nctemp2889 = (j < Ny);
-nctemp2661=nctemp2889;
-}
-return 1;
-}
-int Modelthetamax (struct model* Model)
-{
-int Nx;
-int Ny;
-int i;
-int j;
-float Qmin;
-float Qmax;
-float tau0min;
-float tau0max;
-float tau0x;
-float tau0y;
-float argx;
-float argy;
-Nx =Model->Nx;
-Ny =Model->Ny;
-j =0;
-int nctemp2906 = (j < Ny);
-while(nctemp2906){
-{
-i =0;
-int nctemp2914 = (i < Nx);
-while(nctemp2914){
-{
-Qmin =1.1;
-float nctemp2930 = Qmin / Model->W0;
-tau0min =nctemp2930;
-float nctemp2939 = 1.0 / tau0min;
-tau0min =nctemp2939;
-int nctemp2944=Model->Nb;
-if((0>Model->Nb)||(Model->Nb>=Model->Qm->d[0])){
-nctempstring->a="Model->Qm";
-nctempstring->d[0]=strlen("Model->Qm")+1;;
-LibeArrayex(697,nctempstring,Model->Nb,0,Model->Qm->d[0]);
-}
-nctemp2944=j*Model->Qm->d[0]+nctemp2944;
-if((0>j)||(j>=Model->Qm->d[1])){
-nctempstring->a="Model->Qm";
-nctempstring->d[0]=strlen("Model->Qm")+1;;
-LibeArrayex(697,nctempstring,j,1,Model->Qm->d[1]);
-}
-Qmax =Model->Qm->a[nctemp2944];
-float nctemp2955 = Qmax / Model->W0;
-tau0max =nctemp2955;
-float nctemp2964 = 1.0 / tau0max;
-tau0max =nctemp2964;
-float nctemp2980 = tau0max - tau0min;
-int nctemp2982=i;
-if((0>i)||(i>=Model->dx->d[0])){
-nctempstring->a="Model->dx";
-nctempstring->d[0]=strlen("Model->dx")+1;;
-LibeArrayex(702,nctempstring,i,0,Model->dx->d[0]);
-}
-float nctemp2984 = nctemp2980 * Model->dx->a[nctemp2982];
-float nctemp2985 = tau0min + nctemp2984;
-tau0x =nctemp2985;
-int nctemp2990=i;
-if((0>i)||(i>=Model->Qm->d[0])){
-nctempstring->a="Model->Qm";
-nctempstring->d[0]=strlen("Model->Qm")+1;;
-LibeArrayex(704,nctempstring,i,0,Model->Qm->d[0]);
-}
-nctemp2990=Model->Nb*Model->Qm->d[0]+nctemp2990;
-if((0>Model->Nb)||(Model->Nb>=Model->Qm->d[1])){
-nctempstring->a="Model->Qm";
-nctempstring->d[0]=strlen("Model->Qm")+1;;
-LibeArrayex(704,nctempstring,Model->Nb,1,Model->Qm->d[1]);
-}
-Qmax =Model->Qm->a[nctemp2990];
-float nctemp3001 = Qmax / Model->W0;
-tau0max =nctemp3001;
-float nctemp3010 = 1.0 / tau0max;
-tau0max =nctemp3010;
-float nctemp3026 = tau0max - tau0min;
-int nctemp3028=j;
-if((0>j)||(j>=Model->dy->d[0])){
-nctempstring->a="Model->dy";
-nctempstring->d[0]=strlen("Model->dy")+1;;
-LibeArrayex(709,nctempstring,j,0,Model->dy->d[0]);
-}
-float nctemp3030 = nctemp3026 * Model->dy->a[nctemp3028];
-float nctemp3031 = tau0min + nctemp3030;
-tau0y =nctemp3031;
-int nctemp3036=i;
-if((0>i)||(i>=Model->dx->d[0])){
-nctempstring->a="Model->dx";
-nctempstring->d[0]=strlen("Model->dx")+1;;
-LibeArrayex(714,nctempstring,i,0,Model->dx->d[0]);
-}
-argx =Model->dx->a[nctemp3036];
-int nctemp3042=j;
-if((0>j)||(j>=Model->dy->d[0])){
-nctempstring->a="Model->dy";
-nctempstring->d[0]=strlen("Model->dy")+1;;
-LibeArrayex(715,nctempstring,j,0,Model->dy->d[0]);
-}
-argy =Model->dy->a[nctemp3042];
-int nctemp3047=i;
-if((0>i)||(i>=Model->Eta1x->d[0])){
-nctempstring->a="Model->Eta1x";
-nctempstring->d[0]=strlen("Model->Eta1x")+1;;
-LibeArrayex(718,nctempstring,i,0,Model->Eta1x->d[0]);
-}
-nctemp3047=j*Model->Eta1x->d[0]+nctemp3047;
-if((0>j)||(j>=Model->Eta1x->d[1])){
-nctempstring->a="Model->Eta1x";
-nctempstring->d[0]=strlen("Model->Eta1x")+1;;
-LibeArrayex(718,nctempstring,j,1,Model->Eta1x->d[1]);
-}
-float nctemp3055= -argx;
-float nctemp3054= nctemp3055;
-float nctemp3056=LibeExp(nctemp3054);
-float nctemp3061= -Model->Dt;
-float nctemp3063 = nctemp3061 * tau0x;
-float nctemp3058= nctemp3063;
-float nctemp3064=LibeExp(nctemp3058);
-float nctemp3065 = nctemp3056 * nctemp3064;
-Model->Eta1x->a[nctemp3047] =nctemp3065;
-int nctemp3069=i;
-if((0>i)||(i>=Model->Eta1y->d[0])){
-nctempstring->a="Model->Eta1y";
-nctempstring->d[0]=strlen("Model->Eta1y")+1;;
-LibeArrayex(719,nctempstring,i,0,Model->Eta1y->d[0]);
-}
-nctemp3069=j*Model->Eta1y->d[0]+nctemp3069;
-if((0>j)||(j>=Model->Eta1y->d[1])){
-nctempstring->a="Model->Eta1y";
-nctempstring->d[0]=strlen("Model->Eta1y")+1;;
-LibeArrayex(719,nctempstring,j,1,Model->Eta1y->d[1]);
-}
-float nctemp3077= -argy;
-float nctemp3076= nctemp3077;
-float nctemp3078=LibeExp(nctemp3076);
-float nctemp3083= -Model->Dt;
-float nctemp3085 = nctemp3083 * tau0y;
-float nctemp3080= nctemp3085;
-float nctemp3086=LibeExp(nctemp3080);
-float nctemp3087 = nctemp3078 * nctemp3086;
-Model->Eta1y->a[nctemp3069] =nctemp3087;
-int nctemp3091=i;
-if((0>i)||(i>=Model->Eta2x->d[0])){
-nctempstring->a="Model->Eta2x";
-nctempstring->d[0]=strlen("Model->Eta2x")+1;;
-LibeArrayex(720,nctempstring,i,0,Model->Eta2x->d[0]);
-}
-nctemp3091=j*Model->Eta2x->d[0]+nctemp3091;
-if((0>j)||(j>=Model->Eta2x->d[1])){
-nctempstring->a="Model->Eta2x";
-nctempstring->d[0]=strlen("Model->Eta2x")+1;;
-LibeArrayex(720,nctempstring,j,1,Model->Eta2x->d[1]);
-}
-float nctemp3097= -Model->Dt;
-float nctemp3099 = nctemp3097 * tau0x;
-Model->Eta2x->a[nctemp3091] =nctemp3099;
-int nctemp3103=i;
-if((0>i)||(i>=Model->Eta2y->d[0])){
-nctempstring->a="Model->Eta2y";
-nctempstring->d[0]=strlen("Model->Eta2y")+1;;
-LibeArrayex(721,nctempstring,i,0,Model->Eta2y->d[0]);
-}
-nctemp3103=j*Model->Eta2y->d[0]+nctemp3103;
-if((0>j)||(j>=Model->Eta2y->d[1])){
-nctempstring->a="Model->Eta2y";
-nctempstring->d[0]=strlen("Model->Eta2y")+1;;
-LibeArrayex(721,nctempstring,j,1,Model->Eta2y->d[1]);
-}
-float nctemp3109= -Model->Dt;
-float nctemp3111 = nctemp3109 * tau0y;
-Model->Eta2y->a[nctemp3103] =nctemp3111;
-}
-int nctemp3120 = i + 1;
-i =nctemp3120;
-int nctemp3121 = (i < Nx);
-nctemp2914=nctemp3121;
-}
-}
-int nctemp3133 = j + 1;
-j =nctemp3133;
-int nctemp3134 = (j < Ny);
-nctemp2906=nctemp3134;
-}
-return 1;
 }
 struct model* Modelsls (nctempfloat2 *vp,nctempfloat2 *vs,nctempfloat2 *rho,nctempfloat2 *Ql,nctempfloat2 *Qm,nctempfloat2 *Qp,nctempfloat2 *Qs,float Dx,float Dt,float W0,int Nb)
 {
@@ -2217,567 +405,435 @@ int Nx;
 int Ny;
 int i;
 int j;
-struct model *nctemp3143=(struct model*)RunMalloc(sizeof(struct model));
-Model =nctemp3143;
+struct model *nctemp644=(struct model*)RunMalloc(sizeof(struct model));
+Model =nctemp644;
 Model->Dx =Dx;
 Model->Dt =Dt;
-int nctemp3157=vp->d[0];Model->Nx =nctemp3157;
-int nctemp3165=vp->d[1];Model->Ny =nctemp3165;
+int nctemp658=vp->d[0];Model->Nx =nctemp658;
+int nctemp666=vp->d[1];Model->Ny =nctemp666;
 Model->Nb =Nb;
 Model->W0 =W0;
 Nx =Model->Nx;
 Ny =Model->Ny;
-int nctemp3191=Nx;
-nctemp3191=nctemp3191*Ny;
-nctempfloat2 *nctemp3190;
-nctemp3190=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp3190->d[0]=Nx;
-nctemp3190->d[1]=Ny;
-nctemp3190->a=(float *)RunMalloc(sizeof(float)*nctemp3191);
-Model->Rho=nctemp3190;
-int nctemp3202=Nx;
-nctemp3202=nctemp3202*Ny;
-nctempfloat2 *nctemp3201;
-nctemp3201=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp3201->d[0]=Nx;
-nctemp3201->d[1]=Ny;
-nctemp3201->a=(float *)RunMalloc(sizeof(float)*nctemp3202);
-Model->Ql=nctemp3201;
-int nctemp3213=Nx;
-nctemp3213=nctemp3213*Ny;
-nctempfloat2 *nctemp3212;
-nctemp3212=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp3212->d[0]=Nx;
-nctemp3212->d[1]=Ny;
-nctemp3212->a=(float *)RunMalloc(sizeof(float)*nctemp3213);
-Model->Qm=nctemp3212;
-int nctemp3224=Nx;
-nctemp3224=nctemp3224*Ny;
-nctempfloat2 *nctemp3223;
-nctemp3223=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp3223->d[0]=Nx;
-nctemp3223->d[1]=Ny;
-nctemp3223->a=(float *)RunMalloc(sizeof(float)*nctemp3224);
-Model->Qp=nctemp3223;
-int nctemp3235=Nx;
-nctemp3235=nctemp3235*Ny;
-nctempfloat2 *nctemp3234;
-nctemp3234=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp3234->d[0]=Nx;
-nctemp3234->d[1]=Ny;
-nctemp3234->a=(float *)RunMalloc(sizeof(float)*nctemp3235);
-Model->Qs=nctemp3234;
-int nctemp3246=Nx;
-nctemp3246=nctemp3246*Ny;
-nctempfloat2 *nctemp3245;
-nctemp3245=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp3245->d[0]=Nx;
-nctemp3245->d[1]=Ny;
-nctemp3245->a=(float *)RunMalloc(sizeof(float)*nctemp3246);
-Model->Mu=nctemp3245;
-int nctemp3257=Nx;
-nctemp3257=nctemp3257*Ny;
-nctempfloat2 *nctemp3256;
-nctemp3256=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp3256->d[0]=Nx;
-nctemp3256->d[1]=Ny;
-nctemp3256->a=(float *)RunMalloc(sizeof(float)*nctemp3257);
-Model->Lambda=nctemp3256;
-int nctemp3268=Nx;
-nctemp3268=nctemp3268*Ny;
-nctempfloat2 *nctemp3267;
-nctemp3267=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp3267->d[0]=Nx;
-nctemp3267->d[1]=Ny;
-nctemp3267->a=(float *)RunMalloc(sizeof(float)*nctemp3268);
-Model->Dlambdax=nctemp3267;
-int nctemp3279=Nx;
-nctemp3279=nctemp3279*Ny;
-nctempfloat2 *nctemp3278;
-nctemp3278=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp3278->d[0]=Nx;
-nctemp3278->d[1]=Ny;
-nctemp3278->a=(float *)RunMalloc(sizeof(float)*nctemp3279);
-Model->Dlambday=nctemp3278;
-int nctemp3290=Nx;
-nctemp3290=nctemp3290*Ny;
-nctempfloat2 *nctemp3289;
-nctemp3289=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp3289->d[0]=Nx;
-nctemp3289->d[1]=Ny;
-nctemp3289->a=(float *)RunMalloc(sizeof(float)*nctemp3290);
-Model->Dmux=nctemp3289;
-int nctemp3301=Nx;
-nctemp3301=nctemp3301*Ny;
-nctempfloat2 *nctemp3300;
-nctemp3300=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp3300->d[0]=Nx;
-nctemp3300->d[1]=Ny;
-nctemp3300->a=(float *)RunMalloc(sizeof(float)*nctemp3301);
-Model->Dmuy=nctemp3300;
-int nctemp3312=Nx;
-nctemp3312=nctemp3312*Ny;
-nctempfloat2 *nctemp3311;
-nctemp3311=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp3311->d[0]=Nx;
-nctemp3311->d[1]=Ny;
-nctemp3311->a=(float *)RunMalloc(sizeof(float)*nctemp3312);
-Model->Drhopx=nctemp3311;
-int nctemp3323=Nx;
-nctemp3323=nctemp3323*Ny;
-nctempfloat2 *nctemp3322;
-nctemp3322=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp3322->d[0]=Nx;
-nctemp3322->d[1]=Ny;
-nctemp3322->a=(float *)RunMalloc(sizeof(float)*nctemp3323);
-Model->Drhopy=nctemp3322;
-int nctemp3334=Nx;
-nctemp3334=nctemp3334*Ny;
-nctempfloat2 *nctemp3333;
-nctemp3333=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp3333->d[0]=Nx;
-nctemp3333->d[1]=Ny;
-nctemp3333->a=(float *)RunMalloc(sizeof(float)*nctemp3334);
-Model->Drhosx=nctemp3333;
-int nctemp3345=Nx;
-nctemp3345=nctemp3345*Ny;
-nctempfloat2 *nctemp3344;
-nctemp3344=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp3344->d[0]=Nx;
-nctemp3344->d[1]=Ny;
-nctemp3344->a=(float *)RunMalloc(sizeof(float)*nctemp3345);
-Model->Drhosy=nctemp3344;
-int nctemp3356=Nx;
-nctemp3356=nctemp3356*Ny;
-nctempfloat2 *nctemp3355;
-nctemp3355=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp3355->d[0]=Nx;
-nctemp3355->d[1]=Ny;
-nctemp3355->a=(float *)RunMalloc(sizeof(float)*nctemp3356);
-Model->Alpha1x=nctemp3355;
-int nctemp3367=Nx;
-nctemp3367=nctemp3367*Ny;
-nctempfloat2 *nctemp3366;
-nctemp3366=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp3366->d[0]=Nx;
-nctemp3366->d[1]=Ny;
-nctemp3366->a=(float *)RunMalloc(sizeof(float)*nctemp3367);
-Model->Alpha1y=nctemp3366;
-int nctemp3378=Nx;
-nctemp3378=nctemp3378*Ny;
-nctempfloat2 *nctemp3377;
-nctemp3377=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp3377->d[0]=Nx;
-nctemp3377->d[1]=Ny;
-nctemp3377->a=(float *)RunMalloc(sizeof(float)*nctemp3378);
-Model->Alpha2x=nctemp3377;
-int nctemp3389=Nx;
-nctemp3389=nctemp3389*Ny;
-nctempfloat2 *nctemp3388;
-nctemp3388=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp3388->d[0]=Nx;
-nctemp3388->d[1]=Ny;
-nctemp3388->a=(float *)RunMalloc(sizeof(float)*nctemp3389);
-Model->Alpha2y=nctemp3388;
-int nctemp3400=Nx;
-nctemp3400=nctemp3400*Ny;
-nctempfloat2 *nctemp3399;
-nctemp3399=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp3399->d[0]=Nx;
-nctemp3399->d[1]=Ny;
-nctemp3399->a=(float *)RunMalloc(sizeof(float)*nctemp3400);
-Model->Beta1x=nctemp3399;
-int nctemp3411=Nx;
-nctemp3411=nctemp3411*Ny;
-nctempfloat2 *nctemp3410;
-nctemp3410=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp3410->d[0]=Nx;
-nctemp3410->d[1]=Ny;
-nctemp3410->a=(float *)RunMalloc(sizeof(float)*nctemp3411);
-Model->Beta1y=nctemp3410;
-int nctemp3422=Nx;
-nctemp3422=nctemp3422*Ny;
-nctempfloat2 *nctemp3421;
-nctemp3421=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp3421->d[0]=Nx;
-nctemp3421->d[1]=Ny;
-nctemp3421->a=(float *)RunMalloc(sizeof(float)*nctemp3422);
-Model->Beta2x=nctemp3421;
-int nctemp3433=Nx;
-nctemp3433=nctemp3433*Ny;
-nctempfloat2 *nctemp3432;
-nctemp3432=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp3432->d[0]=Nx;
-nctemp3432->d[1]=Ny;
-nctemp3432->a=(float *)RunMalloc(sizeof(float)*nctemp3433);
-Model->Beta2y=nctemp3432;
-int nctemp3444=Nx;
-nctemp3444=nctemp3444*Ny;
-nctempfloat2 *nctemp3443;
-nctemp3443=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp3443->d[0]=Nx;
-nctemp3443->d[1]=Ny;
-nctemp3443->a=(float *)RunMalloc(sizeof(float)*nctemp3444);
-Model->Eta1x=nctemp3443;
-int nctemp3455=Nx;
-nctemp3455=nctemp3455*Ny;
-nctempfloat2 *nctemp3454;
-nctemp3454=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp3454->d[0]=Nx;
-nctemp3454->d[1]=Ny;
-nctemp3454->a=(float *)RunMalloc(sizeof(float)*nctemp3455);
-Model->Eta1y=nctemp3454;
-int nctemp3466=Nx;
-nctemp3466=nctemp3466*Ny;
-nctempfloat2 *nctemp3465;
-nctemp3465=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp3465->d[0]=Nx;
-nctemp3465->d[1]=Ny;
-nctemp3465->a=(float *)RunMalloc(sizeof(float)*nctemp3466);
-Model->Eta2x=nctemp3465;
-int nctemp3477=Nx;
-nctemp3477=nctemp3477*Ny;
-nctempfloat2 *nctemp3476;
-nctemp3476=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp3476->d[0]=Nx;
-nctemp3476->d[1]=Ny;
-nctemp3476->a=(float *)RunMalloc(sizeof(float)*nctemp3477);
-Model->Eta2y=nctemp3476;
-int nctemp3488=Nx;
-nctemp3488=nctemp3488*Ny;
-nctempfloat2 *nctemp3487;
-nctemp3487=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp3487->d[0]=Nx;
-nctemp3487->d[1]=Ny;
-nctemp3487->a=(float *)RunMalloc(sizeof(float)*nctemp3488);
-Model->Nu1x=nctemp3487;
-int nctemp3499=Nx;
-nctemp3499=nctemp3499*Ny;
-nctempfloat2 *nctemp3498;
-nctemp3498=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp3498->d[0]=Nx;
-nctemp3498->d[1]=Ny;
-nctemp3498->a=(float *)RunMalloc(sizeof(float)*nctemp3499);
-Model->Nu1y=nctemp3498;
-int nctemp3510=Nx;
-nctemp3510=nctemp3510*Ny;
-nctempfloat2 *nctemp3509;
-nctemp3509=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp3509->d[0]=Nx;
-nctemp3509->d[1]=Ny;
-nctemp3509->a=(float *)RunMalloc(sizeof(float)*nctemp3510);
-Model->Nu2x=nctemp3509;
-int nctemp3521=Nx;
-nctemp3521=nctemp3521*Ny;
-nctempfloat2 *nctemp3520;
-nctemp3520=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp3520->d[0]=Nx;
-nctemp3520->d[1]=Ny;
-nctemp3520->a=(float *)RunMalloc(sizeof(float)*nctemp3521);
-Model->Nu2y=nctemp3520;
-int nctemp3532=Nx;
-nctempfloat1 *nctemp3531;
-nctemp3531=(nctempfloat1*)RunMalloc(sizeof(nctempfloat1));
-nctemp3531->d[0]=Nx;
-nctemp3531->a=(float *)RunMalloc(sizeof(float)*nctemp3532);
-Model->dx=nctemp3531;
-int nctemp3541=Ny;
-nctempfloat1 *nctemp3540;
-nctemp3540=(nctempfloat1*)RunMalloc(sizeof(nctempfloat1));
-nctemp3540->d[0]=Ny;
-nctemp3540->a=(float *)RunMalloc(sizeof(float)*nctemp3541);
-Model->dy=nctemp3540;
+int nctemp692=Nx;
+nctemp692=nctemp692*Ny;
+nctempfloat2 *nctemp691;
+nctemp691=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp691->d[0]=Nx;
+nctemp691->d[1]=Ny;
+nctemp691->a=(float *)RunMalloc(sizeof(float)*nctemp692);
+Model->Rho=nctemp691;
+int nctemp703=Nx;
+nctemp703=nctemp703*Ny;
+nctempfloat2 *nctemp702;
+nctemp702=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp702->d[0]=Nx;
+nctemp702->d[1]=Ny;
+nctemp702->a=(float *)RunMalloc(sizeof(float)*nctemp703);
+Model->Ql=nctemp702;
+int nctemp714=Nx;
+nctemp714=nctemp714*Ny;
+nctempfloat2 *nctemp713;
+nctemp713=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp713->d[0]=Nx;
+nctemp713->d[1]=Ny;
+nctemp713->a=(float *)RunMalloc(sizeof(float)*nctemp714);
+Model->Qm=nctemp713;
+int nctemp725=Nx;
+nctemp725=nctemp725*Ny;
+nctempfloat2 *nctemp724;
+nctemp724=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp724->d[0]=Nx;
+nctemp724->d[1]=Ny;
+nctemp724->a=(float *)RunMalloc(sizeof(float)*nctemp725);
+Model->Qp=nctemp724;
+int nctemp736=Nx;
+nctemp736=nctemp736*Ny;
+nctempfloat2 *nctemp735;
+nctemp735=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp735->d[0]=Nx;
+nctemp735->d[1]=Ny;
+nctemp735->a=(float *)RunMalloc(sizeof(float)*nctemp736);
+Model->Qs=nctemp735;
+int nctemp747=Nx;
+nctemp747=nctemp747*Ny;
+nctempfloat2 *nctemp746;
+nctemp746=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp746->d[0]=Nx;
+nctemp746->d[1]=Ny;
+nctemp746->a=(float *)RunMalloc(sizeof(float)*nctemp747);
+Model->Mu=nctemp746;
+int nctemp758=Nx;
+nctemp758=nctemp758*Ny;
+nctempfloat2 *nctemp757;
+nctemp757=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp757->d[0]=Nx;
+nctemp757->d[1]=Ny;
+nctemp757->a=(float *)RunMalloc(sizeof(float)*nctemp758);
+Model->Lambda=nctemp757;
+int nctemp769=Nx;
+nctemp769=nctemp769*Ny;
+nctempfloat2 *nctemp768;
+nctemp768=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp768->d[0]=Nx;
+nctemp768->d[1]=Ny;
+nctemp768->a=(float *)RunMalloc(sizeof(float)*nctemp769);
+Model->Dlambdax=nctemp768;
+int nctemp780=Nx;
+nctemp780=nctemp780*Ny;
+nctempfloat2 *nctemp779;
+nctemp779=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp779->d[0]=Nx;
+nctemp779->d[1]=Ny;
+nctemp779->a=(float *)RunMalloc(sizeof(float)*nctemp780);
+Model->Dlambday=nctemp779;
+int nctemp791=Nx;
+nctemp791=nctemp791*Ny;
+nctempfloat2 *nctemp790;
+nctemp790=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp790->d[0]=Nx;
+nctemp790->d[1]=Ny;
+nctemp790->a=(float *)RunMalloc(sizeof(float)*nctemp791);
+Model->Dmux=nctemp790;
+int nctemp802=Nx;
+nctemp802=nctemp802*Ny;
+nctempfloat2 *nctemp801;
+nctemp801=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp801->d[0]=Nx;
+nctemp801->d[1]=Ny;
+nctemp801->a=(float *)RunMalloc(sizeof(float)*nctemp802);
+Model->Dmuy=nctemp801;
+int nctemp813=Nx;
+nctemp813=nctemp813*Ny;
+nctempfloat2 *nctemp812;
+nctemp812=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp812->d[0]=Nx;
+nctemp812->d[1]=Ny;
+nctemp812->a=(float *)RunMalloc(sizeof(float)*nctemp813);
+Model->Drhopx=nctemp812;
+int nctemp824=Nx;
+nctemp824=nctemp824*Ny;
+nctempfloat2 *nctemp823;
+nctemp823=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp823->d[0]=Nx;
+nctemp823->d[1]=Ny;
+nctemp823->a=(float *)RunMalloc(sizeof(float)*nctemp824);
+Model->Drhopy=nctemp823;
+int nctemp835=Nx;
+nctemp835=nctemp835*Ny;
+nctempfloat2 *nctemp834;
+nctemp834=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp834->d[0]=Nx;
+nctemp834->d[1]=Ny;
+nctemp834->a=(float *)RunMalloc(sizeof(float)*nctemp835);
+Model->Drhosx=nctemp834;
+int nctemp846=Nx;
+nctemp846=nctemp846*Ny;
+nctempfloat2 *nctemp845;
+nctemp845=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp845->d[0]=Nx;
+nctemp845->d[1]=Ny;
+nctemp845->a=(float *)RunMalloc(sizeof(float)*nctemp846);
+Model->Drhosy=nctemp845;
+int nctemp857=Nx;
+nctemp857=nctemp857*Ny;
+nctempfloat2 *nctemp856;
+nctemp856=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp856->d[0]=Nx;
+nctemp856->d[1]=Ny;
+nctemp856->a=(float *)RunMalloc(sizeof(float)*nctemp857);
+Model->Alpha1x=nctemp856;
+int nctemp868=Nx;
+nctemp868=nctemp868*Ny;
+nctempfloat2 *nctemp867;
+nctemp867=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp867->d[0]=Nx;
+nctemp867->d[1]=Ny;
+nctemp867->a=(float *)RunMalloc(sizeof(float)*nctemp868);
+Model->Alpha1y=nctemp867;
+int nctemp879=Nx;
+nctemp879=nctemp879*Ny;
+nctempfloat2 *nctemp878;
+nctemp878=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp878->d[0]=Nx;
+nctemp878->d[1]=Ny;
+nctemp878->a=(float *)RunMalloc(sizeof(float)*nctemp879);
+Model->Alpha2x=nctemp878;
+int nctemp890=Nx;
+nctemp890=nctemp890*Ny;
+nctempfloat2 *nctemp889;
+nctemp889=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp889->d[0]=Nx;
+nctemp889->d[1]=Ny;
+nctemp889->a=(float *)RunMalloc(sizeof(float)*nctemp890);
+Model->Alpha2y=nctemp889;
+int nctemp901=Nx;
+nctemp901=nctemp901*Ny;
+nctempfloat2 *nctemp900;
+nctemp900=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp900->d[0]=Nx;
+nctemp900->d[1]=Ny;
+nctemp900->a=(float *)RunMalloc(sizeof(float)*nctemp901);
+Model->Beta1x=nctemp900;
+int nctemp912=Nx;
+nctemp912=nctemp912*Ny;
+nctempfloat2 *nctemp911;
+nctemp911=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp911->d[0]=Nx;
+nctemp911->d[1]=Ny;
+nctemp911->a=(float *)RunMalloc(sizeof(float)*nctemp912);
+Model->Beta1y=nctemp911;
+int nctemp923=Nx;
+nctemp923=nctemp923*Ny;
+nctempfloat2 *nctemp922;
+nctemp922=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp922->d[0]=Nx;
+nctemp922->d[1]=Ny;
+nctemp922->a=(float *)RunMalloc(sizeof(float)*nctemp923);
+Model->Beta2x=nctemp922;
+int nctemp934=Nx;
+nctemp934=nctemp934*Ny;
+nctempfloat2 *nctemp933;
+nctemp933=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp933->d[0]=Nx;
+nctemp933->d[1]=Ny;
+nctemp933->a=(float *)RunMalloc(sizeof(float)*nctemp934);
+Model->Beta2y=nctemp933;
+int nctemp945=Nx;
+nctemp945=nctemp945*Ny;
+nctempfloat2 *nctemp944;
+nctemp944=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp944->d[0]=Nx;
+nctemp944->d[1]=Ny;
+nctemp944->a=(float *)RunMalloc(sizeof(float)*nctemp945);
+Model->Eta1x=nctemp944;
+int nctemp956=Nx;
+nctemp956=nctemp956*Ny;
+nctempfloat2 *nctemp955;
+nctemp955=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp955->d[0]=Nx;
+nctemp955->d[1]=Ny;
+nctemp955->a=(float *)RunMalloc(sizeof(float)*nctemp956);
+Model->Eta1y=nctemp955;
+int nctemp967=Nx;
+nctemp967=nctemp967*Ny;
+nctempfloat2 *nctemp966;
+nctemp966=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp966->d[0]=Nx;
+nctemp966->d[1]=Ny;
+nctemp966->a=(float *)RunMalloc(sizeof(float)*nctemp967);
+Model->Eta2x=nctemp966;
+int nctemp978=Nx;
+nctemp978=nctemp978*Ny;
+nctempfloat2 *nctemp977;
+nctemp977=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp977->d[0]=Nx;
+nctemp977->d[1]=Ny;
+nctemp977->a=(float *)RunMalloc(sizeof(float)*nctemp978);
+Model->Eta2y=nctemp977;
+int nctemp989=Nx;
+nctemp989=nctemp989*Ny;
+nctempfloat2 *nctemp988;
+nctemp988=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp988->d[0]=Nx;
+nctemp988->d[1]=Ny;
+nctemp988->a=(float *)RunMalloc(sizeof(float)*nctemp989);
+Model->Nu1x=nctemp988;
+int nctemp1000=Nx;
+nctemp1000=nctemp1000*Ny;
+nctempfloat2 *nctemp999;
+nctemp999=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp999->d[0]=Nx;
+nctemp999->d[1]=Ny;
+nctemp999->a=(float *)RunMalloc(sizeof(float)*nctemp1000);
+Model->Nu1y=nctemp999;
+int nctemp1011=Nx;
+nctemp1011=nctemp1011*Ny;
+nctempfloat2 *nctemp1010;
+nctemp1010=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp1010->d[0]=Nx;
+nctemp1010->d[1]=Ny;
+nctemp1010->a=(float *)RunMalloc(sizeof(float)*nctemp1011);
+Model->Nu2x=nctemp1010;
+int nctemp1022=Nx;
+nctemp1022=nctemp1022*Ny;
+nctempfloat2 *nctemp1021;
+nctemp1021=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp1021->d[0]=Nx;
+nctemp1021->d[1]=Ny;
+nctemp1021->a=(float *)RunMalloc(sizeof(float)*nctemp1022);
+Model->Nu2y=nctemp1021;
+int nctemp1033=Nx;
+nctempfloat1 *nctemp1032;
+nctemp1032=(nctempfloat1*)RunMalloc(sizeof(nctempfloat1));
+nctemp1032->d[0]=Nx;
+nctemp1032->a=(float *)RunMalloc(sizeof(float)*nctemp1033);
+Model->dx=nctemp1032;
+int nctemp1042=Ny;
+nctempfloat1 *nctemp1041;
+nctemp1041=(nctempfloat1*)RunMalloc(sizeof(nctempfloat1));
+nctemp1041->d[0]=Ny;
+nctemp1041->a=(float *)RunMalloc(sizeof(float)*nctemp1042);
+Model->dy=nctemp1041;
 j =0;
-int nctemp3548 = (j < Ny);
-while(nctemp3548){
+int nctemp1049 = (j < Ny);
+while(nctemp1049){
 {
 i =0;
-int nctemp3556 = (i < Nx);
-while(nctemp3556){
+int nctemp1057 = (i < Nx);
+while(nctemp1057){
 {
-int nctemp3563=i;
-if((0>i)||(i>=Model->Rho->d[0])){
-nctempstring->a="Model->Rho";
-nctempstring->d[0]=strlen("Model->Rho")+1;;
-LibeArrayex(904,nctempstring,i,0,Model->Rho->d[0]);
+int nctemp1064=i;
+nctemp1064=j*Model->Rho->d[0]+nctemp1064;
+int nctemp1072=i;
+nctemp1072=j*rho->d[0]+nctemp1072;
+float nctemp1075 = 1.0 / rho->a[nctemp1072];
+Model->Rho->a[nctemp1064] =nctemp1075;
+int nctemp1079=i;
+nctemp1079=j*Model->Ql->d[0]+nctemp1079;
+int nctemp1083=i;
+nctemp1083=j*Ql->d[0]+nctemp1083;
+Model->Ql->a[nctemp1079] =Ql->a[nctemp1083];
+int nctemp1089=i;
+nctemp1089=j*Model->Qm->d[0]+nctemp1089;
+int nctemp1093=i;
+nctemp1093=j*Qm->d[0]+nctemp1093;
+Model->Qm->a[nctemp1089] =Qm->a[nctemp1093];
+int nctemp1099=i;
+nctemp1099=j*Model->Qp->d[0]+nctemp1099;
+int nctemp1103=i;
+nctemp1103=j*Qp->d[0]+nctemp1103;
+Model->Qp->a[nctemp1099] =Qp->a[nctemp1103];
+int nctemp1109=i;
+nctemp1109=j*Model->Qs->d[0]+nctemp1109;
+int nctemp1113=i;
+nctemp1113=j*Qs->d[0]+nctemp1113;
+Model->Qs->a[nctemp1109] =Qs->a[nctemp1113];
+int nctemp1119=i;
+nctemp1119=j*Model->Mu->d[0]+nctemp1119;
+int nctemp1129=i;
+nctemp1129=j*rho->d[0]+nctemp1129;
+int nctemp1133=i;
+nctemp1133=j*vs->d[0]+nctemp1133;
+float nctemp1136 = rho->a[nctemp1129] * vs->a[nctemp1133];
+int nctemp1138=i;
+nctemp1138=j*vs->d[0]+nctemp1138;
+float nctemp1141 = nctemp1136 * vs->a[nctemp1138];
+Model->Mu->a[nctemp1119] =nctemp1141;
+int nctemp1145=i;
+nctemp1145=j*Model->Lambda->d[0]+nctemp1145;
+int nctemp1152=i;
+nctemp1152=j*rho->d[0]+nctemp1152;
+int nctemp1162=i;
+nctemp1162=j*vp->d[0]+nctemp1162;
+int nctemp1166=i;
+nctemp1166=j*vp->d[0]+nctemp1166;
+float nctemp1169 = vp->a[nctemp1162] * vp->a[nctemp1166];
+int nctemp1178=i;
+nctemp1178=j*vs->d[0]+nctemp1178;
+float nctemp1181 = 2.0 * vs->a[nctemp1178];
+int nctemp1183=i;
+nctemp1183=j*vs->d[0]+nctemp1183;
+float nctemp1186 = nctemp1181 * vs->a[nctemp1183];
+float nctemp1187 = nctemp1169 - nctemp1186;
+float nctemp1188 = rho->a[nctemp1152] * nctemp1187;
+Model->Lambda->a[nctemp1145] =nctemp1188;
+int nctemp1192=i;
+nctemp1192=j*Model->Dlambdax->d[0]+nctemp1192;
+int nctemp1196=i;
+nctemp1196=j*Model->Lambda->d[0]+nctemp1196;
+Model->Dlambdax->a[nctemp1192] =Model->Lambda->a[nctemp1196];
+int nctemp1202=i;
+nctemp1202=j*Model->Dlambday->d[0]+nctemp1202;
+int nctemp1206=i;
+nctemp1206=j*Model->Lambda->d[0]+nctemp1206;
+Model->Dlambday->a[nctemp1202] =Model->Lambda->a[nctemp1206];
+int nctemp1212=i;
+nctemp1212=j*Model->Dmux->d[0]+nctemp1212;
+int nctemp1216=i;
+nctemp1216=j*Model->Mu->d[0]+nctemp1216;
+Model->Dmux->a[nctemp1212] =Model->Mu->a[nctemp1216];
+int nctemp1222=i;
+nctemp1222=j*Model->Dmuy->d[0]+nctemp1222;
+int nctemp1226=i;
+nctemp1226=j*Model->Mu->d[0]+nctemp1226;
+Model->Dmuy->a[nctemp1222] =Model->Mu->a[nctemp1226];
+int nctemp1232=i;
+nctemp1232=j*Model->Drhopx->d[0]+nctemp1232;
+int nctemp1236=i;
+nctemp1236=j*Model->Rho->d[0]+nctemp1236;
+Model->Drhopx->a[nctemp1232] =Model->Rho->a[nctemp1236];
+int nctemp1242=i;
+nctemp1242=j*Model->Drhopy->d[0]+nctemp1242;
+int nctemp1246=i;
+nctemp1246=j*Model->Rho->d[0]+nctemp1246;
+Model->Drhopy->a[nctemp1242] =Model->Rho->a[nctemp1246];
+int nctemp1252=i;
+nctemp1252=j*Model->Drhosx->d[0]+nctemp1252;
+int nctemp1256=i;
+nctemp1256=j*Model->Rho->d[0]+nctemp1256;
+Model->Drhosx->a[nctemp1252] =Model->Rho->a[nctemp1256];
+int nctemp1262=i;
+nctemp1262=j*Model->Drhosy->d[0]+nctemp1262;
+int nctemp1266=i;
+nctemp1266=j*Model->Rho->d[0]+nctemp1266;
+Model->Drhosy->a[nctemp1262] =Model->Rho->a[nctemp1266];
 }
-nctemp3563=j*Model->Rho->d[0]+nctemp3563;
-if((0>j)||(j>=Model->Rho->d[1])){
-nctempstring->a="Model->Rho";
-nctempstring->d[0]=strlen("Model->Rho")+1;;
-LibeArrayex(904,nctempstring,j,1,Model->Rho->d[1]);
-}
-int nctemp3571=i;
-if((0>i)||(i>=rho->d[0])){
-nctempstring->a="rho";
-nctempstring->d[0]=strlen("rho")+1;;
-LibeArrayex(904,nctempstring,i,0,rho->d[0]);
-}
-nctemp3571=j*rho->d[0]+nctemp3571;
-if((0>j)||(j>=rho->d[1])){
-nctempstring->a="rho";
-nctempstring->d[0]=strlen("rho")+1;;
-LibeArrayex(904,nctempstring,j,1,rho->d[1]);
-}
-float nctemp3574 = 1.0 / rho->a[nctemp3571];
-Model->Rho->a[nctemp3563] =nctemp3574;
-int nctemp3578=i;
-if((0>i)||(i>=Model->Ql->d[0])){
-nctempstring->a="Model->Ql";
-nctempstring->d[0]=strlen("Model->Ql")+1;;
-LibeArrayex(905,nctempstring,i,0,Model->Ql->d[0]);
-}
-nctemp3578=j*Model->Ql->d[0]+nctemp3578;
-if((0>j)||(j>=Model->Ql->d[1])){
-nctempstring->a="Model->Ql";
-nctempstring->d[0]=strlen("Model->Ql")+1;;
-LibeArrayex(905,nctempstring,j,1,Model->Ql->d[1]);
-}
-int nctemp3582=i;
-if((0>i)||(i>=Ql->d[0])){
-nctempstring->a="Ql";
-nctempstring->d[0]=strlen("Ql")+1;;
-LibeArrayex(905,nctempstring,i,0,Ql->d[0]);
-}
-nctemp3582=j*Ql->d[0]+nctemp3582;
-if((0>j)||(j>=Ql->d[1])){
-nctempstring->a="Ql";
-nctempstring->d[0]=strlen("Ql")+1;;
-LibeArrayex(905,nctempstring,j,1,Ql->d[1]);
-}
-Model->Ql->a[nctemp3578] =Ql->a[nctemp3582];
-int nctemp3588=i;
-if((0>i)||(i>=Model->Qm->d[0])){
-nctempstring->a="Model->Qm";
-nctempstring->d[0]=strlen("Model->Qm")+1;;
-LibeArrayex(906,nctempstring,i,0,Model->Qm->d[0]);
-}
-nctemp3588=j*Model->Qm->d[0]+nctemp3588;
-if((0>j)||(j>=Model->Qm->d[1])){
-nctempstring->a="Model->Qm";
-nctempstring->d[0]=strlen("Model->Qm")+1;;
-LibeArrayex(906,nctempstring,j,1,Model->Qm->d[1]);
-}
-int nctemp3592=i;
-if((0>i)||(i>=Qm->d[0])){
-nctempstring->a="Qm";
-nctempstring->d[0]=strlen("Qm")+1;;
-LibeArrayex(906,nctempstring,i,0,Qm->d[0]);
-}
-nctemp3592=j*Qm->d[0]+nctemp3592;
-if((0>j)||(j>=Qm->d[1])){
-nctempstring->a="Qm";
-nctempstring->d[0]=strlen("Qm")+1;;
-LibeArrayex(906,nctempstring,j,1,Qm->d[1]);
-}
-Model->Qm->a[nctemp3588] =Qm->a[nctemp3592];
-int nctemp3598=i;
-if((0>i)||(i>=Model->Qp->d[0])){
-nctempstring->a="Model->Qp";
-nctempstring->d[0]=strlen("Model->Qp")+1;;
-LibeArrayex(907,nctempstring,i,0,Model->Qp->d[0]);
-}
-nctemp3598=j*Model->Qp->d[0]+nctemp3598;
-if((0>j)||(j>=Model->Qp->d[1])){
-nctempstring->a="Model->Qp";
-nctempstring->d[0]=strlen("Model->Qp")+1;;
-LibeArrayex(907,nctempstring,j,1,Model->Qp->d[1]);
-}
-int nctemp3602=i;
-if((0>i)||(i>=Qp->d[0])){
-nctempstring->a="Qp";
-nctempstring->d[0]=strlen("Qp")+1;;
-LibeArrayex(907,nctempstring,i,0,Qp->d[0]);
-}
-nctemp3602=j*Qp->d[0]+nctemp3602;
-if((0>j)||(j>=Qp->d[1])){
-nctempstring->a="Qp";
-nctempstring->d[0]=strlen("Qp")+1;;
-LibeArrayex(907,nctempstring,j,1,Qp->d[1]);
-}
-Model->Qp->a[nctemp3598] =Qp->a[nctemp3602];
-int nctemp3608=i;
-if((0>i)||(i>=Model->Qs->d[0])){
-nctempstring->a="Model->Qs";
-nctempstring->d[0]=strlen("Model->Qs")+1;;
-LibeArrayex(908,nctempstring,i,0,Model->Qs->d[0]);
-}
-nctemp3608=j*Model->Qs->d[0]+nctemp3608;
-if((0>j)||(j>=Model->Qs->d[1])){
-nctempstring->a="Model->Qs";
-nctempstring->d[0]=strlen("Model->Qs")+1;;
-LibeArrayex(908,nctempstring,j,1,Model->Qs->d[1]);
-}
-int nctemp3612=i;
-if((0>i)||(i>=Qs->d[0])){
-nctempstring->a="Qs";
-nctempstring->d[0]=strlen("Qs")+1;;
-LibeArrayex(908,nctempstring,i,0,Qs->d[0]);
-}
-nctemp3612=j*Qs->d[0]+nctemp3612;
-if((0>j)||(j>=Qs->d[1])){
-nctempstring->a="Qs";
-nctempstring->d[0]=strlen("Qs")+1;;
-LibeArrayex(908,nctempstring,j,1,Qs->d[1]);
-}
-Model->Qs->a[nctemp3608] =Qs->a[nctemp3612];
-int nctemp3618=i;
-if((0>i)||(i>=Model->Mu->d[0])){
-nctempstring->a="Model->Mu";
-nctempstring->d[0]=strlen("Model->Mu")+1;;
-LibeArrayex(909,nctempstring,i,0,Model->Mu->d[0]);
-}
-nctemp3618=j*Model->Mu->d[0]+nctemp3618;
-if((0>j)||(j>=Model->Mu->d[1])){
-nctempstring->a="Model->Mu";
-nctempstring->d[0]=strlen("Model->Mu")+1;;
-LibeArrayex(909,nctempstring,j,1,Model->Mu->d[1]);
-}
-int nctemp3628=i;
-if((0>i)||(i>=rho->d[0])){
-nctempstring->a="rho";
-nctempstring->d[0]=strlen("rho")+1;;
-LibeArrayex(909,nctempstring,i,0,rho->d[0]);
-}
-nctemp3628=j*rho->d[0]+nctemp3628;
-if((0>j)||(j>=rho->d[1])){
-nctempstring->a="rho";
-nctempstring->d[0]=strlen("rho")+1;;
-LibeArrayex(909,nctempstring,j,1,rho->d[1]);
-}
-int nctemp3632=i;
-if((0>i)||(i>=vs->d[0])){
-nctempstring->a="vs";
-nctempstring->d[0]=strlen("vs")+1;;
-LibeArrayex(909,nctempstring,i,0,vs->d[0]);
-}
-nctemp3632=j*vs->d[0]+nctemp3632;
-if((0>j)||(j>=vs->d[1])){
-nctempstring->a="vs";
-nctempstring->d[0]=strlen("vs")+1;;
-LibeArrayex(909,nctempstring,j,1,vs->d[1]);
-}
-float nctemp3635 = rho->a[nctemp3628] * vs->a[nctemp3632];
-int nctemp3637=i;
-if((0>i)||(i>=vs->d[0])){
-nctempstring->a="vs";
-nctempstring->d[0]=strlen("vs")+1;;
-LibeArrayex(909,nctempstring,i,0,vs->d[0]);
-}
-nctemp3637=j*vs->d[0]+nctemp3637;
-if((0>j)||(j>=vs->d[1])){
-nctempstring->a="vs";
-nctempstring->d[0]=strlen("vs")+1;;
-LibeArrayex(909,nctempstring,j,1,vs->d[1]);
-}
-float nctemp3640 = nctemp3635 * vs->a[nctemp3637];
-Model->Mu->a[nctemp3618] =nctemp3640;
-int nctemp3644=i;
-if((0>i)||(i>=Model->Lambda->d[0])){
-nctempstring->a="Model->Lambda";
-nctempstring->d[0]=strlen("Model->Lambda")+1;;
-LibeArrayex(910,nctempstring,i,0,Model->Lambda->d[0]);
-}
-nctemp3644=j*Model->Lambda->d[0]+nctemp3644;
-if((0>j)||(j>=Model->Lambda->d[1])){
-nctempstring->a="Model->Lambda";
-nctempstring->d[0]=strlen("Model->Lambda")+1;;
-LibeArrayex(910,nctempstring,j,1,Model->Lambda->d[1]);
-}
-int nctemp3651=i;
-if((0>i)||(i>=rho->d[0])){
-nctempstring->a="rho";
-nctempstring->d[0]=strlen("rho")+1;;
-LibeArrayex(910,nctempstring,i,0,rho->d[0]);
-}
-nctemp3651=j*rho->d[0]+nctemp3651;
-if((0>j)||(j>=rho->d[1])){
-nctempstring->a="rho";
-nctempstring->d[0]=strlen("rho")+1;;
-LibeArrayex(910,nctempstring,j,1,rho->d[1]);
-}
-int nctemp3661=i;
-if((0>i)||(i>=vp->d[0])){
-nctempstring->a="vp";
-nctempstring->d[0]=strlen("vp")+1;;
-LibeArrayex(910,nctempstring,i,0,vp->d[0]);
-}
-nctemp3661=j*vp->d[0]+nctemp3661;
-if((0>j)||(j>=vp->d[1])){
-nctempstring->a="vp";
-nctempstring->d[0]=strlen("vp")+1;;
-LibeArrayex(910,nctempstring,j,1,vp->d[1]);
-}
-int nctemp3665=i;
-if((0>i)||(i>=vp->d[0])){
-nctempstring->a="vp";
-nctempstring->d[0]=strlen("vp")+1;;
-LibeArrayex(910,nctempstring,i,0,vp->d[0]);
-}
-nctemp3665=j*vp->d[0]+nctemp3665;
-if((0>j)||(j>=vp->d[1])){
-nctempstring->a="vp";
-nctempstring->d[0]=strlen("vp")+1;;
-LibeArrayex(910,nctempstring,j,1,vp->d[1]);
-}
-float nctemp3668 = vp->a[nctemp3661] * vp->a[nctemp3665];
-int nctemp3677=i;
-if((0>i)||(i>=vs->d[0])){
-nctempstring->a="vs";
-nctempstring->d[0]=strlen("vs")+1;;
-LibeArrayex(910,nctempstring,i,0,vs->d[0]);
-}
-nctemp3677=j*vs->d[0]+nctemp3677;
-if((0>j)||(j>=vs->d[1])){
-nctempstring->a="vs";
-nctempstring->d[0]=strlen("vs")+1;;
-LibeArrayex(910,nctempstring,j,1,vs->d[1]);
-}
-float nctemp3680 = 2.0 * vs->a[nctemp3677];
-int nctemp3682=i;
-if((0>i)||(i>=vs->d[0])){
-nctempstring->a="vs";
-nctempstring->d[0]=strlen("vs")+1;;
-LibeArrayex(910,nctempstring,i,0,vs->d[0]);
-}
-nctemp3682=j*vs->d[0]+nctemp3682;
-if((0>j)||(j>=vs->d[1])){
-nctempstring->a="vs";
-nctempstring->d[0]=strlen("vs")+1;;
-LibeArrayex(910,nctempstring,j,1,vs->d[1]);
-}
-float nctemp3685 = nctemp3680 * vs->a[nctemp3682];
-float nctemp3686 = nctemp3668 - nctemp3685;
-float nctemp3687 = rho->a[nctemp3651] * nctemp3686;
-Model->Lambda->a[nctemp3644] =nctemp3687;
-}
-int nctemp3696 = i + 1;
-i =nctemp3696;
-int nctemp3697 = (i < Nx);
-nctemp3556=nctemp3697;
+int nctemp1277 = i + 1;
+i =nctemp1277;
+int nctemp1278 = (i < Nx);
+nctemp1057=nctemp1278;
 }
 }
-int nctemp3709 = j + 1;
-j =nctemp3709;
-int nctemp3710 = (j < Ny);
-nctemp3548=nctemp3710;
+int nctemp1290 = j + 1;
+j =nctemp1290;
+int nctemp1291 = (j < Ny);
+nctemp1049=nctemp1291;
 }
-nctempfloat1* nctemp3715= Model->dx;
-float nctemp3718= Model->Dx;
-int nctemp3720= Model->Nb;
-int nctemp3722=Modeld(nctemp3715,nctemp3718,nctemp3720);
-nctempfloat1* nctemp3724= Model->dy;
-float nctemp3727= Model->Dx;
-int nctemp3729= Model->Nb;
-int nctemp3731=Modeld(nctemp3724,nctemp3727,nctemp3729);
-struct model* nctemp3733= Model;
-int nctemp3735=Modelalphasls(nctemp3733);
-struct model* nctemp3737= Model;
-int nctemp3739=Modelbetasls(nctemp3737);
-struct model* nctemp3741= Model;
-int nctemp3743=Modeletasls(nctemp3741);
-struct model* nctemp3745= Model;
-int nctemp3747=Modelnusls(nctemp3745);
+nctempfloat1* nctemp1296= Model->dx;
+float nctemp1299= Model->Dx;
+int nctemp1301= Model->Nb;
+int nctemp1303=Modeld(nctemp1296,nctemp1299,nctemp1301);
+nctempfloat1* nctemp1305= Model->dy;
+float nctemp1308= Model->Dx;
+int nctemp1310= Model->Nb;
+int nctemp1312=Modeld(nctemp1305,nctemp1308,nctemp1310);
+nctempfloat2* nctemp1314= Model->Ql;
+nctempfloat2* nctemp1317= Model->Dlambdax;
+nctempfloat2* nctemp1320= Model->Dlambday;
+nctempfloat2* nctemp1323= Model->Alpha1x;
+nctempfloat2* nctemp1326= Model->Alpha1y;
+nctempfloat2* nctemp1329= Model->Alpha2x;
+nctempfloat2* nctemp1332= Model->Alpha2y;
+struct model* nctemp1335= Model;
+int nctemp1337=Modelslscoeffs(nctemp1314,nctemp1317,nctemp1320,nctemp1323,nctemp1326,nctemp1329,nctemp1332,nctemp1335);
+nctempfloat2* nctemp1339= Model->Qm;
+nctempfloat2* nctemp1342= Model->Dmux;
+nctempfloat2* nctemp1345= Model->Dmuy;
+nctempfloat2* nctemp1348= Model->Beta1x;
+nctempfloat2* nctemp1351= Model->Beta1y;
+nctempfloat2* nctemp1354= Model->Beta2x;
+nctempfloat2* nctemp1357= Model->Beta2y;
+struct model* nctemp1360= Model;
+int nctemp1362=Modelslscoeffs(nctemp1339,nctemp1342,nctemp1345,nctemp1348,nctemp1351,nctemp1354,nctemp1357,nctemp1360);
+nctempfloat2* nctemp1364= Model->Qp;
+nctempfloat2* nctemp1367= Model->Drhopx;
+nctempfloat2* nctemp1370= Model->Drhopy;
+nctempfloat2* nctemp1373= Model->Eta1x;
+nctempfloat2* nctemp1376= Model->Eta1y;
+nctempfloat2* nctemp1379= Model->Eta2x;
+nctempfloat2* nctemp1382= Model->Eta2y;
+struct model* nctemp1385= Model;
+int nctemp1387=Modelslscoeffs(nctemp1364,nctemp1367,nctemp1370,nctemp1373,nctemp1376,nctemp1379,nctemp1382,nctemp1385);
+nctempfloat2* nctemp1389= Model->Qs;
+nctempfloat2* nctemp1392= Model->Drhosx;
+nctempfloat2* nctemp1395= Model->Drhosy;
+nctempfloat2* nctemp1398= Model->Nu1x;
+nctempfloat2* nctemp1401= Model->Nu1y;
+nctempfloat2* nctemp1404= Model->Nu2x;
+nctempfloat2* nctemp1407= Model->Nu2y;
+struct model* nctemp1410= Model;
+int nctemp1412=Modelslscoeffs(nctemp1389,nctemp1392,nctemp1395,nctemp1398,nctemp1401,nctemp1404,nctemp1407,nctemp1410);
 return Model;
 }
 float ModelStability (struct model* Model)
@@ -2791,154 +847,124 @@ float stab;
 nx =Model->Nx;
 ny =Model->Ny;
 j =0;
-int nctemp3761 = (j < ny);
-while(nctemp3761){
+int nctemp1426 = (j < ny);
+while(nctemp1426){
 {
 i =0;
-int nctemp3769 = (i < nx);
-while(nctemp3769){
+int nctemp1434 = (i < nx);
+while(nctemp1434){
 {
-int nctemp3784=i;
-if((0>i)||(i>=Model->Lambda->d[0])){
-nctempstring->a="Model->Lambda";
-nctempstring->d[0]=strlen("Model->Lambda")+1;;
-LibeArrayex(944,nctempstring,i,0,Model->Lambda->d[0]);
-}
-nctemp3784=j*Model->Lambda->d[0]+nctemp3784;
-if((0>j)||(j>=Model->Lambda->d[1])){
-nctempstring->a="Model->Lambda";
-nctempstring->d[0]=strlen("Model->Lambda")+1;;
-LibeArrayex(944,nctempstring,j,1,Model->Lambda->d[1]);
-}
-int nctemp3792=i;
-if((0>i)||(i>=Model->Mu->d[0])){
-nctempstring->a="Model->Mu";
-nctempstring->d[0]=strlen("Model->Mu")+1;;
-LibeArrayex(944,nctempstring,i,0,Model->Mu->d[0]);
-}
-nctemp3792=j*Model->Mu->d[0]+nctemp3792;
-if((0>j)||(j>=Model->Mu->d[1])){
-nctempstring->a="Model->Mu";
-nctempstring->d[0]=strlen("Model->Mu")+1;;
-LibeArrayex(944,nctempstring,j,1,Model->Mu->d[1]);
-}
-float nctemp3795 = 2.0 * Model->Mu->a[nctemp3792];
-float nctemp3796 = Model->Lambda->a[nctemp3784] + nctemp3795;
-int nctemp3798=i;
-if((0>i)||(i>=Model->Rho->d[0])){
-nctempstring->a="Model->Rho";
-nctempstring->d[0]=strlen("Model->Rho")+1;;
-LibeArrayex(944,nctempstring,i,0,Model->Rho->d[0]);
-}
-nctemp3798=j*Model->Rho->d[0]+nctemp3798;
-if((0>j)||(j>=Model->Rho->d[1])){
-nctempstring->a="Model->Rho";
-nctempstring->d[0]=strlen("Model->Rho")+1;;
-LibeArrayex(944,nctempstring,j,1,Model->Rho->d[1]);
-}
-float nctemp3801 = nctemp3796 / Model->Rho->a[nctemp3798];
-float nctemp3777= nctemp3801;
-float nctemp3802=LibeSqrt(nctemp3777);
-vp =nctemp3802;
-float nctemp3814 = vp * Model->Dt;
-float nctemp3816 = nctemp3814 / Model->Dx;
-stab =nctemp3816;
-float nctemp3825= 2.0;
-float nctemp3827=LibeSqrt(nctemp3825);
-float nctemp3828 = 1.0 / nctemp3827;
-int nctemp3817 = (stab > nctemp3828);
-if(nctemp3817)
+int nctemp1449=i;
+nctemp1449=j*Model->Lambda->d[0]+nctemp1449;
+int nctemp1457=i;
+nctemp1457=j*Model->Mu->d[0]+nctemp1457;
+float nctemp1460 = 2.0 * Model->Mu->a[nctemp1457];
+float nctemp1461 = Model->Lambda->a[nctemp1449] + nctemp1460;
+int nctemp1463=i;
+nctemp1463=j*Model->Rho->d[0]+nctemp1463;
+float nctemp1466 = nctemp1461 / Model->Rho->a[nctemp1463];
+float nctemp1442= nctemp1466;
+float nctemp1467=LibeSqrt(nctemp1442);
+vp =nctemp1467;
+float nctemp1479 = vp * Model->Dt;
+float nctemp1481 = nctemp1479 / Model->Dx;
+stab =nctemp1481;
+float nctemp1490= 2.0;
+float nctemp1492=LibeSqrt(nctemp1490);
+float nctemp1493 = 1.0 / nctemp1492;
+int nctemp1482 = (stab > nctemp1493);
+if(nctemp1482)
 {
-int nctemp3830= 4;
-struct nctempchar1 *nctemp3834;
-static struct nctempchar1 nctemp3835 = {{ 28}, (char*)"Stability index too large! \0"};
-nctemp3834=&nctemp3835;
-nctempchar1* nctemp3832= nctemp3834;
-int nctemp3836=LibePuts(nctemp3830,nctemp3832);
-int nctemp3838= 4;
-float nctemp3840= stab;
-struct nctempchar1 *nctemp3844;
-static struct nctempchar1 nctemp3845 = {{ 2}, (char*)"g\0"};
-nctemp3844=&nctemp3845;
-nctempchar1* nctemp3842= nctemp3844;
-int nctemp3846=LibePutf(nctemp3838,nctemp3840,nctemp3842);
-int nctemp3848= 4;
-struct nctempchar1 *nctemp3852;
-static struct nctempchar1 nctemp3853 = {{ 3}, (char*)"\n\0"};
-nctemp3852=&nctemp3853;
-nctempchar1* nctemp3850= nctemp3852;
-int nctemp3854=LibePuts(nctemp3848,nctemp3850);
-int nctemp3856= 4;
-struct nctempchar1 *nctemp3860;
-static struct nctempchar1 nctemp3861 = {{ 7}, (char*)"vp: \n\0"};
-nctemp3860=&nctemp3861;
-nctempchar1* nctemp3858= nctemp3860;
-int nctemp3862=LibePuts(nctemp3856,nctemp3858);
-int nctemp3864= 4;
-float nctemp3866= vp;
-struct nctempchar1 *nctemp3870;
-static struct nctempchar1 nctemp3871 = {{ 2}, (char*)"g\0"};
-nctemp3870=&nctemp3871;
-nctempchar1* nctemp3868= nctemp3870;
-int nctemp3872=LibePutf(nctemp3864,nctemp3866,nctemp3868);
-int nctemp3874= 4;
-struct nctempchar1 *nctemp3878;
-static struct nctempchar1 nctemp3879 = {{ 3}, (char*)"\n\0"};
-nctemp3878=&nctemp3879;
-nctempchar1* nctemp3876= nctemp3878;
-int nctemp3880=LibePuts(nctemp3874,nctemp3876);
-int nctemp3882= 4;
-struct nctempchar1 *nctemp3886;
-static struct nctempchar1 nctemp3887 = {{ 7}, (char*)"dt: \n\0"};
-nctemp3886=&nctemp3887;
-nctempchar1* nctemp3884= nctemp3886;
-int nctemp3888=LibePuts(nctemp3882,nctemp3884);
-int nctemp3890= 4;
-float nctemp3892= Model->Dt;
-struct nctempchar1 *nctemp3896;
-static struct nctempchar1 nctemp3897 = {{ 2}, (char*)"g\0"};
-nctemp3896=&nctemp3897;
-nctempchar1* nctemp3894= nctemp3896;
-int nctemp3898=LibePutf(nctemp3890,nctemp3892,nctemp3894);
-int nctemp3900= 4;
-struct nctempchar1 *nctemp3904;
-static struct nctempchar1 nctemp3905 = {{ 3}, (char*)"\n\0"};
-nctemp3904=&nctemp3905;
-nctempchar1* nctemp3902= nctemp3904;
-int nctemp3906=LibePuts(nctemp3900,nctemp3902);
-int nctemp3908= 4;
-struct nctempchar1 *nctemp3912;
-static struct nctempchar1 nctemp3913 = {{ 7}, (char*)"dx: \n\0"};
-nctemp3912=&nctemp3913;
-nctempchar1* nctemp3910= nctemp3912;
-int nctemp3914=LibePuts(nctemp3908,nctemp3910);
-int nctemp3916= 4;
-float nctemp3918= Model->Dx;
-struct nctempchar1 *nctemp3922;
-static struct nctempchar1 nctemp3923 = {{ 2}, (char*)"g\0"};
-nctemp3922=&nctemp3923;
-nctempchar1* nctemp3920= nctemp3922;
-int nctemp3924=LibePutf(nctemp3916,nctemp3918,nctemp3920);
-int nctemp3926= 4;
-struct nctempchar1 *nctemp3930;
-static struct nctempchar1 nctemp3931 = {{ 3}, (char*)"\n\0"};
-nctemp3930=&nctemp3931;
-nctempchar1* nctemp3928= nctemp3930;
-int nctemp3932=LibePuts(nctemp3926,nctemp3928);
-int nctemp3934= 4;
-int nctemp3936=LibeFlush(nctemp3934);
+int nctemp1495= 4;
+struct nctempchar1 *nctemp1499;
+static struct nctempchar1 nctemp1500 = {{ 28}, (char*)"Stability index too large! \0"};
+nctemp1499=&nctemp1500;
+nctempchar1* nctemp1497= nctemp1499;
+int nctemp1501=LibePuts(nctemp1495,nctemp1497);
+int nctemp1503= 4;
+float nctemp1505= stab;
+struct nctempchar1 *nctemp1509;
+static struct nctempchar1 nctemp1510 = {{ 2}, (char*)"g\0"};
+nctemp1509=&nctemp1510;
+nctempchar1* nctemp1507= nctemp1509;
+int nctemp1511=LibePutf(nctemp1503,nctemp1505,nctemp1507);
+int nctemp1513= 4;
+struct nctempchar1 *nctemp1517;
+static struct nctempchar1 nctemp1518 = {{ 3}, (char*)"\n\0"};
+nctemp1517=&nctemp1518;
+nctempchar1* nctemp1515= nctemp1517;
+int nctemp1519=LibePuts(nctemp1513,nctemp1515);
+int nctemp1521= 4;
+struct nctempchar1 *nctemp1525;
+static struct nctempchar1 nctemp1526 = {{ 7}, (char*)"vp: \n\0"};
+nctemp1525=&nctemp1526;
+nctempchar1* nctemp1523= nctemp1525;
+int nctemp1527=LibePuts(nctemp1521,nctemp1523);
+int nctemp1529= 4;
+float nctemp1531= vp;
+struct nctempchar1 *nctemp1535;
+static struct nctempchar1 nctemp1536 = {{ 2}, (char*)"g\0"};
+nctemp1535=&nctemp1536;
+nctempchar1* nctemp1533= nctemp1535;
+int nctemp1537=LibePutf(nctemp1529,nctemp1531,nctemp1533);
+int nctemp1539= 4;
+struct nctempchar1 *nctemp1543;
+static struct nctempchar1 nctemp1544 = {{ 3}, (char*)"\n\0"};
+nctemp1543=&nctemp1544;
+nctempchar1* nctemp1541= nctemp1543;
+int nctemp1545=LibePuts(nctemp1539,nctemp1541);
+int nctemp1547= 4;
+struct nctempchar1 *nctemp1551;
+static struct nctempchar1 nctemp1552 = {{ 7}, (char*)"dt: \n\0"};
+nctemp1551=&nctemp1552;
+nctempchar1* nctemp1549= nctemp1551;
+int nctemp1553=LibePuts(nctemp1547,nctemp1549);
+int nctemp1555= 4;
+float nctemp1557= Model->Dt;
+struct nctempchar1 *nctemp1561;
+static struct nctempchar1 nctemp1562 = {{ 2}, (char*)"g\0"};
+nctemp1561=&nctemp1562;
+nctempchar1* nctemp1559= nctemp1561;
+int nctemp1563=LibePutf(nctemp1555,nctemp1557,nctemp1559);
+int nctemp1565= 4;
+struct nctempchar1 *nctemp1569;
+static struct nctempchar1 nctemp1570 = {{ 3}, (char*)"\n\0"};
+nctemp1569=&nctemp1570;
+nctempchar1* nctemp1567= nctemp1569;
+int nctemp1571=LibePuts(nctemp1565,nctemp1567);
+int nctemp1573= 4;
+struct nctempchar1 *nctemp1577;
+static struct nctempchar1 nctemp1578 = {{ 7}, (char*)"dx: \n\0"};
+nctemp1577=&nctemp1578;
+nctempchar1* nctemp1575= nctemp1577;
+int nctemp1579=LibePuts(nctemp1573,nctemp1575);
+int nctemp1581= 4;
+float nctemp1583= Model->Dx;
+struct nctempchar1 *nctemp1587;
+static struct nctempchar1 nctemp1588 = {{ 2}, (char*)"g\0"};
+nctemp1587=&nctemp1588;
+nctempchar1* nctemp1585= nctemp1587;
+int nctemp1589=LibePutf(nctemp1581,nctemp1583,nctemp1585);
+int nctemp1591= 4;
+struct nctempchar1 *nctemp1595;
+static struct nctempchar1 nctemp1596 = {{ 3}, (char*)"\n\0"};
+nctemp1595=&nctemp1596;
+nctempchar1* nctemp1593= nctemp1595;
+int nctemp1597=LibePuts(nctemp1591,nctemp1593);
+int nctemp1599= 4;
+int nctemp1601=LibeFlush(nctemp1599);
 }
 }
-int nctemp3945 = i + 1;
-i =nctemp3945;
-int nctemp3946 = (i < nx);
-nctemp3769=nctemp3946;
+int nctemp1610 = i + 1;
+i =nctemp1610;
+int nctemp1611 = (i < nx);
+nctemp1434=nctemp1611;
 }
 }
-int nctemp3958 = j + 1;
-j =nctemp3958;
-int nctemp3959 = (j < ny);
-nctemp3761=nctemp3959;
+int nctemp1623 = j + 1;
+j =nctemp1623;
+int nctemp1624 = (j < ny);
+nctemp1426=nctemp1624;
 }
 return stab;
 }
@@ -2946,99 +972,807 @@ int Modeld (nctempfloat1 *d,float dx,int nb)
 {
 int i;
 int n;
-int nctemp3968=d->d[0];n =nctemp3968;
+int nctemp1633=d->d[0];n =nctemp1633;
 i =0;
-int nctemp3976 = (i < n);
-while(nctemp3976){
+int nctemp1641 = (i < n);
+while(nctemp1641){
 {
-int nctemp3983=i;
-if((0>i)||(i>=d->d[0])){
-nctempstring->a="d";
-nctempstring->d[0]=strlen("d")+1;;
-LibeArrayex(982,nctempstring,i,0,d->d[0]);
+int nctemp1648=i;
+d->a[nctemp1648] =1.0;
 }
-d->a[nctemp3983] =1.0;
-}
-int nctemp3994 = i + 1;
-i =nctemp3994;
-int nctemp3995 = (i < n);
-nctemp3976=nctemp3995;
+int nctemp1659 = i + 1;
+i =nctemp1659;
+int nctemp1660 = (i < n);
+nctemp1641=nctemp1660;
 }
 i =0;
-int nctemp4003 = (i < nb);
-while(nctemp4003){
+int nctemp1668 = (i < nb);
+while(nctemp1668){
 {
-int nctemp4010=i;
-if((0>i)||(i>=d->d[0])){
-nctempstring->a="d";
-nctempstring->d[0]=strlen("d")+1;;
-LibeArrayex(987,nctempstring,i,0,d->d[0]);
+int nctemp1675=i;
+int nctemp1681=i;
+float nctemp1696=(float)(i);
+float nctemp1700 = nctemp1696 * dx;
+float nctemp1705=(float)(nb);
+float nctemp1709 = nctemp1705 * dx;
+float nctemp1710 = nctemp1700 / nctemp1709;
+float nctemp1715=(float)(i);
+float nctemp1719 = nctemp1715 * dx;
+float nctemp1720 = nctemp1710 * nctemp1719;
+float nctemp1725=(float)(nb);
+float nctemp1729 = nctemp1725 * dx;
+float nctemp1730 = nctemp1720 / nctemp1729;
+float nctemp1731 = d->a[nctemp1681] * nctemp1730;
+d->a[nctemp1675] =nctemp1731;
 }
-int nctemp4016=i;
-if((0>i)||(i>=d->d[0])){
-nctempstring->a="d";
-nctempstring->d[0]=strlen("d")+1;;
-LibeArrayex(987,nctempstring,i,0,d->d[0]);
+int nctemp1740 = i + 1;
+i =nctemp1740;
+int nctemp1741 = (i < nb);
+nctemp1668=nctemp1741;
 }
-float nctemp4031=(float)(i);
-float nctemp4035 = nctemp4031 * dx;
-float nctemp4040=(float)(nb);
-float nctemp4044 = nctemp4040 * dx;
-float nctemp4045 = nctemp4035 / nctemp4044;
-float nctemp4050=(float)(i);
-float nctemp4054 = nctemp4050 * dx;
-float nctemp4055 = nctemp4045 * nctemp4054;
-float nctemp4060=(float)(nb);
-float nctemp4064 = nctemp4060 * dx;
-float nctemp4065 = nctemp4055 / nctemp4064;
-float nctemp4066 = d->a[nctemp4016] * nctemp4065;
-d->a[nctemp4010] =nctemp4066;
-}
-int nctemp4075 = i + 1;
-i =nctemp4075;
-int nctemp4076 = (i < nb);
-nctemp4003=nctemp4076;
-}
-int nctemp4091 = n - 1;
-int nctemp4093 = nctemp4091 - nb;
-i =nctemp4093;
-int nctemp4094 = (i < n);
-while(nctemp4094){
+int nctemp1756 = n - 1;
+int nctemp1758 = nctemp1756 - nb;
+i =nctemp1758;
+int nctemp1759 = (i < n);
+while(nctemp1759){
 {
-int nctemp4101=i;
-if((0>i)||(i>=d->d[0])){
-nctempstring->a="d";
-nctempstring->d[0]=strlen("d")+1;;
-LibeArrayex(993,nctempstring,i,0,d->d[0]);
+int nctemp1766=i;
+int nctemp1772=i;
+int nctemp1796 = n - 1;
+int nctemp1798 = nctemp1796 - i;
+float nctemp1787=(float)(nctemp1798);
+float nctemp1800 = nctemp1787 * dx;
+float nctemp1805=(float)(nb);
+float nctemp1809 = nctemp1805 * dx;
+float nctemp1810 = nctemp1800 / nctemp1809;
+int nctemp1824 = n - 1;
+int nctemp1826 = nctemp1824 - i;
+float nctemp1815=(float)(nctemp1826);
+float nctemp1828 = nctemp1815 * dx;
+float nctemp1829 = nctemp1810 * nctemp1828;
+float nctemp1834=(float)(nb);
+float nctemp1838 = nctemp1834 * dx;
+float nctemp1839 = nctemp1829 / nctemp1838;
+float nctemp1840 = d->a[nctemp1772] * nctemp1839;
+d->a[nctemp1766] =nctemp1840;
 }
-int nctemp4107=i;
-if((0>i)||(i>=d->d[0])){
-nctempstring->a="d";
-nctempstring->d[0]=strlen("d")+1;;
-LibeArrayex(993,nctempstring,i,0,d->d[0]);
+int nctemp1849 = i + 1;
+i =nctemp1849;
+int nctemp1850 = (i < n);
+nctemp1759=nctemp1850;
 }
-int nctemp4131 = n - 1;
-int nctemp4133 = nctemp4131 - i;
-float nctemp4122=(float)(nctemp4133);
-float nctemp4135 = nctemp4122 * dx;
-float nctemp4140=(float)(nb);
-float nctemp4144 = nctemp4140 * dx;
-float nctemp4145 = nctemp4135 / nctemp4144;
-int nctemp4159 = n - 1;
-int nctemp4161 = nctemp4159 - i;
-float nctemp4150=(float)(nctemp4161);
-float nctemp4163 = nctemp4150 * dx;
-float nctemp4164 = nctemp4145 * nctemp4163;
-float nctemp4169=(float)(nb);
-float nctemp4173 = nctemp4169 * dx;
-float nctemp4174 = nctemp4164 / nctemp4173;
-float nctemp4175 = d->a[nctemp4107] * nctemp4174;
-d->a[nctemp4101] =nctemp4175;
+return 1;
 }
-int nctemp4184 = i + 1;
-i =nctemp4184;
-int nctemp4185 = (i < n);
-nctemp4094=nctemp4185;
+int Modelcpmlcoeffs (struct model* Model)
+{
+int Nx;
+int Ny;
+int i;
+int j;
+float argx;
+float argy;
+float alphax;
+float alphay;
+float pi;
+float d0;
+float f0;
+Nx =Model->Nx;
+Ny =Model->Ny;
+j =0;
+int nctemp1867 = (j < Ny);
+while(nctemp1867){
+{
+i =0;
+int nctemp1875 = (i < Nx);
+while(nctemp1875){
+{
+d0 =3490.0;
+pi =3.14159;
+float nctemp1899 = 2.0 * pi;
+float nctemp1900 = Model->W0 / nctemp1899;
+f0 =nctemp1900;
+int nctemp1911=i;
+float nctemp1914 = Model->dx1->a[nctemp1911] * pi;
+float nctemp1916 = nctemp1914 * f0;
+alphax =nctemp1916;
+int nctemp1927=j;
+float nctemp1930 = Model->dy1->a[nctemp1927] * pi;
+float nctemp1932 = nctemp1930 * f0;
+alphay =nctemp1932;
+int nctemp1940=i;
+float nctemp1943 = Model->dx1->a[nctemp1940] * 1.72e-03;
+alphax =nctemp1943;
+int nctemp1951=j;
+float nctemp1954 = Model->dy1->a[nctemp1951] * 1.72e-03;
+alphay =nctemp1954;
+int nctemp1962=i;
+float nctemp1965 = Model->dx2->a[nctemp1962] * d0;
+argx =nctemp1965;
+int nctemp1973=j;
+float nctemp1976 = Model->dy2->a[nctemp1973] * d0;
+argy =nctemp1976;
+int nctemp1984=i;
+float nctemp1987 = Model->dx2->a[nctemp1984] * 1.72e-02;
+argx =nctemp1987;
+int nctemp1995=j;
+float nctemp1998 = Model->dy2->a[nctemp1995] * 1.72e-03;
+argy =nctemp1998;
+int nctemp2002=i;
+nctemp2002=j*Model->Alpha1x->d[0]+nctemp2002;
+float nctemp2012= -argx;
+float nctemp2014 = nctemp2012 * Model->Dt;
+float nctemp2009= nctemp2014;
+float nctemp2015=LibeExp(nctemp2009);
+float nctemp2020= -Model->Dt;
+float nctemp2022 = nctemp2020 * alphax;
+float nctemp2017= nctemp2022;
+float nctemp2023=LibeExp(nctemp2017);
+float nctemp2024 = nctemp2015 * nctemp2023;
+Model->Alpha1x->a[nctemp2002] =nctemp2024;
+int nctemp2028=i;
+nctemp2028=j*Model->Alpha1y->d[0]+nctemp2028;
+float nctemp2038= -argy;
+float nctemp2040 = nctemp2038 * Model->Dt;
+float nctemp2035= nctemp2040;
+float nctemp2041=LibeExp(nctemp2035);
+float nctemp2046= -Model->Dt;
+float nctemp2048 = nctemp2046 * alphay;
+float nctemp2043= nctemp2048;
+float nctemp2049=LibeExp(nctemp2043);
+float nctemp2050 = nctemp2041 * nctemp2049;
+Model->Alpha1y->a[nctemp2028] =nctemp2050;
+int nctemp2054=i;
+nctemp2054=j*Model->Alpha2x->d[0]+nctemp2054;
+float nctemp2062 = Model->Dt * argx;
+Model->Alpha2x->a[nctemp2054] =nctemp2062;
+int nctemp2066=i;
+nctemp2066=j*Model->Alpha2y->d[0]+nctemp2066;
+float nctemp2074 = Model->Dt * argy;
+Model->Alpha2y->a[nctemp2066] =nctemp2074;
+int nctemp2078=i;
+nctemp2078=j*Model->Beta1x->d[0]+nctemp2078;
+int nctemp2082=i;
+nctemp2082=j*Model->Alpha1x->d[0]+nctemp2082;
+Model->Beta1x->a[nctemp2078] =Model->Alpha1x->a[nctemp2082];
+int nctemp2088=i;
+nctemp2088=j*Model->Beta1y->d[0]+nctemp2088;
+int nctemp2092=i;
+nctemp2092=j*Model->Alpha1y->d[0]+nctemp2092;
+Model->Beta1y->a[nctemp2088] =Model->Alpha1y->a[nctemp2092];
+int nctemp2098=i;
+nctemp2098=j*Model->Beta2x->d[0]+nctemp2098;
+int nctemp2102=i;
+nctemp2102=j*Model->Alpha2x->d[0]+nctemp2102;
+Model->Beta2x->a[nctemp2098] =Model->Alpha2x->a[nctemp2102];
+int nctemp2108=i;
+nctemp2108=j*Model->Beta2y->d[0]+nctemp2108;
+int nctemp2112=i;
+nctemp2112=j*Model->Alpha2y->d[0]+nctemp2112;
+Model->Beta2y->a[nctemp2108] =Model->Alpha2y->a[nctemp2112];
+int nctemp2118=i;
+nctemp2118=j*Model->Eta1x->d[0]+nctemp2118;
+int nctemp2122=i;
+nctemp2122=j*Model->Alpha1x->d[0]+nctemp2122;
+Model->Eta1x->a[nctemp2118] =Model->Alpha1x->a[nctemp2122];
+int nctemp2128=i;
+nctemp2128=j*Model->Eta1y->d[0]+nctemp2128;
+int nctemp2132=i;
+nctemp2132=j*Model->Alpha1y->d[0]+nctemp2132;
+Model->Eta1y->a[nctemp2128] =Model->Alpha1y->a[nctemp2132];
+int nctemp2138=i;
+nctemp2138=j*Model->Eta2x->d[0]+nctemp2138;
+int nctemp2142=i;
+nctemp2142=j*Model->Alpha2x->d[0]+nctemp2142;
+Model->Eta2x->a[nctemp2138] =Model->Alpha2x->a[nctemp2142];
+int nctemp2148=i;
+nctemp2148=j*Model->Eta2y->d[0]+nctemp2148;
+int nctemp2152=i;
+nctemp2152=j*Model->Alpha2y->d[0]+nctemp2152;
+Model->Eta2y->a[nctemp2148] =Model->Alpha2y->a[nctemp2152];
+int nctemp2158=i;
+nctemp2158=j*Model->Nu1x->d[0]+nctemp2158;
+int nctemp2162=i;
+nctemp2162=j*Model->Alpha1x->d[0]+nctemp2162;
+Model->Nu1x->a[nctemp2158] =Model->Alpha1x->a[nctemp2162];
+int nctemp2168=i;
+nctemp2168=j*Model->Nu1y->d[0]+nctemp2168;
+int nctemp2172=i;
+nctemp2172=j*Model->Alpha1y->d[0]+nctemp2172;
+Model->Nu1y->a[nctemp2168] =Model->Alpha1y->a[nctemp2172];
+int nctemp2178=i;
+nctemp2178=j*Model->Nu2x->d[0]+nctemp2178;
+int nctemp2182=i;
+nctemp2182=j*Model->Alpha2x->d[0]+nctemp2182;
+Model->Nu2x->a[nctemp2178] =Model->Alpha2x->a[nctemp2182];
+int nctemp2188=i;
+nctemp2188=j*Model->Nu2y->d[0]+nctemp2188;
+int nctemp2192=i;
+nctemp2192=j*Model->Alpha2y->d[0]+nctemp2192;
+Model->Nu2y->a[nctemp2188] =Model->Alpha2y->a[nctemp2192];
+int nctemp2198=i;
+nctemp2198=j*Model->Dlambdax->d[0]+nctemp2198;
+int nctemp2202=i;
+nctemp2202=j*Model->Lambda->d[0]+nctemp2202;
+Model->Dlambdax->a[nctemp2198] =Model->Lambda->a[nctemp2202];
+int nctemp2208=i;
+nctemp2208=j*Model->Dlambday->d[0]+nctemp2208;
+int nctemp2212=i;
+nctemp2212=j*Model->Lambda->d[0]+nctemp2212;
+Model->Dlambday->a[nctemp2208] =Model->Lambda->a[nctemp2212];
+int nctemp2218=i;
+nctemp2218=j*Model->Dmux->d[0]+nctemp2218;
+int nctemp2222=i;
+nctemp2222=j*Model->Mu->d[0]+nctemp2222;
+Model->Dmux->a[nctemp2218] =Model->Mu->a[nctemp2222];
+int nctemp2228=i;
+nctemp2228=j*Model->Dmuy->d[0]+nctemp2228;
+int nctemp2232=i;
+nctemp2232=j*Model->Mu->d[0]+nctemp2232;
+Model->Dmuy->a[nctemp2228] =Model->Mu->a[nctemp2232];
+int nctemp2238=i;
+nctemp2238=j*Model->Drhopx->d[0]+nctemp2238;
+int nctemp2242=i;
+nctemp2242=j*Model->Rho->d[0]+nctemp2242;
+Model->Drhopx->a[nctemp2238] =Model->Rho->a[nctemp2242];
+int nctemp2248=i;
+nctemp2248=j*Model->Drhopy->d[0]+nctemp2248;
+int nctemp2252=i;
+nctemp2252=j*Model->Rho->d[0]+nctemp2252;
+Model->Drhopy->a[nctemp2248] =Model->Rho->a[nctemp2252];
+int nctemp2258=i;
+nctemp2258=j*Model->Drhosx->d[0]+nctemp2258;
+int nctemp2262=i;
+nctemp2262=j*Model->Rho->d[0]+nctemp2262;
+Model->Drhosx->a[nctemp2258] =Model->Rho->a[nctemp2262];
+int nctemp2268=i;
+nctemp2268=j*Model->Drhosy->d[0]+nctemp2268;
+int nctemp2272=i;
+nctemp2272=j*Model->Rho->d[0]+nctemp2272;
+Model->Drhosy->a[nctemp2268] =Model->Rho->a[nctemp2272];
+}
+int nctemp2283 = i + 1;
+i =nctemp2283;
+int nctemp2284 = (i < Nx);
+nctemp1875=nctemp2284;
+}
+}
+int nctemp2296 = j + 1;
+j =nctemp2296;
+int nctemp2297 = (j < Ny);
+nctemp1867=nctemp2297;
+}
+return 1;
+}
+struct model* Modelcpml (nctempfloat2 *vp,nctempfloat2 *vs,nctempfloat2 *rho,nctempfloat2 *Ql,nctempfloat2 *Qm,nctempfloat2 *Qp,nctempfloat2 *Qs,float Dx,float Dt,float W0,int Nb)
+{
+struct model* Model;
+int Nx;
+int Ny;
+int i;
+int j;
+struct model *nctemp2306=(struct model*)RunMalloc(sizeof(struct model));
+Model =nctemp2306;
+Model->Dx =Dx;
+Model->Dt =Dt;
+int nctemp2320=vp->d[0];Model->Nx =nctemp2320;
+int nctemp2328=vp->d[1];Model->Ny =nctemp2328;
+Model->Nb =Nb;
+Model->W0 =W0;
+Nx =Model->Nx;
+Ny =Model->Ny;
+int nctemp2354=Nx;
+nctemp2354=nctemp2354*Ny;
+nctempfloat2 *nctemp2353;
+nctemp2353=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp2353->d[0]=Nx;
+nctemp2353->d[1]=Ny;
+nctemp2353->a=(float *)RunMalloc(sizeof(float)*nctemp2354);
+Model->Rho=nctemp2353;
+int nctemp2365=Nx;
+nctemp2365=nctemp2365*Ny;
+nctempfloat2 *nctemp2364;
+nctemp2364=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp2364->d[0]=Nx;
+nctemp2364->d[1]=Ny;
+nctemp2364->a=(float *)RunMalloc(sizeof(float)*nctemp2365);
+Model->Ql=nctemp2364;
+int nctemp2376=Nx;
+nctemp2376=nctemp2376*Ny;
+nctempfloat2 *nctemp2375;
+nctemp2375=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp2375->d[0]=Nx;
+nctemp2375->d[1]=Ny;
+nctemp2375->a=(float *)RunMalloc(sizeof(float)*nctemp2376);
+Model->Qm=nctemp2375;
+int nctemp2387=Nx;
+nctemp2387=nctemp2387*Ny;
+nctempfloat2 *nctemp2386;
+nctemp2386=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp2386->d[0]=Nx;
+nctemp2386->d[1]=Ny;
+nctemp2386->a=(float *)RunMalloc(sizeof(float)*nctemp2387);
+Model->Qp=nctemp2386;
+int nctemp2398=Nx;
+nctemp2398=nctemp2398*Ny;
+nctempfloat2 *nctemp2397;
+nctemp2397=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp2397->d[0]=Nx;
+nctemp2397->d[1]=Ny;
+nctemp2397->a=(float *)RunMalloc(sizeof(float)*nctemp2398);
+Model->Qs=nctemp2397;
+int nctemp2409=Nx;
+nctemp2409=nctemp2409*Ny;
+nctempfloat2 *nctemp2408;
+nctemp2408=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp2408->d[0]=Nx;
+nctemp2408->d[1]=Ny;
+nctemp2408->a=(float *)RunMalloc(sizeof(float)*nctemp2409);
+Model->Mu=nctemp2408;
+int nctemp2420=Nx;
+nctemp2420=nctemp2420*Ny;
+nctempfloat2 *nctemp2419;
+nctemp2419=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp2419->d[0]=Nx;
+nctemp2419->d[1]=Ny;
+nctemp2419->a=(float *)RunMalloc(sizeof(float)*nctemp2420);
+Model->Lambda=nctemp2419;
+int nctemp2431=Nx;
+nctemp2431=nctemp2431*Ny;
+nctempfloat2 *nctemp2430;
+nctemp2430=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp2430->d[0]=Nx;
+nctemp2430->d[1]=Ny;
+nctemp2430->a=(float *)RunMalloc(sizeof(float)*nctemp2431);
+Model->Dlambdax=nctemp2430;
+int nctemp2442=Nx;
+nctemp2442=nctemp2442*Ny;
+nctempfloat2 *nctemp2441;
+nctemp2441=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp2441->d[0]=Nx;
+nctemp2441->d[1]=Ny;
+nctemp2441->a=(float *)RunMalloc(sizeof(float)*nctemp2442);
+Model->Dlambday=nctemp2441;
+int nctemp2453=Nx;
+nctemp2453=nctemp2453*Ny;
+nctempfloat2 *nctemp2452;
+nctemp2452=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp2452->d[0]=Nx;
+nctemp2452->d[1]=Ny;
+nctemp2452->a=(float *)RunMalloc(sizeof(float)*nctemp2453);
+Model->Dmux=nctemp2452;
+int nctemp2464=Nx;
+nctemp2464=nctemp2464*Ny;
+nctempfloat2 *nctemp2463;
+nctemp2463=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp2463->d[0]=Nx;
+nctemp2463->d[1]=Ny;
+nctemp2463->a=(float *)RunMalloc(sizeof(float)*nctemp2464);
+Model->Dmuy=nctemp2463;
+int nctemp2475=Nx;
+nctemp2475=nctemp2475*Ny;
+nctempfloat2 *nctemp2474;
+nctemp2474=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp2474->d[0]=Nx;
+nctemp2474->d[1]=Ny;
+nctemp2474->a=(float *)RunMalloc(sizeof(float)*nctemp2475);
+Model->Drhopx=nctemp2474;
+int nctemp2486=Nx;
+nctemp2486=nctemp2486*Ny;
+nctempfloat2 *nctemp2485;
+nctemp2485=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp2485->d[0]=Nx;
+nctemp2485->d[1]=Ny;
+nctemp2485->a=(float *)RunMalloc(sizeof(float)*nctemp2486);
+Model->Drhopy=nctemp2485;
+int nctemp2497=Nx;
+nctemp2497=nctemp2497*Ny;
+nctempfloat2 *nctemp2496;
+nctemp2496=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp2496->d[0]=Nx;
+nctemp2496->d[1]=Ny;
+nctemp2496->a=(float *)RunMalloc(sizeof(float)*nctemp2497);
+Model->Drhosx=nctemp2496;
+int nctemp2508=Nx;
+nctemp2508=nctemp2508*Ny;
+nctempfloat2 *nctemp2507;
+nctemp2507=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp2507->d[0]=Nx;
+nctemp2507->d[1]=Ny;
+nctemp2507->a=(float *)RunMalloc(sizeof(float)*nctemp2508);
+Model->Drhosy=nctemp2507;
+int nctemp2519=Nx;
+nctemp2519=nctemp2519*Ny;
+nctempfloat2 *nctemp2518;
+nctemp2518=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp2518->d[0]=Nx;
+nctemp2518->d[1]=Ny;
+nctemp2518->a=(float *)RunMalloc(sizeof(float)*nctemp2519);
+Model->Alpha1x=nctemp2518;
+int nctemp2530=Nx;
+nctemp2530=nctemp2530*Ny;
+nctempfloat2 *nctemp2529;
+nctemp2529=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp2529->d[0]=Nx;
+nctemp2529->d[1]=Ny;
+nctemp2529->a=(float *)RunMalloc(sizeof(float)*nctemp2530);
+Model->Alpha1y=nctemp2529;
+int nctemp2541=Nx;
+nctemp2541=nctemp2541*Ny;
+nctempfloat2 *nctemp2540;
+nctemp2540=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp2540->d[0]=Nx;
+nctemp2540->d[1]=Ny;
+nctemp2540->a=(float *)RunMalloc(sizeof(float)*nctemp2541);
+Model->Alpha2x=nctemp2540;
+int nctemp2552=Nx;
+nctemp2552=nctemp2552*Ny;
+nctempfloat2 *nctemp2551;
+nctemp2551=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp2551->d[0]=Nx;
+nctemp2551->d[1]=Ny;
+nctemp2551->a=(float *)RunMalloc(sizeof(float)*nctemp2552);
+Model->Alpha2y=nctemp2551;
+int nctemp2563=Nx;
+nctemp2563=nctemp2563*Ny;
+nctempfloat2 *nctemp2562;
+nctemp2562=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp2562->d[0]=Nx;
+nctemp2562->d[1]=Ny;
+nctemp2562->a=(float *)RunMalloc(sizeof(float)*nctemp2563);
+Model->Beta1x=nctemp2562;
+int nctemp2574=Nx;
+nctemp2574=nctemp2574*Ny;
+nctempfloat2 *nctemp2573;
+nctemp2573=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp2573->d[0]=Nx;
+nctemp2573->d[1]=Ny;
+nctemp2573->a=(float *)RunMalloc(sizeof(float)*nctemp2574);
+Model->Beta1y=nctemp2573;
+int nctemp2585=Nx;
+nctemp2585=nctemp2585*Ny;
+nctempfloat2 *nctemp2584;
+nctemp2584=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp2584->d[0]=Nx;
+nctemp2584->d[1]=Ny;
+nctemp2584->a=(float *)RunMalloc(sizeof(float)*nctemp2585);
+Model->Beta2x=nctemp2584;
+int nctemp2596=Nx;
+nctemp2596=nctemp2596*Ny;
+nctempfloat2 *nctemp2595;
+nctemp2595=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp2595->d[0]=Nx;
+nctemp2595->d[1]=Ny;
+nctemp2595->a=(float *)RunMalloc(sizeof(float)*nctemp2596);
+Model->Beta2y=nctemp2595;
+int nctemp2607=Nx;
+nctemp2607=nctemp2607*Ny;
+nctempfloat2 *nctemp2606;
+nctemp2606=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp2606->d[0]=Nx;
+nctemp2606->d[1]=Ny;
+nctemp2606->a=(float *)RunMalloc(sizeof(float)*nctemp2607);
+Model->Eta1x=nctemp2606;
+int nctemp2618=Nx;
+nctemp2618=nctemp2618*Ny;
+nctempfloat2 *nctemp2617;
+nctemp2617=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp2617->d[0]=Nx;
+nctemp2617->d[1]=Ny;
+nctemp2617->a=(float *)RunMalloc(sizeof(float)*nctemp2618);
+Model->Eta1y=nctemp2617;
+int nctemp2629=Nx;
+nctemp2629=nctemp2629*Ny;
+nctempfloat2 *nctemp2628;
+nctemp2628=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp2628->d[0]=Nx;
+nctemp2628->d[1]=Ny;
+nctemp2628->a=(float *)RunMalloc(sizeof(float)*nctemp2629);
+Model->Eta2x=nctemp2628;
+int nctemp2640=Nx;
+nctemp2640=nctemp2640*Ny;
+nctempfloat2 *nctemp2639;
+nctemp2639=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp2639->d[0]=Nx;
+nctemp2639->d[1]=Ny;
+nctemp2639->a=(float *)RunMalloc(sizeof(float)*nctemp2640);
+Model->Eta2y=nctemp2639;
+int nctemp2651=Nx;
+nctemp2651=nctemp2651*Ny;
+nctempfloat2 *nctemp2650;
+nctemp2650=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp2650->d[0]=Nx;
+nctemp2650->d[1]=Ny;
+nctemp2650->a=(float *)RunMalloc(sizeof(float)*nctemp2651);
+Model->Nu1x=nctemp2650;
+int nctemp2662=Nx;
+nctemp2662=nctemp2662*Ny;
+nctempfloat2 *nctemp2661;
+nctemp2661=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp2661->d[0]=Nx;
+nctemp2661->d[1]=Ny;
+nctemp2661->a=(float *)RunMalloc(sizeof(float)*nctemp2662);
+Model->Nu1y=nctemp2661;
+int nctemp2673=Nx;
+nctemp2673=nctemp2673*Ny;
+nctempfloat2 *nctemp2672;
+nctemp2672=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp2672->d[0]=Nx;
+nctemp2672->d[1]=Ny;
+nctemp2672->a=(float *)RunMalloc(sizeof(float)*nctemp2673);
+Model->Nu2x=nctemp2672;
+int nctemp2684=Nx;
+nctemp2684=nctemp2684*Ny;
+nctempfloat2 *nctemp2683;
+nctemp2683=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp2683->d[0]=Nx;
+nctemp2683->d[1]=Ny;
+nctemp2683->a=(float *)RunMalloc(sizeof(float)*nctemp2684);
+Model->Nu2y=nctemp2683;
+int nctemp2695=Nx;
+nctempfloat1 *nctemp2694;
+nctemp2694=(nctempfloat1*)RunMalloc(sizeof(nctempfloat1));
+nctemp2694->d[0]=Nx;
+nctemp2694->a=(float *)RunMalloc(sizeof(float)*nctemp2695);
+Model->dx=nctemp2694;
+int nctemp2704=Ny;
+nctempfloat1 *nctemp2703;
+nctemp2703=(nctempfloat1*)RunMalloc(sizeof(nctempfloat1));
+nctemp2703->d[0]=Ny;
+nctemp2703->a=(float *)RunMalloc(sizeof(float)*nctemp2704);
+Model->dy=nctemp2703;
+int nctemp2713=Nx;
+nctempfloat1 *nctemp2712;
+nctemp2712=(nctempfloat1*)RunMalloc(sizeof(nctempfloat1));
+nctemp2712->d[0]=Nx;
+nctemp2712->a=(float *)RunMalloc(sizeof(float)*nctemp2713);
+Model->dx1=nctemp2712;
+int nctemp2722=Ny;
+nctempfloat1 *nctemp2721;
+nctemp2721=(nctempfloat1*)RunMalloc(sizeof(nctempfloat1));
+nctemp2721->d[0]=Ny;
+nctemp2721->a=(float *)RunMalloc(sizeof(float)*nctemp2722);
+Model->dy1=nctemp2721;
+int nctemp2731=Nx;
+nctempfloat1 *nctemp2730;
+nctemp2730=(nctempfloat1*)RunMalloc(sizeof(nctempfloat1));
+nctemp2730->d[0]=Nx;
+nctemp2730->a=(float *)RunMalloc(sizeof(float)*nctemp2731);
+Model->dx2=nctemp2730;
+int nctemp2740=Ny;
+nctempfloat1 *nctemp2739;
+nctemp2739=(nctempfloat1*)RunMalloc(sizeof(nctempfloat1));
+nctemp2739->d[0]=Ny;
+nctemp2739->a=(float *)RunMalloc(sizeof(float)*nctemp2740);
+Model->dy2=nctemp2739;
+j =0;
+int nctemp2747 = (j < Ny);
+while(nctemp2747){
+{
+i =0;
+int nctemp2755 = (i < Nx);
+while(nctemp2755){
+{
+int nctemp2762=i;
+nctemp2762=j*Model->Rho->d[0]+nctemp2762;
+int nctemp2770=i;
+nctemp2770=j*rho->d[0]+nctemp2770;
+float nctemp2773 = 1.0 / rho->a[nctemp2770];
+Model->Rho->a[nctemp2762] =nctemp2773;
+int nctemp2777=i;
+nctemp2777=j*Model->Ql->d[0]+nctemp2777;
+int nctemp2781=i;
+nctemp2781=j*Ql->d[0]+nctemp2781;
+Model->Ql->a[nctemp2777] =Ql->a[nctemp2781];
+int nctemp2787=i;
+nctemp2787=j*Model->Qm->d[0]+nctemp2787;
+int nctemp2791=i;
+nctemp2791=j*Qm->d[0]+nctemp2791;
+Model->Qm->a[nctemp2787] =Qm->a[nctemp2791];
+int nctemp2797=i;
+nctemp2797=j*Model->Qp->d[0]+nctemp2797;
+int nctemp2801=i;
+nctemp2801=j*Qp->d[0]+nctemp2801;
+Model->Qp->a[nctemp2797] =Qp->a[nctemp2801];
+int nctemp2807=i;
+nctemp2807=j*Model->Qs->d[0]+nctemp2807;
+int nctemp2811=i;
+nctemp2811=j*Qs->d[0]+nctemp2811;
+Model->Qs->a[nctemp2807] =Qs->a[nctemp2811];
+int nctemp2817=i;
+nctemp2817=j*Model->Mu->d[0]+nctemp2817;
+int nctemp2827=i;
+nctemp2827=j*rho->d[0]+nctemp2827;
+int nctemp2831=i;
+nctemp2831=j*vs->d[0]+nctemp2831;
+float nctemp2834 = rho->a[nctemp2827] * vs->a[nctemp2831];
+int nctemp2836=i;
+nctemp2836=j*vs->d[0]+nctemp2836;
+float nctemp2839 = nctemp2834 * vs->a[nctemp2836];
+Model->Mu->a[nctemp2817] =nctemp2839;
+int nctemp2843=i;
+nctemp2843=j*Model->Lambda->d[0]+nctemp2843;
+int nctemp2850=i;
+nctemp2850=j*rho->d[0]+nctemp2850;
+int nctemp2860=i;
+nctemp2860=j*vp->d[0]+nctemp2860;
+int nctemp2864=i;
+nctemp2864=j*vp->d[0]+nctemp2864;
+float nctemp2867 = vp->a[nctemp2860] * vp->a[nctemp2864];
+int nctemp2876=i;
+nctemp2876=j*vs->d[0]+nctemp2876;
+float nctemp2879 = 2.0 * vs->a[nctemp2876];
+int nctemp2881=i;
+nctemp2881=j*vs->d[0]+nctemp2881;
+float nctemp2884 = nctemp2879 * vs->a[nctemp2881];
+float nctemp2885 = nctemp2867 - nctemp2884;
+float nctemp2886 = rho->a[nctemp2850] * nctemp2885;
+Model->Lambda->a[nctemp2843] =nctemp2886;
+}
+int nctemp2895 = i + 1;
+i =nctemp2895;
+int nctemp2896 = (i < Nx);
+nctemp2755=nctemp2896;
+}
+}
+int nctemp2908 = j + 1;
+j =nctemp2908;
+int nctemp2909 = (j < Ny);
+nctemp2747=nctemp2909;
+}
+nctempfloat1* nctemp2914= Model->dx;
+float nctemp2917= Model->Dx;
+int nctemp2919= Model->Nb;
+int nctemp2921=Modeld(nctemp2914,nctemp2917,nctemp2919);
+nctempfloat1* nctemp2923= Model->dy;
+float nctemp2926= Model->Dx;
+int nctemp2928= Model->Nb;
+int nctemp2930=Modeld(nctemp2923,nctemp2926,nctemp2928);
+nctempfloat1* nctemp2932= Model->dx1;
+float nctemp2935= Model->Dx;
+int nctemp2937= Model->Nb;
+int nctemp2939=Modeld1(nctemp2932,nctemp2935,nctemp2937);
+nctempfloat1* nctemp2941= Model->dy1;
+float nctemp2944= Model->Dx;
+int nctemp2946= Model->Nb;
+int nctemp2948=Modeld1(nctemp2941,nctemp2944,nctemp2946);
+nctempfloat1* nctemp2950= Model->dx2;
+float nctemp2953= Model->Dx;
+int nctemp2955= Model->Nb;
+int nctemp2957=Modeld2(nctemp2950,nctemp2953,nctemp2955);
+nctempfloat1* nctemp2959= Model->dy2;
+float nctemp2962= Model->Dx;
+int nctemp2964= Model->Nb;
+int nctemp2966=Modeld2(nctemp2959,nctemp2962,nctemp2964);
+struct model* nctemp2968= Model;
+int nctemp2970=Modelcpmlcoeffs(nctemp2968);
+return Model;
+}
+int Modeld1 (nctempfloat1 *d,float dx,int nb)
+{
+int i;
+int n;
+int nctemp2976=d->d[0];n =nctemp2976;
+i =0;
+int nctemp2984 = (i < n);
+while(nctemp2984){
+{
+int nctemp2991=i;
+d->a[nctemp2991] =0.0;
+}
+int nctemp3002 = i + 1;
+i =nctemp3002;
+int nctemp3003 = (i < n);
+nctemp2984=nctemp3003;
+}
+i =0;
+int nctemp3011 = (i < nb);
+while(nctemp3011){
+{
+int nctemp3018=i;
+float nctemp3031=(float)(i);
+float nctemp3035 = nctemp3031 * dx;
+float nctemp3040=(float)(nb);
+float nctemp3044 = nctemp3040 * dx;
+float nctemp3045 = nctemp3035 / nctemp3044;
+float nctemp3046 = 1.0 - nctemp3045;
+d->a[nctemp3018] =nctemp3046;
+}
+int nctemp3055 = i + 1;
+i =nctemp3055;
+int nctemp3056 = (i < nb);
+nctemp3011=nctemp3056;
+}
+int nctemp3071 = n - 1;
+int nctemp3073 = nctemp3071 - nb;
+i =nctemp3073;
+int nctemp3074 = (i < n);
+while(nctemp3074){
+{
+int nctemp3081=i;
+int nctemp3099 = n - 1;
+int nctemp3101 = nctemp3099 - i;
+float nctemp3090=(float)(nctemp3101);
+float nctemp3103 = nctemp3090 * dx;
+float nctemp3108=(float)(nb);
+float nctemp3112 = nctemp3108 * dx;
+float nctemp3113 = nctemp3103 / nctemp3112;
+d->a[nctemp3081] =nctemp3113;
+}
+int nctemp3122 = i + 1;
+i =nctemp3122;
+int nctemp3123 = (i < n);
+nctemp3074=nctemp3123;
+}
+return 1;
+}
+int Modeld2 (nctempfloat1 *d,float dx,int nb)
+{
+int i;
+int n;
+int nctemp3132=d->d[0];n =nctemp3132;
+i =0;
+int nctemp3140 = (i < n);
+while(nctemp3140){
+{
+int nctemp3147=i;
+d->a[nctemp3147] =0.0;
+}
+int nctemp3158 = i + 1;
+i =nctemp3158;
+int nctemp3159 = (i < n);
+nctemp3140=nctemp3159;
+}
+i =0;
+int nctemp3167 = (i < nb);
+while(nctemp3167){
+{
+int nctemp3174=i;
+float nctemp3189=(float)(i);
+float nctemp3193 = nctemp3189 * dx;
+float nctemp3198=(float)(nb);
+float nctemp3202 = nctemp3198 * dx;
+float nctemp3203 = nctemp3193 / nctemp3202;
+float nctemp3208=(float)(i);
+float nctemp3212 = nctemp3208 * dx;
+float nctemp3213 = nctemp3203 * nctemp3212;
+float nctemp3218=(float)(nb);
+float nctemp3222 = nctemp3218 * dx;
+float nctemp3223 = nctemp3213 / nctemp3222;
+d->a[nctemp3174] =nctemp3223;
+}
+int nctemp3232 = i + 1;
+i =nctemp3232;
+int nctemp3233 = (i < nb);
+nctemp3167=nctemp3233;
+}
+int nctemp3248 = n - 1;
+int nctemp3250 = nctemp3248 - nb;
+i =nctemp3250;
+int nctemp3251 = (i < n);
+while(nctemp3251){
+{
+int nctemp3258=i;
+int nctemp3282 = n - 1;
+int nctemp3284 = nctemp3282 - i;
+float nctemp3273=(float)(nctemp3284);
+float nctemp3286 = nctemp3273 * dx;
+float nctemp3291=(float)(nb);
+float nctemp3295 = nctemp3291 * dx;
+float nctemp3296 = nctemp3286 / nctemp3295;
+int nctemp3310 = n - 1;
+int nctemp3312 = nctemp3310 - i;
+float nctemp3301=(float)(nctemp3312);
+float nctemp3314 = nctemp3301 * dx;
+float nctemp3315 = nctemp3296 * nctemp3314;
+float nctemp3320=(float)(nb);
+float nctemp3324 = nctemp3320 * dx;
+float nctemp3325 = nctemp3315 / nctemp3324;
+d->a[nctemp3258] =nctemp3325;
+}
+int nctemp3334 = i + 1;
+i =nctemp3334;
+int nctemp3335 = (i < n);
+nctemp3251=nctemp3335;
 }
 return 1;
 }

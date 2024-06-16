@@ -5,8 +5,6 @@ typedef struct nctempfloat1 { int d[1]; float *a;} nctempfloat1;
 typedef struct nctempint1 { int d[1]; int *a;} nctempint1; 
 typedef struct nctempchar1 { int d[1]; char *a;} nctempchar1; 
 typedef struct nctempcomplex1 { int d[1]; complex *a;} nctempcomplex1; 
-static struct nctempchar1 nctempstringx = {0, NULL};
-static struct nctempchar1 *nctempstring = &nctempstringx;
 typedef struct nctempfloat2 { int d[2]; float *a;} nctempfloat2; 
 typedef struct nctempint2 { int d[2]; int *a;} nctempint2; 
 typedef struct nctempchar2 { int d[2]; char *a;} nctempchar2; 
@@ -125,17 +123,7 @@ int nctemp32=source->d[0];int nctemp28 = (i < nctemp32);
 while(nctemp28){
 {
 int nctemp39=i;
-if((0>i)||(i>=Src->Src->d[0])){
-nctempstring->a="Src->Src";
-nctempstring->d[0]=strlen("Src->Src")+1;;
-LibeArrayex(18,nctempstring,i,0,Src->Src->d[0]);
-}
 int nctemp42=i;
-if((0>i)||(i>=source->d[0])){
-nctempstring->a="source";
-nctempstring->d[0]=strlen("source")+1;;
-LibeArrayex(18,nctempstring,i,0,source->d[0]);
-}
 Src->Src->a[nctemp39] =source->a[nctemp42];
 }
 int nctemp52 = i + 1;
@@ -172,11 +160,6 @@ w0 =nctemp123;
 float nctemp132 = w0 * t;
 arg =nctemp132;
 int nctemp136=i;
-if((0>i)||(i>=source->d[0])){
-nctempstring->a="source";
-nctempstring->d[0]=strlen("source")+1;;
-LibeArrayex(47,nctempstring,i,0,source->d[0]);
-}
 float nctemp153 = 0.5 * arg;
 float nctemp155 = nctemp153 * arg;
 float nctemp156 = 1.0 - nctemp155;

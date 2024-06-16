@@ -7,6 +7,7 @@ if  test $cc = cuda ; then
   ecc      -O el2d.e
   ecc      -O diff.e
   ecc      -O model.e
+  ecc      -O model.e
   ecc      -O src.e
   ecc      -O rec.e
 ar rcs libel2dcuda.o el2d.o diff.o model.o src.o rec.o
@@ -17,6 +18,7 @@ if  test $cc = hip ; then
   ech  -O el2d.e
   ech  -O diff.e
   ech  -O model.e
+  ech  -O model.e
   ech  -O src.e
   ech  -O  rec.e
   ar rcs libel2dhip.o el2d.o diff.o model.o src.o rec.o
@@ -26,6 +28,7 @@ fi
 if  test $cc = cpu ; then
   ec  -O $f el2d.e
   ec  -O $f diff.e
+  ec  -O $f model.e
   ec  -O $f model.e
   ec  -O $f src.e
   ec  -O $f rec.e

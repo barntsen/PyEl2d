@@ -28,7 +28,7 @@ ecc -c diff.e
 ecc -c libe.e
 cp runcuda.e runcuda.cpp
 
-nvcc  --x cu --compiler-options "-fPIC" -c                      \
+nvcc  --x cu --compiler-options "-fPIC -ffast-math" -c -O3            \
        libe.cpp runcuda.cpp pyeps.cpp model.cpp src.cpp rec.cpp \
        diff.cpp el2d.cpp  
 

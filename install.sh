@@ -17,7 +17,9 @@ fi
 
 echo "** Installing binaries to the Bin folder"
 
-#Install all python scripts
+#Install all python scripts in Bin
+mkdir -p Bin
+
 cp El2d/el2dmod.py          Bin/el2dmod 
 chmod +x                    Bin/el2dmod
 cp El2d/src.py              Bin

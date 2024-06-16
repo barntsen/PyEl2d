@@ -235,8 +235,8 @@ int El2dvy(struct el2d El2d, struct model Model)
     
     El2d.thetayyy[i,j] = Model.Eta1y[i,j]*El2d.thetayyy[i,j]
                      + Model.Eta2y[i,j]*El2d.eyy[i,j];
-    El2d.thetaxyx[i,j] = Model.Eta1x[i,j]*El2d.thetaxyx[i,j]
-                     + Model.Eta2x[i,j]*El2d.eyx[i,j];
+    El2d.thetaxyx[i,j] = Model.Nu1x[i,j]*El2d.thetaxyx[i,j]
+                     + Model.Nu2x[i,j]*El2d.eyx[i,j];
   }
 }
 // El2dexy computes the dexy/dt strain

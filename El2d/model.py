@@ -1,4 +1,5 @@
 from ctypes import *
+import time
 import pyeps
 import babin as ba
 import pyeps
@@ -17,6 +18,7 @@ class model :
   '''
 
   def __init__(self,pyac2d,par):
+    t0=time.perf_counter()
     #Get the vp model
     fin = ba.bin(par.fvp)
     data=fin.read((par.ny,par.nx))
@@ -58,6 +60,8 @@ class model :
     data=fin.read((par.ny,par.nx))
     #Convert 2d numpy float array to eps
     qs=pyeps.Store2df(pyac2d,data);
+
+    print("Model conversion: ", time.perf_counter()-t0)
     #Create a new model
     # Set argument types
     pyac2d.ModelNew.argtypes=  [c_void_p,c_void_p,c_void_p,c_void_p,

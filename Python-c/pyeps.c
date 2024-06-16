@@ -5,8 +5,6 @@ typedef struct nctempfloat1 { int d[1]; float *a;} nctempfloat1;
 typedef struct nctempint1 { int d[1]; int *a;} nctempint1; 
 typedef struct nctempchar1 { int d[1]; char *a;} nctempchar1; 
 typedef struct nctempcomplex1 { int d[1]; complex *a;} nctempcomplex1; 
-static struct nctempchar1 nctempstringx = {0, NULL};
-static struct nctempchar1 *nctempstring = &nctempstringx;
 typedef struct nctempfloat2 { int d[2]; float *a;} nctempfloat2; 
 typedef struct nctempint2 { int d[2]; int *a;} nctempint2; 
 typedef struct nctempchar2 { int d[2]; char *a;} nctempchar2; 
@@ -124,11 +122,6 @@ nctemp7->d[0]=nctemp18;
 nctemp7->a=(char *)RunMalloc(sizeof(char)*nctemp8);
 str=nctemp7;
 int nctemp22=Nx;
-if((0>Nx)||(Nx>=str->d[0])){
-nctempstring->a="str";
-nctempstring->d[0]=strlen("str")+1;;
-LibeArrayex(57,nctempstring,Nx,0,str->d[0]);
-}
 char nctemp25=(char)(0);
 str->a[nctemp22] =nctemp25;
 return str;
@@ -142,11 +135,6 @@ return 1;
 int PyepsSet1ds (nctempchar1 *arr,int i,char val)
 {
 int nctemp37=i;
-if((0>i)||(i>=arr->d[0])){
-nctempstring->a="arr";
-nctempstring->d[0]=strlen("arr")+1;;
-LibeArrayex(83,nctempstring,i,0,arr->d[0]);
-}
 arr->a[nctemp37] =val;
 return 1;
 }
@@ -170,11 +158,6 @@ return 1;
 int PyepsSet1di (nctempint1 *arr,int i,int val)
 {
 int nctemp59=i;
-if((0>i)||(i>=arr->d[0])){
-nctempstring->a="arr";
-nctempstring->d[0]=strlen("arr")+1;;
-LibeArrayex(123,nctempstring,i,0,arr->d[0]);
-}
 arr->a[nctemp59] =val;
 return 1;
 }
@@ -198,11 +181,6 @@ return 1;
 int PyepsSet1df (nctempfloat1 *arr,int i,float val)
 {
 int nctemp81=i;
-if((0>i)||(i>=arr->d[0])){
-nctempstring->a="arr";
-nctempstring->d[0]=strlen("arr")+1;;
-LibeArrayex(163,nctempstring,i,0,arr->d[0]);
-}
 arr->a[nctemp81] =val;
 return 1;
 }
@@ -226,17 +204,7 @@ return 1;
 int PyepsSet2df (nctempfloat2 *arr,int i,int j,float val)
 {
 int nctemp99=i;
-if((0>i)||(i>=arr->d[0])){
-nctempstring->a="arr";
-nctempstring->d[0]=strlen("arr")+1;;
-LibeArrayex(203,nctempstring,i,0,arr->d[0]);
-}
 nctemp99=j*arr->d[0]+nctemp99;
-if((0>j)||(j>=arr->d[1])){
-nctempstring->a="arr";
-nctempstring->d[0]=strlen("arr")+1;;
-LibeArrayex(203,nctempstring,j,1,arr->d[1]);
-}
 arr->a[nctemp99] =val;
 return 1;
 }

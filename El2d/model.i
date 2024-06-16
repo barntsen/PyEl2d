@@ -36,6 +36,10 @@ float [*,*] Nu2x;
 float [*,*] Nu2y;
 float [*] dx;
 float [*] dy;
+float [*] dx1;
+float [*] dy1;
+float [*] dx2;
+float [*] dy2;
 float Dx;
 float Dt;
 
@@ -53,3 +57,4 @@ float ModelStability(struct model Model){}
 const MAXWELL = 1;
 const SLS     = 2;
 const MAXWELLR = 3;
+const CPML = 4;

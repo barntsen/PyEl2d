@@ -25,7 +25,7 @@ ec -c  diff.e
 ec -c  libe.e
 cp runcpu.e runcpu.c
 
-gcc -O2 -fPIC -c libe.c runcpu.c \
+gcc -O2 -fPIC -ffast-math -c libe.c runcpu.c \
      pyeps.c model.c src.c rec.c diff.c el2d.c  
 
 gcc -shared -o pyel2dcpu.so pyeps.o libe.o runcpu.o src.o rec.o model.o \

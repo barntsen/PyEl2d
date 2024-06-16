@@ -5,8 +5,6 @@ typedef struct nctempfloat1 { int d[1]; float *a;} nctempfloat1;
 typedef struct nctempint1 { int d[1]; int *a;} nctempint1; 
 typedef struct nctempchar1 { int d[1]; char *a;} nctempchar1; 
 typedef struct nctempcomplex1 { int d[1]; complex *a;} nctempcomplex1; 
-static struct nctempchar1 nctempstringx = {0, NULL};
-static struct nctempchar1 *nctempstring = &nctempstringx;
 typedef struct nctempfloat2 { int d[2]; float *a;} nctempfloat2; 
 typedef struct nctempint2 { int d[2]; int *a;} nctempint2; 
 typedef struct nctempchar2 { int d[2]; char *a;} nctempchar2; 
@@ -133,6 +131,10 @@ nctempfloat2 *Nu2x;
 nctempfloat2 *Nu2y;
 nctempfloat1 *dx;
 nctempfloat1 *dy;
+nctempfloat1 *dx1;
+nctempfloat1 *dy1;
+nctempfloat1 *dx2;
+nctempfloat1 *dy2;
 float Dx;
 float Dt;
 };
@@ -216,43 +218,13 @@ int nctemp94 = (pos < Rec->nr);
 while(nctemp94){
 {
 int nctemp102=pos;
-if((0>pos)||(pos>=Rec->rx->d[0])){
-nctempstring->a="Rec->rx";
-nctempstring->d[0]=strlen("Rec->rx")+1;;
-LibeArrayex(59,nctempstring,pos,0,Rec->rx->d[0]);
-}
 ixr =Rec->rx->a[nctemp102];
 int nctemp108=pos;
-if((0>pos)||(pos>=Rec->ry->d[0])){
-nctempstring->a="Rec->ry";
-nctempstring->d[0]=strlen("Rec->ry")+1;;
-LibeArrayex(60,nctempstring,pos,0,Rec->ry->d[0]);
-}
 iyr =Rec->ry->a[nctemp108];
 int nctemp113=pos;
-if((0>pos)||(pos>=Rec->p->d[0])){
-nctempstring->a="Rec->p";
-nctempstring->d[0]=strlen("Rec->p")+1;;
-LibeArrayex(61,nctempstring,pos,0,Rec->p->d[0]);
-}
 nctemp113=Rec->pit*Rec->p->d[0]+nctemp113;
-if((0>Rec->pit)||(Rec->pit>=Rec->p->d[1])){
-nctempstring->a="Rec->p";
-nctempstring->d[0]=strlen("Rec->p")+1;;
-LibeArrayex(61,nctempstring,Rec->pit,1,Rec->p->d[1]);
-}
 int nctemp117=ixr;
-if((0>ixr)||(ixr>=p->d[0])){
-nctempstring->a="p";
-nctempstring->d[0]=strlen("p")+1;;
-LibeArrayex(61,nctempstring,ixr,0,p->d[0]);
-}
 nctemp117=iyr*p->d[0]+nctemp117;
-if((0>iyr)||(iyr>=p->d[1])){
-nctempstring->a="p";
-nctempstring->d[0]=strlen("p")+1;;
-LibeArrayex(61,nctempstring,iyr,1,p->d[1]);
-}
 Rec->p->a[nctemp113] =p->a[nctemp117];
 }
 int nctemp128 = pos + 1;
