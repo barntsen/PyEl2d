@@ -12,8 +12,10 @@
 
   int El2dvx(struct el2d El2d, struct model Model){}
   int El2dvy(struct el2d El2d, struct model Model){}
-  int El2dexy(struct el2d El2d, struct model Model, float [*,*] vx, float [*,*] vy){}
-  int El2deyx(struct el2d El2d, struct model Model, float [*,*] vx, float [*,*] vy){}
+  int El2dexy(struct el2d El2d, struct model Model, float [*,*] vx, 
+              float [*,*] vy){}
+  int El2deyx(struct el2d El2d, struct model Model, float [*,*] vx,          
+              float [*,*] vy){}
   int El2dstress(struct el2d El2d, struct model Model){} 
 
 // Public functions
@@ -76,7 +78,8 @@
   return(El2d);
 }
 // El2dSolve computes the solution of the elastic wave equation.
-// The elastic equation of motion are integrated using Virieux's (1986) stress-velocity scheme.
+// The elastic equation of motion are integrated using Virieux's (1986) 
+// stress-velocity scheme.
 // (See the Manual in the Doc directory).
 // 
 //     vx(t+dt)   = dt/rhox [d^+x sigma_xx(t) + d^+y sigma_yx dt fx] + vx(t)
@@ -106,7 +109,8 @@
 //    Rec  : Receiver object
 //    nt   : Number of timesteps to do starting with current step  
 //    l    : The differentiator operator length
-int El2dSolve(struct el2d El2d, struct model Model, struct src Src, struct rec Rec,int nt,int l)
+int El2dSolve(struct el2d El2d, struct model Model, struct src Src, 
+              struct rec Rec,int nt,int l)
 {
   int sx,sy;         // Source x,y-coordinates 
   struct diff Diff;  // Differentiator object
@@ -244,7 +248,8 @@ int El2dvy(struct el2d El2d, struct model Model)
 // Parameters:
 //   El2d : Solver object 
 //   Model: Model object
-int El2dexy(struct el2d El2d, struct model Model, float [*,*] tmp1, float [*,*] tmp2)
+int El2dexy(struct el2d El2d, struct model Model, float [*,*] tmp1, 
+            float [*,*] tmp2)
 {
   int nx,ny;
   int i,j;
@@ -261,7 +266,8 @@ int El2dexy(struct el2d El2d, struct model Model, float [*,*] tmp1, float [*,*] 
 // Parameters:
 //   El2d : Solver object 
 //   Model: Model object
-int El2deyx(struct el2d El2d, struct model Model, float [*,*] tmp1, float [*,*] tmp2)
+int El2deyx(struct el2d El2d, struct model Model, float [*,*] tmp1, 
+            float [*,*] tmp2)
 {
   int nx,ny;
   int i,j;
@@ -286,7 +292,8 @@ int El2dstress(struct el2d El2d, struct model Model){
   ny = Model.Ny;
 
   parallel(i=0:nx,j=0:ny){
-   El2d.sigmaxx[i,j] = Model.Dt*Model.Lambda[i,j]*(El2d.exx[i,j]+El2d.eyy[i,j])  
+   El2d.sigmaxx[i,j] = Model.Dt*Model.Lambda[i,j]*(El2d.exx[i,j]
+                     +El2d.eyy[i,j])  
                      + 2.0*Model.Dt*Model.Mu[i,j]*El2d.exx[i,j]
                      + Model.Dt*(El2d.gammaxx[i,j]*Model.Dlambdax[i,j]
                      + El2d.gammayy[i,j]*Model.Dlambday[i,j])
@@ -294,7 +301,8 @@ int El2dstress(struct el2d El2d, struct model Model){
                      + El2d.sigmaxx[i,j];
 
 
-   El2d.sigmayy[i,j] = Model.Dt*Model.Lambda[i,j]*(El2d.exx[i,j]+El2d.eyy[i,j])  
+   El2d.sigmayy[i,j] = Model.Dt*Model.Lambda[i,j]*(El2d.exx[i,j]
+                     +El2d.eyy[i,j])  
                      + 2.0*Model.Dt*Model.Mu[i,j]*El2d.eyy[i,j]
                      + Model.Dt*(El2d.gammaxx[i,j]*Model.Dlambdax[i,j]
                      + El2d.gammayy[i,j]*Model.Dlambday[i,j])

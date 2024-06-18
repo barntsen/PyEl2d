@@ -13,7 +13,7 @@ f0      = 25.0      #Dominant frequency
 w0      = 2.0*pi*f0 #Dominant angular frequency
 resamp  = 1         #Resampling factor (relative to no of timesteps ) for data
 sresamp = 10        #Resampling factor for snapshots
-nb      = 10        #No of PML boundary points
+nb      = 35        #No of PML boundary points
 l       = 6         #Length of differentiator
 fvp     = "vp.bin"  # Vp file name
 fvs     = "vs.bin"  # Vp file name
@@ -29,7 +29,7 @@ press   = "p.bin"
 MAXWELL = 1
 SLS     = 2
 CPML    = 4
-rheol   = SLS
+rheol   = CPML
 #Source position
 sx       = np.zeros(1)
 sy       = np.zeros(1)
