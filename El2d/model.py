@@ -3,10 +3,11 @@ import time
 import pyeps
 import babin as ba
 import pyeps
+import sls
 
 
 class model :
-  ''' model creates a model suitable for the pyEl2d library 
+  ''' model creates a model suitable for the PyEl2d library 
       solver.
 
      Parameters: 
@@ -40,34 +41,48 @@ class model :
     #Get the Ql model
     fin = ba.bin(par.fql)
     data=fin.read((par.ny,par.nx))
-    #Convert 2d numpy float array to eps
-    ql=pyeps.Store2df(pyac2d,data);
+    #Smooth the Ql model
+    datax,datay=sls.method1(data,par.nb,par.dx,par.dt,par.w0)
+    #Convert 2d numpy float arrays to eps arrays
+    qlx=pyeps.Store2df(pyac2d,datax);
+    qly=pyeps.Store2df(pyac2d,datay);
 
     #Get the Qm model
     fin = ba.bin(par.fqm)
     data=fin.read((par.ny,par.nx))
-    #Convert 2d numpy float array to eps
-    qm=pyeps.Store2df(pyac2d,data);
+    #Smooth the Qm model
+    datax,datay=sls.method1(data,par.nb,par.dx,par.dt,par.w0)
+    #Convert 2d numpy float arrays to eps arrays
+    qmx=pyeps.Store2df(pyac2d,datax);
+    qmy=pyeps.Store2df(pyac2d,datay);
 
     #Get the Qp model                                                          
     fin = ba.bin(par.fqp)
     data=fin.read((par.ny,par.nx))
-    #Convert 2d numpy float array to eps
-    qp=pyeps.Store2df(pyac2d,data);
+    #Smooth the Qp model
+    datax,datay=sls.method1(data,par.nb,par.dx,par.dt,par.w0)
+    #Convert 2d numpy float arrays to eps arrays
+    qpx=pyeps.Store2df(pyac2d,datax);
+    qpy=pyeps.Store2df(pyac2d,datay);
 
     #Get the Qs model                                                          
     fin = ba.bin(par.fqp)
     data=fin.read((par.ny,par.nx))
-    #Convert 2d numpy float array to eps
-    qs=pyeps.Store2df(pyac2d,data);
+    #Smooth the Qp model
+    datax,datay=sls.method1(data,par.nb,par.dx,par.dt,par.w0)
+    #Convert 2d numpy float arrays to eps arrays
+    qsx=pyeps.Store2df(pyac2d,datax);
+    qsy=pyeps.Store2df(pyac2d,datay);
 
     print("Model conversion: ", time.perf_counter()-t0)
     #Create a new model
     # Set argument types
-    pyac2d.ModelNew.argtypes=  [c_void_p,c_void_p,c_void_p,c_void_p,
-                                c_void_p, c_void_p, c_void_p,c_float,c_float,c_float,c_int,c_int]
+    pyac2d.ModelNew.argtypes=  [c_void_p,c_void_p,c_void_p,c_void_p,c_void_p,
+                                c_void_p,c_void_p,c_void_p,c_void_p,c_void_p, 
+                                c_void_p,
+                                c_float,c_float,c_float,c_int,c_int]
     pyac2d.ModelNew.restype=c_void_p
 
     # Create a new model
-    self.model=pyac2d.ModelNew (vp,vs,rho,ql,qm,qp,qs,c_float(par.dx),c_float(par.dt),
+    self.model=pyac2d.ModelNew (vp,vs,rho,qlx,qly,qmx,qmy,qpx,qpy,qsx,qsy,c_float(par.dx),c_float(par.dt),
                                 c_float(par.w0),c_int(par.nb),c_int(par.rheol))

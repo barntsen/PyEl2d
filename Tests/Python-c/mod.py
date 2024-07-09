@@ -29,7 +29,7 @@ press   = "p.bin"
 MAXWELL = 1
 SLS     = 2
 CPML    = 4
-rheol   = CPML
+rheol   = SLS
 #Source position
 sx       = np.zeros(1)
 sy       = np.zeros(1)

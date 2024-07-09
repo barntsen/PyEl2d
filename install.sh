@@ -22,6 +22,7 @@ mkdir -p Bin
 
 cp El2d/el2dmod.py          Bin/el2dmod 
 chmod +x                    Bin/el2dmod
+cp El2d/sls.py             Bin
 cp El2d/src.py              Bin
 cp El2d/rec.py              Bin
 cp El2d/model.py            Bin
