@@ -4,7 +4,7 @@ import pyeps
 import babin as ba
 import pyeps
 import sls
-
+import matplotlib.pyplot as pl
 
 class model :
   ''' model creates a model suitable for the PyEl2d library 
@@ -46,6 +46,7 @@ class model :
     #Convert 2d numpy float arrays to eps arrays
     qlx=pyeps.Store2df(pyac2d,datax);
     qly=pyeps.Store2df(pyac2d,datay);
+
 
     #Get the Qm model
     fin = ba.bin(par.fqm)
