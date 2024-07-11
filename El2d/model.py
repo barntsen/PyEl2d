@@ -1,89 +1,76 @@
 from ctypes import *
 import time
+import matplotlib.pyplot as pl
 import pyeps
 import babin as ba
 import pyeps
-import sls
-import matplotlib.pyplot as pl
+import q 
 
 class model :
   ''' model creates a model suitable for the PyEl2d library 
       solver.
 
-     Parameters: 
-       pyac2d  : Reference to the pyEl2d wave propagation
-                 library.
-
-     Returns   : model object.       
-
   '''
 
-  def __init__(self,pyac2d,par):
-    t0=time.perf_counter()
-    #Get the vp model
-    fin = ba.bin(par.fvp)
-    data=fin.read((par.ny,par.nx))
-    #Convert 2d numpy float array to eps
-    vp=pyeps.Store2df(pyac2d,data);
+  def __init__(self,pyac2d,Vp,Vs,Rho,Ql,Qm,Qp,Qs,par):
+    ''' Constructor for the model object.
 
-    #Get the vs model
-    fin = ba.bin(par.fvs)
-    data=fin.read((par.ny,par.nx))
-    #Convert 2d numpy float array to eps
-    vs=pyeps.Store2df(pyac2d,data);
+    Arguments: 
+      -pyac2d: Reference to the shared library with eps functions
+      -Vp    : P-wave velocity array 
+      -Vs    : S-wave velocity array
+      -Rho   : density array
+      -Ql    : Lambda Q-model
+      -Qm    : Mu Q-model array
+      -Qp    : Density P-wave Q-model array
+      -Qs    : Density S-wave Q-model array
+      -par   : Parameters for modelling (see the mod.py configuration file)
 
-    #Get the density model
-    fin = ba.bin(par.frho)
-    data=fin.read((par.ny,par.nx))
-    #Convert 2d numpy float array to eps
-    rho=pyeps.Store2df(pyac2d,data);
+    All arrays are 2D with the first dimension in the y-direction.
 
-    #Get the Ql model
-    fin = ba.bin(par.fql)
-    data=fin.read((par.ny,par.nx))
+    '''
+ 
+    #Convert vp array to eps
+    vp=pyeps.Store2df(pyac2d,Vp);
+
+    #Convert vs array to eps
+    vs=pyeps.Store2df(pyac2d,Vs);
+
+    #Convert density array to eps
+    rho=pyeps.Store2df(pyac2d,Rho);
+
     #Smooth the Ql model
-    datax,datay=sls.method1(data,par.nb,par.dx,par.dt,par.w0)
-    #Convert 2d numpy float arrays to eps arrays
-    qlx=pyeps.Store2df(pyac2d,datax);
-    qly=pyeps.Store2df(pyac2d,datay);
+    Qlx,Qly=q.sls(Ql,par.nb,par.dx,par.dt,par.w0)
+    #Convert Q arrays to eps
+    qlx=pyeps.Store2df(pyac2d,Qlx);
+    qly=pyeps.Store2df(pyac2d,Qly);
 
-
-    #Get the Qm model
-    fin = ba.bin(par.fqm)
-    data=fin.read((par.ny,par.nx))
     #Smooth the Qm model
-    datax,datay=sls.method1(data,par.nb,par.dx,par.dt,par.w0)
-    #Convert 2d numpy float arrays to eps arrays
-    qmx=pyeps.Store2df(pyac2d,datax);
-    qmy=pyeps.Store2df(pyac2d,datay);
+    Qmx,Qmy=q.sls(Qm,par.nb,par.dx,par.dt,par.w0)
+    #Convert Q arrays to eps
+    qmx=pyeps.Store2df(pyac2d,Qmx);
+    qmy=pyeps.Store2df(pyac2d,Qmy);
 
-    #Get the Qp model                                                          
-    fin = ba.bin(par.fqp)
-    data=fin.read((par.ny,par.nx))
     #Smooth the Qp model
-    datax,datay=sls.method1(data,par.nb,par.dx,par.dt,par.w0)
-    #Convert 2d numpy float arrays to eps arrays
-    qpx=pyeps.Store2df(pyac2d,datax);
-    qpy=pyeps.Store2df(pyac2d,datay);
+    Qpx,Qpy=q.sls(Qp,par.nb,par.dx,par.dt,par.w0)
+    #Convert Q arrays to eps
+    qpx=pyeps.Store2df(pyac2d,Qpx);
+    qpy=pyeps.Store2df(pyac2d,Qpy);
 
-    #Get the Qs model                                                          
-    fin = ba.bin(par.fqp)
-    data=fin.read((par.ny,par.nx))
-    #Smooth the Qp model
-    datax,datay=sls.method1(data,par.nb,par.dx,par.dt,par.w0)
-    #Convert 2d numpy float arrays to eps arrays
-    qsx=pyeps.Store2df(pyac2d,datax);
-    qsy=pyeps.Store2df(pyac2d,datay);
+    #Smooth the Qs model
+    Qsx,Qsy=q.sls(Qs,par.nb,par.dx,par.dt,par.w0)
+    #Convert Q arrays to eps
+    qsx=pyeps.Store2df(pyac2d,Qsx);
+    qsy=pyeps.Store2df(pyac2d,Qsy);
 
-    print("Model conversion: ", time.perf_counter()-t0)
     #Create a new model
-    # Set argument types
+    # Set argument and return types
     pyac2d.ModelNew.argtypes=  [c_void_p,c_void_p,c_void_p,c_void_p,c_void_p,
                                 c_void_p,c_void_p,c_void_p,c_void_p,c_void_p, 
                                 c_void_p,
                                 c_float,c_float,c_float,c_int,c_int]
     pyac2d.ModelNew.restype=c_void_p
 
-    # Create a new model
+    #Create a pointer to the model eps object.
     self.model=pyac2d.ModelNew (vp,vs,rho,qlx,qly,qmx,qmy,qpx,qpy,qsx,qsy,c_float(par.dx),c_float(par.dt),
                                 c_float(par.w0),c_int(par.nb),c_int(par.rheol))

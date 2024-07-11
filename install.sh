@@ -6,13 +6,13 @@ cc=$1
 
 if test -z $cc ; then 
   echo " usage: install.sh arg "
-  echo "        arg is one of cpu, cuda, hip or omp"
+  echo "        arg is one of c, cuda, hip or omp"
   exit
 fi
 
-if test $cc != cpu  && test $cc != cuda  && test $cc != hip && test $cc != omp ; then 
+if test $cc != c  && test $cc != cuda  && test $cc != hip && test $cc != omp ; then 
   echo " usage: mk.sh arg "
-  echo "        arg is one of cpu, cuda, hip or omp"
+  echo "        arg is one of c, cuda, hip or omp"
 fi
 
 echo "** Installing binaries to the Bin folder"
@@ -22,7 +22,7 @@ mkdir -p Bin
 
 cp El2d/el2dmod.py          Bin/el2dmod 
 chmod +x                    Bin/el2dmod
-cp El2d/sls.py             Bin
+cp El2d/q.py             Bin
 cp El2d/src.py              Bin
 cp El2d/rec.py              Bin
 cp El2d/model.py            Bin
@@ -42,7 +42,7 @@ cp Scripts/segy.py          Bin
 
 # Install shared libs (python callable)
 
-if  test $cc = cpu ; then 
+if  test $cc = c ; then 
   cp Python-c/pyel2dcpu.so  Bin
 fi
 

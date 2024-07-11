@@ -49,7 +49,6 @@ def q(taue,taus,w0) :
     - taue : epsilon relaxation values
     - taus : epsilon relaxation values
     - w0   : Peak angular frequency 
-    - Qmax : Maximum Q-value when taue == taus
 
   Return :
     - Q  : Q-value
@@ -61,28 +60,25 @@ def q(taue,taus,w0) :
 
   return(Q)
 
-def Modeld(d, dx, nb):
-  ''' Modeld implements the cpml profile function 
- 
+def e2(d, dx, nb):
+  ''' 
+
   Arguments :
     - d  : 1D array
     - dx : Sampling distance in meters
-    - nb : Length of profile zone
+    - nb : Length of tapering zone
 
- Modeld creates a 1D profile function tapered with the cmpl d function. 
+  e2 creates a 1D quadratic profile function tapering both
+  ends of the vector d.
 
- See Komatitsch et al. 2007, "An unsplit convolutional perfectly 
-     matched layer improvedat grazing incidence for the seismic 
-     wave equation", Geophysics, 72, p. SM155-SM167.
-
- '''
+  '''
   
   n = len(d)
   for i in range(0,n): 
     d[i]=1.0;
 
   # Left border
-  for i in range(0,nb) :
+  for i in range(0,nb+1) :
     d[i] = d[i]*(((i*dx))/((nb)*dx))**2
 
   # Right border
@@ -91,18 +87,15 @@ def Modeld(d, dx, nb):
 
   return (d)
 
-
-def Modeld1(d, dx, nb):
-  ''' Modeld1 implements the cpml alpha linear x dependence 
-
+def e1(d, dx, nb):
+  ''' 
   Arguments :
     - d  : 1D array
     - dx : Sampling interval
     - nb : Length of profile zone
 
-  See Komatitsch et al. 2007, "An unsplit convolutional perfectly
-     matched layer improvedat grazing incidence for the seismic
-     wave equation", Geophysics, 72, p. SM155-SM167.
+  e1 creates a linear profile function
+  tapering both ends of the vector d.
 
   '''
   n = len(d)
@@ -110,37 +103,42 @@ def Modeld1(d, dx, nb):
   for i in range(0,n): 
     d[i]=1.0;
   # Left border
-  for i in range(0,nb) :
-    d[i] = ((i*dx)/((nb-1)*dx))
+  for i in range(0,nb+1) :
+    d[i] = ((i*dx)/((nb)*dx))
 
   # Right border
   for i in range(n-nb,n) :
-    d[i] = 1.0-((i-(n-nb))*dx)/((nb-1)*dx)
+    d[i] = 1.0-((i-(n-nb))*dx)/((nb)*dx)
 
   return d
 
-def method1(Q,nb, dx, dt,w0) :
-  ''' Compute relaxation times and Q for method1
+def sls(Q,nb, dx, dt,w0) :
+  ''' Compute tapered Q models for standard linear solid 
+
+  Sls will taper the input Q-model in both x- and y-directions. The resulting
+  output Q-models have strong enough attenuation to attenuate wavfields and
+  are smooth enough to prevent reflections.
+  A standard linear solid (SLS) is used for the Q model.
 
   Arguments :
     - Q  : 2D array of Q-values
-    - nb : Length of cpml border zone
+    - nb : Length of border zone
     - dx : Spatial sampling interval
     - dt : Time sampling interval
     - w0 : Peak angular frequency
 
   Returns :
-    - Qx : 2D array with cpml Q-values in the x-direction
-    - Qy : 2D array with cpml Q-values in the y-direction
-
-  See Komatitsch et al. 2007, "An unsplit convolutional perfectly
-     matched layer improvedat grazing incidence for the seismic
-     wave equation", Geophysics, 72, p. SM155-SM167.
+    - Qx : 2D array with tapered Q-values in the x-direction
+    - Qy : 2D array with tapered Q-values in the y-direction
 
   '''
 
+  #Preliminary we just set a high and
+  #Low Q-value within the border (taper) zone.
+  
   Qmax=100000.0
   Qmin=1.1
+
   Nx = Q.shape[0]
   Ny = Q.shape[1]
   Qx = np.zeros((Nx,Ny))
@@ -152,8 +150,8 @@ def method1(Q,nb, dx, dt,w0) :
   d1    = np.zeros(Nx)
   d2    = np.zeros(Ny)
 
-  d1 = Modeld(d1, dx, nb)
-  d2 = Modeld(d2, dx, nb)
+  d1 = e2(d1, dx, nb)
+  d2 = e2(d2, dx, nb)
   tau0 = 1.0/w0         # Relaxation time corresponding to absorption top
 
   #Compute relaxation times corresponding to Qmin
@@ -170,9 +168,9 @@ def method1(Q,nb, dx, dt,w0) :
 
   for i in range(0,Nx):
     # Quadratic interpolation of taue and taus in x-dir
-    tauex[i] = tauemin + (tauemax-tauemin)*d1[i];
+    tauex[i] = tauemin + (tauemax-tauemin)*d2[i];
     tauex[i] = 1.0/tauex[i]
-    tausx[i] = tausmin + (tausmax-tausmin)*d1[i];
+    tausx[i] = tausmin + (tausmax-tausmin)*d2[i];
     tausx[i] = 1.0/tausx[i]
 
   for i in range(0,Ny):
@@ -195,16 +193,27 @@ def method1(Q,nb, dx, dt,w0) :
   return (Qx,Qy)
 
 def main() :
-  ''' sls test cases '''
+  ''' test cases '''
 
+  # Check the d2 function
+  Nx=20
+  nb=5
+  dx=10
+  d=np.zeros(Nx)
+  e1(d,dx,nb)
+  print("e1 : ",d)
+  e2(d,dx,nb)
+  print("e2 : ",d)
+  
   Nx = 251
   Ny = 251 
   nb=35
   dx = 5 
+  
   w0=25.0*2.0*3.14159
   dt = 0.001
   Q  = np.zeros((Nx,Ny))
-  Qx,Qy=method1(Q,nb, dx,dt, w0)
+  Qx,Qy=sls(Q,nb, dx,dt, w0)
 
 # Plot results
   pl.figure()

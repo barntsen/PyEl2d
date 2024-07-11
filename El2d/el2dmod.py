@@ -58,13 +58,45 @@ pyel2d.LibeInit()
 t0=time.perf_counter()   #Start measure wall clock time
 
 # Create source 
-src=src.src(pyel2d,par)
+
+#Read the source time function
+fd = ba.bin(par.fsrc,'r')
+Src=fd.read((par.nt,))
+src=src.src(pyel2d,Src,par)
 
 # Create receivers 
 rec=rec.rec(pyel2d,par)
 
+#Read the vp model
+fd=ba.bin(par.fvp,'r')
+vp = fd.read((par.ny,par.nx))
+
+#Read the vs model
+fd=ba.bin(par.fvs,'r')
+vs = fd.read((par.ny,par.nx))
+
+#Read the rho model
+fd=ba.bin(par.frho,'r')
+rho = fd.read((par.ny,par.nx))
+
+#Read the ql model
+fd=ba.bin(par.fql,'r')
+ql = fd.read((par.ny,par.nx))
+
+#Read the qm model
+fd=ba.bin(par.fqm,'r')
+qm = fd.read((par.ny,par.nx))
+
+#Read the qp model
+fd=ba.bin(par.fqp,'r')
+qp = fd.read((par.ny,par.nx))
+
+#Read the qs model
+fd=ba.bin(par.fqs,'r')
+qs = fd.read((par.ny,par.nx))
+
 # Create model
-model = model.model(pyel2d,par)
+model = model.model(pyel2d,vp,vs,rho,ql,qm,qp,qs,par)
 print("model time  (secs):", time.perf_counter()-t0, flush=True)
 
 # Create fd solver

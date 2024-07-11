@@ -32,8 +32,15 @@ rheol   = MAXWELL
 #Source position
 sx       = np.zeros(1)
 sy       = np.zeros(1)
-sx[0]    = nx/2     # source x-coordinate
-sy[0]    = ny/2     # source y-coordinate
+fx       = np.zeros(1)
+fy       = np.zeros(1)
+sflag    = np.zeros(4)
+
+sx[0]    = nx/2     # Pressure source x-coordinate
+sy[0]    = ny/2     # Pressure  source y-coordinate
+fx[0]    = nx/2     # Force source x-coordinate
+fy[0]    = ny/2     # Force source y-coordinate
+sflag[3] = 1        # Use only a single z-component source force
 
 #Receiver positions
 nr = 250            # Number of receivers

@@ -112,7 +112,8 @@
 int El2dSolve(struct el2d El2d, struct model Model, struct src Src, 
               struct rec Rec,int nt,int l)
 {
-  int sx,sy;         // Source x,y-coordinates 
+  int sx,sy;         // Pressure Source x,y-coordinates 
+  int fx,fy;         // Force Source x,y-coordinates 
   struct diff Diff;  // Differentiator object
   int ns,ne;         // Start stop timesteps
   float [*,*] tmp1,tmp2;
@@ -156,15 +157,25 @@ int El2dSolve(struct el2d El2d, struct model Model, struct src Src,
     for (k=0; k<Src.Ns;k=k+1){
       sx=Src.Sx[k];
       sy=Src.Sy[k];
-      El2d.sigmaxx[sx,sy] = El2d.sigmaxx[sx,sy]
+      fx=Src.Fx[k];
+      fy=Src.Fy[k];
+
+      if(Src.Sflag[0] == 1){
+        El2d.sigmaxx[sx,sy] = El2d.sigmaxx[sx,sy]
                     + Model.Dt*(Src.Src[i]/(Model.Dx*Model.Dx)) ; 
-      
-      El2d.sigmayy[sx,sy] = El2d.sigmayy[sx,sy]
+      }
+      if(Src.Sflag[1] == 1){
+        El2d.sigmayy[sx,sy] = El2d.sigmayy[sx,sy]
                     + Model.Dt*(Src.Src[i]/(Model.Dx*Model.Dx)) ; 
-      /*
-      El2d.vy[sx,sy] = El2d.vy[sx,sy]
+      }
+      if(Src.Sflag[2] == 1){
+        El2d.vx[fx,fy] = El2d.vx[fx,fy]
                     + Model.Dt*(Src.Src[i]/(Model.Dx*Model.Dx)) ; 
-      */
+      }
+      if(Src.Sflag[3] == 1){
+        El2d.vy[fx,fy] = El2d.vy[fx,fy]
+                    + Model.Dt*(Src.Src[i]/(Model.Dx*Model.Dx)) ; 
+      }
     }
 
     // Print progress

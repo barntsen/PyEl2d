@@ -24,8 +24,8 @@ if  test $cc = hip ; then
   ar rcs libel2dhip.o el2d.o diff.o model.o src.o rec.o
 fi
 
-# Compile cpu code
-if  test $cc = cpu ; then
+# Compile c code
+if  test $cc = c ; then
   ec  -O $f el2d.e
   ec  -O $f diff.e
   ec  -O $f model.e

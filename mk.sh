@@ -6,19 +6,19 @@ cc=$1
 
 if test -z $cc ; then 
   echo " usage: mk.sh arg "
-  echo "        arg is one of cpu, cuda, hip or omp"
+  echo "        arg is one of c, cuda, hip or omp"
   exit
 fi
 
-if test $cc != cpu && test $cc != cuda  && test $cc != hip && test $cc != omp ; then
+if test $cc != c && test $cc != cuda  && test $cc != hip && test $cc != omp ; then
   echo " usage: mk.sh arg "
-  echo "        arg is one of cpu, cuda, hip or omp"
+  echo "        arg is one of c, cuda, hip or omp"
   exit
 fi
 
 echo "** Compiling and installing binaries"
 
-if test $cc = cpu ;  then
+if test $cc = c ;  then
   cd El2d       #Compile El2d library for c
   ./mk.sh $cc   
   cd ..

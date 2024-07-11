@@ -4,11 +4,12 @@
 include <libe.i>  
 include "model.i" // Model struct definition
 
-//Internal functions
+//Forward declarations for internal functions
 struct model Modelsls(float [*,*] vp,  float [*,*] vs, float [*,*] rho, 
                       float [*,*] Qlx, float [*,*] Qly,float [*,*] Qmx, float [*,*] Qmy,
                       float [*,*] Qpx, float [*,*] Qpy,float [*,*] Qsx, float [*,*] Qsy,
                       float Dx,        float Dt,       float W0,        int Nb){}
+
 int Modelslscoeffs(float [*,*] Qx,      float [*,*] Qy, float [*,* ] modx, 
                    float [*,*] mody,    float [*,*]  coeff1x , 
                    float [*,*] coeff1y, float [*,*]  coeff2x , 
@@ -18,7 +19,7 @@ int Modeld(float [*] d, float dx, int nb){}
 
 // Functions
 
-// Modeld creates a 1D profile function tapering the left
+// Modeld creates a 1D quadratic profile function tapering the left
 // and right borders.
 //
 // Parameters:
@@ -58,39 +59,39 @@ int Modelslscoeffs(float [*,*] Qx,      float [*,*] Qy, float [*,* ] modx,
                    float [*,*] coeff1y, float [*,*]  coeff2x , 
                    float [*,*] coeff2y, struct model Model){
 // Modelslscoeff computes the standard linear solid  coefficients
+// for the wave propagation solver.
 //
 // Parameters :
-//  Q      : Q-model 
+//  Qx     : Q-model tapered in the x-direction 
+//  Qy     : Q-model tapered in the y-direction 
 //  modx   : Modulus in x-dir
 //  mody   : Modulus in y-dir
+//  coeff1x : Coefficients used by the solver
+//  coeff1y : Coefficients used by the solver
+//  coeff2x : Coefficients used by the solver
+//  coeff2y : Coefficients used by the solver
 //  Model  : Model struct
 //
 // Returns  : OK or ERR
 //
-// See the Modelsls documentation for
-// the actual formulas used.
+// See the documentation for the 
+// definition of coefficients and formulas used.
 // 
 
-  int Nx,Ny;
-  int i,j;
-  float tau0;    
-  float tauex,tauey;
-  float tausx,tausy;
-  float [*] d1;
-  float [*] d2;
-  float argx,argy;
-  
-  float [*] taus,taue;
-  char  [*] data;
-  int fd;
+  int Nx,Ny;  // Model dimensions
+  float tau0; // Relaxation time corresponding to absorption top
+  float tauex,tauey; // Relaxation times in y-direction
+  float tausx,tausy; // Relaxation times in x-direction
+  float [*] d1;      // Linear profile functions
+  float [*] d2;      // Quadratic profile function
+  float argx,argy;   // Temp variables
+  int i,j;           // Iteration indices
 
   Nx = Model.Nx;
   Ny = Model.Ny;
 
   d1 = new(float[Nx]);
   d2 = new(float[Ny]);
-  taus = new(float[Nx]);
-  taue = new(float[Nx]);
   Modeld(d1,Model.Dx,Model.Nb);
   Modeld(d2,Model.Dx,Model.Nb);
   Model.dx = d1;
@@ -122,8 +123,6 @@ int Modelslscoeffs(float [*,*] Qx,      float [*,*] Qy, float [*,* ] modx,
       coeff1y[i,j]   = LibeExp(-argy)*LibeExp(-Model.Dt*tausy);
       coeff2x[i,j]   = Model.Dt*tauex;
       coeff2y[i,j]   = Model.Dt*tauey;
-      taus[i] = coeff2x[i,j]; 
-      taue[j] = coeff2y[i,j];
 
       // Compute the relaxed version of the modulus
       // of  the modulus
@@ -255,18 +254,6 @@ struct model Modelsls(float [*,*] vp,  float [*,*] vs, float [*,*] rho,
                  Model.Eta1y, Model.Eta2x, Model.Eta2y, Model);
   Modelslscoeffs(Model.Qsx, Model.Qsy,Model.Drhosx,Model.Drhosy,Model.Nu1x, Model.Nu1y, 
                  Model.Nu2x, Model.Nu2y, Model);
-
-  /* 
-  Modelslscoeffs2(Model.Qlx, Model.Dlambdax,Model.Dlambday,
-                 Model.Alpha1x, Model.Alpha1y, 
-                 Model.Alpha2x, Model.Alpha2y, Model);
-  Modelslscoeffs2(Model.Qmx, Model.Dmux,Model.Dmuy,Model.Beta1x, Model.Beta1y, 
-                 Model.Beta2x, Model.Beta2y, Model);
-  Modelslscoeffs2(Model.Qpx, Model.Drhopx,Model.Drhopy,Model.Eta1x, 
-                 Model.Eta1y, Model.Eta2x, Model.Eta2y, Model);
-  Modelslscoeffs2(Model.Qsx, Model.Drhosx,Model.Drhosy,Model.Nu1x, Model.Nu1y, 
-                 Model.Nu2x, Model.Nu2y, Model);
-  */
   return(Model);
 }
 
@@ -291,7 +278,7 @@ struct model ModelNew(float [*,*] vp,  float [*,*] vs, float [*,*] rho,
 // Return:  Model structure
 //
 // ModelNew creates the parameters needed by the El2d object
-// to perform 2D acoustic modeling.
+// to perform 2D Elastic modeling.
 // For the details of the SLS type models
 // see the comments in Modelsls.
 {

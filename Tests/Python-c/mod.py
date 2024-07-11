@@ -7,7 +7,7 @@ nx      = 251       #No of grdipoints in x-direction
 ny      = 251       #No of gridpoints in y-direction
 dx      = 5.0       #Grid interval
 dt      = 0.0005;   #Time sampling interval
-nt      = 1501      #No of time steps
+nt      = 2001      #No of time steps
 t0      = 0.1       #Pulse delay
 f0      = 25.0      #Dominant frequency 
 w0      = 2.0*pi*f0 #Dominant angular frequency
@@ -33,8 +33,15 @@ rheol   = SLS
 #Source position
 sx       = np.zeros(1)
 sy       = np.zeros(1)
+fx       = np.zeros(1)
+fy       = np.zeros(1)
+sflag    = np.zeros(4)
 sx[0]    = nx/2
 sy[0]    = ny/2
+fx[0]    = nx/2
+fy[0]    = ny/2
+sflag[3] = 1
+
 #Receiver positions
 nr = 201  
 rx=np.zeros((nr))
