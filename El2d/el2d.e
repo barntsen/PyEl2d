@@ -191,10 +191,10 @@ int El2dSolve(struct el2d El2d, struct model Model, struct src Src,
    }
 
     //Record wavefield
-    RecReceiver(Rec,i,El2d.vx); 
+    RecReceiver(Rec,i,El2d); 
 
     // Record Snapshots
-    RecSnap(Rec,i,El2d.sigmaxx);
+    RecSnap(Rec,i,El2d.sxx);
   }
   return(1);
 }

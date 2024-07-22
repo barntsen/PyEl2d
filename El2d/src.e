@@ -8,23 +8,20 @@ include "src.i"
 int Srcricker(float [*] src, float t0, float f0, int nt, float dt){}
 
 // SrcNew creates a new source object
-struct src SrcNew(float [*] source, int [*] sx, int [*] sy,
-                                    int [*] fx, int [*] fy, int [*] sflag)
-{
-  int i;
-  struct src Src;
-  Src = new(struct src);
-  Src.Src = new(float [len(source,0)]);
-  for (i=0; i< len(source,0); i=i+1){
-    Src.Src[i] = source[i];
-  }
 
+struct src SrcNew(int [*] sx, int [*] sy,
+                  float [*,*] sqxx, float [*,*] sqyy,
+                  float [*,*] sfx,  float [*,*] sfy}
+{
   Src.Sflag = sflag;
   Src.Sx = sx;
   Src.Sy = sy;
-  Src.Fx = fx;
-  Src.Fy = fy;
+  Src.Sfx = sfx;
+  Src.Sfy = sfy;
+  Src.Sqxx =  sqxx;
+  Src.Sqyy= = sqyy;
   Src.Ns = len(sx,0);
+  Src.sflag = sflag;
   
   
   return(Src);

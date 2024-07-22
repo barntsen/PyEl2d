@@ -18,11 +18,11 @@ class rec :
        Returns    : Receiver object.
   '''
 
-  def __init__(self,pyac2d,par):
+  def __init__(self,pyac2d,rx,ry,it,el2d):
     pyac2d.RecNew.restype=c_void_p
     # Convert from python variables to eps variables
-    rxx = pyeps.Store1di(pyac2d,par.rx)  
-    ryy = pyeps.Store1di(pyac2d,par.ry)  
+    rxx = pyeps.Store1di(pyac2d,rx)  
+    ryy = pyeps.Store1di(pyac2d,ry)  
     snp = pyeps.Store1ds(pyac2d,par.fsnp) 
     # Create receiver eps object.
     # Set argument types 

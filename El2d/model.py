@@ -16,15 +16,15 @@ class model :
     ''' Constructor for the model object.
 
     Arguments: 
-      -pyac2d: Reference to the shared library with eps functions
-      -Vp    : P-wave velocity array 
-      -Vs    : S-wave velocity array
-      -Rho   : density array
-      -Ql    : Lambda Q-model
-      -Qm    : Mu Q-model array
-      -Qp    : Density P-wave Q-model array
-      -Qs    : Density S-wave Q-model array
-      -par   : Parameters for modelling (see the mod.py configuration file)
+      pyac2d: Reference to the shared library with eps functions
+      Vp    : P-wave velocity array 
+      Vs    : S-wave velocity array
+      Rho   : density array
+      Ql    : Lambda Q-model
+      Qm    : Mu Q-model array
+      Qp    : Density P-wave Q-model array
+      Qs    : Density S-wave Q-model array
+      par   : Parameters for modelling (see the mod.py configuration file)
 
     All arrays are 2D with the first dimension in the y-direction.
 
@@ -72,5 +72,6 @@ class model :
     pyac2d.ModelNew.restype=c_void_p
 
     #Create a pointer to the model eps object.
-    self.model=pyac2d.ModelNew (vp,vs,rho,qlx,qly,qmx,qmy,qpx,qpy,qsx,qsy,c_float(par.dx),c_float(par.dt),
+    self.model=pyac2d.ModelNew (vp,vs,rho,qlx,qly,qmx,qmy,qpx,
+                                qpy,qsx,qsy,c_float(par.dx),c_float(par.dt),
                                 c_float(par.w0),c_int(par.nb),c_int(par.rheol))

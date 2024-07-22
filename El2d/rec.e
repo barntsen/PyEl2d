@@ -18,7 +18,7 @@ include "rec.i"
 //
 //  Returns: Receiver object  
 //----------------------------------------------------------------------------
-struct rec RecNew(int [*] rx, int [*] ry, int nt, 
+struct rec RecNew(int [*] rx, int [*] ry, int nt  
                   int resamp, int sresamp, char [*] file)
 {
   struct rec Rec;
@@ -29,14 +29,21 @@ struct rec RecNew(int [*] rx, int [*] ry, int nt,
   Rec.ry = ry;
   Rec.nt = nt;
   Rec.p = new(float [Rec.nr,Rec.nt]);
+  Rec.sxx = new(float [Rec.nr,Rec.nt]);
+  Rec.syy = new(float [Rec.nr,Rec.nt]);
+  Rec.vx = new(float [Rec.nr,Rec.nt]);
+  Rec.vy = new(float [Rec.nr,Rec.nt]);
   Rec.resamp = resamp;
   Rec.sresamp = sresamp;
+  Rec.rflag = rflag;
   Rec.pit = 0;
   if(Rec.sresamp > 0){
     Rec.fd = LibeOpen(file,"w");
   }
   
   return(Rec);
+
+
 }  
 // RecReciver records data at the receiver
 //
@@ -47,7 +54,7 @@ struct rec RecNew(int [*] rx, int [*] ry, int nt,
 //
 // Returns  : Integer (OK or ERR)
 //-----------------------------------------------------------------------------
-int RecReceiver(struct rec Rec,int it, float [*,*] p)
+int RecReceiver(struct rec Rec,int it, struct el2d El2d)
 {
   int pos;
   int ixr,iyr;
@@ -58,7 +65,11 @@ int RecReceiver(struct rec Rec,int it, float [*,*] p)
     for (pos=0;pos<Rec.nr; pos=pos+1){  
       ixr=Rec.rx[pos];
       iyr=Rec.ry[pos];
-      Rec.p[pos,Rec.pit] = p[ixr,iyr];       
+      Rec.p[pos,Rec.pit]   = 0.5*(El2d.sxx[ixr,iyr]+El2d.syy[ixr,iyr]);       
+      Rec.sxx[pos,Rec.pit] = El2d.sxx[ixr,iyr];
+      Rec.syy[pos,Rec.pit] = El2d.syy[ixr,iyr];
+      Rec.vx[pos,Rec.pit] = El2d.vx[ixr,iyr];
+      Rec.vy[pos,Rec.pit] = El2d.vy[ixr,iyr];
     } 
     Rec.pit = Rec.pit+1;
   }
