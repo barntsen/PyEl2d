@@ -1364,8 +1364,8 @@ d_x +\alpha & = & \frac{1}{\tau_{\sigma}}
 \end{eqnarray}
 Solving for $\tau_{\epsilon}$ and $\tau_{\sigma}$ one gets
 \begin{eqnarray}
-  \tau_{\sigma}   & = & \frac{1}{(d_x+\alpha)},\\
-  \tau_{\epsilon} & = & \frac{1}{\alpha}.
+  \tau_{\sigma}   & = & \frac{1}{(d_x+\alpha)}, \label{eq:taus}\\
+  \tau_{\epsilon} & = & \frac{1}{\alpha}. \label{eq:taue}
 \end{eqnarray}.
 Here 
 \begin{eqnarray}
@@ -1375,6 +1375,25 @@ Here
 where $d_0$ and $e_0$ are constants and $L$ is the length of
 the PML zone and $x$ is the distance from the start (outer border of model)
 of the PML zone.
+
+We can express $\alpha$ and $d_x$ in terms of $Q$.
+\cite{Casula1992} gives $Q$ in terms of $\tau_{\epsilon}$ and
+$\tau_{\sigma}$
+\begin{eqnarray}
+  Q = \frac{2\tau_0}{\tau_{\epsilon}-\tau_{\sigma}}.
+\end{eqnarray}
+Using equations \eqref{eq:taus} and \eqref{eq:taus} I get
+\begin{eqnarray}
+  Q = 2\tau_0\alpha\left(1+\alpha/d_x\right).
+\end{eqnarray}
+This gives the limiting values 
+$Q\rightarrow \infty$ for $d_x \rightarrow 0$ and
+$Q= 0$ for $\alpha =0$.
+An infinite $Q$ corresponds to an elastic medium, but $Q=0$
+is non-physical and could possibly induce instability
+for numerical schemes.
+
+
 
 %============================================================================
 \bibliographystyle{seg}  % style file is seg.bst

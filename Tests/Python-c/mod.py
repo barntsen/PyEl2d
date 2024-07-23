@@ -33,14 +33,8 @@ rheol   = SLS
 #Source position
 sx       = np.zeros(1)
 sy       = np.zeros(1)
-fx       = np.zeros(1)
-fy       = np.zeros(1)
-sflag    = np.zeros(4)
 sx[0]    = nx/2
 sy[0]    = ny/2
-fx[0]    = nx/2
-fy[0]    = ny/2
-sflag[3] = 1
 
 #Receiver positions
 nr = 201  

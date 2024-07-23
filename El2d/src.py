@@ -1,31 +1,43 @@
 from ctypes import *
 import pyeps  
 import babin as ba 
-import par.py
 
 class src :
   ''' src is a class for creating a source object '''
 
   def __init__(self,pyac2d,sx,sy,sqxx,sqyy,sfx,sfy):
-    ''' Source constructor 
+    ''' _init__ creates a new source object.
 
-       Parameters:
-         
-
-       Returns  : Source object
-  
-       The pyac2d module is implemented in eps
+    Arguments:
+      sx : 1D array with x-coordinate of source position
+      sy : 1D array with y-coordinate of source position
+      sqxx : 2D array of sxx (xx component of stress) of explosive source.
+             sqxx[i,j] contains time sample no i for source no j
+             at position (sx[j],sy[j]). 
+      sqyy : 2D array of syy (yy component of stress) of explosive source.
+             sqyy[i,j] contains time sample no i for source no j
+             at position (sx[j],sy[j]). 
+      sfx  : 2D array of fx (x component of force) of force source.
+             fx[i,j] contains time sample no i for source no j
+             at position (sx[j],sy[j]). 
+      sfy  : 2D array of fy (y component of force) of force source.
+             fy[i,j] contains time sample no i for source no j
+             at position (sx[j],sy[j]). 
+    
+    The source functions sqxx,sqyy,fx and fy are all added as
+    sources, if one or more is not needed the arrays must
+    contain zeros. 
 
     '''
-
     
     # Convert python variables to eps variables
-    sxx = pyeps.Store1di(pyac2d,par.sx)
-    syy = pyeps.Store1di(pyac2d,par.sy)
-    qxx = pyeps.Store1di(pyac2d,par.fx)
-    qyy = pyeps.Store1di(pyac2d,par.fy)
-    sflag = pyeps.Store1di(pyac2d,par.sflag)
-    wavelet = pyeps.Store1df(pyac2d,src)
+
+    sxp = pyeps.Store1di(pyac2d,sx)
+    syp = pyeps.Store1di(pyac2d,sy)
+    sqxxp = pyeps.Store2df(pyac2d,sqxx)
+    sqyyp = pyeps.Store2df(pyac2d,sqyy)
+    sfxp = pyeps.Store2df(pyac2d,sfx)
+    sfyp = pyeps.Store2df(pyac2d,sfy)
 
     #Create source eps object
     # Set argument types
@@ -34,4 +46,4 @@ class src :
     # Set return type 
     pyac2d.SrcNew.restype=c_void_p
     # Do the call
-    self.src=pyac2d.SrcNew(sx,sy,sqxx,sqyy,sfx,sfy) 
+    self.src=pyac2d.SrcNew(sxp,syp,sqxxp,sqyyp,sfxp,sfyp) 

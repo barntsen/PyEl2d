@@ -59,13 +59,22 @@ t0=time.perf_counter()   #Start measure wall clock time
 
 # Create source 
 
-#Read the source time function
+# Read the source time function
+# and create 2D arrays to hold
+# Source time functions
 fd = ba.bin(par.fsrc,'r')
 Src=fd.read((par.nt,))
-src=src.src(pyel2d,Src,par)
+sqxx = np.zeros((1,par.nt))
+sqxx[0,:]=Src[:]
+sqyy = np.zeros((1,par.nt))
+sqyy[0,:]=Src[:]
+sfx = np.zeros((1,par.nt))
+#sfx[0,:]=Src[:]
+sfy = np.zeros((1,par.nt))
+#sfy[0,:]=Src[:]
 
 # Create receivers 
-rec=rec.rec(pyel2d,par)
+rec=rec.rec(pyel2d,par.rx,par.ry,par.nt,par.resamp,par.sresamp,par.fsnp)
 
 #Read the vp model
 fd=ba.bin(par.fvp,'r')
@@ -102,7 +111,8 @@ print("model time  (secs):", time.perf_counter()-t0, flush=True)
 # Create fd solver
 el2d = el2d.el2d(pyel2d,model)
 
-
+src=src.src(pyel2d,par.sx,par.sy,
+            sqxx,sqyy,sfx,sfy)
 # Run solver
 t1=time.perf_counter()
 el2d.solve(pyel2d,model,src,rec,par)

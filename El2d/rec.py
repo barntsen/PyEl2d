@@ -18,17 +18,17 @@ class rec :
        Returns    : Receiver object.
   '''
 
-  def __init__(self,pyac2d,rx,ry,it,el2d):
+  def __init__(self,pyac2d,rx,ry,nt,resamp,sresamp,snp):
     pyac2d.RecNew.restype=c_void_p
     # Convert from python variables to eps variables
     rxx = pyeps.Store1di(pyac2d,rx)  
     ryy = pyeps.Store1di(pyac2d,ry)  
-    snp = pyeps.Store1ds(pyac2d,par.fsnp) 
+    snp = pyeps.Store1ds(pyac2d,snp) 
     # Create receiver eps object.
     # Set argument types 
     pyac2d.RecNew.argtypes=[c_void_p,c_void_p,c_int,c_int,c_int,c_void_p]
-    self.rec= pyac2d.RecNew(rxx,ryy,c_int(par.nt),c_int(par.resamp),
-                            c_int(par.sresamp),snp);
+    self.rec= pyac2d.RecNew(rxx,ryy,c_int(nt),c_int(resamp),
+                            c_int(sresamp),snp);
 
   def save(self,pyac2d,par):
     ''' save records data to file.

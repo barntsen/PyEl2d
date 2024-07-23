@@ -18,7 +18,7 @@ include "rec.i"
 //
 //  Returns: Receiver object  
 //----------------------------------------------------------------------------
-struct rec RecNew(int [*] rx, int [*] ry, int nt  
+struct rec RecNew(int [*] rx, int [*] ry, int nt,  
                   int resamp, int sresamp, char [*] file)
 {
   struct rec Rec;
@@ -35,15 +35,12 @@ struct rec RecNew(int [*] rx, int [*] ry, int nt
   Rec.vy = new(float [Rec.nr,Rec.nt]);
   Rec.resamp = resamp;
   Rec.sresamp = sresamp;
-  Rec.rflag = rflag;
   Rec.pit = 0;
   if(Rec.sresamp > 0){
     Rec.fd = LibeOpen(file,"w");
   }
   
   return(Rec);
-
-
 }  
 // RecReciver records data at the receiver
 //
@@ -53,8 +50,9 @@ struct rec RecNew(int [*] rx, int [*] ry, int nt
 //  p:      : Pressure data at time step no it
 //
 // Returns  : Integer (OK or ERR)
-//-----------------------------------------------------------------------------
-int RecReceiver(struct rec Rec,int it, struct el2d El2d)
+//
+int RecReceiver(struct rec Rec,int it, float [*,*] sxx, float [*,*]syy,
+                                       float [*,*] vx,  float [*,*] vy)
 {
   int pos;
   int ixr,iyr;
@@ -65,11 +63,10 @@ int RecReceiver(struct rec Rec,int it, struct el2d El2d)
     for (pos=0;pos<Rec.nr; pos=pos+1){  
       ixr=Rec.rx[pos];
       iyr=Rec.ry[pos];
-      Rec.p[pos,Rec.pit]   = 0.5*(El2d.sxx[ixr,iyr]+El2d.syy[ixr,iyr]);       
-      Rec.sxx[pos,Rec.pit] = El2d.sxx[ixr,iyr];
-      Rec.syy[pos,Rec.pit] = El2d.syy[ixr,iyr];
-      Rec.vx[pos,Rec.pit] = El2d.vx[ixr,iyr];
-      Rec.vy[pos,Rec.pit] = El2d.vy[ixr,iyr];
+      Rec.sxx[pos,Rec.pit] = sxx[ixr,iyr];
+      Rec.syy[pos,Rec.pit] = syy[ixr,iyr];
+      Rec.vx[pos,Rec.pit] = vx[ixr,iyr];
+      Rec.vy[pos,Rec.pit] = vy[ixr,iyr];
     } 
     Rec.pit = Rec.pit+1;
   }
@@ -89,8 +86,8 @@ int RecSave(struct rec Rec, char [*] file)
   int n;
 
   fd = LibeOpen(file,"w");
-  n = len(Rec.p,0)*len(Rec.p,1);
-  LibeWrite(fd,4*n,cast(char [4*n],Rec.p));
+  n = len(Rec.sxx,0)*len(Rec.sxx,1);
+  LibeWrite(fd,4*n,cast(char [4*n],Rec.sxx));
   LibeClose(fd);
 
   return(OK);

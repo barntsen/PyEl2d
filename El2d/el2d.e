@@ -113,11 +113,11 @@ int El2dSolve(struct el2d El2d, struct model Model, struct src Src,
               struct rec Rec,int nt,int l)
 {
   int sx,sy;         // Pressure Source x,y-coordinates 
-  int fx,fy;         // Force Source x,y-coordinates 
   struct diff Diff;  // Differentiator object
   int ns,ne;         // Start stop timesteps
   float [*,*] tmp1,tmp2;
   int i,k;
+  float [*,*] p;
 
   float perc,oldperc; // Percentage finished current and old
   int iperc;          // Percentage finished
@@ -152,30 +152,20 @@ int El2dSolve(struct el2d El2d, struct model Model, struct src Src,
 
     // Update stress
      El2dstress(El2d,Model);  
-
+   
     // Add source
     for (k=0; k<Src.Ns;k=k+1){
       sx=Src.Sx[k];
       sy=Src.Sy[k];
-      fx=Src.Fx[k];
-      fy=Src.Fy[k];
-
-      if(Src.Sflag[0] == 1){
-        El2d.sigmaxx[sx,sy] = El2d.sigmaxx[sx,sy]
-                    + Model.Dt*(Src.Src[i]/(Model.Dx*Model.Dx)) ; 
-      }
-      if(Src.Sflag[1] == 1){
+      
+      El2d.sigmaxx[sx,sy] = El2d.sigmaxx[sx,sy]
+                    + Model.Dt*(Src.Sqxx[i,k]/(Model.Dx*Model.Dx)) ; 
         El2d.sigmayy[sx,sy] = El2d.sigmayy[sx,sy]
-                    + Model.Dt*(Src.Src[i]/(Model.Dx*Model.Dx)) ; 
-      }
-      if(Src.Sflag[2] == 1){
-        El2d.vx[fx,fy] = El2d.vx[fx,fy]
-                    + Model.Dt*(Src.Src[i]/(Model.Dx*Model.Dx)) ; 
-      }
-      if(Src.Sflag[3] == 1){
-        El2d.vy[fx,fy] = El2d.vy[fx,fy]
-                    + Model.Dt*(Src.Src[i]/(Model.Dx*Model.Dx)) ; 
-      }
+                    + Model.Dt*(Src.Sqyy[i,k]/(Model.Dx*Model.Dx)) ; 
+        El2d.vx[sx,sy] = El2d.vx[sx,sy]
+                    + Model.Dt*(Src.Sfx[i,k]/(Model.Dx*Model.Dx)) ; 
+        El2d.vy[sx,sy] = El2d.vy[sx,sy]
+                    + Model.Dt*(Src.Sfy[i,k]/(Model.Dx*Model.Dx)) ; 
     }
 
     // Print progress
@@ -191,10 +181,10 @@ int El2dSolve(struct el2d El2d, struct model Model, struct src Src,
    }
 
     //Record wavefield
-    RecReceiver(Rec,i,El2d); 
+    RecReceiver(Rec,i,El2d.sigmaxx,El2d.sigmayy,El2d.vx,El2d.vy); 
 
     // Record Snapshots
-    RecSnap(Rec,i,El2d.sxx);
+    RecSnap(Rec,i,El2d.sigmaxx);
   }
   return(1);
 }

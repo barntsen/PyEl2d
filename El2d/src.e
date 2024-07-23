@@ -7,28 +7,54 @@ include "src.i"
 // Sricker creates a Ricker wavelet
 int Srcricker(float [*] src, float t0, float f0, int nt, float dt){}
 
-// SrcNew creates a new source object
 
 struct src SrcNew(int [*] sx, int [*] sy,
                   float [*,*] sqxx, float [*,*] sqyy,
-                  float [*,*] sfx,  float [*,*] sfy}
+                  float [*,*] sfx,  float [*,*] sfy)
+// SrcNew creates a new source object.
+//
+// Arguments:
+//   sx : 1D array with x-coordinate of source position
+//   sy : 1D array with y-coordinate of source position
+//   sqxx : 2D array of sxx (xx component of stress) of explosive source.
+//          sqxx[i,j] contains time sample no i for source no j
+//          at position (sx[j],sy[j]). 
+//   sqyy : 2D array of syy (yy component of stress) of explosive source.
+//          sqyy[i,j] contains time sample no i for source no j
+//          at position (sx[j],sy[j]). 
+//   sfx  : 2D array of fx (x component of force) of force source.
+//          fx[i,j] contains time sample no i for source no j
+//          at position (sx[j],sy[j]). 
+//   sfy  : 2D array of fy (y component of force) of force source.
+//          fy[i,j] contains time sample no i for source no j
+//          at position (sx[j],sy[j]). 
+//    
+//    The source functions sqxx,sqyy,sfx and sfy are all added as
+//    sources, if one or more is not needed the arrays must
+//    contain zeros. 
+//          
 {
-  Src.Sflag = sflag;
+  struct src Src;
+
+  Src = new(struct src);
+
   Src.Sx = sx;
   Src.Sy = sy;
   Src.Sfx = sfx;
   Src.Sfy = sfy;
   Src.Sqxx =  sqxx;
-  Src.Sqyy= = sqyy;
+  Src.Sqyy = sqyy;
   Src.Ns = len(sx,0);
-  Src.sflag = sflag;
-  
-  
+
   return(Src);
 }
 
-// SrcDel deletes a source object
 int SrcDel(struct src Src)
+// SrcDel deletes a source object
+//
+// Arguments: 
+//   Src:    Source structure
+//
 {
   delete(Src); 
   return(OK);

@@ -11,6 +11,8 @@ rm -f ac2d.i
 rm -f ac2d.e 
 rm -f diff.e 
 rm -f diff.i 
+rm -f el2d.e 
+rm -f el2d.i 
 
 rm -f libe.e 
 rm -f libe.i 
