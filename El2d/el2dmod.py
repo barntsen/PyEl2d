@@ -109,8 +109,9 @@ model = model.model(pyel2d,vp,vs,rho,ql,qm,qp,qs,par)
 print("model time  (secs):", time.perf_counter()-t0, flush=True)
 
 # Create fd solver
-el2d = el2d.el2d(pyel2d,model)
+el2d = el2d.el2d(pyel2d,model,par.sresamp)
 
+#Create sources
 src=src.src(pyel2d,par.sx,par.sy,
             sqxx,sqyy,sfx,sfy)
 # Run solver

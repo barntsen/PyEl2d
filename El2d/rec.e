@@ -92,28 +92,3 @@ int RecSave(struct rec Rec, char [*] file)
 
   return(OK);
 }
-// RecSnap records snapshots
-//
-// Arguments: 
-//  Rec:    : Receiver object
-//  it      : Current time step       
-//  snp     : Pressure data
-// Returns  : Integer (OK or ERR)
-int RecSnap(struct rec Rec,int it, float [*,*] snp)
-{
-  int n;
-  int Nx, Ny;
-  char [*] tmp;
-  
-  if (Rec.sresamp <= 0){
-    return(OK);
-  }
-  Nx = len(snp,0);
-  Ny = len(snp,1);
-  n = Nx*Ny;
-  if(LibeMod(it,Rec.sresamp) == 0){
-    tmp = cast(char [4*n],snp);
-    LibeWrite(Rec.fd,4*n,tmp);
-  }
-  return(OK);
-}

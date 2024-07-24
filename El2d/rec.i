@@ -35,8 +35,4 @@ int RecReceiver(struct rec Rec,int it,float [*,*] sxx,float [*,*] syy,
 // Recsave stores receiver recording on file
 //
 int RecSave(struct rec Rec, char [*] file){}
-//
-// RecSnap records snapshots
-//
-int RecSnap(struct rec Rec,int it, float [*,*] snp){}
 

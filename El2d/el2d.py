@@ -18,14 +18,14 @@ class el2d :
   '''
 
 
-  def __init__(self,pyel2d,model):
+  def __init__(self,pyel2d,model,sresamp):
     # Set return type
     pyel2d.El2dNew.restype=c_void_p
 
     #Create fd solver
     m = model.model
-    pyel2d.El2dNew.argtypes=[c_void_p]
-    self.el2d = pyel2d.El2dNew(m)
+    pyel2d.El2dNew.argtypes=[c_void_p,c_int]
+    self.el2d = pyel2d.El2dNew(m,sresamp)
   
   def solve(self, pyel2d,model,src,rec,par) :
     ''' solve computes the solution for the elastic

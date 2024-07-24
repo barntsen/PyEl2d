@@ -18,6 +18,8 @@
               float [*,*] vy){}
   int El2dstress(struct el2d El2d, struct model Model){} 
 
+  int El2dSnap(struct el2d El2d,int it){}
+
 // Public functions
 
 // El2dNew creates a new El2d object
@@ -26,11 +28,12 @@
 //   - Model : Model object
 //
 // Return    :El2d object  
-  struct el2d El2dNew(struct model Model){
+  struct el2d El2dNew(struct model Model, int sresamp){
   struct el2d El2d;
   int i,j;
   
   El2d = new(struct el2d);
+  El2d.sresamp = sresamp;
   El2d.p=new(float [Model.Nx,Model.Ny]); 
   El2d.sigmaxx=new(float [Model.Nx,Model.Ny]); 
   El2d.sigmayy=new(float [Model.Nx,Model.Ny]); 
@@ -75,6 +78,9 @@
       El2d.ts = 0;
     }
   }
+  // Open snapshot file
+  El2d.fd = LibeOpen("snp.bin","w");
+
   return(El2d);
 }
 // El2dSolve computes the solution of the elastic wave equation.
@@ -184,7 +190,7 @@ int El2dSolve(struct el2d El2d, struct model Model, struct src Src,
     RecReceiver(Rec,i,El2d.sigmaxx,El2d.sigmayy,El2d.vx,El2d.vy); 
 
     // Record Snapshots
-    RecSnap(Rec,i,El2d.sigmaxx);
+    El2dSnap(El2d,i);
   }
   return(1);
 }
@@ -326,4 +332,28 @@ int El2dstress(struct el2d El2d, struct model Model){
    El2d.gammayx[i,j] = Model.Beta1x[i,j]*El2d.gammayx[i,j] 
                      + Model.Beta2x[i,j]*El2d.eyx[i,j];
   }
+}
+// El2dSnap records snapshots
+//
+// Arguments: 
+//  El2d:   : El2d object
+//  it      : Current time step       
+// Returns  : Integer (OK or ERR)
+int El2dSnap(struct el2d El2d,int it)
+{
+  int n;
+  int Nx, Ny;
+  char [*] tmp;
+  
+  if (El2d.sresamp <= 0){
+    return(OK);
+  }
+  Nx = len(El2d.sigmaxx,0);
+  Ny = len(El2d.sigmaxx,1);
+  n = Nx*Ny;
+  if(LibeMod(it,El2d.sresamp) == 0){
+    tmp = cast(char [4*n],El2d.sigmaxx);
+    LibeWrite(El2d.fd,4*n,tmp);
+  }
+  return(OK);
 }
