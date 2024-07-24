@@ -16,7 +16,6 @@ struct rec
     float [*,*] vy;  // Velocity vy[i,j]  at time sample no j at position no i
     float [*,*] wrk; // Work array
     int   resamp;  // Resample factor for receivers
-    int   sresamp; // Resample factor for snapshots
     int pit;       // Next time sample to be recorded
 }
 
@@ -24,8 +23,7 @@ struct rec
 // RecNew is the constructor for receivers.
 // The return value is a Rec object
 //
-struct rec RecNew(int [*] rx, int [*] ry, int nt, int resamp, int sresamp,
-                  char[*] file){}
+struct rec RecNew(int [*] rx, int [*] ry, int nt, int resamp){}
 //
 // RecReciver records data at the receivers
 //

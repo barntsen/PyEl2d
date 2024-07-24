@@ -74,7 +74,7 @@ sfy = np.zeros((1,par.nt))
 #sfy[0,:]=Src[:]
 
 # Create receivers 
-rec=rec.rec(pyel2d,par.rx,par.ry,par.nt,par.resamp,par.sresamp,par.fsnp)
+rec=rec.rec(pyel2d,par.rx,par.ry,par.nt,par.resamp)
 
 #Read the vp model
 fd=ba.bin(par.fvp,'r')
@@ -109,7 +109,7 @@ model = model.model(pyel2d,vp,vs,rho,ql,qm,qp,qs,par)
 print("model time  (secs):", time.perf_counter()-t0, flush=True)
 
 # Create fd solver
-el2d = el2d.el2d(pyel2d,model,par.sresamp)
+el2d = el2d.el2d(pyel2d,model,par.sresamp,par.snpflags)
 
 #Create sources
 src=src.src(pyel2d,par.sx,par.sy,

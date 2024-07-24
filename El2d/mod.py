@@ -43,3 +43,7 @@ ry=np.zeros((nr))
 for i in range(0,nr):
   rx[i] = i
   ry[i] = 50
+
+#Snapshost
+snpflags = np.zeros(4)
+snpflags[0] = 1

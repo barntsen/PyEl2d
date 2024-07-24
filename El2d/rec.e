@@ -19,7 +19,7 @@ include "rec.i"
 //  Returns: Receiver object  
 //----------------------------------------------------------------------------
 struct rec RecNew(int [*] rx, int [*] ry, int nt,  
-                  int resamp, int sresamp, char [*] file)
+                  int resamp)
 {
   struct rec Rec;
 
@@ -34,11 +34,7 @@ struct rec RecNew(int [*] rx, int [*] ry, int nt,
   Rec.vx = new(float [Rec.nr,Rec.nt]);
   Rec.vy = new(float [Rec.nr,Rec.nt]);
   Rec.resamp = resamp;
-  Rec.sresamp = sresamp;
   Rec.pit = 0;
-  if(Rec.sresamp > 0){
-    Rec.fd = LibeOpen(file,"w");
-  }
   
   return(Rec);
 }  

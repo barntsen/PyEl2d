@@ -22,13 +22,17 @@ struct el2d {
   float [*,*] thetaxyx;
   float [*,*] thetayxy;
   int ts;             // Timestep no
-  int fd;             // Snapshot file descriptor
+  int fdsxx;          // Snapshot file descriptor
+  int fdsyy;          // Snapshot file descriptor
+  int fdvx;          // Snapshot file descriptor
+  int fdvy;          // Snapshot file descriptor
   int sresamp;        // Snapshot resampling factor
+  int [*] snpflags;     // Flags for types of snapshots
 }
 
 // El2ddNew creates a new Ac2d object
 //
-  struct el2d El2dNew(struct model Model, int sresamp){}
+  struct el2d El2dNew(struct model Model, int sresamp, int [*] snpflags){}
 
 // El2d2dSolve computes the pressure at the next timestep
 //

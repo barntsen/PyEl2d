@@ -28,12 +28,13 @@
 //   - Model : Model object
 //
 // Return    :El2d object  
-  struct el2d El2dNew(struct model Model, int sresamp){
+  struct el2d El2dNew(struct model Model, int sresamp, int [*] snpflags){
   struct el2d El2d;
   int i,j;
   
   El2d = new(struct el2d);
   El2d.sresamp = sresamp;
+  El2d.snpflags = snpflags;
   El2d.p=new(float [Model.Nx,Model.Ny]); 
   El2d.sigmaxx=new(float [Model.Nx,Model.Ny]); 
   El2d.sigmayy=new(float [Model.Nx,Model.Ny]); 
@@ -79,7 +80,18 @@
     }
   }
   // Open snapshot file
-  El2d.fd = LibeOpen("snp.bin","w");
+  if(El2d.snpflags[0] == 1){
+    El2d.fdsxx = LibeOpen("snp-sxx.bin","w");
+  }
+  if(El2d.snpflags[1] == 1){
+    El2d.fdsxx = LibeOpen("snp-syy.bin","w");
+  }
+  if(El2d.snpflags[2] == 1){
+    El2d.fdsxx = LibeOpen("snp-vx.bin","w");
+  }
+  if(El2d.snpflags[3] == 1){
+    El2d.fdsxx = LibeOpen("snp-vy.bin","w");
+  }
 
   return(El2d);
 }
@@ -352,8 +364,22 @@ int El2dSnap(struct el2d El2d,int it)
   Ny = len(El2d.sigmaxx,1);
   n = Nx*Ny;
   if(LibeMod(it,El2d.sresamp) == 0){
-    tmp = cast(char [4*n],El2d.sigmaxx);
-    LibeWrite(El2d.fd,4*n,tmp);
+    if(El2d.snpflags[0] == 1){
+      tmp = cast(char [4*n],El2d.sigmaxx);
+      LibeWrite(El2d.fdsxx,4*n,tmp);
+    }
+    if(El2d.snpflags[1] == 1){
+      tmp = cast(char [4*n],El2d.sigmayy);
+      LibeWrite(El2d.fdsyy,4*n,tmp);
+    }
+    if(El2d.snpflags[2] == 1){
+      tmp = cast(char [4*n],El2d.vx);
+      LibeWrite(El2d.fdvx,4*n,tmp);
+    }
+    if(El2d.snpflags[3] == 1){
+      tmp = cast(char [4*n],El2d.vy);
+      LibeWrite(El2d.fdvy,4*n,tmp);
+    }
   }
   return(OK);
 }
