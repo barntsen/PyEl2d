@@ -7,14 +7,12 @@ include "rec.i"
 // RecNew is the constructor for receiver objects.
 //
 // Arguments:
-//   Model:  Model object
 //   rx:     Integer array with position of receivers in the 
 //           x-direction (gridpoints)
 //   ry:     Integer array with position of receivers in the 
 //           y-direction (gridpoints)
 //   nt:     No of time samples in the receiver data
 //   resamp: Resample factor relative to the modelling time sample interval
-//   file:   File name for snap shots
 //
 //  Returns: Receiver object  
 //----------------------------------------------------------------------------
@@ -43,7 +41,10 @@ struct rec RecNew(int [*] rx, int [*] ry, int nt,
 // Arguments: 
 //  Rec:    : Receiver object
 //  it      : Current time step
-//  p:      : Pressure data at time step no it
+//  sxx     : Stress field xx-component
+//  syy     : Stress field yy-component
+//  vx      : Particle velocity x-component
+//  vy      : Particle velocity y-component
 //
 // Returns  : Integer (OK or ERR)
 //
@@ -68,14 +69,18 @@ int RecReceiver(struct rec Rec,int it, float [*,*] sxx, float [*,*]syy,
   }
   return(OK);
 }
+float [*,*] RecGetrec(struct rec Rec, int data)
 // RecGetrec retrieves the recorded data
 //
 // Arguments: 
 //  Rec:    : Receiver object
+//  data    : =0 for sigmaxx stress xx comp.
+//  data    : =1 for sigmayy stress yy comp.
+//  data    : =2 for vx velocity particle velocity x-comp.
+//  data    : =3 for vy velocity particle velocity y-comp.
 //
-// Returns  : Integer (OK or ERR)
-//-----------------------------------------------------------------------------
-float [*,*] RecGetrec(struct rec Rec, int data)
+// Returns  : 2D data array
+//
 {
   if(data == 0){
     return(Rec.sxx);

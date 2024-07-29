@@ -308,31 +308,3 @@ return Rec->vy;
 }
 }
 }
-int RecSave (struct rec* Rec,nctempchar1 *file)
-{
-int fd;
-int n;
-nctempchar1* nctemp225= file;
-struct nctempchar1 *nctemp230;
-static struct nctempchar1 nctemp231 = {{ 2}, (char*)"w\0"};
-nctemp230=&nctemp231;
-nctempchar1* nctemp228= nctemp230;
-int nctemp232=LibeOpen(nctemp225,nctemp228);
-fd =nctemp232;
-int nctemp240=Rec->sxx->d[0];int nctemp245=Rec->sxx->d[1];int nctemp249 = nctemp240 * nctemp245;
-n =nctemp249;
-int nctemp251= fd;
-int nctemp258 = 4 * n;
-int nctemp253= nctemp258;
-nctempchar1 nctemp262;
-nctempchar1 *nctemp261;
-nctemp262=*(nctempchar1*)(Rec->sxx);
-int nctemp269 = 4 * n;
-nctemp262.d[0]=nctemp269;
-nctemp261=&nctemp262;
-nctempchar1* nctemp259= nctemp261;
-int nctemp270=LibeWrite(nctemp251,nctemp253,nctemp259);
-int nctemp272= fd;
-int nctemp274=LibeClose(nctemp272);
-return 1;
-}

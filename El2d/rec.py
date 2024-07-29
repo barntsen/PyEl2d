@@ -6,20 +6,21 @@ import babin as ba
 
 
 class rec :
-  ''' rec is a class for creating receiver geometry from
-       the variables in the configuration (mod.py) file
-
-       Parameters :
-         pyac2d   : Reference to the pyac2d eps wave
-                    propagation library.    
-
-         par      : Object with parameters set in the
-                    configuration (mod.py) file.
-       
-       Returns    : Receiver object.
+  ''' rec is a class for creating receiver geometry 
   '''
 
   def __init__(self,pyel2d,rx,ry,nt,resamp):
+    ''' rec is a class for creating receiver geometry 
+
+       Parameters :
+         pyel2d   : Reference to the pyac2d shared library
+         rx       : 1D array with receiver coordinates x-comp.
+         ry       : 1D array with receiver coordinates y-comp.
+         nt       : No of time samples
+       
+       Returns    : Receiver object.
+    '''
+
     self.nt = nt
     self.nr = rx.shape[0]
     pyel2d.RecNew.restype=c_void_p
@@ -40,32 +41,15 @@ class rec :
           dtype    : = 0 Gets sigmaxx
                   : = 1 Gets sigmayy
                   : = 2 Gets vx 
-                  : = 2 Gets vy 
+                  : = 3 Gets vy 
  
           Returns :  2D arry with data 
     '''
 
     # Set argument types
-    pyel2d.RecSave.argtypes  =[c_void_p,c_int]
-    pyel2d.RecSave.returntype=[c_void_p]
+    pyel2d.RecGetrec.argtypes  =[c_void_p,c_int]
+    pyel2d.RecGetrec.returntype=[c_void_p]
     rval=pyel2d.RecGetrec(self.rec,dtype)
     rarr = np.zeros((self.nr,self.nt))
     pyeps.Get2df(pyel2d,rval,rarr)
     return rarr
-    
-
-  def save(self,pyac2d,par):
-    ''' save records data to file.
-
-        Parameters: 
-          pyac2da :  Pointer to the eps pyac2d library.
-          par     :  object with parameters set in the
-                     configuration (mod.py) file.
- 
-          Returns :  None
-    '''
-    fname  = par.press   # Output file name for pressure recording
-    fp=pyeps.Store1ds(pyac2d,fname)
-    # Set argument types
-    pyac2d.RecSave.argtypes=[c_void_p,c_void_p]
-    pyac2d.RecSave(self.rec,fp)

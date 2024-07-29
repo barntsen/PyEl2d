@@ -22,8 +22,8 @@ def taues (tau0,Q) :
   ''' Taues computes relaxation times from Q 
     
    Arguments:
-     - w0 : Peak frequency
-     - Q  : 2D array of Q values
+     - tau0 : =1/w0 where w0 is the Peak frequency
+     - Q    : 2D array of Q values
 
    Return:
      - taue  : epsilon relaxation time
@@ -188,8 +188,6 @@ def sls(Q,nb, dx, dt,w0) :
       Qx[i,j]  = 2*tau0/(tauex[i]-tausx[i])
       Qy[i,j]  = 2*tau0/(tauey[j]-tausy[j])
       
-  #Qx = np.transpose(Qx)
-  #Qy = np.transpose(Qy)
   return (Qx,Qy)
 
 def main() :

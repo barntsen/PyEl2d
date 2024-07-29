@@ -24,9 +24,15 @@ class model :
       Qm    : Mu Q-model array
       Qp    : Density P-wave Q-model array
       Qs    : Density S-wave Q-model array
-      par   : Parameters for modelling (see the mod.py configuration file)
-
-    All arrays are 2D with the first dimension in the y-direction.
+      par   : Class (or module)  with Parameters for modelling 
+              with the following attributes
+              -nb : Width of border zone
+              -dx : Grid interval
+              -dt : Timestep size
+              -w0 : Peak frequency for Q-models
+              -reol : Rheology for Q-models = 2 for Standard linear solid
+                                            = 1 for Maxwell
+    All arrays are 2D with the first dimension in the x-direction.
 
     '''
  

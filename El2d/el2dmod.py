@@ -73,18 +73,12 @@ sfx = np.zeros((1,par.nt))
 sfy = np.zeros((1,par.nt))
 #sfy[0,:]=Src[:]
 
-print("Source read")
-
 # Create receivers 
 rec=rec.rec(pyel2d,par.rx,par.ry,par.nt,par.resamp)
-
-print("Receivers read")
 
 #Read the vp model
 fd=ba.bin(par.fvp,'r')
 vp = fd.read((par.nx,par.ny))
-
-print("Vp read")
 
 #Read the vs model
 fd=ba.bin(par.fvs,'r')
@@ -110,34 +104,25 @@ qp = fd.read((par.nx,par.ny))
 fd=ba.bin(par.fqs,'r')
 qs = fd.read((par.nx,par.ny))
 
-print("Models read")
-
 # Create model
 model = model.model(pyel2d,vp,vs,rho,ql,qm,qp,qs,par)
 print("model time  (secs):", time.perf_counter()-t0, flush=True)
 
-print("Model created")
-
 # Create fd solver
 el2d = el2d.el2d(pyel2d,model,par.sresamp,par.snpflags)
-
-print("Solver created")
 
 #Create sources
 src=src.src(pyel2d,par.sx,par.sy,
             sqxx,sqyy,sfx,sfy)
-print("Sources created")
-
 # Run solver
 t1=time.perf_counter()
-el2d.solve(pyel2d,model,src,rec,par)
+el2d.solve(pyel2d,model,src,rec,par.nt,par.l)
 
 # Get data
 dtype=0
 data = rec.getrec(pyel2d,dtype)
 fd=ba.bin("sxx.bin",'w')
 fd.write(data)
-
 
 # Log wall clock time and date
 now = datetime.now()

@@ -33,20 +33,11 @@ class src :
     # Convert python variables to eps variables
 
     sxp = pyeps.Store1di(pyac2d,sx)
-    print("sx stored")
     syp = pyeps.Store1di(pyac2d,sy)
-    print("sy stored")
     sqxxp = pyeps.Store2df(pyac2d,sqxx)
-    print("sqxx stored")
-    print("sqyy shape: ", sqyy.shape)
     sqyyp = pyeps.Store2df(pyac2d,sqyy)
-    print("sqyy stored")
     sfxp = pyeps.Store2df(pyac2d,sfx)
-    print("sfx stored")
     sfyp = pyeps.Store2df(pyac2d,sfy)
-    print("sfy stored")
-
-    print("All Sources stored")
 
     #Create source eps object
     # Set argument types
