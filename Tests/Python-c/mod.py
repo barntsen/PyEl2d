@@ -37,7 +37,7 @@ sx[0]    = nx/2
 sy[0]    = ny/2
 
 #Receiver positions
-nr = 201  
+nr = nx
 rx=np.zeros((nr))
 ry=np.zeros((nr))
 for i in range(0,nr):

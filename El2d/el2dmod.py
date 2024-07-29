@@ -118,6 +118,13 @@ src=src.src(pyel2d,par.sx,par.sy,
 t1=time.perf_counter()
 el2d.solve(pyel2d,model,src,rec,par)
 
+# Get data
+dtype=0
+data = rec.getrec(pyel2d,dtype)
+fd=ba.bin("sxx.bin",'w')
+fd.write(data)
+
+
 # Log wall clock time and date
 now = datetime.now()
 dtstring = now.strftime("%b-%d-%Y %H:%M:%S")

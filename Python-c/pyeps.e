@@ -37,6 +37,8 @@ int PyepsDel2df(float [*,*] arr){}
 //Set 2D float array
 int PyepsSet2df(float [*,*] arr, int i, int j, float val){}
 
+//Get 2D float array
+float PyepsGet2df(float [*,*] arr, int i, int j){}
 
 //Empty main program (Necessary for linking)
 int Main(struct MainArg [*] MainArgs)
@@ -189,6 +191,7 @@ int PyepsDel2df(float [*,*] arr){
    return(1);
 }
 
+int PyepsSet2df(float [*,*] arr, int i, int j, float val){
 // PepsSet2df copies float into array
 //
 // Parameter:
@@ -199,7 +202,18 @@ int PyepsDel2df(float [*,*] arr){
 //
 // Returns: integer equal to 1
 //  
-int PyepsSet2df(float [*,*] arr, int i, int j, float val){
   arr[i,j] = val;
   return(1);
+}
+float PyepsGet2df(float [*,*] arr, int i, int j){
+// PepsGet2df copies float from array
+//
+// Parameter:
+//  float [*,*] arr: Float array
+//  int i        : Index of integer in arr 1st dim
+//  int j        : Index of integer in arr 2nd dim
+//
+// Returns: arr[i,j]
+//  
+  return(arr[i,j]);
 }

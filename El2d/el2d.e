@@ -203,6 +203,8 @@ int El2dSolve(struct el2d El2d, struct model Model, struct src Src,
 
     // Record Snapshots
     El2dSnap(El2d,i);
+
+    RecSave(Rec,"xaa.bin");
   }
   return(1);
 }

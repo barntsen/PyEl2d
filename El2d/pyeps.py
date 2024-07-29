@@ -2,8 +2,10 @@
 
     Functions: Store2df allocates memory and copies 2D numpy array into memory 
                Store1df allocates memory and copies 1D numpy array into memory
-               Store1di allocates memory and copies 1D integer arr into memory
+               Store1di allocates memory and copies 1D integer array into memory
                Store1ds allocates memory and copies 1D integer char array into memory
+               Get2df   Copies 2d array and deletes allocated memory
+ 
 '''
 
 import numpy as np
@@ -31,6 +33,25 @@ def Store2df(pyeps,arr):
       pyeps.PyepsSet2df(out,j,i,fval)
 
   return(out)
+
+def Get2df(pyeps,arr,rarr):
+  ''' Get2df copies 2D eps array and deletes memory
+  
+      Parameters:
+        pyeps   : Shared library containg c-functions
+        arr     : 2D numpy array
+  '''
+
+  nx = rarr.shape[0]
+  ny = rarr.shape[1]
+
+  # Set the argument and return types of Get2df
+  pyeps.PyepsGet2df.argtypes=[c_void_p,c_int,c_int]
+  pyeps.PyepsGet2df.restype=c_float
+  for i in range(0,nx):
+    for j in range(0,ny):
+      rarr[i,j]=pyeps.PyepsGet2df(arr,j,i)
+  return(True)
 
 def Store1df(pyeps,arr):
   ''' Store1df allocates memory and copies 1D numpy arr into memory

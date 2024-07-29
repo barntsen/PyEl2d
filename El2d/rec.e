@@ -68,6 +68,25 @@ int RecReceiver(struct rec Rec,int it, float [*,*] sxx, float [*,*]syy,
   }
   return(OK);
 }
+// RecGetrec retrieves the recorded data
+//
+// Arguments: 
+//  Rec:    : Receiver object
+//
+// Returns  : Integer (OK or ERR)
+//-----------------------------------------------------------------------------
+float [*,*] RecGetrec(struct rec Rec, int data)
+{
+  if(data == 0){
+    return(Rec.sxx);
+  }else if(data == 1){
+    return(Rec.syy);
+  }else if(data == 2){
+    return(Rec.vx);
+  }else if(data == 3){
+    return(Rec.vy);
+  }
+}
 // Recsave stores receiver recording on file
 //
 // Arguments: 

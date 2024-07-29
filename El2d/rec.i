@@ -34,3 +34,4 @@ int RecReceiver(struct rec Rec,int it,float [*,*] sxx,float [*,*] syy,
 //
 int RecSave(struct rec Rec, char [*] file){}
 
+float [*,*] RecGetrec(struct rec Rec, int dtype){}
