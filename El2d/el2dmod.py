@@ -73,47 +73,61 @@ sfx = np.zeros((1,par.nt))
 sfy = np.zeros((1,par.nt))
 #sfy[0,:]=Src[:]
 
+print("Source read")
+
 # Create receivers 
 rec=rec.rec(pyel2d,par.rx,par.ry,par.nt,par.resamp)
 
+print("Receivers read")
+
 #Read the vp model
 fd=ba.bin(par.fvp,'r')
-vp = fd.read((par.ny,par.nx))
+vp = fd.read((par.nx,par.ny))
+
+print("Vp read")
 
 #Read the vs model
 fd=ba.bin(par.fvs,'r')
-vs = fd.read((par.ny,par.nx))
+vs = fd.read((par.nx,par.ny))
 
 #Read the rho model
 fd=ba.bin(par.frho,'r')
-rho = fd.read((par.ny,par.nx))
+rho = fd.read((par.nx,par.ny))
 
 #Read the ql model
 fd=ba.bin(par.fql,'r')
-ql = fd.read((par.ny,par.nx))
+ql = fd.read((par.nx,par.ny))
 
 #Read the qm model
 fd=ba.bin(par.fqm,'r')
-qm = fd.read((par.ny,par.nx))
+qm = fd.read((par.nx,par.ny))
 
 #Read the qp model
 fd=ba.bin(par.fqp,'r')
-qp = fd.read((par.ny,par.nx))
+qp = fd.read((par.nx,par.ny))
 
 #Read the qs model
 fd=ba.bin(par.fqs,'r')
-qs = fd.read((par.ny,par.nx))
+qs = fd.read((par.nx,par.ny))
+
+print("Models read")
 
 # Create model
 model = model.model(pyel2d,vp,vs,rho,ql,qm,qp,qs,par)
 print("model time  (secs):", time.perf_counter()-t0, flush=True)
 
+print("Model created")
+
 # Create fd solver
 el2d = el2d.el2d(pyel2d,model,par.sresamp,par.snpflags)
+
+print("Solver created")
 
 #Create sources
 src=src.src(pyel2d,par.sx,par.sy,
             sqxx,sqyy,sfx,sfy)
+print("Sources created")
+
 # Run solver
 t1=time.perf_counter()
 el2d.solve(pyel2d,model,src,rec,par)
@@ -135,5 +149,3 @@ print("timesteps    nt   :", par.nt)
 print("solver time (secs):", time.perf_counter()-t1)
 print("wall time (secs)  :", time.perf_counter()-t0)
 
-# Save data
-rec.save(pyel2d,par)

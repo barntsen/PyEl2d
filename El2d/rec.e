@@ -87,23 +87,3 @@ float [*,*] RecGetrec(struct rec Rec, int data)
     return(Rec.vy);
   }
 }
-// Recsave stores receiver recording on file
-//
-// Arguments: 
-//  Rec:    : Receiver object
-//  file    : Output file name
-//
-// Returns  : Integer (OK or ERR)
-//-----------------------------------------------------------------------------
-int RecSave(struct rec Rec, char [*] file)
-{
-  int fd;
-  int n;
-
-  fd = LibeOpen(file,"w");
-  n = len(Rec.sxx,0)*len(Rec.sxx,1);
-  LibeWrite(fd,4*n,cast(char [4*n],Rec.sxx));
-  LibeClose(fd);
-
-  return(OK);
-}

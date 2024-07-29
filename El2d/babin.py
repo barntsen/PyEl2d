@@ -18,7 +18,7 @@ class bin :
         """Read binary data"""
         n=product(dim)
         data=np.fromfile(self.file, count=n ,dtype='float32')
-        data=data.reshape(dim)
+        data=data.reshape(dim,order='F')
         self.file.close()
         return data 
 
@@ -30,7 +30,7 @@ class bin :
 
     def write(self,data) :
         """Write binary data"""
-        tmp = data.astype(np.float32)
+        tmp = data.astype(np.float32,order='F')
         tmp.tofile(self.file)
         self.file.close()
 

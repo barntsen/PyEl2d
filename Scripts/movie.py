@@ -42,7 +42,7 @@ def updatefig(*args):
         if(cnt < 0 ) :
             cnt = n3-1
 
-    img = data[cnt,:,:] #Get the next frame
+    img = data[:,:,cnt] #Get the next frame
     
     im.set_array(img)    #Plot the frame
     if background == True: #Plot background image
@@ -247,12 +247,12 @@ parula.setcolors()
 
 #Get the data
 fin = ba.bin(args.fname)
-data=fin.read((n3,n2,n1))
+data=fin.read((n1,n2,n3))
 
 #Get the bacxkground data
 if args.fbg is not None :
     fin = ba.bin(args.fbg)
-    bg=fin.read((n2,n1))
+    bg=fin.read((n1,n2))
     background = True
 else :
     background = False
@@ -323,7 +323,8 @@ fig = plt.figure()
 
 #Colors
 
-img = data[cnt,:,:]
+#img = data[cnt,:,:]
+img = data[:,:,cnt]
 
 #Setup for keyclick
 kid = fig.canvas.mpl_connect('key_press_event',onkey)

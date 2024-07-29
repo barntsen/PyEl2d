@@ -23,14 +23,14 @@ def Store2df(pyeps,arr):
   pyeps.PyepsCre2df.restype=c_void_p
   nx = arr.shape[0]
   ny = arr.shape[1]
-  out = pyeps.PyepsCre2df(ny,nx) 
+  out = pyeps.PyepsCre2df(nx,ny) 
 
   # Set the argument types of Set2df
   pyeps.PyepsSet2df.argtypes=[c_void_p,c_int,c_int,c_float]
   for i in range(0,nx):
     for j in range(0,ny):
       fval=c_float(float(arr[i,j]))
-      pyeps.PyepsSet2df(out,j,i,fval)
+      pyeps.PyepsSet2df(out,i,j,fval)
 
   return(out)
 
@@ -50,7 +50,7 @@ def Get2df(pyeps,arr,rarr):
   pyeps.PyepsGet2df.restype=c_float
   for i in range(0,nx):
     for j in range(0,ny):
-      rarr[i,j]=pyeps.PyepsGet2df(arr,j,i)
+      rarr[i,j]=pyeps.PyepsGet2df(arr,i,j)
   return(True)
 
 def Store1df(pyeps,arr):

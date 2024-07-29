@@ -188,8 +188,8 @@ def sls(Q,nb, dx, dt,w0) :
       Qx[i,j]  = 2*tau0/(tauex[i]-tausx[i])
       Qy[i,j]  = 2*tau0/(tauey[j]-tausy[j])
       
-  Qx = np.transpose(Qx)
-  Qy = np.transpose(Qy)
+  #Qx = np.transpose(Qx)
+  #Qy = np.transpose(Qy)
   return (Qx,Qy)
 
 def main() :
