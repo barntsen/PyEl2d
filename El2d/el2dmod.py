@@ -115,6 +115,7 @@ el2d = el2d.el2d(pyel2d,model,par.sresamp,par.snpflags)
 src=src.src(pyel2d,par.sx,par.sy,
             sqxx,sqyy,sfx,sfy)
 # Run solver
+print("Solver")
 t1=time.perf_counter()
 el2d.solve(pyel2d,model,src,rec,par.nt,par.l)
 
@@ -122,6 +123,21 @@ el2d.solve(pyel2d,model,src,rec,par.nt,par.l)
 dtype=0
 data = rec.getrec(pyel2d,dtype)
 fd=ba.bin("sxx.bin",'w')
+fd.write(data)
+
+dtype=1
+data = rec.getrec(pyel2d,dtype)
+fd=ba.bin("syy.bin",'w')
+fd.write(data)
+
+dtype=2
+data = rec.getrec(pyel2d,dtype)
+fd=ba.bin("vx.bin",'w')
+fd.write(data)
+
+dtype=3
+data = rec.getrec(pyel2d,dtype)
+fd=ba.bin("vy.bin",'w')
 fd.write(data)
 
 # Log wall clock time and date

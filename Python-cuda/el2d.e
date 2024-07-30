@@ -12,9 +12,13 @@
 
   int El2dvx(struct el2d El2d, struct model Model){}
   int El2dvy(struct el2d El2d, struct model Model){}
-  int El2dexy(struct el2d El2d, struct model Model, float [*,*] vx, float [*,*] vy){}
-  int El2deyx(struct el2d El2d, struct model Model, float [*,*] vx, float [*,*] vy){}
+  int El2dexy(struct el2d El2d, struct model Model, float [*,*] vx, 
+              float [*,*] vy){}
+  int El2deyx(struct el2d El2d, struct model Model, float [*,*] vx,          
+              float [*,*] vy){}
   int El2dstress(struct el2d El2d, struct model Model){} 
+
+  int El2dSnap(struct el2d El2d,int it){}
 
 // Public functions
 
@@ -24,11 +28,13 @@
 //   - Model : Model object
 //
 // Return    :El2d object  
-  struct el2d El2dNew(struct model Model){
+  struct el2d El2dNew(struct model Model, int sresamp, int [*] snpflags){
   struct el2d El2d;
   int i,j;
   
   El2d = new(struct el2d);
+  El2d.sresamp = sresamp;
+  El2d.snpflags = snpflags;
   El2d.p=new(float [Model.Nx,Model.Ny]); 
   El2d.sigmaxx=new(float [Model.Nx,Model.Ny]); 
   El2d.sigmayy=new(float [Model.Nx,Model.Ny]); 
@@ -73,10 +79,25 @@
       El2d.ts = 0;
     }
   }
+  // Open snapshot files
+  if(El2d.snpflags[0] == 1){
+    El2d.fdsxx = LibeOpen("snp-sxx.bin","w");
+  }
+  if(El2d.snpflags[1] == 1){
+    El2d.fdsyy = LibeOpen("snp-syy.bin","w");
+  }
+  if(El2d.snpflags[2] == 1){
+    El2d.fdvx = LibeOpen("snp-vx.bin","w");
+  }
+  if(El2d.snpflags[3] == 1){
+    El2d.fdvy = LibeOpen("snp-vy.bin","w");
+  }
+
   return(El2d);
 }
 // El2dSolve computes the solution of the elastic wave equation.
-// The elastic equation of motion are integrated using Virieux's (1986) stress-velocity scheme.
+// The elastic equation of motion are integrated using Virieux's (1986) 
+// stress-velocity scheme.
 // (See the Manual in the Doc directory).
 // 
 //     vx(t+dt)   = dt/rhox [d^+x sigma_xx(t) + d^+y sigma_yx dt fx] + vx(t)
@@ -106,13 +127,15 @@
 //    Rec  : Receiver object
 //    nt   : Number of timesteps to do starting with current step  
 //    l    : The differentiator operator length
-int El2dSolve(struct el2d El2d, struct model Model, struct src Src, struct rec Rec,int nt,int l)
+int El2dSolve(struct el2d El2d, struct model Model, struct src Src, 
+              struct rec Rec,int nt,int l)
 {
-  int sx,sy;         // Source x,y-coordinates 
+  int sx,sy;         // Pressure Source x,y-coordinates 
   struct diff Diff;  // Differentiator object
   int ns,ne;         // Start stop timesteps
   float [*,*] tmp1,tmp2;
   int i,k;
+  float [*,*] p;
 
   float perc,oldperc; // Percentage finished current and old
   int iperc;          // Percentage finished
@@ -147,20 +170,20 @@ int El2dSolve(struct el2d El2d, struct model Model, struct src Src, struct rec R
 
     // Update stress
      El2dstress(El2d,Model);  
-
+   
     // Add source
     for (k=0; k<Src.Ns;k=k+1){
       sx=Src.Sx[k];
       sy=Src.Sy[k];
-      El2d.sigmaxx[sx,sy] = El2d.sigmaxx[sx,sy]
-                    + Model.Dt*(Src.Src[i]/(Model.Dx*Model.Dx)) ; 
       
-      El2d.sigmayy[sx,sy] = El2d.sigmayy[sx,sy]
-                    + Model.Dt*(Src.Src[i]/(Model.Dx*Model.Dx)) ; 
-      /*
-      El2d.vy[sx,sy] = El2d.vy[sx,sy]
-                    + Model.Dt*(Src.Src[i]/(Model.Dx*Model.Dx)) ; 
-      */
+      El2d.sigmaxx[sx,sy] = El2d.sigmaxx[sx,sy]
+                    + Model.Dt*(Src.Sqxx[i,k]/(Model.Dx*Model.Dx)) ; 
+        El2d.sigmayy[sx,sy] = El2d.sigmayy[sx,sy]
+                    + Model.Dt*(Src.Sqyy[i,k]/(Model.Dx*Model.Dx)) ; 
+        El2d.vx[sx,sy] = El2d.vx[sx,sy]
+                    + Model.Dt*(Src.Sfx[i,k]/(Model.Dx*Model.Dx)) ; 
+        El2d.vy[sx,sy] = El2d.vy[sx,sy]
+                    + Model.Dt*(Src.Sfy[i,k]/(Model.Dx*Model.Dx)) ; 
     }
 
     // Print progress
@@ -176,10 +199,10 @@ int El2dSolve(struct el2d El2d, struct model Model, struct src Src, struct rec R
    }
 
     //Record wavefield
-    RecReceiver(Rec,i,El2d.vx); 
+    RecReceiver(Rec,i,El2d.sigmaxx,El2d.sigmayy,El2d.vx,El2d.vy); 
 
     // Record Snapshots
-    RecSnap(Rec,i,El2d.sigmaxx);
+    El2dSnap(El2d,i);
   }
   return(1);
 }
@@ -207,8 +230,8 @@ int El2dvx(struct el2d El2d, struct model Model)
 
     El2d.thetaxxx[i,j] = Model.Eta1x[i,j]*El2d.thetaxxx[i,j]
                      + Model.Eta2x[i,j]*El2d.exx[i,j];
-    El2d.thetayxy[i,j] = Model.Eta1y[i,j]*El2d.thetayxy[i,j]
-                     + Model.Eta2y[i,j]*El2d.exy[i,j];
+    El2d.thetayxy[i,j] = Model.Nu1y[i,j]*El2d.thetayxy[i,j]
+                     + Model.Nu2y[i,j]*El2d.exy[i,j];
   }
 }
 // El2dvy computes the y-component of particle velocity
@@ -235,8 +258,8 @@ int El2dvy(struct el2d El2d, struct model Model)
     
     El2d.thetayyy[i,j] = Model.Eta1y[i,j]*El2d.thetayyy[i,j]
                      + Model.Eta2y[i,j]*El2d.eyy[i,j];
-    El2d.thetaxyx[i,j] = Model.Eta1x[i,j]*El2d.thetaxyx[i,j]
-                     + Model.Eta2x[i,j]*El2d.eyx[i,j];
+    El2d.thetaxyx[i,j] = Model.Nu1x[i,j]*El2d.thetaxyx[i,j]
+                     + Model.Nu2x[i,j]*El2d.eyx[i,j];
   }
 }
 // El2dexy computes the dexy/dt strain
@@ -244,7 +267,8 @@ int El2dvy(struct el2d El2d, struct model Model)
 // Parameters:
 //   El2d : Solver object 
 //   Model: Model object
-int El2dexy(struct el2d El2d, struct model Model, float [*,*] tmp1, float [*,*] tmp2)
+int El2dexy(struct el2d El2d, struct model Model, float [*,*] tmp1, 
+            float [*,*] tmp2)
 {
   int nx,ny;
   int i,j;
@@ -261,7 +285,8 @@ int El2dexy(struct el2d El2d, struct model Model, float [*,*] tmp1, float [*,*] 
 // Parameters:
 //   El2d : Solver object 
 //   Model: Model object
-int El2deyx(struct el2d El2d, struct model Model, float [*,*] tmp1, float [*,*] tmp2)
+int El2deyx(struct el2d El2d, struct model Model, float [*,*] tmp1, 
+            float [*,*] tmp2)
 {
   int nx,ny;
   int i,j;
@@ -286,7 +311,8 @@ int El2dstress(struct el2d El2d, struct model Model){
   ny = Model.Ny;
 
   parallel(i=0:nx,j=0:ny){
-   El2d.sigmaxx[i,j] = Model.Dt*Model.Lambda[i,j]*(El2d.exx[i,j]+El2d.eyy[i,j])  
+   El2d.sigmaxx[i,j] = Model.Dt*Model.Lambda[i,j]*(El2d.exx[i,j]
+                     +El2d.eyy[i,j])  
                      + 2.0*Model.Dt*Model.Mu[i,j]*El2d.exx[i,j]
                      + Model.Dt*(El2d.gammaxx[i,j]*Model.Dlambdax[i,j]
                      + El2d.gammayy[i,j]*Model.Dlambday[i,j])
@@ -294,7 +320,8 @@ int El2dstress(struct el2d El2d, struct model Model){
                      + El2d.sigmaxx[i,j];
 
 
-   El2d.sigmayy[i,j] = Model.Dt*Model.Lambda[i,j]*(El2d.exx[i,j]+El2d.eyy[i,j])  
+   El2d.sigmayy[i,j] = Model.Dt*Model.Lambda[i,j]*(El2d.exx[i,j]
+                     +El2d.eyy[i,j])  
                      + 2.0*Model.Dt*Model.Mu[i,j]*El2d.eyy[i,j]
                      + Model.Dt*(El2d.gammaxx[i,j]*Model.Dlambdax[i,j]
                      + El2d.gammayy[i,j]*Model.Dlambday[i,j])
@@ -317,4 +344,42 @@ int El2dstress(struct el2d El2d, struct model Model){
    El2d.gammayx[i,j] = Model.Beta1x[i,j]*El2d.gammayx[i,j] 
                      + Model.Beta2x[i,j]*El2d.eyx[i,j];
   }
+}
+// El2dSnap records snapshots
+//
+// Arguments: 
+//  El2d:   : El2d object
+//  it      : Current time step       
+// Returns  : Integer (OK or ERR)
+int El2dSnap(struct el2d El2d,int it)
+{
+  int n;
+  int Nx, Ny;
+  char [*] tmp;
+  
+  if (El2d.sresamp <= 0){
+    return(OK);
+  }
+  Nx = len(El2d.sigmaxx,0);
+  Ny = len(El2d.sigmaxx,1);
+  n = Nx*Ny;
+  if(LibeMod(it,El2d.sresamp) == 0){
+    if(El2d.snpflags[0] == 1){
+      tmp = cast(char [4*n],El2d.sigmaxx);
+      LibeWrite(El2d.fdsxx,4*n,tmp);
+    }
+    if(El2d.snpflags[1] == 1){
+      tmp = cast(char [4*n],El2d.sigmayy);
+      LibeWrite(El2d.fdsyy,4*n,tmp);
+    }
+    if(El2d.snpflags[2] == 1){
+      tmp = cast(char [4*n],El2d.vx);
+      LibeWrite(El2d.fdvx,4*n,tmp);
+    }
+    if(El2d.snpflags[3] == 1){
+      tmp = cast(char [4*n],El2d.vy);
+      LibeWrite(El2d.fdvy,4*n,tmp);
+    }
+  }
+  return(OK);
 }

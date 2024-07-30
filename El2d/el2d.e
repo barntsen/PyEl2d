@@ -79,18 +79,18 @@
       El2d.ts = 0;
     }
   }
-  // Open snapshot file
+  // Open snapshot files
   if(El2d.snpflags[0] == 1){
     El2d.fdsxx = LibeOpen("snp-sxx.bin","w");
   }
   if(El2d.snpflags[1] == 1){
-    El2d.fdsxx = LibeOpen("snp-syy.bin","w");
+    El2d.fdsyy = LibeOpen("snp-syy.bin","w");
   }
   if(El2d.snpflags[2] == 1){
-    El2d.fdsxx = LibeOpen("snp-vx.bin","w");
+    El2d.fdvx = LibeOpen("snp-vx.bin","w");
   }
   if(El2d.snpflags[3] == 1){
-    El2d.fdsxx = LibeOpen("snp-vy.bin","w");
+    El2d.fdvy = LibeOpen("snp-vy.bin","w");
   }
 
   return(El2d);

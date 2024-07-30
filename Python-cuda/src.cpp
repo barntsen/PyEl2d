@@ -102,46 +102,33 @@ float LibeArccos (float x);
 float LibeArctan (float x);
 float LibePow (float base,float exponent);
 int LibeSystem (nctempchar1 *cmd);
-struct src {nctempfloat1 *Src;
-nctempint1 *Sx;
+struct src {nctempint1 *Sx;
 nctempint1 *Sy;
+nctempfloat2 *Sqyy;
+nctempfloat2 *Sqxx;
+nctempfloat2 *Sfx;
+nctempfloat2 *Sfy;
 int Ns;
 };
 typedef struct nctempsrc1 {int d[1]; struct src *a; } nctempsrc1;
 struct nctempsrc2 {int d[2]; struct src *a; } ;
 struct nctempsrc3 {int d[3]; struct src *a; } ;
 struct nctempsrc4 {int d[4]; struct src *a; } ;
-struct src* SrcNew (nctempfloat1 *source,nctempint1 *sx,nctempint1 *sy);
+struct src* SrcNew (nctempint1 *sx,nctempint1 *sy,nctempfloat2 *sqxx,nctempfloat2 *sqyy,nctempfloat2 *sfx,nctempfloat2 *sfy);
 int SrcDel (struct src* Src);
 int Srcricker (nctempfloat1 *src,float t0,float f0,int nt,float dt);
-struct src* SrcNew (nctempfloat1 *source,nctempint1 *sx,nctempint1 *sy)
+struct src* SrcNew (nctempint1 *sx,nctempint1 *sy,nctempfloat2 *sqxx,nctempfloat2 *sqyy,nctempfloat2 *sfx,nctempfloat2 *sfy)
 {
-int i;
 struct src* Src;
 struct src *nctemp5=(struct src*)RunMalloc(sizeof(struct src));
 Src =nctemp5;
-int nctemp15=source->d[0];int nctemp13=nctemp15;
-nctempfloat1 *nctemp12;
-nctemp12=(nctempfloat1*)RunMalloc(sizeof(nctempfloat1));
-int nctemp20=source->d[0];nctemp12->d[0]=nctemp20;
-nctemp12->a=(float *)RunMalloc(sizeof(float)*nctemp13);
-Src->Src=nctemp12;
-i =0;
-int nctemp32=source->d[0];int nctemp28 = (i < nctemp32);
-while(nctemp28){
-{
-int nctemp39=i;
-int nctemp42=i;
-Src->Src->a[nctemp39] =source->a[nctemp42];
-}
-int nctemp52 = i + 1;
-i =nctemp52;
-int nctemp57=source->d[0];int nctemp53 = (i < nctemp57);
-nctemp28=nctemp53;
-}
 Src->Sx=sx;
 Src->Sy=sy;
-int nctemp77=sx->d[0];Src->Ns =nctemp77;
+Src->Sfx=sfx;
+Src->Sfy=sfy;
+Src->Sqxx=sqxx;
+Src->Sqyy=sqyy;
+int nctemp47=sx->d[0];Src->Ns =nctemp47;
 return Src;
 }
 int SrcDel (struct src* Src)
@@ -155,34 +142,34 @@ float w0;
 float arg;
 int i;
 i =0;
-int nctemp89 = (i < nt);
-while(nctemp89){
+int nctemp59 = (i < nt);
+while(nctemp59){
 {
-float nctemp103=(float)(i);
-float nctemp107 = nctemp103 * dt;
-float nctemp109 = nctemp107 - t0;
-t =nctemp109;
-float nctemp121 = 2.0 * 3.14159;
-float nctemp123 = nctemp121 * f0;
-w0 =nctemp123;
-float nctemp132 = w0 * t;
-arg =nctemp132;
-int nctemp136=i;
-float nctemp153 = 0.5 * arg;
-float nctemp155 = nctemp153 * arg;
-float nctemp156 = 1.0 - nctemp155;
-float nctemp164= -0.25;
-float nctemp166 = nctemp164 * arg;
-float nctemp168 = nctemp166 * arg;
-float nctemp158= nctemp168;
-float nctemp169=LibeExp(nctemp158);
-float nctemp170 = nctemp156 * nctemp169;
-source->a[nctemp136] =nctemp170;
+float nctemp73=(float)(i);
+float nctemp77 = nctemp73 * dt;
+float nctemp79 = nctemp77 - t0;
+t =nctemp79;
+float nctemp91 = 2.0 * 3.14159;
+float nctemp93 = nctemp91 * f0;
+w0 =nctemp93;
+float nctemp102 = w0 * t;
+arg =nctemp102;
+int nctemp106=i;
+float nctemp123 = 0.5 * arg;
+float nctemp125 = nctemp123 * arg;
+float nctemp126 = 1.0 - nctemp125;
+float nctemp134= -0.25;
+float nctemp136 = nctemp134 * arg;
+float nctemp138 = nctemp136 * arg;
+float nctemp128= nctemp138;
+float nctemp139=LibeExp(nctemp128);
+float nctemp140 = nctemp126 * nctemp139;
+source->a[nctemp106] =nctemp140;
 }
-int nctemp179 = i + 1;
-i =nctemp179;
-int nctemp180 = (i < nt);
-nctemp89=nctemp180;
+int nctemp149 = i + 1;
+i =nctemp149;
+int nctemp150 = (i < nt);
+nctemp59=nctemp150;
 }
 return 1;
 }

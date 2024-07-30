@@ -114,6 +114,7 @@ int PyepsSet1df (nctempfloat1 *arr,int i,float val);
 nctempfloat2* PyepsCre2df (int Nx,int Ny);
 int PyepsDel2df (nctempfloat2 *arr);
 int PyepsSet2df (nctempfloat2 *arr,int i,int j,float val);
+float PyepsGet2df (nctempfloat2 *arr,int i,int j);
 int Main (struct nctempMainArg1 *MainArgs)
 {
 return 1;
@@ -215,5 +216,11 @@ int nctemp99=i;
 nctemp99=j*arr->d[0]+nctemp99;
 arr->a[nctemp99] =val;
 return 1;
+}
+float PyepsGet2df (nctempfloat2 *arr,int i,int j)
+{
+int nctemp105=i;
+nctemp105=j*arr->d[0]+nctemp105;
+return arr->a[nctemp105];
 }
 }
