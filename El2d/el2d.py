@@ -27,7 +27,6 @@ class el2d :
 
     # convert snpflags to eps array
     ssnpflags = pyeps.Store1di(pyel2d,snpflags)
-    print("flags: ",snpflags)
 
     #Create fd solver
     m = model.model
@@ -35,6 +34,7 @@ class el2d :
     pyel2d.El2dNew.argtypes=[c_void_p,c_int,c_void_p]
     # Set return type argument
     pyel2d.El2dNew.restype=c_void_p
+    sresamp = int(sresamp)
     self.el2d = pyel2d.El2dNew(m,sresamp,ssnpflags)
   
   def solve(self, pyel2d,model,src,rec,nt,l) :

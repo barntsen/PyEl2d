@@ -1,5 +1,6 @@
 # To regenerate c-code frome the eps source
 # uncomment the lines below.
+OPT="-C -g"
 cp ../El2d/pyeps.e .
 cp ../El2d/model.i .
 cp ../El2d/model.e .
@@ -16,13 +17,13 @@ cp $EPS/Src/libe.i .
 cp $EPS/Src/m-cpu.i m.i
 cp $EPS/Src/run.i .
 cp $EPS/Src/runcpu.e .
-ec -c  pyeps.e
-ec -c  model.e
-ec -c  src.e
-ec -c  rec.e
-ec -c  el2d.e
-ec -c  diff.e
-ec -c  libe.e
+ec -c  $OPT pyeps.e
+ec -c  $OPT model.e
+ec -c  $OPT src.e
+ec -c  $OPT rec.e
+ec -c  $OPT el2d.e
+ec -c  $OPT diff.e
+ec -c  $OPT libe.e
 cp runcpu.e runcpu.c
 
 gcc -O2 -fPIC -ffast-math -c libe.c runcpu.c \

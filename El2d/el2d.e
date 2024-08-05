@@ -31,7 +31,7 @@
   struct el2d El2dNew(struct model Model, int sresamp, int [*] snpflags){
   struct el2d El2d;
   int i,j;
-  
+
   El2d = new(struct el2d);
   El2d.sresamp = sresamp;
   El2d.snpflags = snpflags;
@@ -175,7 +175,6 @@ int El2dSolve(struct el2d El2d, struct model Model, struct src Src,
     for (k=0; k<Src.Ns;k=k+1){
       sx=Src.Sx[k];
       sy=Src.Sy[k];
-      
       El2d.sigmaxx[sx,sy] = El2d.sigmaxx[sx,sy]
                     + Model.Dt*(Src.Sqxx[i,k]/(Model.Dx*Model.Dx)) ; 
         El2d.sigmayy[sx,sy] = El2d.sigmayy[sx,sy]

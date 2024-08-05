@@ -174,8 +174,8 @@ struct model Modelsls(float [*,*] vp,  float [*,*] vs, float [*,*] rho,
   Ny = Model.Ny;
   Model.Qlx     =  Qlx ; // Lambda Q-values
   Model.Qly     =  Qly ; // Lambda Q-values
-  Model.Qmx     =  Qlx ; // Mu     Q-values
-  Model.Qmy     =  Qly ; // Mu     Q-values
+  Model.Qmx     =  Qmx ; // Mu     Q-values
+  Model.Qmy     =  Qmy ; // Mu     Q-values
   Model.Qpx      = Qpx ; // Rho p  Q-values
   Model.Qpy      = Qpy ; // Rho p  Q-values
   Model.Qsx      = Qsx ; // Rho s  Q-values 

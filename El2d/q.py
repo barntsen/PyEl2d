@@ -148,9 +148,11 @@ def sls(Q,nb, dx, dt,w0) :
   tausx = np.zeros(Nx)
   tausy = np.zeros(Ny)
   d1    = np.zeros(Nx)
+  d2x   = np.zeros(Nx)
   d2    = np.zeros(Ny)
 
   d1 = e2(d1, dx, nb)
+  d2x = e2(d2x, dx, nb)
   d2 = e2(d2, dx, nb)
   tau0 = 1.0/w0         # Relaxation time corresponding to absorption top
 
@@ -168,9 +170,9 @@ def sls(Q,nb, dx, dt,w0) :
 
   for i in range(0,Nx):
     # Quadratic interpolation of taue and taus in x-dir
-    tauex[i] = tauemin + (tauemax-tauemin)*d2[i];
+    tauex[i] = tauemin + (tauemax-tauemin)*d2x[i];
     tauex[i] = 1.0/tauex[i]
-    tausx[i] = tausmin + (tausmax-tausmin)*d2[i];
+    tausx[i] = tausmin + (tausmax-tausmin)*d2x[i];
     tausx[i] = 1.0/tausx[i]
 
   for i in range(0,Ny):

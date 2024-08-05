@@ -330,7 +330,7 @@ img = data[:,:,cnt]
 kid = fig.canvas.mpl_connect('key_press_event',onkey)
 
 #Plot frame no 0
-im=plt.imshow(img,interpolation='nearest',clim=(cmin,cmax),
+im=plt.imshow(img,origin='upper', interpolation='nearest',clim=(cmin,cmax),
               cmap=args.colormap,extent=[o1,o1+d1*n1,o2+d2*n2,o2],animated=True)
 
 #Plot background model

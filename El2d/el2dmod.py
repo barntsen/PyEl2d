@@ -64,14 +64,14 @@ t0=time.perf_counter()   #Start measure wall clock time
 # Source time functions
 fd = ba.bin(par.fsrc,'r')
 Src=fd.read((par.nt,))
-sqxx = np.zeros((1,par.nt))
-sqxx[0,:]=Src[:]
-sqyy = np.zeros((1,par.nt))
-sqyy[0,:]=Src[:]
-sfx = np.zeros((1,par.nt))
-#sfx[0,:]=Src[:]
-sfy = np.zeros((1,par.nt))
-#sfy[0,:]=Src[:]
+sqxx = np.zeros((par.nt,1))
+#sqxx[:,0]=Src[:]
+sqyy = np.zeros((par.nt,1))
+#sqyy[:,0]=Src[:]
+sfx = np.zeros((par.nt,1))
+sfx[:,0]=Src[:]
+sfy = np.zeros((par.nt,1))
+#sfy[:,0]=Src[:]
 
 # Create receivers 
 rec=rec.rec(pyel2d,par.rx,par.ry,par.nt,par.resamp)
@@ -105,20 +105,19 @@ fd=ba.bin(par.fqs,'r')
 qs = fd.read((par.nx,par.ny))
 
 # Create model
-model = model.model(pyel2d,vp,vs,rho,ql,qm,qp,qs,par)
+m = model.model(pyel2d,vp,vs,rho,ql,qm,qp,qs,par)
 print("model time  (secs):", time.perf_counter()-t0, flush=True)
 
 # Create fd solver
-el2d = el2d.el2d(pyel2d,model,par.sresamp,par.snpflags)
+el2d = el2d.el2d(pyel2d,m,par.sresamp,par.snpflags)
 
 #Create sources
 src=src.src(pyel2d,par.sx,par.sy,
             sqxx,sqyy,sfx,sfy)
 # Run solver
-print("Solver")
 t1=time.perf_counter()
-el2d.solve(pyel2d,model,src,rec,par.nt,par.l)
-
+el2d.solve(pyel2d,m,src,rec,par.nt,par.l)
+tsolve = time.perf_counter()-t1
 # Get data
 dtype=0
 data = rec.getrec(pyel2d,dtype)
@@ -147,6 +146,6 @@ print("date              :",dtstring)
 print("grid size      nx :", par.nx)  
 print("grid size      ny :", par.ny)  
 print("timesteps    nt   :", par.nt)  
-print("solver time (secs):", time.perf_counter()-t1)
+print("solver time (secs):", tsolve)
 print("wall time (secs)  :", time.perf_counter()-t0)
 
