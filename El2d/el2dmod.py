@@ -57,21 +57,31 @@ pyel2d.LibeInit()
 
 t0=time.perf_counter()   #Start measure wall clock time
 
-# Create source 
-
 # Read the source time function
 # and create 2D arrays to hold
 # Source time functions
 fd = ba.bin(par.fsrc,'r')
 Src=fd.read((par.nt,))
+
 sqxx = np.zeros((par.nt,1))
-#sqxx[:,0]=Src[:]
+if (par.srcflags[0] == 1) :
+  sqxx[:,0]=Src[:]
+
 sqyy = np.zeros((par.nt,1))
-#sqyy[:,0]=Src[:]
+if (par.srcflags[1] == 1) :
+  sqyy[:,0]=Src[:]
+
 sfx = np.zeros((par.nt,1))
-sfx[:,0]=Src[:]
+if (par.srcflags[2] == 1) :
+  sfx[:,0]=Src[:]
+
 sfy = np.zeros((par.nt,1))
-#sfy[:,0]=Src[:]
+if (par.srcflags[3] == 1) :
+  sfy[:,0]=Src[:]
+
+# Create sources 
+src=src.src(pyel2d,par.sx,par.sy,
+            sqxx,sqyy,sfx,sfy)
 
 # Create receivers 
 rec=rec.rec(pyel2d,par.rx,par.ry,par.nt,par.resamp)
@@ -89,31 +99,40 @@ fd=ba.bin(par.frho,'r')
 rho = fd.read((par.nx,par.ny))
 
 #Read the ql model
-fd=ba.bin(par.fql,'r')
-ql = fd.read((par.nx,par.ny))
+if par.fql != "" :
+  fd=ba.bin(par.fql,'r')
+  ql = fd.read((par.nx,par.ny))
+else :
+  ql = None
 
 #Read the qm model
-fd=ba.bin(par.fqm,'r')
-qm = fd.read((par.nx,par.ny))
+if par.fqm != "" :
+  fd=ba.bin(par.fqm,'r')
+  qm = fd.read((par.nx,par.ny))
+else :
+  qm = None
 
 #Read the qp model
-fd=ba.bin(par.fqp,'r')
-qp = fd.read((par.nx,par.ny))
+if par.fqp != "" :
+  fd=ba.bin(par.fqp,'r')
+  qp = fd.read((par.nx,par.ny))
+else :
+  qp = None
 
 #Read the qs model
-fd=ba.bin(par.fqs,'r')
-qs = fd.read((par.nx,par.ny))
+if par.fqs != "" :
+  fd=ba.bin(par.fqs,'r')
+  qs = fd.read((par.nx,par.ny))
+else :
+  qs = None
 
 # Create model
-m = model.model(pyel2d,vp,vs,rho,ql,qm,qp,qs,par)
+m = model.model(pyel2d,par,vp,vs,rho,ql,qm,qp,qs)
 print("model time  (secs):", time.perf_counter()-t0, flush=True)
 
 # Create fd solver
 el2d = el2d.el2d(pyel2d,m,par.sresamp,par.snpflags)
 
-#Create sources
-src=src.src(pyel2d,par.sx,par.sy,
-            sqxx,sqyy,sfx,sfy)
 # Run solver
 t1=time.perf_counter()
 el2d.solve(pyel2d,m,src,rec,par.nt,par.l)

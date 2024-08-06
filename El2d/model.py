@@ -1,5 +1,6 @@
 from ctypes import *
 import time
+import numpy as np
 import matplotlib.pyplot as pl
 import pyeps
 import babin as ba
@@ -12,7 +13,7 @@ class model :
 
   '''
 
-  def __init__(self,pyac2d,Vp,Vs,Rho,Ql,Qm,Qp,Qs,par):
+  def __init__(self,pyac2d,par,Vp,Vs,Rho,Ql=None,Qm=None,Qp=None,Qs=None):
     ''' Constructor for the model object.
 
     Arguments: 
@@ -44,6 +45,26 @@ class model :
 
     #Convert density array to eps
     rho=pyeps.Store2df(pyac2d,Rho);
+    
+    nx = Vp.shape[0]
+    ny = Vp.shape[1]
+
+    if Ql == None :
+      Ql=np.ones((nx,ny))
+      Ql[:,:]=100000.0
+
+    if Qm == None :
+      Qm=np.ones((nx,ny))
+      Qm[:,:]=100000.0
+
+    if Qp == None :
+      Qp=np.ones((nx,ny))
+      Qp[:,:] = 100000.0
+
+    if Qs == None :
+      Qs=np.ones((nx,ny))
+      Qs[:,:] = 100000.0
+
 
     #Smooth the Ql model
     Qlx,Qly=q.sls(Ql,par.nb,par.dx,par.dt,par.w0)

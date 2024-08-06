@@ -39,6 +39,10 @@ cd Tests
 ./clean.sh
 cd ..
 
+cd Examples
+./clean.sh
+cd ..
+
 cd Scripts
 ./clean.sh
 cd ..

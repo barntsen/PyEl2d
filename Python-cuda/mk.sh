@@ -19,13 +19,13 @@ cp $EPS/Src/libe.i .
 cp $EPS/Src/m-cuda.i m.i
 cp $EPS/Src/run.i .
 cp $EPS/Src/runcuda.e .
-ecc -c pyeps.e
-ecc -c model.e
-ecc -c src.e
-ecc -c rec.e
-ecc -c el2d.e
-ecc -c diff.e
-ecc -c libe.e
+#ecc -c pyeps.e
+#ecc -c model.e
+#ecc -c src.e
+#ecc -c rec.e
+#ecc -c el2d.e
+#ecc -c diff.e
+#ecc -c libe.e
 cp runcuda.e runcuda.cpp
 
 nvcc  --x cu --compiler-options "-fPIC -ffast-math" -c -O3            \

@@ -5,10 +5,10 @@
 
 #Create wavelet
 nt=2001 #No of samples
-ricker -nt $nt -f0 1.5 -t0 0.700 -dt 0.001 src.bin 
+ricker -nt $nt -f0 25.0 -t0 0.100 -dt 0.0005 src.bin 
 
-n1=1750
-n2=301
+n1=251
+n2=251
 #Create vp
 spike -n1 $n1 -n2 $n2 -val 2500.0 vp.bin
 
@@ -18,21 +18,9 @@ spike -n1 $n1 -n2 $n2 -val 1100.0 vs.bin
 #Create rho 
 spike -n1 $n1 -n2 $n2 -val 1000.0 rho.bin
 
-#Create Qp 
-spike -n1 $n1 -n2 $n2 -val 100000.0 qp.bin
-
-#Create Qp 
-spike -n1 $n1 -n2 $n2 -val 1000.0 qs.bin
-
-#Create Ql 
-spike -n1 $n1 -n2 $n2 -val 100000.0 ql.bin
-
-#Create Qm 
-spike -n1 $n1 -n2 $n2 -val 100000.0 qm.bin
 
 #Run modelling
 BIN=../../Bin
-$BIN/el2dmod -m cpu mod.py 
 
-#./snp.sh
+$BIN/el2dmod -m c mod.py 
 
