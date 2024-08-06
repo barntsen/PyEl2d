@@ -10,7 +10,7 @@ import time
 from datetime import datetime
 import importlib
 import numpy as np
-import babin as ba
+import babinf as ba
 import time
 import argparse
 import sys
@@ -32,7 +32,7 @@ args = parser.parse_args()
 print("** el2dmod ", args.m, "version **",flush=True)
 
 #Get pyeps library
-if args.m == 'cpu' :
+if args.m == 'c' :
   module1 = 'pyel2dcpu.so'
 elif args.m == 'cuda':
   module1 = 'pyel2dcuda.so'

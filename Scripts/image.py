@@ -102,6 +102,12 @@ if(args.o2 is None):
 else :
   o2 = args.o2
 
+# If sampling intervals are not provided or 
+# is zero, set default values of 1. 
+if d1 == 0.0 :
+  d1=1.0
+if d2 == 0.0 :
+  d2=1.0
 
 #Get the background image 
 if args.fb is not None :
@@ -136,10 +142,9 @@ print ("=== min,max,absmax values of data:", amps)
 
 #Default scaling of data is perecentile clip at 99%
 cmin,cmax = pclip(data,99.0)
-print ("default cmin,cmax: ", cmin,cmax)
+print ("==== default cmin,cmax at pclip=99:", cmin,cmax)
 
 if  args.pclip is not None:
-    print ("Calling pclip: ", args.pclip)
     cmin,cmax = pclip(data,args.pclip)
     print ("pclip cmin,cmax: ", cmin,cmax)
 if  args.clip is not None:
@@ -229,19 +234,12 @@ if args.text is not None :
     i=i+1
 
 #Plot data array
-data=np.clip(data,cmin,cmax)
+#data=np.clip(data,cmin,cmax)
 
-print("n1: ", n1)
-print("n2: ", n2)
-print("d1: ", d1)
-print("d2: ", d2)
-print("o1: ", o1)
-print("o2: ", o2)
 ll = o1
 lw = o1+d1*n1
 ur = o2
 lh = o2+d2*n2
-
 
 im=pl.imshow(data,clim=(cmin,cmax),cmap=args.colormap,
           extent=[ll,lw,lh,ur])  

@@ -1,11 +1,11 @@
 #!/usr/bin/python3
 
-
 '''Make video movie
 
-This scripts reads a binary file of frames (snapshots) and outputs
-an animated video (mp4) file. It is mainly designed for snapshots
+This scripts reads a binary file of frames (snapshots) and shows
+an animated movie. It is mainly designed for snapshots
 from seismic modeling programs.
+
 '''
 
 import matplotlib
@@ -42,7 +42,7 @@ def updatefig(*args):
         if(cnt < 0 ) :
             cnt = n3-1
 
-    img = data[:,:,cnt] #Get the next frame
+    img = data[cnt,:,:] #Get the next frame
     
     im.set_array(img)    #Plot the frame
     if background == True: #Plot background image
@@ -247,12 +247,12 @@ parula.setcolors()
 
 #Get the data
 fin = ba.bin(args.fname)
-data=fin.read((n1,n2,n3))
+data=fin.read((n3,n2,n1))
 
 #Get the bacxkground data
 if args.fbg is not None :
     fin = ba.bin(args.fbg)
-    bg=fin.read((n1,n2))
+    bg=fin.read((n2,n1))
     background = True
 else :
     background = False
@@ -323,14 +323,13 @@ fig = plt.figure()
 
 #Colors
 
-#img = data[cnt,:,:]
-img = data[:,:,cnt]
+img = data[cnt,:,:]
 
 #Setup for keyclick
 kid = fig.canvas.mpl_connect('key_press_event',onkey)
 
 #Plot frame no 0
-im=plt.imshow(img,origin='upper', interpolation='nearest',clim=(cmin,cmax),
+im=plt.imshow(img,interpolation='nearest',clim=(cmin,cmax),
               cmap=args.colormap,extent=[o1,o1+d1*n1,o2+d2*n2,o2],animated=True)
 
 #Plot background model
