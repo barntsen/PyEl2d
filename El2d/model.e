@@ -210,10 +210,6 @@ struct model Modelsls(float [*,*] vp,  float [*,*] vs, float [*,*] rho,
   Model.Eta1y   =  new(float [Nx,Ny]);
   Model.Eta2x   =  new(float [Nx,Ny]);
   Model.Eta2y   =  new(float [Nx,Ny]);
-  Model.Nu1x   =  new(float [Nx,Ny]);
-  Model.Nu1y   =  new(float [Nx,Ny]);
-  Model.Nu2x   =  new(float [Nx,Ny]);
-  Model.Nu2y   =  new(float [Nx,Ny]);
 
   // Compute Lame parameters and inverse density
   for(j=0; j<Ny;j=j+1){
@@ -252,8 +248,8 @@ struct model Modelsls(float [*,*] vp,  float [*,*] vs, float [*,*] rho,
                  Model.Beta2x, Model.Beta2y, Model);
   Modelslscoeffs(Model.Qpx, Model.Qpy,Model.Drhopx,Model.Drhopy,Model.Eta1x, 
                  Model.Eta1y, Model.Eta2x, Model.Eta2y, Model);
-  Modelslscoeffs(Model.Qsx, Model.Qsy,Model.Drhosx,Model.Drhosy,Model.Nu1x, Model.Nu1y, 
-                 Model.Nu2x, Model.Nu2y, Model);
+//  Modelslscoeffs(Model.Qsx, Model.Qsy,Model.Drhosx,Model.Drhosy,Model.Nu1x, Model.Nu1y, 
+//                 Model.Nu2x, Model.Nu2y, Model);
   return(Model);
 }
 
