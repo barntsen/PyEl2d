@@ -61,11 +61,6 @@ class model :
       Qp=np.ones((nx,ny))
       Qp[:,:] = 100000.0
 
-    if Qs == None :
-      Qs=np.ones((nx,ny))
-      Qs[:,:] = 100000.0
-
-
     #Smooth the Ql model
     Qlx,Qly=q.sls(Ql,par.nb,par.dx,par.dt,par.w0)
     #Convert Q arrays to eps
