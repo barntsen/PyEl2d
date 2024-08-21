@@ -7,7 +7,7 @@ include "model.i" // Model struct definition
 //Forward declarations for internal functions
 struct model Modelsls(float [*,*] vp,  float [*,*] vs, float [*,*] rho, 
                       float [*,*] Qlx, float [*,*] Qly,float [*,*] Qmx, float [*,*] Qmy,
-                      float [*,*] Qpx, float [*,*] Qpy,float [*,*] Qsx, float [*,*] Qsy,
+                      float [*,*] Qpx, float [*,*] Qpy,
                       float Dx,        float Dt,       float W0,        int Nb){}
 
 int Modelslscoeffs(float [*,*] Qx,      float [*,*] Qy, float [*,* ] modx, 
@@ -138,7 +138,7 @@ int Modelslscoeffs(float [*,*] Qx,      float [*,*] Qy, float [*,* ] modx,
 
 struct model Modelsls(float [*,*] vp,  float [*,*] vs, float [*,*] rho, 
                       float [*,*] Qlx, float [*,*] Qly,float [*,*] Qmx, float [*,*] Qmy,
-                      float [*,*] Qpx, float [*,*] Qpy,float [*,*] Qsx, float [*,*] Qsy,
+                      float [*,*] Qpx, float [*,*] Qpy, 
                       float Dx,        float Dt,       float W0,        int Nb)
 // Modelsls creates a new model with Standard Linear Solid Q
 //
@@ -178,8 +178,8 @@ struct model Modelsls(float [*,*] vp,  float [*,*] vs, float [*,*] rho,
   Model.Qmy     =  Qmy ; // Mu     Q-values
   Model.Qpx      = Qpx ; // Rho p  Q-values
   Model.Qpy      = Qpy ; // Rho p  Q-values
-  Model.Qsx      = Qsx ; // Rho s  Q-values 
-  Model.Qsy      = Qsy ; // Rho s  Q-values 
+//  Model.Qsx      = Qsx ; // Rho s  Q-values 
+//  Model.Qsy      = Qsy ; // Rho s  Q-values 
   Model.Rho     =  new(float [Nx,Ny]) ; // Unrelaxed Lame mu 
   Model.Mu      =  new(float [Nx,Ny]) ; // Unrelaxed Lame mu 
   Model.Lambda  =  new(float [Nx,Ny])  ; // Unrelaxed Lame lambda
@@ -210,10 +210,10 @@ struct model Modelsls(float [*,*] vp,  float [*,*] vs, float [*,*] rho,
   Model.Eta1y   =  new(float [Nx,Ny]);
   Model.Eta2x   =  new(float [Nx,Ny]);
   Model.Eta2y   =  new(float [Nx,Ny]);
-  Model.Nu1x   =  new(float [Nx,Ny]);
-  Model.Nu1y   =  new(float [Nx,Ny]);
-  Model.Nu2x   =  new(float [Nx,Ny]);
-  Model.Nu2y   =  new(float [Nx,Ny]);
+//  Model.Nu1x   =  new(float [Nx,Ny]);
+//  Model.Nu1y   =  new(float [Nx,Ny]);
+//  Model.Nu2x   =  new(float [Nx,Ny]);
+//  Model.Nu2y   =  new(float [Nx,Ny]);
 
   // Compute Lame parameters and inverse density
   for(j=0; j<Ny;j=j+1){
@@ -252,14 +252,14 @@ struct model Modelsls(float [*,*] vp,  float [*,*] vs, float [*,*] rho,
                  Model.Beta2x, Model.Beta2y, Model);
   Modelslscoeffs(Model.Qpx, Model.Qpy,Model.Drhopx,Model.Drhopy,Model.Eta1x, 
                  Model.Eta1y, Model.Eta2x, Model.Eta2y, Model);
-  Modelslscoeffs(Model.Qsx, Model.Qsy,Model.Drhosx,Model.Drhosy,Model.Nu1x, Model.Nu1y, 
-                 Model.Nu2x, Model.Nu2y, Model);
+//  Modelslscoeffs(Model.Qsx, Model.Qsy,Model.Drhosx,Model.Drhosy,Model.Nu1x, Model.Nu1y, 
+//                 Model.Nu2x, Model.Nu2y, Model);
   return(Model);
 }
 
 struct model ModelNew(float [*,*] vp,  float [*,*] vs, float [*,*] rho, 
                       float [*,*] Qlx, float [*,*] Qly,float [*,*] Qmx, float [*,*] Qmy,
-                      float [*,*] Qpx, float [*,*] Qpy,float [*,*] Qsx, float [*,*] Qsy,
+                      float [*,*] Qpx, float [*,*] Qpy,
                       float Dx,        float Dt,       float W0,       int Nb, int Rheol)
 // ModelNew creates a new model.
 //
@@ -285,7 +285,7 @@ struct model ModelNew(float [*,*] vp,  float [*,*] vs, float [*,*] rho,
   struct model m;
 
   if(Rheol == SLS){
-    m= Modelsls(vp,vs,rho,Qlx,Qly,Qmx,Qmy,Qpx,Qpy,Qsx, Qsy,
+    m= Modelsls(vp,vs,rho,Qlx,Qly,Qmx,Qmy,Qpx,Qpy,
                 Dx, Dt, W0, Nb);
   }
   else{

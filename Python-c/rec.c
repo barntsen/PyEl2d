@@ -276,8 +276,6 @@ nctempfloat2 *Qmx;
 nctempfloat2 *Qmy;
 nctempfloat2 *Qpx;
 nctempfloat2 *Qpy;
-nctempfloat2 *Qsx;
-nctempfloat2 *Qsy;
 nctempfloat2 *Lambda;
 nctempfloat2 *Mu;
 nctempfloat2 *Dlambdax;
@@ -301,10 +299,6 @@ nctempfloat2 *Eta1x;
 nctempfloat2 *Eta1y;
 nctempfloat2 *Eta2x;
 nctempfloat2 *Eta2y;
-nctempfloat2 *Nu1x;
-nctempfloat2 *Nu1y;
-nctempfloat2 *Nu2x;
-nctempfloat2 *Nu2y;
 nctempfloat1 *dx;
 nctempfloat1 *dy;
 nctempfloat1 *dx1;
@@ -320,7 +314,7 @@ struct nctempmodel3 {int d[3]; struct model *a; } ;
 struct nctempmodel4 {int d[4]; struct model *a; } ;
 
 #line 53  "model.i"
-struct model* ModelNew (nctempfloat2 *vp,nctempfloat2 *vs,nctempfloat2 *rho,nctempfloat2 *Qlx,nctempfloat2 *Qly,nctempfloat2 *Qmx,nctempfloat2 *Qmy,nctempfloat2 *Qpx,nctempfloat2 *Qpy,nctempfloat2 *Qsx,nctempfloat2 *Qsy,float Dx,float Dt,float W0,int Nb,int Rheol);
+struct model* ModelNew (nctempfloat2 *vp,nctempfloat2 *vs,nctempfloat2 *rho,nctempfloat2 *Qlx,nctempfloat2 *Qly,nctempfloat2 *Qmx,nctempfloat2 *Qmy,nctempfloat2 *Qpx,nctempfloat2 *Qpy,float Dx,float Dt,float W0,int Nb,int Rheol);
 
 #line 58  "model.i"
 float ModelStability (struct model* Model);

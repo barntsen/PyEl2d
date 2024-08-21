@@ -224,13 +224,13 @@ int El2dvx(struct el2d El2d, struct model Model)
   parallel(i=0:nx,j=0:ny){
     El2d.vx[i,j] = Model.Dt*Model.Rho[i,j]*(El2d.exx[i,j] + El2d.exy[i,j])
                  + Model.Dt*El2d.thetaxxx[i,j]*Model.Drhopx[i,j]
-                 + Model.Dt*El2d.thetayxy[i,j]*Model.Drhosy[i,j] 
+                 + Model.Dt*El2d.thetayxy[i,j]*Model.Drhopy[i,j] 
                  + El2d.vx[i,j];
 
     El2d.thetaxxx[i,j] = Model.Eta1x[i,j]*El2d.thetaxxx[i,j]
                      + Model.Eta2x[i,j]*El2d.exx[i,j];
-    El2d.thetayxy[i,j] = Model.Nu1y[i,j]*El2d.thetayxy[i,j]
-                     + Model.Nu2y[i,j]*El2d.exy[i,j];
+    El2d.thetayxy[i,j] = Model.Eta1y[i,j]*El2d.thetayxy[i,j]
+                     + Model.Eta2y[i,j]*El2d.exy[i,j];
   }
 }
 // El2dvy computes the y-component of particle velocity
@@ -252,13 +252,13 @@ int El2dvy(struct el2d El2d, struct model Model)
   parallel(i=0:nx,j=0:ny){
     El2d.vy[i,j] = Model.Dt*Model.Rho[i,j]*(El2d.eyy[i,j] + El2d.eyx[i,j])
                  + Model.Dt*El2d.thetayyy[i,j]*Model.Drhopy[i,j]
-                 + Model.Dt*El2d.thetaxyx[i,j]*Model.Drhosx[i,j]
+                 + Model.Dt*El2d.thetaxyx[i,j]*Model.Drhopx[i,j]
                  + El2d.vy[i,j];
     
     El2d.thetayyy[i,j] = Model.Eta1y[i,j]*El2d.thetayyy[i,j]
                      + Model.Eta2y[i,j]*El2d.eyy[i,j];
-    El2d.thetaxyx[i,j] = Model.Nu1x[i,j]*El2d.thetaxyx[i,j]
-                     + Model.Nu2x[i,j]*El2d.eyx[i,j];
+    El2d.thetaxyx[i,j] = Model.Eta1x[i,j]*El2d.thetaxyx[i,j]
+                     + Model.Eta2x[i,j]*El2d.eyx[i,j];
   }
 }
 // El2dexy computes the dexy/dt strain

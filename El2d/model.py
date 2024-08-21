@@ -13,7 +13,7 @@ class model :
 
   '''
 
-  def __init__(self,pyac2d,par,Vp,Vs,Rho,Ql=None,Qm=None,Qp=None,Qs=None):
+  def __init__(self,pyac2d,par,Vp,Vs,Rho,Ql=None,Qm=None,Qp=None):
     ''' Constructor for the model object.
 
     Arguments: 
@@ -84,21 +84,15 @@ class model :
     qpx=pyeps.Store2df(pyac2d,Qpx);
     qpy=pyeps.Store2df(pyac2d,Qpy);
 
-    #Smooth the Qs model
-    Qsx,Qsy=q.sls(Qs,par.nb,par.dx,par.dt,par.w0)
-    #Convert Q arrays to eps
-    qsx=pyeps.Store2df(pyac2d,Qsx);
-    qsy=pyeps.Store2df(pyac2d,Qsy);
 
     #Create a new model
     # Set argument and return types
     pyac2d.ModelNew.argtypes=  [c_void_p,c_void_p,c_void_p,c_void_p,c_void_p,
-                                c_void_p,c_void_p,c_void_p,c_void_p,c_void_p, 
-                                c_void_p,
+                                c_void_p,c_void_p,c_void_p,c_void_p, 
                                 c_float,c_float,c_float,c_int,c_int]
     pyac2d.ModelNew.restype=c_void_p
 
     #Create a pointer to the model eps object.
     self.model=pyac2d.ModelNew (vp,vs,rho,qlx,qly,qmx,qmy,qpx,
-                                qpy,qsx,qsy,c_float(par.dx),c_float(par.dt),
+                                qpy,c_float(par.dx),c_float(par.dt),
                                 c_float(par.w0),c_int(par.nb),c_int(par.rheol))
