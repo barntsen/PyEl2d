@@ -17,13 +17,13 @@ cp $EPS/Src/libe.i .
 cp $EPS/Src/m-cpu.i m.i
 cp $EPS/Src/run.i .
 cp $EPS/Src/runcpu.e .
-#ec -c  $OPT pyeps.e
-#ec -c  $OPT model.e
-#ec -c  $OPT src.e
-#ec -c  $OPT rec.e
-#ec -c  $OPT el2d.e
-#ec -c  $OPT diff.e
-#ec -c  $OPT libe.e
+ec -c  $OPT pyeps.e
+ec -c  $OPT model.e
+ec -c  $OPT src.e
+ec -c  $OPT rec.e
+ec -c  $OPT el2d.e
+ec -c  $OPT diff.e
+ec -c  $OPT libe.e
 cp runcpu.e runcpu.c
 
 gcc -O2 -fPIC -ffast-math -c libe.c runcpu.c \

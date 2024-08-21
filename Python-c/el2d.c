@@ -354,8 +354,6 @@ nctempfloat2 *Qmx;
 nctempfloat2 *Qmy;
 nctempfloat2 *Qpx;
 nctempfloat2 *Qpy;
-nctempfloat2 *Qsx;
-nctempfloat2 *Qsy;
 nctempfloat2 *Lambda;
 nctempfloat2 *Mu;
 nctempfloat2 *Dlambdax;
@@ -379,10 +377,6 @@ nctempfloat2 *Eta1x;
 nctempfloat2 *Eta1y;
 nctempfloat2 *Eta2x;
 nctempfloat2 *Eta2y;
-nctempfloat2 *Nu1x;
-nctempfloat2 *Nu1y;
-nctempfloat2 *Nu2x;
-nctempfloat2 *Nu2y;
 nctempfloat1 *dx;
 nctempfloat1 *dy;
 nctempfloat1 *dx1;
@@ -398,7 +392,7 @@ struct nctempmodel3 {int d[3]; struct model *a; } ;
 struct nctempmodel4 {int d[4]; struct model *a; } ;
 
 #line 53  "model.i"
-struct model* ModelNew (nctempfloat2 *vp,nctempfloat2 *vs,nctempfloat2 *rho,nctempfloat2 *Qlx,nctempfloat2 *Qly,nctempfloat2 *Qmx,nctempfloat2 *Qmy,nctempfloat2 *Qpx,nctempfloat2 *Qpy,nctempfloat2 *Qsx,nctempfloat2 *Qsy,float Dx,float Dt,float W0,int Nb,int Rheol);
+struct model* ModelNew (nctempfloat2 *vp,nctempfloat2 *vs,nctempfloat2 *rho,nctempfloat2 *Qlx,nctempfloat2 *Qly,nctempfloat2 *Qmx,nctempfloat2 *Qmy,nctempfloat2 *Qpx,nctempfloat2 *Qpy,float Dx,float Dt,float W0,int Nb,int Rheol);
 
 #line 58  "model.i"
 float ModelStability (struct model* Model);
@@ -1664,18 +1658,18 @@ LibeArrayex(227,nctempstring,j,1,El2d->thetayxy->d[1]);
 }
 float nctemp1039 = Model->Dt * El2d->thetayxy->a[nctemp1036];
 int nctemp1041=i;
-if((0>i)||(i>=Model->Drhosy->d[0])){
-nctempstring->a="Model->Drhosy";
-nctempstring->d[0]=strlen("Model->Drhosy")+1;;
-LibeArrayex(227,nctempstring,i,0,Model->Drhosy->d[0]);
+if((0>i)||(i>=Model->Drhopy->d[0])){
+nctempstring->a="Model->Drhopy";
+nctempstring->d[0]=strlen("Model->Drhopy")+1;;
+LibeArrayex(227,nctempstring,i,0,Model->Drhopy->d[0]);
 }
-nctemp1041=j*Model->Drhosy->d[0]+nctemp1041;
-if((0>j)||(j>=Model->Drhosy->d[1])){
-nctempstring->a="Model->Drhosy";
-nctempstring->d[0]=strlen("Model->Drhosy")+1;;
-LibeArrayex(227,nctempstring,j,1,Model->Drhosy->d[1]);
+nctemp1041=j*Model->Drhopy->d[0]+nctemp1041;
+if((0>j)||(j>=Model->Drhopy->d[1])){
+nctempstring->a="Model->Drhopy";
+nctempstring->d[0]=strlen("Model->Drhopy")+1;;
+LibeArrayex(227,nctempstring,j,1,Model->Drhopy->d[1]);
 }
-float nctemp1044 = nctemp1039 * Model->Drhosy->a[nctemp1041];
+float nctemp1044 = nctemp1039 * Model->Drhopy->a[nctemp1041];
 float nctemp1045 = nctemp1027 + nctemp1044;
 
 #line 228  "el2d.e"
@@ -1780,16 +1774,16 @@ nctempstring->d[0]=strlen("El2d->thetayxy")+1;;
 LibeArrayex(232,nctempstring,j,1,El2d->thetayxy->d[1]);
 }
 int nctemp1098=i;
-if((0>i)||(i>=Model->Nu1y->d[0])){
-nctempstring->a="Model->Nu1y";
-nctempstring->d[0]=strlen("Model->Nu1y")+1;;
-LibeArrayex(232,nctempstring,i,0,Model->Nu1y->d[0]);
+if((0>i)||(i>=Model->Eta1y->d[0])){
+nctempstring->a="Model->Eta1y";
+nctempstring->d[0]=strlen("Model->Eta1y")+1;;
+LibeArrayex(232,nctempstring,i,0,Model->Eta1y->d[0]);
 }
-nctemp1098=j*Model->Nu1y->d[0]+nctemp1098;
-if((0>j)||(j>=Model->Nu1y->d[1])){
-nctempstring->a="Model->Nu1y";
-nctempstring->d[0]=strlen("Model->Nu1y")+1;;
-LibeArrayex(232,nctempstring,j,1,Model->Nu1y->d[1]);
+nctemp1098=j*Model->Eta1y->d[0]+nctemp1098;
+if((0>j)||(j>=Model->Eta1y->d[1])){
+nctempstring->a="Model->Eta1y";
+nctempstring->d[0]=strlen("Model->Eta1y")+1;;
+LibeArrayex(232,nctempstring,j,1,Model->Eta1y->d[1]);
 }
 int nctemp1102=i;
 if((0>i)||(i>=El2d->thetayxy->d[0])){
@@ -1803,20 +1797,20 @@ nctempstring->a="El2d->thetayxy";
 nctempstring->d[0]=strlen("El2d->thetayxy")+1;;
 LibeArrayex(232,nctempstring,j,1,El2d->thetayxy->d[1]);
 }
-float nctemp1105 = Model->Nu1y->a[nctemp1098] * El2d->thetayxy->a[nctemp1102];
+float nctemp1105 = Model->Eta1y->a[nctemp1098] * El2d->thetayxy->a[nctemp1102];
 
 #line 233  "el2d.e"
 int nctemp1110=i;
-if((0>i)||(i>=Model->Nu2y->d[0])){
-nctempstring->a="Model->Nu2y";
-nctempstring->d[0]=strlen("Model->Nu2y")+1;;
-LibeArrayex(233,nctempstring,i,0,Model->Nu2y->d[0]);
+if((0>i)||(i>=Model->Eta2y->d[0])){
+nctempstring->a="Model->Eta2y";
+nctempstring->d[0]=strlen("Model->Eta2y")+1;;
+LibeArrayex(233,nctempstring,i,0,Model->Eta2y->d[0]);
 }
-nctemp1110=j*Model->Nu2y->d[0]+nctemp1110;
-if((0>j)||(j>=Model->Nu2y->d[1])){
-nctempstring->a="Model->Nu2y";
-nctempstring->d[0]=strlen("Model->Nu2y")+1;;
-LibeArrayex(233,nctempstring,j,1,Model->Nu2y->d[1]);
+nctemp1110=j*Model->Eta2y->d[0]+nctemp1110;
+if((0>j)||(j>=Model->Eta2y->d[1])){
+nctempstring->a="Model->Eta2y";
+nctempstring->d[0]=strlen("Model->Eta2y")+1;;
+LibeArrayex(233,nctempstring,j,1,Model->Eta2y->d[1]);
 }
 int nctemp1114=i;
 if((0>i)||(i>=El2d->exy->d[0])){
@@ -1830,7 +1824,7 @@ nctempstring->a="El2d->exy";
 nctempstring->d[0]=strlen("El2d->exy")+1;;
 LibeArrayex(233,nctempstring,j,1,El2d->exy->d[1]);
 }
-float nctemp1117 = Model->Nu2y->a[nctemp1110] * El2d->exy->a[nctemp1114];
+float nctemp1117 = Model->Eta2y->a[nctemp1110] * El2d->exy->a[nctemp1114];
 float nctemp1118 = nctemp1105 + nctemp1117;
 
 #line 232  "el2d.e"
@@ -1962,18 +1956,18 @@ LibeArrayex(255,nctempstring,j,1,El2d->thetaxyx->d[1]);
 }
 float nctemp1200 = Model->Dt * El2d->thetaxyx->a[nctemp1197];
 int nctemp1202=i;
-if((0>i)||(i>=Model->Drhosx->d[0])){
-nctempstring->a="Model->Drhosx";
-nctempstring->d[0]=strlen("Model->Drhosx")+1;;
-LibeArrayex(255,nctempstring,i,0,Model->Drhosx->d[0]);
+if((0>i)||(i>=Model->Drhopx->d[0])){
+nctempstring->a="Model->Drhopx";
+nctempstring->d[0]=strlen("Model->Drhopx")+1;;
+LibeArrayex(255,nctempstring,i,0,Model->Drhopx->d[0]);
 }
-nctemp1202=j*Model->Drhosx->d[0]+nctemp1202;
-if((0>j)||(j>=Model->Drhosx->d[1])){
-nctempstring->a="Model->Drhosx";
-nctempstring->d[0]=strlen("Model->Drhosx")+1;;
-LibeArrayex(255,nctempstring,j,1,Model->Drhosx->d[1]);
+nctemp1202=j*Model->Drhopx->d[0]+nctemp1202;
+if((0>j)||(j>=Model->Drhopx->d[1])){
+nctempstring->a="Model->Drhopx";
+nctempstring->d[0]=strlen("Model->Drhopx")+1;;
+LibeArrayex(255,nctempstring,j,1,Model->Drhopx->d[1]);
 }
-float nctemp1205 = nctemp1200 * Model->Drhosx->a[nctemp1202];
+float nctemp1205 = nctemp1200 * Model->Drhopx->a[nctemp1202];
 float nctemp1206 = nctemp1188 + nctemp1205;
 
 #line 256  "el2d.e"
@@ -2078,16 +2072,16 @@ nctempstring->d[0]=strlen("El2d->thetaxyx")+1;;
 LibeArrayex(260,nctempstring,j,1,El2d->thetaxyx->d[1]);
 }
 int nctemp1259=i;
-if((0>i)||(i>=Model->Nu1x->d[0])){
-nctempstring->a="Model->Nu1x";
-nctempstring->d[0]=strlen("Model->Nu1x")+1;;
-LibeArrayex(260,nctempstring,i,0,Model->Nu1x->d[0]);
+if((0>i)||(i>=Model->Eta1x->d[0])){
+nctempstring->a="Model->Eta1x";
+nctempstring->d[0]=strlen("Model->Eta1x")+1;;
+LibeArrayex(260,nctempstring,i,0,Model->Eta1x->d[0]);
 }
-nctemp1259=j*Model->Nu1x->d[0]+nctemp1259;
-if((0>j)||(j>=Model->Nu1x->d[1])){
-nctempstring->a="Model->Nu1x";
-nctempstring->d[0]=strlen("Model->Nu1x")+1;;
-LibeArrayex(260,nctempstring,j,1,Model->Nu1x->d[1]);
+nctemp1259=j*Model->Eta1x->d[0]+nctemp1259;
+if((0>j)||(j>=Model->Eta1x->d[1])){
+nctempstring->a="Model->Eta1x";
+nctempstring->d[0]=strlen("Model->Eta1x")+1;;
+LibeArrayex(260,nctempstring,j,1,Model->Eta1x->d[1]);
 }
 int nctemp1263=i;
 if((0>i)||(i>=El2d->thetaxyx->d[0])){
@@ -2101,20 +2095,20 @@ nctempstring->a="El2d->thetaxyx";
 nctempstring->d[0]=strlen("El2d->thetaxyx")+1;;
 LibeArrayex(260,nctempstring,j,1,El2d->thetaxyx->d[1]);
 }
-float nctemp1266 = Model->Nu1x->a[nctemp1259] * El2d->thetaxyx->a[nctemp1263];
+float nctemp1266 = Model->Eta1x->a[nctemp1259] * El2d->thetaxyx->a[nctemp1263];
 
 #line 261  "el2d.e"
 int nctemp1271=i;
-if((0>i)||(i>=Model->Nu2x->d[0])){
-nctempstring->a="Model->Nu2x";
-nctempstring->d[0]=strlen("Model->Nu2x")+1;;
-LibeArrayex(261,nctempstring,i,0,Model->Nu2x->d[0]);
+if((0>i)||(i>=Model->Eta2x->d[0])){
+nctempstring->a="Model->Eta2x";
+nctempstring->d[0]=strlen("Model->Eta2x")+1;;
+LibeArrayex(261,nctempstring,i,0,Model->Eta2x->d[0]);
 }
-nctemp1271=j*Model->Nu2x->d[0]+nctemp1271;
-if((0>j)||(j>=Model->Nu2x->d[1])){
-nctempstring->a="Model->Nu2x";
-nctempstring->d[0]=strlen("Model->Nu2x")+1;;
-LibeArrayex(261,nctempstring,j,1,Model->Nu2x->d[1]);
+nctemp1271=j*Model->Eta2x->d[0]+nctemp1271;
+if((0>j)||(j>=Model->Eta2x->d[1])){
+nctempstring->a="Model->Eta2x";
+nctempstring->d[0]=strlen("Model->Eta2x")+1;;
+LibeArrayex(261,nctempstring,j,1,Model->Eta2x->d[1]);
 }
 int nctemp1275=i;
 if((0>i)||(i>=El2d->eyx->d[0])){
@@ -2128,7 +2122,7 @@ nctempstring->a="El2d->eyx";
 nctempstring->d[0]=strlen("El2d->eyx")+1;;
 LibeArrayex(261,nctempstring,j,1,El2d->eyx->d[1]);
 }
-float nctemp1278 = Model->Nu2x->a[nctemp1271] * El2d->eyx->a[nctemp1275];
+float nctemp1278 = Model->Eta2x->a[nctemp1271] * El2d->eyx->a[nctemp1275];
 float nctemp1279 = nctemp1266 + nctemp1278;
 
 #line 260  "el2d.e"

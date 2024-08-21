@@ -9,8 +9,8 @@ float [*,*] Qmx;
 float [*,*] Qmy;
 float [*,*] Qpx;
 float [*,*] Qpy;
-float [*,*] Qsx;
-float [*,*] Qsy;
+//float [*,*] Qsx;
+//float [*,*] Qsy;
 float [*,*] Lambda;
 float [*,*] Mu;
 float [*,*] Dlambdax;
@@ -34,6 +34,10 @@ float [*,*] Eta1x;
 float [*,*] Eta1y;
 float [*,*] Eta2x;
 float [*,*] Eta2y;
+//float [*,*] Nu1x;
+//float [*,*] Nu1y;
+//float [*,*] Nu2x;
+//float [*,*] Nu2y;
 float [*] dx;
 float [*] dy;
 float [*] dx1;
@@ -48,7 +52,7 @@ float Dt;
 
 struct model ModelNew(float [*,*] vp,  float [*,*] vs, float [*,*] rho, 
                       float [*,*] Qlx, float [*,*] Qly,float [*,*] Qmx, float [*,*] Qmy,
-                      float [*,*] Qpx, float [*,*] Qpy,float [*,*] Qsx, float [*,*] Qsy,
+                      float [*,*] Qpx, float [*,*] Qpy,
                       float Dx,        float Dt,       float W0,  int Nb, int Rheol){}
 
 float ModelStability(struct model Model){}

@@ -119,15 +119,9 @@ if par.fqp != "" :
 else :
   qp = None
 
-#Read the qs model
-if par.fqs != "" :
-  fd=ba.bin(par.fqs,'r')
-  qs = fd.read((par.nx,par.ny))
-else :
-  qs = None
 
 # Create model
-m = model.model(pyel2d,par,vp,vs,rho,ql,qm,qp,qs)
+m = model.model(pyel2d,par,vp,vs,rho,ql,qm,qp)
 print("model time  (secs):", time.perf_counter()-t0, flush=True)
 
 # Create fd solver
