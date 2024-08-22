@@ -222,9 +222,9 @@ int El2dvx(struct el2d El2d, struct model Model)
   // and exy.
   // Scale with inverse density and advance one time step
   parallel(i=0:nx,j=0:ny){
-    El2d.vx[i,j] = Model.Dt*Model.Rho[i,j]*(El2d.exx[i,j] + El2d.exy[i,j])
+    El2d.vx[i,j] = Model.Dt*Model.Rhox[i,j]*(El2d.exx[i,j] + El2d.exy[i,j])
                  + Model.Dt*El2d.thetaxxx[i,j]*Model.Drhopx[i,j]
-                 + Model.Dt*El2d.thetayxy[i,j]*Model.Drhosy[i,j] 
+                 + Model.Dt*El2d.thetayxy[i,j]*Model.Drhopy[i,j] 
                  + El2d.vx[i,j];
 
     El2d.thetaxxx[i,j] = Model.Eta1x[i,j]*El2d.thetaxxx[i,j]
@@ -250,9 +250,9 @@ int El2dvy(struct el2d El2d, struct model Model)
   // and exy.
   // Scale with inverse density and advance one time step
   parallel(i=0:nx,j=0:ny){
-    El2d.vy[i,j] = Model.Dt*Model.Rho[i,j]*(El2d.eyy[i,j] + El2d.eyx[i,j])
+    El2d.vy[i,j] = Model.Dt*Model.Rhoy[i,j]*(El2d.eyy[i,j] + El2d.eyx[i,j])
                  + Model.Dt*El2d.thetayyy[i,j]*Model.Drhopy[i,j]
-                 + Model.Dt*El2d.thetaxyx[i,j]*Model.Drhosx[i,j]
+                 + Model.Dt*El2d.thetaxyx[i,j]*Model.Drhopx[i,j]
                  + El2d.vy[i,j];
     
     El2d.thetayyy[i,j] = Model.Eta1y[i,j]*El2d.thetayyy[i,j]
@@ -327,11 +327,11 @@ int El2dstress(struct el2d El2d, struct model Model){
                      + 2.0*Model.Dt*El2d.gammayy[i,j]*Model.Dmuy[i,j]
                      + El2d.sigmayy[i,j];
 
-   El2d.sigmaxy[i,j] = 2.0*Model.Dt*Model.Mu[i,j]*El2d.exy[i,j]
-                     + 2.0*Model.Dt*El2d.gammaxy[i,j]*Model.Dmuy[i,j]
+   El2d.sigmaxy[i,j] = 2.0*Model.Dt*Model.Muxy[i,j]*El2d.exy[i,j]
+                     + 2.0*Model.Dt*El2d.gammaxy[i,j]*Model.Dmuxyy[i,j]
                      + El2d.sigmaxy[i,j];
-   El2d.sigmayx[i,j] = 2.0*Model.Dt*Model.Mu[i,j]*El2d.exy[i,j]
-                     + 2.0*Model.Dt*El2d.gammayx[i,j]*Model.Dmux[i,j]
+   El2d.sigmayx[i,j] = 2.0*Model.Dt*Model.Muxy[i,j]*El2d.exy[i,j]
+                     + 2.0*Model.Dt*El2d.gammayx[i,j]*Model.Dmuxyx[i,j]
                      + El2d.sigmayx[i,j];
 
    El2d.gammaxx[i,j] = Model.Alpha1x[i,j]*El2d.gammaxx[i,j] 

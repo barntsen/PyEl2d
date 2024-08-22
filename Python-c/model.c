@@ -278,15 +278,18 @@ nctempfloat2 *Qpx;
 nctempfloat2 *Qpy;
 nctempfloat2 *Lambda;
 nctempfloat2 *Mu;
+nctempfloat2 *Muxy;
+nctempfloat2 *Dmuxyx;
+nctempfloat2 *Dmuxyy;
 nctempfloat2 *Dlambdax;
 nctempfloat2 *Dlambday;
 nctempfloat2 *Dmux;
 nctempfloat2 *Dmuy;
 nctempfloat2 *Drhopx;
 nctempfloat2 *Drhopy;
-nctempfloat2 *Drhosx;
-nctempfloat2 *Drhosy;
 nctempfloat2 *Rho;
+nctempfloat2 *Rhox;
+nctempfloat2 *Rhoy;
 nctempfloat2 *Alpha1x;
 nctempfloat2 *Alpha1y;
 nctempfloat2 *Alpha2x;
@@ -313,10 +316,10 @@ struct nctempmodel2 {int d[2]; struct model *a; } ;
 struct nctempmodel3 {int d[3]; struct model *a; } ;
 struct nctempmodel4 {int d[4]; struct model *a; } ;
 
-#line 53  "model.i"
+#line 58  "model.i"
 struct model* ModelNew (nctempfloat2 *vp,nctempfloat2 *vs,nctempfloat2 *rho,nctempfloat2 *Qlx,nctempfloat2 *Qly,nctempfloat2 *Qmx,nctempfloat2 *Qmy,nctempfloat2 *Qpx,nctempfloat2 *Qpy,float Dx,float Dt,float W0,int Nb,int Rheol);
 
-#line 58  "model.i"
+#line 63  "model.i"
 float ModelStability (struct model* Model);
 
 #line 8  "model.e"
@@ -328,33 +331,42 @@ int Modelslscoeffs (nctempfloat2 *Qx,nctempfloat2 *Qy,nctempfloat2 *modx,nctempf
 #line 18  "model.e"
 int Modeld (nctempfloat1 *d,float dx,int nb);
 
-#line 32  "model.e"
+#line 19  "model.e"
+nctempfloat2* Modelcopy (nctempfloat2 *a);
+
+#line 20  "model.e"
+int Modelstaggerx (nctempfloat2 *a,nctempfloat2 *astagg);
+
+#line 21  "model.e"
+int Modelstaggery (nctempfloat2 *a,nctempfloat2 *astagg);
+
+#line 36  "model.e"
 int Modeld (nctempfloat1 *d,float dx,int nb)
 {
 
-#line 33  "model.e"
+#line 37  "model.e"
 int i;
 int n;
 
-#line 35  "model.e"
+#line 39  "model.e"
 int nctemp5=d->d[0];n =nctemp5;
 
-#line 37  "model.e"
+#line 41  "model.e"
 i =0;
 int nctemp13 = (i < n);
 while(nctemp13){
 {
 
-#line 38  "model.e"
+#line 42  "model.e"
 int nctemp20=i;
 if((0>i)||(i>=d->d[0])){
 nctempstring->a="d";
 nctempstring->d[0]=strlen("d")+1;;
-LibeArrayex(38,nctempstring,i,0,d->d[0]);
+LibeArrayex(42,nctempstring,i,0,d->d[0]);
 }
 d->a[nctemp20] =1.0;
 
-#line 37  "model.e"
+#line 41  "model.e"
 }
 int nctemp31 = i + 1;
 i =nctemp31;
@@ -362,24 +374,24 @@ int nctemp32 = (i < n);
 nctemp13=nctemp32;
 }
 
-#line 43  "model.e"
+#line 47  "model.e"
 i =0;
 int nctemp40 = (i < nb);
 while(nctemp40){
 {
 
-#line 44  "model.e"
+#line 48  "model.e"
 int nctemp47=i;
 if((0>i)||(i>=d->d[0])){
 nctempstring->a="d";
 nctempstring->d[0]=strlen("d")+1;;
-LibeArrayex(44,nctempstring,i,0,d->d[0]);
+LibeArrayex(48,nctempstring,i,0,d->d[0]);
 }
 int nctemp53=i;
 if((0>i)||(i>=d->d[0])){
 nctempstring->a="d";
 nctempstring->d[0]=strlen("d")+1;;
-LibeArrayex(44,nctempstring,i,0,d->d[0]);
+LibeArrayex(48,nctempstring,i,0,d->d[0]);
 }
 float nctemp68=(float)(i);
 float nctemp72 = nctemp68 * dx;
@@ -387,7 +399,7 @@ float nctemp77=(float)(nb);
 float nctemp81 = nctemp77 * dx;
 float nctemp82 = nctemp72 / nctemp81;
 
-#line 45  "model.e"
+#line 49  "model.e"
 float nctemp87=(float)(i);
 float nctemp91 = nctemp87 * dx;
 float nctemp92 = nctemp82 * nctemp91;
@@ -395,11 +407,11 @@ float nctemp97=(float)(nb);
 float nctemp101 = nctemp97 * dx;
 float nctemp102 = nctemp92 / nctemp101;
 
-#line 44  "model.e"
+#line 48  "model.e"
 float nctemp103 = d->a[nctemp53] * nctemp102;
 d->a[nctemp47] =nctemp103;
 
-#line 43  "model.e"
+#line 47  "model.e"
 }
 int nctemp112 = i + 1;
 i =nctemp112;
@@ -407,7 +419,7 @@ int nctemp113 = (i < nb);
 nctemp40=nctemp113;
 }
 
-#line 48  "model.e"
+#line 52  "model.e"
 int nctemp128 = n - 1;
 int nctemp130 = nctemp128 - nb;
 i =nctemp130;
@@ -415,18 +427,18 @@ int nctemp131 = (i < n);
 while(nctemp131){
 {
 
-#line 49  "model.e"
+#line 53  "model.e"
 int nctemp138=i;
 if((0>i)||(i>=d->d[0])){
 nctempstring->a="d";
 nctempstring->d[0]=strlen("d")+1;;
-LibeArrayex(49,nctempstring,i,0,d->d[0]);
+LibeArrayex(53,nctempstring,i,0,d->d[0]);
 }
 int nctemp144=i;
 if((0>i)||(i>=d->d[0])){
 nctempstring->a="d";
 nctempstring->d[0]=strlen("d")+1;;
-LibeArrayex(49,nctempstring,i,0,d->d[0]);
+LibeArrayex(53,nctempstring,i,0,d->d[0]);
 }
 int nctemp168 = n - 1;
 int nctemp170 = nctemp168 - i;
@@ -436,7 +448,7 @@ float nctemp177=(float)(nb);
 float nctemp181 = nctemp177 * dx;
 float nctemp182 = nctemp172 / nctemp181;
 
-#line 50  "model.e"
+#line 54  "model.e"
 int nctemp196 = n - 1;
 int nctemp198 = nctemp196 - i;
 float nctemp187=(float)(nctemp198);
@@ -446,11 +458,11 @@ float nctemp206=(float)(nb);
 float nctemp210 = nctemp206 * dx;
 float nctemp211 = nctemp201 / nctemp210;
 
-#line 49  "model.e"
+#line 53  "model.e"
 float nctemp212 = d->a[nctemp144] * nctemp211;
 d->a[nctemp138] =nctemp212;
 
-#line 48  "model.e"
+#line 52  "model.e"
 }
 int nctemp221 = i + 1;
 i =nctemp221;
@@ -458,19 +470,405 @@ int nctemp222 = (i < n);
 nctemp131=nctemp222;
 }
 
-#line 52  "model.e"
+#line 56  "model.e"
 return 1;
 
-#line 32  "model.e"
+#line 36  "model.e"
 }
 
-#line 57  "model.e"
-int Modelslscoeffs (nctempfloat2 *Qx,nctempfloat2 *Qy,nctempfloat2 *modx,nctempfloat2 *mody,nctempfloat2 *coeff1x,nctempfloat2 *coeff1y,nctempfloat2 *coeff2x,nctempfloat2 *coeff2y,struct model* Model)
-
-#line 60  "model.e"
+#line 59  "model.e"
+nctempfloat2 * Modelcopy (nctempfloat2 *a)
 {
 
-#line 81  "model.e"
+#line 60  "model.e"
+int nx;
+int ny;
+int i;
+int j;
+nctempfloat2 *b;
+
+#line 64  "model.e"
+int nctemp231=a->d[0];nx =nctemp231;
+
+#line 65  "model.e"
+int nctemp239=a->d[1];ny =nctemp239;
+
+#line 66  "model.e"
+int nctemp249=nx;
+nctemp249=nctemp249*ny;
+nctempfloat2 *nctemp248;
+nctemp248=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp248->d[0]=nx;
+nctemp248->d[1]=ny;
+nctemp248->a=(float *)RunMalloc(sizeof(float)*nctemp249);
+b=nctemp248;
+
+#line 68  "model.e"
+j =0;
+int nctemp258 = (j < ny);
+while(nctemp258){
+{
+
+#line 69  "model.e"
+i =0;
+int nctemp266 = (i < nx);
+while(nctemp266){
+{
+
+#line 70  "model.e"
+int nctemp273=i;
+if((0>i)||(i>=b->d[0])){
+nctempstring->a="b";
+nctempstring->d[0]=strlen("b")+1;;
+LibeArrayex(70,nctempstring,i,0,b->d[0]);
+}
+nctemp273=j*b->d[0]+nctemp273;
+if((0>j)||(j>=b->d[1])){
+nctempstring->a="b";
+nctempstring->d[0]=strlen("b")+1;;
+LibeArrayex(70,nctempstring,j,1,b->d[1]);
+}
+int nctemp277=i;
+if((0>i)||(i>=a->d[0])){
+nctempstring->a="a";
+nctempstring->d[0]=strlen("a")+1;;
+LibeArrayex(70,nctempstring,i,0,a->d[0]);
+}
+nctemp277=j*a->d[0]+nctemp277;
+if((0>j)||(j>=a->d[1])){
+nctempstring->a="a";
+nctempstring->d[0]=strlen("a")+1;;
+LibeArrayex(70,nctempstring,j,1,a->d[1]);
+}
+b->a[nctemp273] =a->a[nctemp277];
+
+#line 69  "model.e"
+}
+int nctemp288 = i + 1;
+i =nctemp288;
+int nctemp289 = (i < nx);
+nctemp266=nctemp289;
+}
+
+#line 68  "model.e"
+}
+int nctemp301 = j + 1;
+j =nctemp301;
+int nctemp302 = (j < ny);
+nctemp258=nctemp302;
+}
+
+#line 74  "model.e"
+return b;
+
+#line 59  "model.e"
+}
+
+#line 78  "model.e"
+int Modelstaggerx (nctempfloat2 *a,nctempfloat2 *astagg)
+{
+
+#line 79  "model.e"
+int nx;
+int ny;
+int i;
+int j;
+
+#line 82  "model.e"
+int nctemp312=a->d[0];nx =nctemp312;
+
+#line 83  "model.e"
+int nctemp320=a->d[1];ny =nctemp320;
+
+#line 85  "model.e"
+j =0;
+int nctemp328 = (j < ny);
+while(nctemp328){
+{
+
+#line 86  "model.e"
+i =0;
+int nctemp336 = (i < nx);
+while(nctemp336){
+{
+
+#line 87  "model.e"
+int nctemp343=i;
+if((0>i)||(i>=astagg->d[0])){
+nctempstring->a="astagg";
+nctempstring->d[0]=strlen("astagg")+1;;
+LibeArrayex(87,nctempstring,i,0,astagg->d[0]);
+}
+nctemp343=j*astagg->d[0]+nctemp343;
+if((0>j)||(j>=astagg->d[1])){
+nctempstring->a="astagg";
+nctempstring->d[0]=strlen("astagg")+1;;
+LibeArrayex(87,nctempstring,j,1,astagg->d[1]);
+}
+int nctemp347=i;
+if((0>i)||(i>=a->d[0])){
+nctempstring->a="a";
+nctempstring->d[0]=strlen("a")+1;;
+LibeArrayex(87,nctempstring,i,0,a->d[0]);
+}
+nctemp347=j*a->d[0]+nctemp347;
+if((0>j)||(j>=a->d[1])){
+nctempstring->a="a";
+nctempstring->d[0]=strlen("a")+1;;
+LibeArrayex(87,nctempstring,j,1,a->d[1]);
+}
+astagg->a[nctemp343] =a->a[nctemp347];
+
+#line 86  "model.e"
+}
+int nctemp358 = i + 1;
+i =nctemp358;
+int nctemp359 = (i < nx);
+nctemp336=nctemp359;
+}
+
+#line 85  "model.e"
+}
+int nctemp371 = j + 1;
+j =nctemp371;
+int nctemp372 = (j < ny);
+nctemp328=nctemp372;
+}
+
+#line 91  "model.e"
+j =0;
+int nctemp380 = (j < ny);
+while(nctemp380){
+{
+
+#line 92  "model.e"
+i =0;
+int nctemp396 = nx - 1;
+int nctemp388 = (i < nctemp396);
+while(nctemp388){
+{
+
+#line 93  "model.e"
+int nctemp400=i;
+if((0>i)||(i>=astagg->d[0])){
+nctempstring->a="astagg";
+nctempstring->d[0]=strlen("astagg")+1;;
+LibeArrayex(93,nctempstring,i,0,astagg->d[0]);
+}
+nctemp400=j*astagg->d[0]+nctemp400;
+if((0>j)||(j>=astagg->d[1])){
+nctempstring->a="astagg";
+nctempstring->d[0]=strlen("astagg")+1;;
+LibeArrayex(93,nctempstring,j,1,astagg->d[1]);
+}
+int nctemp411=i;
+if((0>i)||(i>=a->d[0])){
+nctempstring->a="a";
+nctempstring->d[0]=strlen("a")+1;;
+LibeArrayex(93,nctempstring,i,0,a->d[0]);
+}
+nctemp411=j*a->d[0]+nctemp411;
+if((0>j)||(j>=a->d[1])){
+nctempstring->a="a";
+nctempstring->d[0]=strlen("a")+1;;
+LibeArrayex(93,nctempstring,j,1,a->d[1]);
+}
+int nctemp420 = i + 1;
+int nctemp415=nctemp420;
+if((0>nctemp420)||(nctemp420>=a->d[0])){
+nctempstring->a="a";
+nctempstring->d[0]=strlen("a")+1;;
+LibeArrayex(93,nctempstring,nctemp420,0,a->d[0]);
+}
+nctemp415=j*a->d[0]+nctemp415;
+if((0>j)||(j>=a->d[1])){
+nctempstring->a="a";
+nctempstring->d[0]=strlen("a")+1;;
+LibeArrayex(93,nctempstring,j,1,a->d[1]);
+}
+float nctemp422 = a->a[nctemp411] + a->a[nctemp415];
+float nctemp423 = 0.5 * nctemp422;
+astagg->a[nctemp400] =nctemp423;
+
+#line 92  "model.e"
+}
+int nctemp432 = i + 1;
+i =nctemp432;
+int nctemp441 = nx - 1;
+int nctemp433 = (i < nctemp441);
+nctemp388=nctemp433;
+}
+
+#line 91  "model.e"
+}
+int nctemp450 = j + 1;
+j =nctemp450;
+int nctemp451 = (j < ny);
+nctemp380=nctemp451;
+}
+
+#line 96  "model.e"
+return 1;
+
+#line 78  "model.e"
+}
+
+#line 99  "model.e"
+int Modelstaggery (nctempfloat2 *a,nctempfloat2 *astagg)
+{
+
+#line 100  "model.e"
+int nx;
+int ny;
+int i;
+int j;
+
+#line 103  "model.e"
+int nctemp460=a->d[0];nx =nctemp460;
+
+#line 104  "model.e"
+int nctemp468=a->d[1];ny =nctemp468;
+
+#line 106  "model.e"
+j =0;
+int nctemp476 = (j < ny);
+while(nctemp476){
+{
+
+#line 107  "model.e"
+i =0;
+int nctemp484 = (i < nx);
+while(nctemp484){
+{
+
+#line 108  "model.e"
+int nctemp491=i;
+if((0>i)||(i>=astagg->d[0])){
+nctempstring->a="astagg";
+nctempstring->d[0]=strlen("astagg")+1;;
+LibeArrayex(108,nctempstring,i,0,astagg->d[0]);
+}
+nctemp491=j*astagg->d[0]+nctemp491;
+if((0>j)||(j>=astagg->d[1])){
+nctempstring->a="astagg";
+nctempstring->d[0]=strlen("astagg")+1;;
+LibeArrayex(108,nctempstring,j,1,astagg->d[1]);
+}
+int nctemp495=i;
+if((0>i)||(i>=a->d[0])){
+nctempstring->a="a";
+nctempstring->d[0]=strlen("a")+1;;
+LibeArrayex(108,nctempstring,i,0,a->d[0]);
+}
+nctemp495=j*a->d[0]+nctemp495;
+if((0>j)||(j>=a->d[1])){
+nctempstring->a="a";
+nctempstring->d[0]=strlen("a")+1;;
+LibeArrayex(108,nctempstring,j,1,a->d[1]);
+}
+astagg->a[nctemp491] =a->a[nctemp495];
+
+#line 107  "model.e"
+}
+int nctemp506 = i + 1;
+i =nctemp506;
+int nctemp507 = (i < nx);
+nctemp484=nctemp507;
+}
+
+#line 106  "model.e"
+}
+int nctemp519 = j + 1;
+j =nctemp519;
+int nctemp520 = (j < ny);
+nctemp476=nctemp520;
+}
+
+#line 112  "model.e"
+j =0;
+int nctemp536 = ny - 1;
+int nctemp528 = (j < nctemp536);
+while(nctemp528){
+{
+
+#line 113  "model.e"
+i =0;
+int nctemp541 = (i < nx);
+while(nctemp541){
+{
+
+#line 114  "model.e"
+int nctemp548=i;
+if((0>i)||(i>=astagg->d[0])){
+nctempstring->a="astagg";
+nctempstring->d[0]=strlen("astagg")+1;;
+LibeArrayex(114,nctempstring,i,0,astagg->d[0]);
+}
+nctemp548=j*astagg->d[0]+nctemp548;
+if((0>j)||(j>=astagg->d[1])){
+nctempstring->a="astagg";
+nctempstring->d[0]=strlen("astagg")+1;;
+LibeArrayex(114,nctempstring,j,1,astagg->d[1]);
+}
+int nctemp559=i;
+if((0>i)||(i>=a->d[0])){
+nctempstring->a="a";
+nctempstring->d[0]=strlen("a")+1;;
+LibeArrayex(114,nctempstring,i,0,a->d[0]);
+}
+nctemp559=j*a->d[0]+nctemp559;
+if((0>j)||(j>=a->d[1])){
+nctempstring->a="a";
+nctempstring->d[0]=strlen("a")+1;;
+LibeArrayex(114,nctempstring,j,1,a->d[1]);
+}
+int nctemp563=i;
+if((0>i)||(i>=a->d[0])){
+nctempstring->a="a";
+nctempstring->d[0]=strlen("a")+1;;
+LibeArrayex(114,nctempstring,i,0,a->d[0]);
+}
+int nctemp569 = j + 1;
+nctemp563=nctemp569*a->d[0]+nctemp563;
+if((0>nctemp569)||(nctemp569>=a->d[1])){
+nctempstring->a="a";
+nctempstring->d[0]=strlen("a")+1;;
+LibeArrayex(114,nctempstring,nctemp569,1,a->d[1]);
+}
+float nctemp570 = a->a[nctemp559] + a->a[nctemp563];
+float nctemp571 = 0.5 * nctemp570;
+astagg->a[nctemp548] =nctemp571;
+
+#line 113  "model.e"
+}
+int nctemp580 = i + 1;
+i =nctemp580;
+int nctemp581 = (i < nx);
+nctemp541=nctemp581;
+}
+
+#line 112  "model.e"
+}
+int nctemp593 = j + 1;
+j =nctemp593;
+int nctemp602 = ny - 1;
+int nctemp594 = (j < nctemp602);
+nctemp528=nctemp594;
+}
+
+#line 117  "model.e"
+return 1;
+
+#line 99  "model.e"
+}
+
+#line 120  "model.e"
+int Modelslscoeffs (nctempfloat2 *Qx,nctempfloat2 *Qy,nctempfloat2 *modx,nctempfloat2 *mody,nctempfloat2 *coeff1x,nctempfloat2 *coeff1y,nctempfloat2 *coeff2x,nctempfloat2 *coeff2y,struct model* Model)
+
+#line 123  "model.e"
+{
+
+#line 144  "model.e"
 int Nx;
 int Ny;
 float tau0;
@@ -485,463 +883,463 @@ float argy;
 int i;
 int j;
 
-#line 90  "model.e"
+#line 153  "model.e"
 Nx =Model->Nx;
 
-#line 91  "model.e"
+#line 154  "model.e"
 Ny =Model->Ny;
 
-#line 93  "model.e"
-int nctemp241=Nx;
-nctempfloat1 *nctemp240;
-nctemp240=(nctempfloat1*)RunMalloc(sizeof(nctempfloat1));
-nctemp240->d[0]=Nx;
-nctemp240->a=(float *)RunMalloc(sizeof(float)*nctemp241);
-d1=nctemp240;
+#line 156  "model.e"
+int nctemp618=Nx;
+nctempfloat1 *nctemp617;
+nctemp617=(nctempfloat1*)RunMalloc(sizeof(nctempfloat1));
+nctemp617->d[0]=Nx;
+nctemp617->a=(float *)RunMalloc(sizeof(float)*nctemp618);
+d1=nctemp617;
 
-#line 94  "model.e"
-int nctemp250=Ny;
-nctempfloat1 *nctemp249;
-nctemp249=(nctempfloat1*)RunMalloc(sizeof(nctempfloat1));
-nctemp249->d[0]=Ny;
-nctemp249->a=(float *)RunMalloc(sizeof(float)*nctemp250);
-d2=nctemp249;
+#line 157  "model.e"
+int nctemp627=Ny;
+nctempfloat1 *nctemp626;
+nctemp626=(nctempfloat1*)RunMalloc(sizeof(nctempfloat1));
+nctemp626->d[0]=Ny;
+nctemp626->a=(float *)RunMalloc(sizeof(float)*nctemp627);
+d2=nctemp626;
 
-#line 95  "model.e"
-nctempfloat1* nctemp254= d1;
-float nctemp257= Model->Dx;
-int nctemp259= Model->Nb;
-int nctemp261=Modeld(nctemp254,nctemp257,nctemp259);
+#line 158  "model.e"
+nctempfloat1* nctemp631= d1;
+float nctemp634= Model->Dx;
+int nctemp636= Model->Nb;
+int nctemp638=Modeld(nctemp631,nctemp634,nctemp636);
 
-#line 96  "model.e"
-nctempfloat1* nctemp263= d2;
-float nctemp266= Model->Dx;
-int nctemp268= Model->Nb;
-int nctemp270=Modeld(nctemp263,nctemp266,nctemp268);
+#line 159  "model.e"
+nctempfloat1* nctemp640= d2;
+float nctemp643= Model->Dx;
+int nctemp645= Model->Nb;
+int nctemp647=Modeld(nctemp640,nctemp643,nctemp645);
 
-#line 97  "model.e"
+#line 160  "model.e"
 Model->dx=d1;
 
-#line 98  "model.e"
+#line 161  "model.e"
 Model->dy=d2;
 
-#line 101  "model.e"
+#line 164  "model.e"
 j =0;
-int nctemp287 = (j < Ny);
-while(nctemp287){
+int nctemp664 = (j < Ny);
+while(nctemp664){
 {
 
-#line 102  "model.e"
+#line 165  "model.e"
 i =0;
-int nctemp295 = (i < Nx);
-while(nctemp295){
+int nctemp672 = (i < Nx);
+while(nctemp672){
 {
 
-#line 103  "model.e"
-float nctemp307 = 1.0 / Model->W0;
-tau0 =nctemp307;
+#line 166  "model.e"
+float nctemp684 = 1.0 / Model->W0;
+tau0 =nctemp684;
 
-#line 106  "model.e"
-int nctemp319=i;
+#line 169  "model.e"
+int nctemp696=i;
 if((0>i)||(i>=Qx->d[0])){
 nctempstring->a="Qx";
 nctempstring->d[0]=strlen("Qx")+1;;
-LibeArrayex(106,nctempstring,i,0,Qx->d[0]);
+LibeArrayex(169,nctempstring,i,0,Qx->d[0]);
 }
-nctemp319=j*Qx->d[0]+nctemp319;
+nctemp696=j*Qx->d[0]+nctemp696;
 if((0>j)||(j>=Qx->d[1])){
 nctempstring->a="Qx";
 nctempstring->d[0]=strlen("Qx")+1;;
-LibeArrayex(106,nctempstring,j,1,Qx->d[1]);
+LibeArrayex(169,nctempstring,j,1,Qx->d[1]);
 }
-float nctemp322 = tau0 / Qx->a[nctemp319];
-int nctemp334=i;
+float nctemp699 = tau0 / Qx->a[nctemp696];
+int nctemp711=i;
 if((0>i)||(i>=Qx->d[0])){
 nctempstring->a="Qx";
 nctempstring->d[0]=strlen("Qx")+1;;
-LibeArrayex(106,nctempstring,i,0,Qx->d[0]);
+LibeArrayex(169,nctempstring,i,0,Qx->d[0]);
 }
-nctemp334=j*Qx->d[0]+nctemp334;
+nctemp711=j*Qx->d[0]+nctemp711;
 if((0>j)||(j>=Qx->d[1])){
 nctempstring->a="Qx";
 nctempstring->d[0]=strlen("Qx")+1;;
-LibeArrayex(106,nctempstring,j,1,Qx->d[1]);
+LibeArrayex(169,nctempstring,j,1,Qx->d[1]);
 }
-int nctemp338=i;
+int nctemp715=i;
 if((0>i)||(i>=Qx->d[0])){
 nctempstring->a="Qx";
 nctempstring->d[0]=strlen("Qx")+1;;
-LibeArrayex(106,nctempstring,i,0,Qx->d[0]);
+LibeArrayex(169,nctempstring,i,0,Qx->d[0]);
 }
-nctemp338=j*Qx->d[0]+nctemp338;
+nctemp715=j*Qx->d[0]+nctemp715;
 if((0>j)||(j>=Qx->d[1])){
 nctempstring->a="Qx";
 nctempstring->d[0]=strlen("Qx")+1;;
-LibeArrayex(106,nctempstring,j,1,Qx->d[1]);
+LibeArrayex(169,nctempstring,j,1,Qx->d[1]);
 }
-float nctemp341 = Qx->a[nctemp334] * Qx->a[nctemp338];
-float nctemp343 = nctemp341 + 1.0;
-float nctemp327= nctemp343;
-float nctemp344=LibeSqrt(nctemp327);
-float nctemp346 = nctemp344 + 1.0;
-float nctemp347 = nctemp322 * nctemp346;
-tauex =nctemp347;
+float nctemp718 = Qx->a[nctemp711] * Qx->a[nctemp715];
+float nctemp720 = nctemp718 + 1.0;
+float nctemp704= nctemp720;
+float nctemp721=LibeSqrt(nctemp704);
+float nctemp723 = nctemp721 + 1.0;
+float nctemp724 = nctemp699 * nctemp723;
+tauex =nctemp724;
 
-#line 107  "model.e"
-int nctemp359=i;
+#line 170  "model.e"
+int nctemp736=i;
 if((0>i)||(i>=Qx->d[0])){
 nctempstring->a="Qx";
 nctempstring->d[0]=strlen("Qx")+1;;
-LibeArrayex(107,nctempstring,i,0,Qx->d[0]);
+LibeArrayex(170,nctempstring,i,0,Qx->d[0]);
 }
-nctemp359=j*Qx->d[0]+nctemp359;
+nctemp736=j*Qx->d[0]+nctemp736;
 if((0>j)||(j>=Qx->d[1])){
 nctempstring->a="Qx";
 nctempstring->d[0]=strlen("Qx")+1;;
-LibeArrayex(107,nctempstring,j,1,Qx->d[1]);
+LibeArrayex(170,nctempstring,j,1,Qx->d[1]);
 }
-float nctemp362 = tau0 / Qx->a[nctemp359];
-int nctemp374=i;
+float nctemp739 = tau0 / Qx->a[nctemp736];
+int nctemp751=i;
 if((0>i)||(i>=Qx->d[0])){
 nctempstring->a="Qx";
 nctempstring->d[0]=strlen("Qx")+1;;
-LibeArrayex(107,nctempstring,i,0,Qx->d[0]);
+LibeArrayex(170,nctempstring,i,0,Qx->d[0]);
 }
-nctemp374=j*Qx->d[0]+nctemp374;
+nctemp751=j*Qx->d[0]+nctemp751;
 if((0>j)||(j>=Qx->d[1])){
 nctempstring->a="Qx";
 nctempstring->d[0]=strlen("Qx")+1;;
-LibeArrayex(107,nctempstring,j,1,Qx->d[1]);
+LibeArrayex(170,nctempstring,j,1,Qx->d[1]);
 }
-int nctemp378=i;
+int nctemp755=i;
 if((0>i)||(i>=Qx->d[0])){
 nctempstring->a="Qx";
 nctempstring->d[0]=strlen("Qx")+1;;
-LibeArrayex(107,nctempstring,i,0,Qx->d[0]);
+LibeArrayex(170,nctempstring,i,0,Qx->d[0]);
 }
-nctemp378=j*Qx->d[0]+nctemp378;
+nctemp755=j*Qx->d[0]+nctemp755;
 if((0>j)||(j>=Qx->d[1])){
 nctempstring->a="Qx";
 nctempstring->d[0]=strlen("Qx")+1;;
-LibeArrayex(107,nctempstring,j,1,Qx->d[1]);
+LibeArrayex(170,nctempstring,j,1,Qx->d[1]);
 }
-float nctemp381 = Qx->a[nctemp374] * Qx->a[nctemp378];
-float nctemp383 = nctemp381 + 1.0;
-float nctemp367= nctemp383;
-float nctemp384=LibeSqrt(nctemp367);
-float nctemp386 = nctemp384 - 1.0;
-float nctemp387 = nctemp362 * nctemp386;
-tausx =nctemp387;
+float nctemp758 = Qx->a[nctemp751] * Qx->a[nctemp755];
+float nctemp760 = nctemp758 + 1.0;
+float nctemp744= nctemp760;
+float nctemp761=LibeSqrt(nctemp744);
+float nctemp763 = nctemp761 - 1.0;
+float nctemp764 = nctemp739 * nctemp763;
+tausx =nctemp764;
 
-#line 108  "model.e"
-int nctemp399=i;
+#line 171  "model.e"
+int nctemp776=i;
 if((0>i)||(i>=Qy->d[0])){
 nctempstring->a="Qy";
 nctempstring->d[0]=strlen("Qy")+1;;
-LibeArrayex(108,nctempstring,i,0,Qy->d[0]);
+LibeArrayex(171,nctempstring,i,0,Qy->d[0]);
 }
-nctemp399=j*Qy->d[0]+nctemp399;
+nctemp776=j*Qy->d[0]+nctemp776;
 if((0>j)||(j>=Qy->d[1])){
 nctempstring->a="Qy";
 nctempstring->d[0]=strlen("Qy")+1;;
-LibeArrayex(108,nctempstring,j,1,Qy->d[1]);
+LibeArrayex(171,nctempstring,j,1,Qy->d[1]);
 }
-float nctemp402 = tau0 / Qy->a[nctemp399];
-int nctemp414=i;
+float nctemp779 = tau0 / Qy->a[nctemp776];
+int nctemp791=i;
 if((0>i)||(i>=Qy->d[0])){
 nctempstring->a="Qy";
 nctempstring->d[0]=strlen("Qy")+1;;
-LibeArrayex(108,nctempstring,i,0,Qy->d[0]);
+LibeArrayex(171,nctempstring,i,0,Qy->d[0]);
 }
-nctemp414=j*Qy->d[0]+nctemp414;
+nctemp791=j*Qy->d[0]+nctemp791;
 if((0>j)||(j>=Qy->d[1])){
 nctempstring->a="Qy";
 nctempstring->d[0]=strlen("Qy")+1;;
-LibeArrayex(108,nctempstring,j,1,Qy->d[1]);
+LibeArrayex(171,nctempstring,j,1,Qy->d[1]);
 }
-int nctemp418=i;
+int nctemp795=i;
 if((0>i)||(i>=Qy->d[0])){
 nctempstring->a="Qy";
 nctempstring->d[0]=strlen("Qy")+1;;
-LibeArrayex(108,nctempstring,i,0,Qy->d[0]);
+LibeArrayex(171,nctempstring,i,0,Qy->d[0]);
 }
-nctemp418=j*Qy->d[0]+nctemp418;
+nctemp795=j*Qy->d[0]+nctemp795;
 if((0>j)||(j>=Qy->d[1])){
 nctempstring->a="Qy";
 nctempstring->d[0]=strlen("Qy")+1;;
-LibeArrayex(108,nctempstring,j,1,Qy->d[1]);
+LibeArrayex(171,nctempstring,j,1,Qy->d[1]);
 }
-float nctemp421 = Qy->a[nctemp414] * Qy->a[nctemp418];
-float nctemp423 = nctemp421 + 1.0;
-float nctemp407= nctemp423;
-float nctemp424=LibeSqrt(nctemp407);
-float nctemp426 = nctemp424 + 1.0;
-float nctemp427 = nctemp402 * nctemp426;
-tauey =nctemp427;
+float nctemp798 = Qy->a[nctemp791] * Qy->a[nctemp795];
+float nctemp800 = nctemp798 + 1.0;
+float nctemp784= nctemp800;
+float nctemp801=LibeSqrt(nctemp784);
+float nctemp803 = nctemp801 + 1.0;
+float nctemp804 = nctemp779 * nctemp803;
+tauey =nctemp804;
 
-#line 109  "model.e"
-int nctemp439=i;
+#line 172  "model.e"
+int nctemp816=i;
 if((0>i)||(i>=Qy->d[0])){
 nctempstring->a="Qy";
 nctempstring->d[0]=strlen("Qy")+1;;
-LibeArrayex(109,nctempstring,i,0,Qy->d[0]);
+LibeArrayex(172,nctempstring,i,0,Qy->d[0]);
 }
-nctemp439=j*Qy->d[0]+nctemp439;
+nctemp816=j*Qy->d[0]+nctemp816;
 if((0>j)||(j>=Qy->d[1])){
 nctempstring->a="Qy";
 nctempstring->d[0]=strlen("Qy")+1;;
-LibeArrayex(109,nctempstring,j,1,Qy->d[1]);
+LibeArrayex(172,nctempstring,j,1,Qy->d[1]);
 }
-float nctemp442 = tau0 / Qy->a[nctemp439];
-int nctemp454=i;
+float nctemp819 = tau0 / Qy->a[nctemp816];
+int nctemp831=i;
 if((0>i)||(i>=Qy->d[0])){
 nctempstring->a="Qy";
 nctempstring->d[0]=strlen("Qy")+1;;
-LibeArrayex(109,nctempstring,i,0,Qy->d[0]);
+LibeArrayex(172,nctempstring,i,0,Qy->d[0]);
 }
-nctemp454=j*Qy->d[0]+nctemp454;
+nctemp831=j*Qy->d[0]+nctemp831;
 if((0>j)||(j>=Qy->d[1])){
 nctempstring->a="Qy";
 nctempstring->d[0]=strlen("Qy")+1;;
-LibeArrayex(109,nctempstring,j,1,Qy->d[1]);
+LibeArrayex(172,nctempstring,j,1,Qy->d[1]);
 }
-int nctemp458=i;
+int nctemp835=i;
 if((0>i)||(i>=Qy->d[0])){
 nctempstring->a="Qy";
 nctempstring->d[0]=strlen("Qy")+1;;
-LibeArrayex(109,nctempstring,i,0,Qy->d[0]);
+LibeArrayex(172,nctempstring,i,0,Qy->d[0]);
 }
-nctemp458=j*Qy->d[0]+nctemp458;
+nctemp835=j*Qy->d[0]+nctemp835;
 if((0>j)||(j>=Qy->d[1])){
 nctempstring->a="Qy";
 nctempstring->d[0]=strlen("Qy")+1;;
-LibeArrayex(109,nctempstring,j,1,Qy->d[1]);
+LibeArrayex(172,nctempstring,j,1,Qy->d[1]);
 }
-float nctemp461 = Qy->a[nctemp454] * Qy->a[nctemp458];
-float nctemp463 = nctemp461 + 1.0;
-float nctemp447= nctemp463;
-float nctemp464=LibeSqrt(nctemp447);
-float nctemp466 = nctemp464 - 1.0;
-float nctemp467 = nctemp442 * nctemp466;
-tausy =nctemp467;
+float nctemp838 = Qy->a[nctemp831] * Qy->a[nctemp835];
+float nctemp840 = nctemp838 + 1.0;
+float nctemp824= nctemp840;
+float nctemp841=LibeSqrt(nctemp824);
+float nctemp843 = nctemp841 - 1.0;
+float nctemp844 = nctemp819 * nctemp843;
+tausy =nctemp844;
 
-#line 114  "model.e"
-float nctemp476 = 1.0 / tauex;
-tauex =nctemp476;
+#line 177  "model.e"
+float nctemp853 = 1.0 / tauex;
+tauex =nctemp853;
 
-#line 115  "model.e"
-float nctemp485 = 1.0 / tauey;
-tauey =nctemp485;
+#line 178  "model.e"
+float nctemp862 = 1.0 / tauey;
+tauey =nctemp862;
 
-#line 116  "model.e"
-float nctemp494 = 1.0 / tausx;
-tausx =nctemp494;
+#line 179  "model.e"
+float nctemp871 = 1.0 / tausx;
+tausx =nctemp871;
 
-#line 117  "model.e"
-float nctemp503 = 1.0 / tausy;
-tausy =nctemp503;
+#line 180  "model.e"
+float nctemp880 = 1.0 / tausy;
+tausy =nctemp880;
 
-#line 119  "model.e"
-int nctemp508=i;
+#line 182  "model.e"
+int nctemp885=i;
 if((0>i)||(i>=Model->dx->d[0])){
 nctempstring->a="Model->dx";
 nctempstring->d[0]=strlen("Model->dx")+1;;
-LibeArrayex(119,nctempstring,i,0,Model->dx->d[0]);
+LibeArrayex(182,nctempstring,i,0,Model->dx->d[0]);
 }
-argx =Model->dx->a[nctemp508];
+argx =Model->dx->a[nctemp885];
 
-#line 120  "model.e"
-int nctemp514=j;
+#line 183  "model.e"
+int nctemp891=j;
 if((0>j)||(j>=Model->dy->d[0])){
 nctempstring->a="Model->dy";
 nctempstring->d[0]=strlen("Model->dy")+1;;
-LibeArrayex(120,nctempstring,j,0,Model->dy->d[0]);
+LibeArrayex(183,nctempstring,j,0,Model->dy->d[0]);
 }
-argy =Model->dy->a[nctemp514];
+argy =Model->dy->a[nctemp891];
 
-#line 122  "model.e"
-int nctemp519=i;
+#line 185  "model.e"
+int nctemp896=i;
 if((0>i)||(i>=coeff1x->d[0])){
 nctempstring->a="coeff1x";
 nctempstring->d[0]=strlen("coeff1x")+1;;
-LibeArrayex(122,nctempstring,i,0,coeff1x->d[0]);
+LibeArrayex(185,nctempstring,i,0,coeff1x->d[0]);
 }
-nctemp519=j*coeff1x->d[0]+nctemp519;
+nctemp896=j*coeff1x->d[0]+nctemp896;
 if((0>j)||(j>=coeff1x->d[1])){
 nctempstring->a="coeff1x";
 nctempstring->d[0]=strlen("coeff1x")+1;;
-LibeArrayex(122,nctempstring,j,1,coeff1x->d[1]);
+LibeArrayex(185,nctempstring,j,1,coeff1x->d[1]);
 }
-float nctemp527= -argx;
-float nctemp526= nctemp527;
-float nctemp528=LibeExp(nctemp526);
-float nctemp533= -Model->Dt;
-float nctemp535 = nctemp533 * tausx;
-float nctemp530= nctemp535;
-float nctemp536=LibeExp(nctemp530);
-float nctemp537 = nctemp528 * nctemp536;
-coeff1x->a[nctemp519] =nctemp537;
+float nctemp904= -argx;
+float nctemp903= nctemp904;
+float nctemp905=LibeExp(nctemp903);
+float nctemp910= -Model->Dt;
+float nctemp912 = nctemp910 * tausx;
+float nctemp907= nctemp912;
+float nctemp913=LibeExp(nctemp907);
+float nctemp914 = nctemp905 * nctemp913;
+coeff1x->a[nctemp896] =nctemp914;
 
-#line 123  "model.e"
-int nctemp541=i;
+#line 186  "model.e"
+int nctemp918=i;
 if((0>i)||(i>=coeff1y->d[0])){
 nctempstring->a="coeff1y";
 nctempstring->d[0]=strlen("coeff1y")+1;;
-LibeArrayex(123,nctempstring,i,0,coeff1y->d[0]);
+LibeArrayex(186,nctempstring,i,0,coeff1y->d[0]);
 }
-nctemp541=j*coeff1y->d[0]+nctemp541;
+nctemp918=j*coeff1y->d[0]+nctemp918;
 if((0>j)||(j>=coeff1y->d[1])){
 nctempstring->a="coeff1y";
 nctempstring->d[0]=strlen("coeff1y")+1;;
-LibeArrayex(123,nctempstring,j,1,coeff1y->d[1]);
+LibeArrayex(186,nctempstring,j,1,coeff1y->d[1]);
 }
-float nctemp549= -argy;
-float nctemp548= nctemp549;
-float nctemp550=LibeExp(nctemp548);
-float nctemp555= -Model->Dt;
-float nctemp557 = nctemp555 * tausy;
-float nctemp552= nctemp557;
-float nctemp558=LibeExp(nctemp552);
-float nctemp559 = nctemp550 * nctemp558;
-coeff1y->a[nctemp541] =nctemp559;
+float nctemp926= -argy;
+float nctemp925= nctemp926;
+float nctemp927=LibeExp(nctemp925);
+float nctemp932= -Model->Dt;
+float nctemp934 = nctemp932 * tausy;
+float nctemp929= nctemp934;
+float nctemp935=LibeExp(nctemp929);
+float nctemp936 = nctemp927 * nctemp935;
+coeff1y->a[nctemp918] =nctemp936;
 
-#line 124  "model.e"
-int nctemp563=i;
+#line 187  "model.e"
+int nctemp940=i;
 if((0>i)||(i>=coeff2x->d[0])){
 nctempstring->a="coeff2x";
 nctempstring->d[0]=strlen("coeff2x")+1;;
-LibeArrayex(124,nctempstring,i,0,coeff2x->d[0]);
+LibeArrayex(187,nctempstring,i,0,coeff2x->d[0]);
 }
-nctemp563=j*coeff2x->d[0]+nctemp563;
+nctemp940=j*coeff2x->d[0]+nctemp940;
 if((0>j)||(j>=coeff2x->d[1])){
 nctempstring->a="coeff2x";
 nctempstring->d[0]=strlen("coeff2x")+1;;
-LibeArrayex(124,nctempstring,j,1,coeff2x->d[1]);
+LibeArrayex(187,nctempstring,j,1,coeff2x->d[1]);
 }
-float nctemp571 = Model->Dt * tauex;
-coeff2x->a[nctemp563] =nctemp571;
+float nctemp948 = Model->Dt * tauex;
+coeff2x->a[nctemp940] =nctemp948;
 
-#line 125  "model.e"
-int nctemp575=i;
+#line 188  "model.e"
+int nctemp952=i;
 if((0>i)||(i>=coeff2y->d[0])){
 nctempstring->a="coeff2y";
 nctempstring->d[0]=strlen("coeff2y")+1;;
-LibeArrayex(125,nctempstring,i,0,coeff2y->d[0]);
+LibeArrayex(188,nctempstring,i,0,coeff2y->d[0]);
 }
-nctemp575=j*coeff2y->d[0]+nctemp575;
+nctemp952=j*coeff2y->d[0]+nctemp952;
 if((0>j)||(j>=coeff2y->d[1])){
 nctempstring->a="coeff2y";
 nctempstring->d[0]=strlen("coeff2y")+1;;
-LibeArrayex(125,nctempstring,j,1,coeff2y->d[1]);
+LibeArrayex(188,nctempstring,j,1,coeff2y->d[1]);
 }
-float nctemp583 = Model->Dt * tauey;
-coeff2y->a[nctemp575] =nctemp583;
+float nctemp960 = Model->Dt * tauey;
+coeff2y->a[nctemp952] =nctemp960;
 
-#line 129  "model.e"
-int nctemp587=i;
+#line 192  "model.e"
+int nctemp964=i;
 if((0>i)||(i>=modx->d[0])){
 nctempstring->a="modx";
 nctempstring->d[0]=strlen("modx")+1;;
-LibeArrayex(129,nctempstring,i,0,modx->d[0]);
+LibeArrayex(192,nctempstring,i,0,modx->d[0]);
 }
-nctemp587=j*modx->d[0]+nctemp587;
+nctemp964=j*modx->d[0]+nctemp964;
 if((0>j)||(j>=modx->d[1])){
 nctempstring->a="modx";
 nctempstring->d[0]=strlen("modx")+1;;
-LibeArrayex(129,nctempstring,j,1,modx->d[1]);
+LibeArrayex(192,nctempstring,j,1,modx->d[1]);
 }
-float nctemp598= -argx;
-float nctemp597= nctemp598;
-float nctemp599=LibeExp(nctemp597);
-int nctemp601=i;
+float nctemp975= -argx;
+float nctemp974= nctemp975;
+float nctemp976=LibeExp(nctemp974);
+int nctemp978=i;
 if((0>i)||(i>=modx->d[0])){
 nctempstring->a="modx";
 nctempstring->d[0]=strlen("modx")+1;;
-LibeArrayex(129,nctempstring,i,0,modx->d[0]);
+LibeArrayex(192,nctempstring,i,0,modx->d[0]);
 }
-nctemp601=j*modx->d[0]+nctemp601;
+nctemp978=j*modx->d[0]+nctemp978;
 if((0>j)||(j>=modx->d[1])){
 nctempstring->a="modx";
 nctempstring->d[0]=strlen("modx")+1;;
-LibeArrayex(129,nctempstring,j,1,modx->d[1]);
+LibeArrayex(192,nctempstring,j,1,modx->d[1]);
 }
-float nctemp604 = nctemp599 * modx->a[nctemp601];
-float nctemp614 = tausx / tauex;
-float nctemp615 = 1.0 - nctemp614;
-float nctemp616 = nctemp604 * nctemp615;
-modx->a[nctemp587] =nctemp616;
+float nctemp981 = nctemp976 * modx->a[nctemp978];
+float nctemp991 = tausx / tauex;
+float nctemp992 = 1.0 - nctemp991;
+float nctemp993 = nctemp981 * nctemp992;
+modx->a[nctemp964] =nctemp993;
 
-#line 130  "model.e"
-int nctemp620=i;
+#line 193  "model.e"
+int nctemp997=i;
 if((0>i)||(i>=mody->d[0])){
 nctempstring->a="mody";
 nctempstring->d[0]=strlen("mody")+1;;
-LibeArrayex(130,nctempstring,i,0,mody->d[0]);
+LibeArrayex(193,nctempstring,i,0,mody->d[0]);
 }
-nctemp620=j*mody->d[0]+nctemp620;
+nctemp997=j*mody->d[0]+nctemp997;
 if((0>j)||(j>=mody->d[1])){
 nctempstring->a="mody";
 nctempstring->d[0]=strlen("mody")+1;;
-LibeArrayex(130,nctempstring,j,1,mody->d[1]);
+LibeArrayex(193,nctempstring,j,1,mody->d[1]);
 }
-float nctemp631= -argy;
-float nctemp630= nctemp631;
-float nctemp632=LibeExp(nctemp630);
-int nctemp634=i;
+float nctemp1008= -argy;
+float nctemp1007= nctemp1008;
+float nctemp1009=LibeExp(nctemp1007);
+int nctemp1011=i;
 if((0>i)||(i>=mody->d[0])){
 nctempstring->a="mody";
 nctempstring->d[0]=strlen("mody")+1;;
-LibeArrayex(130,nctempstring,i,0,mody->d[0]);
+LibeArrayex(193,nctempstring,i,0,mody->d[0]);
 }
-nctemp634=j*mody->d[0]+nctemp634;
+nctemp1011=j*mody->d[0]+nctemp1011;
 if((0>j)||(j>=mody->d[1])){
 nctempstring->a="mody";
 nctempstring->d[0]=strlen("mody")+1;;
-LibeArrayex(130,nctempstring,j,1,mody->d[1]);
+LibeArrayex(193,nctempstring,j,1,mody->d[1]);
 }
-float nctemp637 = nctemp632 * mody->a[nctemp634];
-float nctemp647 = tausy / tauey;
-float nctemp648 = 1.0 - nctemp647;
-float nctemp649 = nctemp637 * nctemp648;
-mody->a[nctemp620] =nctemp649;
+float nctemp1014 = nctemp1009 * mody->a[nctemp1011];
+float nctemp1024 = tausy / tauey;
+float nctemp1025 = 1.0 - nctemp1024;
+float nctemp1026 = nctemp1014 * nctemp1025;
+mody->a[nctemp997] =nctemp1026;
 
-#line 102  "model.e"
+#line 165  "model.e"
 }
-int nctemp658 = i + 1;
-i =nctemp658;
-int nctemp659 = (i < Nx);
-nctemp295=nctemp659;
-}
-
-#line 101  "model.e"
-}
-int nctemp671 = j + 1;
-j =nctemp671;
-int nctemp672 = (j < Ny);
-nctemp287=nctemp672;
+int nctemp1035 = i + 1;
+i =nctemp1035;
+int nctemp1036 = (i < Nx);
+nctemp672=nctemp1036;
 }
 
-#line 133  "model.e"
+#line 164  "model.e"
+}
+int nctemp1048 = j + 1;
+j =nctemp1048;
+int nctemp1049 = (j < Ny);
+nctemp664=nctemp1049;
+}
+
+#line 196  "model.e"
 RunFree(d1->a);
 RunFree(d1);
 
-#line 134  "model.e"
+#line 197  "model.e"
 RunFree(d2->a);
 RunFree(d2);
 
-#line 136  "model.e"
+#line 199  "model.e"
 return 1;
 
-#line 60  "model.e"
+#line 123  "model.e"
 }
 
-#line 139  "model.e"
+#line 202  "model.e"
 struct model* Modelsls (nctempfloat2 *vp,nctempfloat2 *vs,nctempfloat2 *rho,nctempfloat2 *Qlx,nctempfloat2 *Qly,nctempfloat2 *Qmx,nctempfloat2 *Qmy,nctempfloat2 *Qpx,nctempfloat2 *Qpy,float Dx,float Dt,float W0,int Nb)
 
-#line 157  "model.e"
+#line 220  "model.e"
 {
 
-#line 158  "model.e"
+#line 221  "model.e"
 struct model* Model;
 int Nx;
 int Ny;
@@ -950,996 +1348,1222 @@ int j;
 int fd;
 int dsize;
 nctempchar1 *data;
+nctempfloat2 *wrk;
+nctempfloat2 *wrk2;
 
-#line 166  "model.e"
-struct model *nctemp687=(struct model*)RunMalloc(sizeof(struct model));
-Model =nctemp687;
+#line 230  "model.e"
+struct model *nctemp1064=(struct model*)RunMalloc(sizeof(struct model));
+Model =nctemp1064;
 
-#line 167  "model.e"
+#line 231  "model.e"
 Model->Dx =Dx;
 
-#line 168  "model.e"
+#line 232  "model.e"
 Model->Dt =Dt;
 
-#line 169  "model.e"
-int nctemp701=vp->d[0];Model->Nx =nctemp701;
+#line 233  "model.e"
+int nctemp1078=vp->d[0];Model->Nx =nctemp1078;
 
-#line 170  "model.e"
-int nctemp709=vp->d[1];Model->Ny =nctemp709;
+#line 234  "model.e"
+int nctemp1086=vp->d[1];Model->Ny =nctemp1086;
 
-#line 171  "model.e"
+#line 235  "model.e"
 Model->Nb =Nb;
 
-#line 172  "model.e"
+#line 236  "model.e"
 Model->W0 =W0;
 
-#line 173  "model.e"
+#line 237  "model.e"
 Nx =Model->Nx;
 
-#line 174  "model.e"
+#line 238  "model.e"
 Ny =Model->Ny;
 
-#line 175  "model.e"
+#line 239  "model.e"
 Model->Qlx=Qlx;
 
-#line 176  "model.e"
+#line 240  "model.e"
 Model->Qly=Qly;
 
-#line 177  "model.e"
+#line 241  "model.e"
 Model->Qmx=Qmx;
 
-#line 178  "model.e"
+#line 242  "model.e"
 Model->Qmy=Qmy;
 
-#line 179  "model.e"
+#line 243  "model.e"
 Model->Qpx=Qpx;
 
-#line 180  "model.e"
+#line 244  "model.e"
 Model->Qpy=Qpy;
 
-#line 183  "model.e"
-int nctemp771=Nx;
-nctemp771=nctemp771*Ny;
-nctempfloat2 *nctemp770;
-nctemp770=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp770->d[0]=Nx;
-nctemp770->d[1]=Ny;
-nctemp770->a=(float *)RunMalloc(sizeof(float)*nctemp771);
-Model->Rho=nctemp770;
+#line 247  "model.e"
+int nctemp1148=Nx;
+nctemp1148=nctemp1148*Ny;
+nctempfloat2 *nctemp1147;
+nctemp1147=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp1147->d[0]=Nx;
+nctemp1147->d[1]=Ny;
+nctemp1147->a=(float *)RunMalloc(sizeof(float)*nctemp1148);
+Model->Rho=nctemp1147;
 
-#line 184  "model.e"
-int nctemp782=Nx;
-nctemp782=nctemp782*Ny;
-nctempfloat2 *nctemp781;
-nctemp781=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp781->d[0]=Nx;
-nctemp781->d[1]=Ny;
-nctemp781->a=(float *)RunMalloc(sizeof(float)*nctemp782);
-Model->Mu=nctemp781;
+#line 248  "model.e"
+int nctemp1159=Nx;
+nctemp1159=nctemp1159*Ny;
+nctempfloat2 *nctemp1158;
+nctemp1158=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp1158->d[0]=Nx;
+nctemp1158->d[1]=Ny;
+nctemp1158->a=(float *)RunMalloc(sizeof(float)*nctemp1159);
+Model->Rhox=nctemp1158;
 
-#line 185  "model.e"
-int nctemp793=Nx;
-nctemp793=nctemp793*Ny;
-nctempfloat2 *nctemp792;
-nctemp792=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp792->d[0]=Nx;
-nctemp792->d[1]=Ny;
-nctemp792->a=(float *)RunMalloc(sizeof(float)*nctemp793);
-Model->Lambda=nctemp792;
+#line 249  "model.e"
+int nctemp1170=Nx;
+nctemp1170=nctemp1170*Ny;
+nctempfloat2 *nctemp1169;
+nctemp1169=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp1169->d[0]=Nx;
+nctemp1169->d[1]=Ny;
+nctemp1169->a=(float *)RunMalloc(sizeof(float)*nctemp1170);
+Model->Rhoy=nctemp1169;
 
-#line 191  "model.e"
-int nctemp804=Nx;
-nctemp804=nctemp804*Ny;
-nctempfloat2 *nctemp803;
-nctemp803=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp803->d[0]=Nx;
-nctemp803->d[1]=Ny;
-nctemp803->a=(float *)RunMalloc(sizeof(float)*nctemp804);
-Model->Dlambdax=nctemp803;
+#line 250  "model.e"
+int nctemp1181=Nx;
+nctemp1181=nctemp1181*Ny;
+nctempfloat2 *nctemp1180;
+nctemp1180=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp1180->d[0]=Nx;
+nctemp1180->d[1]=Ny;
+nctemp1180->a=(float *)RunMalloc(sizeof(float)*nctemp1181);
+Model->Mu=nctemp1180;
 
-#line 192  "model.e"
-int nctemp815=Nx;
-nctemp815=nctemp815*Ny;
-nctempfloat2 *nctemp814;
-nctemp814=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp814->d[0]=Nx;
-nctemp814->d[1]=Ny;
-nctemp814->a=(float *)RunMalloc(sizeof(float)*nctemp815);
-Model->Dlambday=nctemp814;
+#line 251  "model.e"
+int nctemp1192=Nx;
+nctemp1192=nctemp1192*Ny;
+nctempfloat2 *nctemp1191;
+nctemp1191=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp1191->d[0]=Nx;
+nctemp1191->d[1]=Ny;
+nctemp1191->a=(float *)RunMalloc(sizeof(float)*nctemp1192);
+Model->Muxy=nctemp1191;
 
-#line 193  "model.e"
-int nctemp826=Nx;
-nctemp826=nctemp826*Ny;
-nctempfloat2 *nctemp825;
-nctemp825=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp825->d[0]=Nx;
-nctemp825->d[1]=Ny;
-nctemp825->a=(float *)RunMalloc(sizeof(float)*nctemp826);
-Model->Dmux=nctemp825;
+#line 252  "model.e"
+int nctemp1203=Nx;
+nctemp1203=nctemp1203*Ny;
+nctempfloat2 *nctemp1202;
+nctemp1202=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp1202->d[0]=Nx;
+nctemp1202->d[1]=Ny;
+nctemp1202->a=(float *)RunMalloc(sizeof(float)*nctemp1203);
+Model->Lambda=nctemp1202;
 
-#line 194  "model.e"
-int nctemp837=Nx;
-nctemp837=nctemp837*Ny;
-nctempfloat2 *nctemp836;
-nctemp836=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp836->d[0]=Nx;
-nctemp836->d[1]=Ny;
-nctemp836->a=(float *)RunMalloc(sizeof(float)*nctemp837);
-Model->Dmuy=nctemp836;
+#line 258  "model.e"
+int nctemp1214=Nx;
+nctemp1214=nctemp1214*Ny;
+nctempfloat2 *nctemp1213;
+nctemp1213=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp1213->d[0]=Nx;
+nctemp1213->d[1]=Ny;
+nctemp1213->a=(float *)RunMalloc(sizeof(float)*nctemp1214);
+Model->Dlambdax=nctemp1213;
 
-#line 195  "model.e"
-int nctemp848=Nx;
-nctemp848=nctemp848*Ny;
-nctempfloat2 *nctemp847;
-nctemp847=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp847->d[0]=Nx;
-nctemp847->d[1]=Ny;
-nctemp847->a=(float *)RunMalloc(sizeof(float)*nctemp848);
-Model->Drhopx=nctemp847;
+#line 259  "model.e"
+int nctemp1225=Nx;
+nctemp1225=nctemp1225*Ny;
+nctempfloat2 *nctemp1224;
+nctemp1224=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp1224->d[0]=Nx;
+nctemp1224->d[1]=Ny;
+nctemp1224->a=(float *)RunMalloc(sizeof(float)*nctemp1225);
+Model->Dlambday=nctemp1224;
 
-#line 196  "model.e"
-int nctemp859=Nx;
-nctemp859=nctemp859*Ny;
-nctempfloat2 *nctemp858;
-nctemp858=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp858->d[0]=Nx;
-nctemp858->d[1]=Ny;
-nctemp858->a=(float *)RunMalloc(sizeof(float)*nctemp859);
-Model->Drhopy=nctemp858;
+#line 260  "model.e"
+int nctemp1236=Nx;
+nctemp1236=nctemp1236*Ny;
+nctempfloat2 *nctemp1235;
+nctemp1235=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp1235->d[0]=Nx;
+nctemp1235->d[1]=Ny;
+nctemp1235->a=(float *)RunMalloc(sizeof(float)*nctemp1236);
+Model->Dmux=nctemp1235;
 
-#line 197  "model.e"
-int nctemp870=Nx;
-nctemp870=nctemp870*Ny;
-nctempfloat2 *nctemp869;
-nctemp869=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp869->d[0]=Nx;
-nctemp869->d[1]=Ny;
-nctemp869->a=(float *)RunMalloc(sizeof(float)*nctemp870);
-Model->Drhosx=nctemp869;
+#line 261  "model.e"
+int nctemp1247=Nx;
+nctemp1247=nctemp1247*Ny;
+nctempfloat2 *nctemp1246;
+nctemp1246=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp1246->d[0]=Nx;
+nctemp1246->d[1]=Ny;
+nctemp1246->a=(float *)RunMalloc(sizeof(float)*nctemp1247);
+Model->Dmuy=nctemp1246;
 
-#line 198  "model.e"
-int nctemp881=Nx;
-nctemp881=nctemp881*Ny;
-nctempfloat2 *nctemp880;
-nctemp880=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp880->d[0]=Nx;
-nctemp880->d[1]=Ny;
-nctemp880->a=(float *)RunMalloc(sizeof(float)*nctemp881);
-Model->Drhosy=nctemp880;
+#line 262  "model.e"
+int nctemp1258=Nx;
+nctemp1258=nctemp1258*Ny;
+nctempfloat2 *nctemp1257;
+nctemp1257=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp1257->d[0]=Nx;
+nctemp1257->d[1]=Ny;
+nctemp1257->a=(float *)RunMalloc(sizeof(float)*nctemp1258);
+Model->Dmuxyx=nctemp1257;
 
-#line 201  "model.e"
-int nctemp892=Nx;
-nctemp892=nctemp892*Ny;
-nctempfloat2 *nctemp891;
-nctemp891=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp891->d[0]=Nx;
-nctemp891->d[1]=Ny;
-nctemp891->a=(float *)RunMalloc(sizeof(float)*nctemp892);
-Model->Alpha1x=nctemp891;
+#line 263  "model.e"
+int nctemp1269=Nx;
+nctemp1269=nctemp1269*Ny;
+nctempfloat2 *nctemp1268;
+nctemp1268=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp1268->d[0]=Nx;
+nctemp1268->d[1]=Ny;
+nctemp1268->a=(float *)RunMalloc(sizeof(float)*nctemp1269);
+Model->Dmuxyy=nctemp1268;
 
-#line 202  "model.e"
-int nctemp903=Nx;
-nctemp903=nctemp903*Ny;
-nctempfloat2 *nctemp902;
-nctemp902=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp902->d[0]=Nx;
-nctemp902->d[1]=Ny;
-nctemp902->a=(float *)RunMalloc(sizeof(float)*nctemp903);
-Model->Alpha1y=nctemp902;
+#line 264  "model.e"
+int nctemp1280=Nx;
+nctemp1280=nctemp1280*Ny;
+nctempfloat2 *nctemp1279;
+nctemp1279=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp1279->d[0]=Nx;
+nctemp1279->d[1]=Ny;
+nctemp1279->a=(float *)RunMalloc(sizeof(float)*nctemp1280);
+Model->Drhopx=nctemp1279;
 
-#line 203  "model.e"
-int nctemp914=Nx;
-nctemp914=nctemp914*Ny;
-nctempfloat2 *nctemp913;
-nctemp913=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp913->d[0]=Nx;
-nctemp913->d[1]=Ny;
-nctemp913->a=(float *)RunMalloc(sizeof(float)*nctemp914);
-Model->Alpha2x=nctemp913;
+#line 265  "model.e"
+int nctemp1291=Nx;
+nctemp1291=nctemp1291*Ny;
+nctempfloat2 *nctemp1290;
+nctemp1290=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp1290->d[0]=Nx;
+nctemp1290->d[1]=Ny;
+nctemp1290->a=(float *)RunMalloc(sizeof(float)*nctemp1291);
+Model->Drhopy=nctemp1290;
 
-#line 204  "model.e"
-int nctemp925=Nx;
-nctemp925=nctemp925*Ny;
-nctempfloat2 *nctemp924;
-nctemp924=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp924->d[0]=Nx;
-nctemp924->d[1]=Ny;
-nctemp924->a=(float *)RunMalloc(sizeof(float)*nctemp925);
-Model->Alpha2y=nctemp924;
+#line 270  "model.e"
+int nctemp1302=Nx;
+nctemp1302=nctemp1302*Ny;
+nctempfloat2 *nctemp1301;
+nctemp1301=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp1301->d[0]=Nx;
+nctemp1301->d[1]=Ny;
+nctemp1301->a=(float *)RunMalloc(sizeof(float)*nctemp1302);
+Model->Alpha1x=nctemp1301;
 
-#line 205  "model.e"
-int nctemp936=Nx;
-nctemp936=nctemp936*Ny;
-nctempfloat2 *nctemp935;
-nctemp935=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp935->d[0]=Nx;
-nctemp935->d[1]=Ny;
-nctemp935->a=(float *)RunMalloc(sizeof(float)*nctemp936);
-Model->Beta1x=nctemp935;
+#line 271  "model.e"
+int nctemp1313=Nx;
+nctemp1313=nctemp1313*Ny;
+nctempfloat2 *nctemp1312;
+nctemp1312=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp1312->d[0]=Nx;
+nctemp1312->d[1]=Ny;
+nctemp1312->a=(float *)RunMalloc(sizeof(float)*nctemp1313);
+Model->Alpha1y=nctemp1312;
 
-#line 206  "model.e"
-int nctemp947=Nx;
-nctemp947=nctemp947*Ny;
-nctempfloat2 *nctemp946;
-nctemp946=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp946->d[0]=Nx;
-nctemp946->d[1]=Ny;
-nctemp946->a=(float *)RunMalloc(sizeof(float)*nctemp947);
-Model->Beta1y=nctemp946;
+#line 272  "model.e"
+int nctemp1324=Nx;
+nctemp1324=nctemp1324*Ny;
+nctempfloat2 *nctemp1323;
+nctemp1323=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp1323->d[0]=Nx;
+nctemp1323->d[1]=Ny;
+nctemp1323->a=(float *)RunMalloc(sizeof(float)*nctemp1324);
+Model->Alpha2x=nctemp1323;
 
-#line 207  "model.e"
-int nctemp958=Nx;
-nctemp958=nctemp958*Ny;
-nctempfloat2 *nctemp957;
-nctemp957=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp957->d[0]=Nx;
-nctemp957->d[1]=Ny;
-nctemp957->a=(float *)RunMalloc(sizeof(float)*nctemp958);
-Model->Beta2x=nctemp957;
+#line 273  "model.e"
+int nctemp1335=Nx;
+nctemp1335=nctemp1335*Ny;
+nctempfloat2 *nctemp1334;
+nctemp1334=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp1334->d[0]=Nx;
+nctemp1334->d[1]=Ny;
+nctemp1334->a=(float *)RunMalloc(sizeof(float)*nctemp1335);
+Model->Alpha2y=nctemp1334;
 
-#line 208  "model.e"
-int nctemp969=Nx;
-nctemp969=nctemp969*Ny;
-nctempfloat2 *nctemp968;
-nctemp968=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp968->d[0]=Nx;
-nctemp968->d[1]=Ny;
-nctemp968->a=(float *)RunMalloc(sizeof(float)*nctemp969);
-Model->Beta2y=nctemp968;
+#line 274  "model.e"
+int nctemp1346=Nx;
+nctemp1346=nctemp1346*Ny;
+nctempfloat2 *nctemp1345;
+nctemp1345=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp1345->d[0]=Nx;
+nctemp1345->d[1]=Ny;
+nctemp1345->a=(float *)RunMalloc(sizeof(float)*nctemp1346);
+Model->Beta1x=nctemp1345;
 
-#line 209  "model.e"
-int nctemp980=Nx;
-nctemp980=nctemp980*Ny;
-nctempfloat2 *nctemp979;
-nctemp979=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp979->d[0]=Nx;
-nctemp979->d[1]=Ny;
-nctemp979->a=(float *)RunMalloc(sizeof(float)*nctemp980);
-Model->Eta1x=nctemp979;
+#line 275  "model.e"
+int nctemp1357=Nx;
+nctemp1357=nctemp1357*Ny;
+nctempfloat2 *nctemp1356;
+nctemp1356=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp1356->d[0]=Nx;
+nctemp1356->d[1]=Ny;
+nctemp1356->a=(float *)RunMalloc(sizeof(float)*nctemp1357);
+Model->Beta1y=nctemp1356;
 
-#line 210  "model.e"
-int nctemp991=Nx;
-nctemp991=nctemp991*Ny;
-nctempfloat2 *nctemp990;
-nctemp990=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp990->d[0]=Nx;
-nctemp990->d[1]=Ny;
-nctemp990->a=(float *)RunMalloc(sizeof(float)*nctemp991);
-Model->Eta1y=nctemp990;
+#line 276  "model.e"
+int nctemp1368=Nx;
+nctemp1368=nctemp1368*Ny;
+nctempfloat2 *nctemp1367;
+nctemp1367=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp1367->d[0]=Nx;
+nctemp1367->d[1]=Ny;
+nctemp1367->a=(float *)RunMalloc(sizeof(float)*nctemp1368);
+Model->Beta2x=nctemp1367;
 
-#line 211  "model.e"
-int nctemp1002=Nx;
-nctemp1002=nctemp1002*Ny;
-nctempfloat2 *nctemp1001;
-nctemp1001=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp1001->d[0]=Nx;
-nctemp1001->d[1]=Ny;
-nctemp1001->a=(float *)RunMalloc(sizeof(float)*nctemp1002);
-Model->Eta2x=nctemp1001;
+#line 277  "model.e"
+int nctemp1379=Nx;
+nctemp1379=nctemp1379*Ny;
+nctempfloat2 *nctemp1378;
+nctemp1378=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp1378->d[0]=Nx;
+nctemp1378->d[1]=Ny;
+nctemp1378->a=(float *)RunMalloc(sizeof(float)*nctemp1379);
+Model->Beta2y=nctemp1378;
 
-#line 212  "model.e"
-int nctemp1013=Nx;
-nctemp1013=nctemp1013*Ny;
-nctempfloat2 *nctemp1012;
-nctemp1012=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp1012->d[0]=Nx;
-nctemp1012->d[1]=Ny;
-nctemp1012->a=(float *)RunMalloc(sizeof(float)*nctemp1013);
-Model->Eta2y=nctemp1012;
+#line 278  "model.e"
+int nctemp1390=Nx;
+nctemp1390=nctemp1390*Ny;
+nctempfloat2 *nctemp1389;
+nctemp1389=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp1389->d[0]=Nx;
+nctemp1389->d[1]=Ny;
+nctemp1389->a=(float *)RunMalloc(sizeof(float)*nctemp1390);
+Model->Eta1x=nctemp1389;
 
-#line 219  "model.e"
+#line 279  "model.e"
+int nctemp1401=Nx;
+nctemp1401=nctemp1401*Ny;
+nctempfloat2 *nctemp1400;
+nctemp1400=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp1400->d[0]=Nx;
+nctemp1400->d[1]=Ny;
+nctemp1400->a=(float *)RunMalloc(sizeof(float)*nctemp1401);
+Model->Eta1y=nctemp1400;
+
+#line 280  "model.e"
+int nctemp1412=Nx;
+nctemp1412=nctemp1412*Ny;
+nctempfloat2 *nctemp1411;
+nctemp1411=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp1411->d[0]=Nx;
+nctemp1411->d[1]=Ny;
+nctemp1411->a=(float *)RunMalloc(sizeof(float)*nctemp1412);
+Model->Eta2x=nctemp1411;
+
+#line 281  "model.e"
+int nctemp1423=Nx;
+nctemp1423=nctemp1423*Ny;
+nctempfloat2 *nctemp1422;
+nctemp1422=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp1422->d[0]=Nx;
+nctemp1422->d[1]=Ny;
+nctemp1422->a=(float *)RunMalloc(sizeof(float)*nctemp1423);
+Model->Eta2y=nctemp1422;
+
+#line 288  "model.e"
 j =0;
-int nctemp1022 = (j < Ny);
-while(nctemp1022){
+int nctemp1432 = (j < Ny);
+while(nctemp1432){
 {
 
-#line 220  "model.e"
+#line 289  "model.e"
 i =0;
-int nctemp1030 = (i < Nx);
-while(nctemp1030){
+int nctemp1440 = (i < Nx);
+while(nctemp1440){
 {
 
-#line 221  "model.e"
-int nctemp1037=i;
+#line 290  "model.e"
+int nctemp1447=i;
 if((0>i)||(i>=Model->Rho->d[0])){
 nctempstring->a="Model->Rho";
 nctempstring->d[0]=strlen("Model->Rho")+1;;
-LibeArrayex(221,nctempstring,i,0,Model->Rho->d[0]);
+LibeArrayex(290,nctempstring,i,0,Model->Rho->d[0]);
 }
-nctemp1037=j*Model->Rho->d[0]+nctemp1037;
+nctemp1447=j*Model->Rho->d[0]+nctemp1447;
 if((0>j)||(j>=Model->Rho->d[1])){
 nctempstring->a="Model->Rho";
 nctempstring->d[0]=strlen("Model->Rho")+1;;
-LibeArrayex(221,nctempstring,j,1,Model->Rho->d[1]);
+LibeArrayex(290,nctempstring,j,1,Model->Rho->d[1]);
 }
-int nctemp1045=i;
+int nctemp1455=i;
 if((0>i)||(i>=rho->d[0])){
 nctempstring->a="rho";
 nctempstring->d[0]=strlen("rho")+1;;
-LibeArrayex(221,nctempstring,i,0,rho->d[0]);
+LibeArrayex(290,nctempstring,i,0,rho->d[0]);
 }
-nctemp1045=j*rho->d[0]+nctemp1045;
+nctemp1455=j*rho->d[0]+nctemp1455;
 if((0>j)||(j>=rho->d[1])){
 nctempstring->a="rho";
 nctempstring->d[0]=strlen("rho")+1;;
-LibeArrayex(221,nctempstring,j,1,rho->d[1]);
+LibeArrayex(290,nctempstring,j,1,rho->d[1]);
 }
-float nctemp1048 = 1.0 / rho->a[nctemp1045];
-Model->Rho->a[nctemp1037] =nctemp1048;
+float nctemp1458 = 1.0 / rho->a[nctemp1455];
+Model->Rho->a[nctemp1447] =nctemp1458;
 
-#line 222  "model.e"
-int nctemp1052=i;
+#line 291  "model.e"
+int nctemp1462=i;
 if((0>i)||(i>=Model->Mu->d[0])){
 nctempstring->a="Model->Mu";
 nctempstring->d[0]=strlen("Model->Mu")+1;;
-LibeArrayex(222,nctempstring,i,0,Model->Mu->d[0]);
+LibeArrayex(291,nctempstring,i,0,Model->Mu->d[0]);
 }
-nctemp1052=j*Model->Mu->d[0]+nctemp1052;
+nctemp1462=j*Model->Mu->d[0]+nctemp1462;
 if((0>j)||(j>=Model->Mu->d[1])){
 nctempstring->a="Model->Mu";
 nctempstring->d[0]=strlen("Model->Mu")+1;;
-LibeArrayex(222,nctempstring,j,1,Model->Mu->d[1]);
+LibeArrayex(291,nctempstring,j,1,Model->Mu->d[1]);
 }
-int nctemp1062=i;
+int nctemp1472=i;
 if((0>i)||(i>=rho->d[0])){
 nctempstring->a="rho";
 nctempstring->d[0]=strlen("rho")+1;;
-LibeArrayex(222,nctempstring,i,0,rho->d[0]);
+LibeArrayex(291,nctempstring,i,0,rho->d[0]);
 }
-nctemp1062=j*rho->d[0]+nctemp1062;
+nctemp1472=j*rho->d[0]+nctemp1472;
 if((0>j)||(j>=rho->d[1])){
 nctempstring->a="rho";
 nctempstring->d[0]=strlen("rho")+1;;
-LibeArrayex(222,nctempstring,j,1,rho->d[1]);
+LibeArrayex(291,nctempstring,j,1,rho->d[1]);
 }
-int nctemp1066=i;
+int nctemp1476=i;
 if((0>i)||(i>=vs->d[0])){
 nctempstring->a="vs";
 nctempstring->d[0]=strlen("vs")+1;;
-LibeArrayex(222,nctempstring,i,0,vs->d[0]);
+LibeArrayex(291,nctempstring,i,0,vs->d[0]);
 }
-nctemp1066=j*vs->d[0]+nctemp1066;
+nctemp1476=j*vs->d[0]+nctemp1476;
 if((0>j)||(j>=vs->d[1])){
 nctempstring->a="vs";
 nctempstring->d[0]=strlen("vs")+1;;
-LibeArrayex(222,nctempstring,j,1,vs->d[1]);
+LibeArrayex(291,nctempstring,j,1,vs->d[1]);
 }
-float nctemp1069 = rho->a[nctemp1062] * vs->a[nctemp1066];
-int nctemp1071=i;
+float nctemp1479 = rho->a[nctemp1472] * vs->a[nctemp1476];
+int nctemp1481=i;
 if((0>i)||(i>=vs->d[0])){
 nctempstring->a="vs";
 nctempstring->d[0]=strlen("vs")+1;;
-LibeArrayex(222,nctempstring,i,0,vs->d[0]);
+LibeArrayex(291,nctempstring,i,0,vs->d[0]);
 }
-nctemp1071=j*vs->d[0]+nctemp1071;
+nctemp1481=j*vs->d[0]+nctemp1481;
 if((0>j)||(j>=vs->d[1])){
 nctempstring->a="vs";
 nctempstring->d[0]=strlen("vs")+1;;
-LibeArrayex(222,nctempstring,j,1,vs->d[1]);
+LibeArrayex(291,nctempstring,j,1,vs->d[1]);
 }
-float nctemp1074 = nctemp1069 * vs->a[nctemp1071];
-Model->Mu->a[nctemp1052] =nctemp1074;
+float nctemp1484 = nctemp1479 * vs->a[nctemp1481];
+Model->Mu->a[nctemp1462] =nctemp1484;
 
-#line 223  "model.e"
-int nctemp1078=i;
+#line 292  "model.e"
+int nctemp1488=i;
 if((0>i)||(i>=Model->Lambda->d[0])){
 nctempstring->a="Model->Lambda";
 nctempstring->d[0]=strlen("Model->Lambda")+1;;
-LibeArrayex(223,nctempstring,i,0,Model->Lambda->d[0]);
+LibeArrayex(292,nctempstring,i,0,Model->Lambda->d[0]);
 }
-nctemp1078=j*Model->Lambda->d[0]+nctemp1078;
+nctemp1488=j*Model->Lambda->d[0]+nctemp1488;
 if((0>j)||(j>=Model->Lambda->d[1])){
 nctempstring->a="Model->Lambda";
 nctempstring->d[0]=strlen("Model->Lambda")+1;;
-LibeArrayex(223,nctempstring,j,1,Model->Lambda->d[1]);
+LibeArrayex(292,nctempstring,j,1,Model->Lambda->d[1]);
 }
-int nctemp1085=i;
+int nctemp1495=i;
 if((0>i)||(i>=rho->d[0])){
 nctempstring->a="rho";
 nctempstring->d[0]=strlen("rho")+1;;
-LibeArrayex(223,nctempstring,i,0,rho->d[0]);
+LibeArrayex(292,nctempstring,i,0,rho->d[0]);
 }
-nctemp1085=j*rho->d[0]+nctemp1085;
+nctemp1495=j*rho->d[0]+nctemp1495;
 if((0>j)||(j>=rho->d[1])){
 nctempstring->a="rho";
 nctempstring->d[0]=strlen("rho")+1;;
-LibeArrayex(223,nctempstring,j,1,rho->d[1]);
+LibeArrayex(292,nctempstring,j,1,rho->d[1]);
 }
-int nctemp1095=i;
+int nctemp1505=i;
 if((0>i)||(i>=vp->d[0])){
 nctempstring->a="vp";
 nctempstring->d[0]=strlen("vp")+1;;
-LibeArrayex(223,nctempstring,i,0,vp->d[0]);
+LibeArrayex(292,nctempstring,i,0,vp->d[0]);
 }
-nctemp1095=j*vp->d[0]+nctemp1095;
+nctemp1505=j*vp->d[0]+nctemp1505;
 if((0>j)||(j>=vp->d[1])){
 nctempstring->a="vp";
 nctempstring->d[0]=strlen("vp")+1;;
-LibeArrayex(223,nctempstring,j,1,vp->d[1]);
+LibeArrayex(292,nctempstring,j,1,vp->d[1]);
 }
-int nctemp1099=i;
+int nctemp1509=i;
 if((0>i)||(i>=vp->d[0])){
 nctempstring->a="vp";
 nctempstring->d[0]=strlen("vp")+1;;
-LibeArrayex(223,nctempstring,i,0,vp->d[0]);
+LibeArrayex(292,nctempstring,i,0,vp->d[0]);
 }
-nctemp1099=j*vp->d[0]+nctemp1099;
+nctemp1509=j*vp->d[0]+nctemp1509;
 if((0>j)||(j>=vp->d[1])){
 nctempstring->a="vp";
 nctempstring->d[0]=strlen("vp")+1;;
-LibeArrayex(223,nctempstring,j,1,vp->d[1]);
+LibeArrayex(292,nctempstring,j,1,vp->d[1]);
 }
-float nctemp1102 = vp->a[nctemp1095] * vp->a[nctemp1099];
-int nctemp1111=i;
+float nctemp1512 = vp->a[nctemp1505] * vp->a[nctemp1509];
+int nctemp1521=i;
 if((0>i)||(i>=vs->d[0])){
 nctempstring->a="vs";
 nctempstring->d[0]=strlen("vs")+1;;
-LibeArrayex(223,nctempstring,i,0,vs->d[0]);
+LibeArrayex(292,nctempstring,i,0,vs->d[0]);
 }
-nctemp1111=j*vs->d[0]+nctemp1111;
+nctemp1521=j*vs->d[0]+nctemp1521;
 if((0>j)||(j>=vs->d[1])){
 nctempstring->a="vs";
 nctempstring->d[0]=strlen("vs")+1;;
-LibeArrayex(223,nctempstring,j,1,vs->d[1]);
+LibeArrayex(292,nctempstring,j,1,vs->d[1]);
 }
-float nctemp1114 = 2.0 * vs->a[nctemp1111];
-int nctemp1116=i;
+float nctemp1524 = 2.0 * vs->a[nctemp1521];
+int nctemp1526=i;
 if((0>i)||(i>=vs->d[0])){
 nctempstring->a="vs";
 nctempstring->d[0]=strlen("vs")+1;;
-LibeArrayex(223,nctempstring,i,0,vs->d[0]);
+LibeArrayex(292,nctempstring,i,0,vs->d[0]);
 }
-nctemp1116=j*vs->d[0]+nctemp1116;
+nctemp1526=j*vs->d[0]+nctemp1526;
 if((0>j)||(j>=vs->d[1])){
 nctempstring->a="vs";
 nctempstring->d[0]=strlen("vs")+1;;
-LibeArrayex(223,nctempstring,j,1,vs->d[1]);
+LibeArrayex(292,nctempstring,j,1,vs->d[1]);
 }
-float nctemp1119 = nctemp1114 * vs->a[nctemp1116];
-float nctemp1120 = nctemp1102 - nctemp1119;
-float nctemp1121 = rho->a[nctemp1085] * nctemp1120;
-Model->Lambda->a[nctemp1078] =nctemp1121;
+float nctemp1529 = nctemp1524 * vs->a[nctemp1526];
+float nctemp1530 = nctemp1512 - nctemp1529;
+float nctemp1531 = rho->a[nctemp1495] * nctemp1530;
+Model->Lambda->a[nctemp1488] =nctemp1531;
 
-#line 224  "model.e"
-int nctemp1125=i;
+#line 293  "model.e"
+int nctemp1535=i;
 if((0>i)||(i>=Model->Alpha1x->d[0])){
 nctempstring->a="Model->Alpha1x";
 nctempstring->d[0]=strlen("Model->Alpha1x")+1;;
-LibeArrayex(224,nctempstring,i,0,Model->Alpha1x->d[0]);
+LibeArrayex(293,nctempstring,i,0,Model->Alpha1x->d[0]);
 }
-nctemp1125=j*Model->Alpha1x->d[0]+nctemp1125;
+nctemp1535=j*Model->Alpha1x->d[0]+nctemp1535;
 if((0>j)||(j>=Model->Alpha1x->d[1])){
 nctempstring->a="Model->Alpha1x";
 nctempstring->d[0]=strlen("Model->Alpha1x")+1;;
-LibeArrayex(224,nctempstring,j,1,Model->Alpha1x->d[1]);
+LibeArrayex(293,nctempstring,j,1,Model->Alpha1x->d[1]);
 }
-Model->Alpha1x->a[nctemp1125] =0.0;
+Model->Alpha1x->a[nctemp1535] =0.0;
 
-#line 225  "model.e"
-int nctemp1132=i;
+#line 294  "model.e"
+int nctemp1542=i;
 if((0>i)||(i>=Model->Alpha1y->d[0])){
 nctempstring->a="Model->Alpha1y";
 nctempstring->d[0]=strlen("Model->Alpha1y")+1;;
-LibeArrayex(225,nctempstring,i,0,Model->Alpha1y->d[0]);
+LibeArrayex(294,nctempstring,i,0,Model->Alpha1y->d[0]);
 }
-nctemp1132=j*Model->Alpha1y->d[0]+nctemp1132;
+nctemp1542=j*Model->Alpha1y->d[0]+nctemp1542;
 if((0>j)||(j>=Model->Alpha1y->d[1])){
 nctempstring->a="Model->Alpha1y";
 nctempstring->d[0]=strlen("Model->Alpha1y")+1;;
-LibeArrayex(225,nctempstring,j,1,Model->Alpha1y->d[1]);
+LibeArrayex(294,nctempstring,j,1,Model->Alpha1y->d[1]);
 }
-Model->Alpha1y->a[nctemp1132] =0.0;
+Model->Alpha1y->a[nctemp1542] =0.0;
 
-#line 226  "model.e"
-int nctemp1139=i;
+#line 295  "model.e"
+int nctemp1549=i;
 if((0>i)||(i>=Model->Alpha2x->d[0])){
 nctempstring->a="Model->Alpha2x";
 nctempstring->d[0]=strlen("Model->Alpha2x")+1;;
-LibeArrayex(226,nctempstring,i,0,Model->Alpha2x->d[0]);
+LibeArrayex(295,nctempstring,i,0,Model->Alpha2x->d[0]);
 }
-nctemp1139=j*Model->Alpha2x->d[0]+nctemp1139;
+nctemp1549=j*Model->Alpha2x->d[0]+nctemp1549;
 if((0>j)||(j>=Model->Alpha2x->d[1])){
 nctempstring->a="Model->Alpha2x";
 nctempstring->d[0]=strlen("Model->Alpha2x")+1;;
-LibeArrayex(226,nctempstring,j,1,Model->Alpha2x->d[1]);
+LibeArrayex(295,nctempstring,j,1,Model->Alpha2x->d[1]);
 }
-Model->Alpha2x->a[nctemp1139] =0.0;
+Model->Alpha2x->a[nctemp1549] =0.0;
 
-#line 227  "model.e"
-int nctemp1146=i;
+#line 296  "model.e"
+int nctemp1556=i;
 if((0>i)||(i>=Model->Alpha2y->d[0])){
 nctempstring->a="Model->Alpha2y";
 nctempstring->d[0]=strlen("Model->Alpha2y")+1;;
-LibeArrayex(227,nctempstring,i,0,Model->Alpha2y->d[0]);
+LibeArrayex(296,nctempstring,i,0,Model->Alpha2y->d[0]);
 }
-nctemp1146=j*Model->Alpha2y->d[0]+nctemp1146;
+nctemp1556=j*Model->Alpha2y->d[0]+nctemp1556;
 if((0>j)||(j>=Model->Alpha2y->d[1])){
 nctempstring->a="Model->Alpha2y";
 nctempstring->d[0]=strlen("Model->Alpha2y")+1;;
-LibeArrayex(227,nctempstring,j,1,Model->Alpha2y->d[1]);
+LibeArrayex(296,nctempstring,j,1,Model->Alpha2y->d[1]);
 }
-Model->Alpha2y->a[nctemp1146] =0.0;
+Model->Alpha2y->a[nctemp1556] =0.0;
 
-#line 228  "model.e"
-int nctemp1153=i;
+#line 297  "model.e"
+int nctemp1563=i;
 if((0>i)||(i>=Model->Beta1x->d[0])){
 nctempstring->a="Model->Beta1x";
 nctempstring->d[0]=strlen("Model->Beta1x")+1;;
-LibeArrayex(228,nctempstring,i,0,Model->Beta1x->d[0]);
+LibeArrayex(297,nctempstring,i,0,Model->Beta1x->d[0]);
 }
-nctemp1153=j*Model->Beta1x->d[0]+nctemp1153;
+nctemp1563=j*Model->Beta1x->d[0]+nctemp1563;
 if((0>j)||(j>=Model->Beta1x->d[1])){
 nctempstring->a="Model->Beta1x";
 nctempstring->d[0]=strlen("Model->Beta1x")+1;;
-LibeArrayex(228,nctempstring,j,1,Model->Beta1x->d[1]);
+LibeArrayex(297,nctempstring,j,1,Model->Beta1x->d[1]);
 }
-Model->Beta1x->a[nctemp1153] =0.0;
+Model->Beta1x->a[nctemp1563] =0.0;
 
-#line 229  "model.e"
-int nctemp1160=i;
+#line 298  "model.e"
+int nctemp1570=i;
 if((0>i)||(i>=Model->Beta1y->d[0])){
 nctempstring->a="Model->Beta1y";
 nctempstring->d[0]=strlen("Model->Beta1y")+1;;
-LibeArrayex(229,nctempstring,i,0,Model->Beta1y->d[0]);
+LibeArrayex(298,nctempstring,i,0,Model->Beta1y->d[0]);
 }
-nctemp1160=j*Model->Beta1y->d[0]+nctemp1160;
+nctemp1570=j*Model->Beta1y->d[0]+nctemp1570;
 if((0>j)||(j>=Model->Beta1y->d[1])){
 nctempstring->a="Model->Beta1y";
 nctempstring->d[0]=strlen("Model->Beta1y")+1;;
-LibeArrayex(229,nctempstring,j,1,Model->Beta1y->d[1]);
+LibeArrayex(298,nctempstring,j,1,Model->Beta1y->d[1]);
 }
-Model->Beta1y->a[nctemp1160] =0.0;
+Model->Beta1y->a[nctemp1570] =0.0;
 
-#line 230  "model.e"
-int nctemp1167=i;
+#line 299  "model.e"
+int nctemp1577=i;
 if((0>i)||(i>=Model->Beta2x->d[0])){
 nctempstring->a="Model->Beta2x";
 nctempstring->d[0]=strlen("Model->Beta2x")+1;;
-LibeArrayex(230,nctempstring,i,0,Model->Beta2x->d[0]);
+LibeArrayex(299,nctempstring,i,0,Model->Beta2x->d[0]);
 }
-nctemp1167=j*Model->Beta2x->d[0]+nctemp1167;
+nctemp1577=j*Model->Beta2x->d[0]+nctemp1577;
 if((0>j)||(j>=Model->Beta2x->d[1])){
 nctempstring->a="Model->Beta2x";
 nctempstring->d[0]=strlen("Model->Beta2x")+1;;
-LibeArrayex(230,nctempstring,j,1,Model->Beta2x->d[1]);
+LibeArrayex(299,nctempstring,j,1,Model->Beta2x->d[1]);
 }
-Model->Beta2x->a[nctemp1167] =0.0;
+Model->Beta2x->a[nctemp1577] =0.0;
 
-#line 231  "model.e"
-int nctemp1174=i;
+#line 300  "model.e"
+int nctemp1584=i;
 if((0>i)||(i>=Model->Beta2y->d[0])){
 nctempstring->a="Model->Beta2y";
 nctempstring->d[0]=strlen("Model->Beta2y")+1;;
-LibeArrayex(231,nctempstring,i,0,Model->Beta2y->d[0]);
+LibeArrayex(300,nctempstring,i,0,Model->Beta2y->d[0]);
 }
-nctemp1174=j*Model->Beta2y->d[0]+nctemp1174;
+nctemp1584=j*Model->Beta2y->d[0]+nctemp1584;
 if((0>j)||(j>=Model->Beta2y->d[1])){
 nctempstring->a="Model->Beta2y";
 nctempstring->d[0]=strlen("Model->Beta2y")+1;;
-LibeArrayex(231,nctempstring,j,1,Model->Beta2y->d[1]);
+LibeArrayex(300,nctempstring,j,1,Model->Beta2y->d[1]);
 }
-Model->Beta2y->a[nctemp1174] =0.0;
+Model->Beta2y->a[nctemp1584] =0.0;
 
-#line 232  "model.e"
-int nctemp1181=i;
+#line 301  "model.e"
+int nctemp1591=i;
 if((0>i)||(i>=Model->Eta1x->d[0])){
 nctempstring->a="Model->Eta1x";
 nctempstring->d[0]=strlen("Model->Eta1x")+1;;
-LibeArrayex(232,nctempstring,i,0,Model->Eta1x->d[0]);
+LibeArrayex(301,nctempstring,i,0,Model->Eta1x->d[0]);
 }
-nctemp1181=j*Model->Eta1x->d[0]+nctemp1181;
+nctemp1591=j*Model->Eta1x->d[0]+nctemp1591;
 if((0>j)||(j>=Model->Eta1x->d[1])){
 nctempstring->a="Model->Eta1x";
 nctempstring->d[0]=strlen("Model->Eta1x")+1;;
-LibeArrayex(232,nctempstring,j,1,Model->Eta1x->d[1]);
+LibeArrayex(301,nctempstring,j,1,Model->Eta1x->d[1]);
 }
-Model->Eta1x->a[nctemp1181] =0.0;
+Model->Eta1x->a[nctemp1591] =0.0;
 
-#line 233  "model.e"
-int nctemp1188=i;
+#line 302  "model.e"
+int nctemp1598=i;
 if((0>i)||(i>=Model->Eta1y->d[0])){
 nctempstring->a="Model->Eta1y";
 nctempstring->d[0]=strlen("Model->Eta1y")+1;;
-LibeArrayex(233,nctempstring,i,0,Model->Eta1y->d[0]);
+LibeArrayex(302,nctempstring,i,0,Model->Eta1y->d[0]);
 }
-nctemp1188=j*Model->Eta1y->d[0]+nctemp1188;
+nctemp1598=j*Model->Eta1y->d[0]+nctemp1598;
 if((0>j)||(j>=Model->Eta1y->d[1])){
 nctempstring->a="Model->Eta1y";
 nctempstring->d[0]=strlen("Model->Eta1y")+1;;
-LibeArrayex(233,nctempstring,j,1,Model->Eta1y->d[1]);
+LibeArrayex(302,nctempstring,j,1,Model->Eta1y->d[1]);
 }
-Model->Eta1y->a[nctemp1188] =0.0;
+Model->Eta1y->a[nctemp1598] =0.0;
 
-#line 234  "model.e"
-int nctemp1195=i;
+#line 303  "model.e"
+int nctemp1605=i;
 if((0>i)||(i>=Model->Eta2x->d[0])){
 nctempstring->a="Model->Eta2x";
 nctempstring->d[0]=strlen("Model->Eta2x")+1;;
-LibeArrayex(234,nctempstring,i,0,Model->Eta2x->d[0]);
+LibeArrayex(303,nctempstring,i,0,Model->Eta2x->d[0]);
 }
-nctemp1195=j*Model->Eta2x->d[0]+nctemp1195;
+nctemp1605=j*Model->Eta2x->d[0]+nctemp1605;
 if((0>j)||(j>=Model->Eta2x->d[1])){
 nctempstring->a="Model->Eta2x";
 nctempstring->d[0]=strlen("Model->Eta2x")+1;;
-LibeArrayex(234,nctempstring,j,1,Model->Eta2x->d[1]);
+LibeArrayex(303,nctempstring,j,1,Model->Eta2x->d[1]);
 }
-Model->Eta2x->a[nctemp1195] =0.0;
+Model->Eta2x->a[nctemp1605] =0.0;
 
-#line 235  "model.e"
-int nctemp1202=i;
+#line 304  "model.e"
+int nctemp1612=i;
 if((0>i)||(i>=Model->Eta2y->d[0])){
 nctempstring->a="Model->Eta2y";
 nctempstring->d[0]=strlen("Model->Eta2y")+1;;
-LibeArrayex(235,nctempstring,i,0,Model->Eta2y->d[0]);
+LibeArrayex(304,nctempstring,i,0,Model->Eta2y->d[0]);
 }
-nctemp1202=j*Model->Eta2y->d[0]+nctemp1202;
+nctemp1612=j*Model->Eta2y->d[0]+nctemp1612;
 if((0>j)||(j>=Model->Eta2y->d[1])){
 nctempstring->a="Model->Eta2y";
 nctempstring->d[0]=strlen("Model->Eta2y")+1;;
-LibeArrayex(235,nctempstring,j,1,Model->Eta2y->d[1]);
+LibeArrayex(304,nctempstring,j,1,Model->Eta2y->d[1]);
 }
-Model->Eta2y->a[nctemp1202] =0.0;
+Model->Eta2y->a[nctemp1612] =0.0;
 
-#line 236  "model.e"
-int nctemp1209=i;
+#line 305  "model.e"
+int nctemp1619=i;
 if((0>i)||(i>=Model->Dlambdax->d[0])){
 nctempstring->a="Model->Dlambdax";
 nctempstring->d[0]=strlen("Model->Dlambdax")+1;;
-LibeArrayex(236,nctempstring,i,0,Model->Dlambdax->d[0]);
+LibeArrayex(305,nctempstring,i,0,Model->Dlambdax->d[0]);
 }
-nctemp1209=j*Model->Dlambdax->d[0]+nctemp1209;
+nctemp1619=j*Model->Dlambdax->d[0]+nctemp1619;
 if((0>j)||(j>=Model->Dlambdax->d[1])){
 nctempstring->a="Model->Dlambdax";
 nctempstring->d[0]=strlen("Model->Dlambdax")+1;;
-LibeArrayex(236,nctempstring,j,1,Model->Dlambdax->d[1]);
+LibeArrayex(305,nctempstring,j,1,Model->Dlambdax->d[1]);
 }
-int nctemp1213=i;
+int nctemp1623=i;
 if((0>i)||(i>=Model->Lambda->d[0])){
 nctempstring->a="Model->Lambda";
 nctempstring->d[0]=strlen("Model->Lambda")+1;;
-LibeArrayex(236,nctempstring,i,0,Model->Lambda->d[0]);
+LibeArrayex(305,nctempstring,i,0,Model->Lambda->d[0]);
 }
-nctemp1213=j*Model->Lambda->d[0]+nctemp1213;
+nctemp1623=j*Model->Lambda->d[0]+nctemp1623;
 if((0>j)||(j>=Model->Lambda->d[1])){
 nctempstring->a="Model->Lambda";
 nctempstring->d[0]=strlen("Model->Lambda")+1;;
-LibeArrayex(236,nctempstring,j,1,Model->Lambda->d[1]);
+LibeArrayex(305,nctempstring,j,1,Model->Lambda->d[1]);
 }
-Model->Dlambdax->a[nctemp1209] =Model->Lambda->a[nctemp1213];
+Model->Dlambdax->a[nctemp1619] =Model->Lambda->a[nctemp1623];
 
-#line 237  "model.e"
-int nctemp1219=i;
+#line 306  "model.e"
+int nctemp1629=i;
 if((0>i)||(i>=Model->Dlambday->d[0])){
 nctempstring->a="Model->Dlambday";
 nctempstring->d[0]=strlen("Model->Dlambday")+1;;
-LibeArrayex(237,nctempstring,i,0,Model->Dlambday->d[0]);
+LibeArrayex(306,nctempstring,i,0,Model->Dlambday->d[0]);
 }
-nctemp1219=j*Model->Dlambday->d[0]+nctemp1219;
+nctemp1629=j*Model->Dlambday->d[0]+nctemp1629;
 if((0>j)||(j>=Model->Dlambday->d[1])){
 nctempstring->a="Model->Dlambday";
 nctempstring->d[0]=strlen("Model->Dlambday")+1;;
-LibeArrayex(237,nctempstring,j,1,Model->Dlambday->d[1]);
+LibeArrayex(306,nctempstring,j,1,Model->Dlambday->d[1]);
 }
-int nctemp1223=i;
+int nctemp1633=i;
 if((0>i)||(i>=Model->Lambda->d[0])){
 nctempstring->a="Model->Lambda";
 nctempstring->d[0]=strlen("Model->Lambda")+1;;
-LibeArrayex(237,nctempstring,i,0,Model->Lambda->d[0]);
+LibeArrayex(306,nctempstring,i,0,Model->Lambda->d[0]);
 }
-nctemp1223=j*Model->Lambda->d[0]+nctemp1223;
+nctemp1633=j*Model->Lambda->d[0]+nctemp1633;
 if((0>j)||(j>=Model->Lambda->d[1])){
 nctempstring->a="Model->Lambda";
 nctempstring->d[0]=strlen("Model->Lambda")+1;;
-LibeArrayex(237,nctempstring,j,1,Model->Lambda->d[1]);
+LibeArrayex(306,nctempstring,j,1,Model->Lambda->d[1]);
 }
-Model->Dlambday->a[nctemp1219] =Model->Lambda->a[nctemp1223];
+Model->Dlambday->a[nctemp1629] =Model->Lambda->a[nctemp1633];
 
-#line 238  "model.e"
-int nctemp1229=i;
+#line 307  "model.e"
+int nctemp1639=i;
 if((0>i)||(i>=Model->Dmux->d[0])){
 nctempstring->a="Model->Dmux";
 nctempstring->d[0]=strlen("Model->Dmux")+1;;
-LibeArrayex(238,nctempstring,i,0,Model->Dmux->d[0]);
+LibeArrayex(307,nctempstring,i,0,Model->Dmux->d[0]);
 }
-nctemp1229=j*Model->Dmux->d[0]+nctemp1229;
+nctemp1639=j*Model->Dmux->d[0]+nctemp1639;
 if((0>j)||(j>=Model->Dmux->d[1])){
 nctempstring->a="Model->Dmux";
 nctempstring->d[0]=strlen("Model->Dmux")+1;;
-LibeArrayex(238,nctempstring,j,1,Model->Dmux->d[1]);
+LibeArrayex(307,nctempstring,j,1,Model->Dmux->d[1]);
 }
-int nctemp1233=i;
+int nctemp1643=i;
 if((0>i)||(i>=Model->Mu->d[0])){
 nctempstring->a="Model->Mu";
 nctempstring->d[0]=strlen("Model->Mu")+1;;
-LibeArrayex(238,nctempstring,i,0,Model->Mu->d[0]);
+LibeArrayex(307,nctempstring,i,0,Model->Mu->d[0]);
 }
-nctemp1233=j*Model->Mu->d[0]+nctemp1233;
+nctemp1643=j*Model->Mu->d[0]+nctemp1643;
 if((0>j)||(j>=Model->Mu->d[1])){
 nctempstring->a="Model->Mu";
 nctempstring->d[0]=strlen("Model->Mu")+1;;
-LibeArrayex(238,nctempstring,j,1,Model->Mu->d[1]);
+LibeArrayex(307,nctempstring,j,1,Model->Mu->d[1]);
 }
-Model->Dmux->a[nctemp1229] =Model->Mu->a[nctemp1233];
+Model->Dmux->a[nctemp1639] =Model->Mu->a[nctemp1643];
 
-#line 239  "model.e"
-int nctemp1239=i;
+#line 308  "model.e"
+int nctemp1649=i;
 if((0>i)||(i>=Model->Dmuy->d[0])){
 nctempstring->a="Model->Dmuy";
 nctempstring->d[0]=strlen("Model->Dmuy")+1;;
-LibeArrayex(239,nctempstring,i,0,Model->Dmuy->d[0]);
+LibeArrayex(308,nctempstring,i,0,Model->Dmuy->d[0]);
 }
-nctemp1239=j*Model->Dmuy->d[0]+nctemp1239;
+nctemp1649=j*Model->Dmuy->d[0]+nctemp1649;
 if((0>j)||(j>=Model->Dmuy->d[1])){
 nctempstring->a="Model->Dmuy";
 nctempstring->d[0]=strlen("Model->Dmuy")+1;;
-LibeArrayex(239,nctempstring,j,1,Model->Dmuy->d[1]);
+LibeArrayex(308,nctempstring,j,1,Model->Dmuy->d[1]);
 }
-int nctemp1243=i;
+int nctemp1653=i;
 if((0>i)||(i>=Model->Mu->d[0])){
 nctempstring->a="Model->Mu";
 nctempstring->d[0]=strlen("Model->Mu")+1;;
-LibeArrayex(239,nctempstring,i,0,Model->Mu->d[0]);
+LibeArrayex(308,nctempstring,i,0,Model->Mu->d[0]);
 }
-nctemp1243=j*Model->Mu->d[0]+nctemp1243;
+nctemp1653=j*Model->Mu->d[0]+nctemp1653;
 if((0>j)||(j>=Model->Mu->d[1])){
 nctempstring->a="Model->Mu";
 nctempstring->d[0]=strlen("Model->Mu")+1;;
-LibeArrayex(239,nctempstring,j,1,Model->Mu->d[1]);
+LibeArrayex(308,nctempstring,j,1,Model->Mu->d[1]);
 }
-Model->Dmuy->a[nctemp1239] =Model->Mu->a[nctemp1243];
+Model->Dmuy->a[nctemp1649] =Model->Mu->a[nctemp1653];
 
-#line 240  "model.e"
-int nctemp1249=i;
+#line 309  "model.e"
+int nctemp1659=i;
 if((0>i)||(i>=Model->Drhopx->d[0])){
 nctempstring->a="Model->Drhopx";
 nctempstring->d[0]=strlen("Model->Drhopx")+1;;
-LibeArrayex(240,nctempstring,i,0,Model->Drhopx->d[0]);
+LibeArrayex(309,nctempstring,i,0,Model->Drhopx->d[0]);
 }
-nctemp1249=j*Model->Drhopx->d[0]+nctemp1249;
+nctemp1659=j*Model->Drhopx->d[0]+nctemp1659;
 if((0>j)||(j>=Model->Drhopx->d[1])){
 nctempstring->a="Model->Drhopx";
 nctempstring->d[0]=strlen("Model->Drhopx")+1;;
-LibeArrayex(240,nctempstring,j,1,Model->Drhopx->d[1]);
+LibeArrayex(309,nctempstring,j,1,Model->Drhopx->d[1]);
 }
-int nctemp1253=i;
+int nctemp1663=i;
 if((0>i)||(i>=Model->Rho->d[0])){
 nctempstring->a="Model->Rho";
 nctempstring->d[0]=strlen("Model->Rho")+1;;
-LibeArrayex(240,nctempstring,i,0,Model->Rho->d[0]);
+LibeArrayex(309,nctempstring,i,0,Model->Rho->d[0]);
 }
-nctemp1253=j*Model->Rho->d[0]+nctemp1253;
+nctemp1663=j*Model->Rho->d[0]+nctemp1663;
 if((0>j)||(j>=Model->Rho->d[1])){
 nctempstring->a="Model->Rho";
 nctempstring->d[0]=strlen("Model->Rho")+1;;
-LibeArrayex(240,nctempstring,j,1,Model->Rho->d[1]);
+LibeArrayex(309,nctempstring,j,1,Model->Rho->d[1]);
 }
-Model->Drhopx->a[nctemp1249] =Model->Rho->a[nctemp1253];
+Model->Drhopx->a[nctemp1659] =Model->Rho->a[nctemp1663];
 
-#line 241  "model.e"
-int nctemp1259=i;
+#line 310  "model.e"
+int nctemp1669=i;
 if((0>i)||(i>=Model->Drhopy->d[0])){
 nctempstring->a="Model->Drhopy";
 nctempstring->d[0]=strlen("Model->Drhopy")+1;;
-LibeArrayex(241,nctempstring,i,0,Model->Drhopy->d[0]);
+LibeArrayex(310,nctempstring,i,0,Model->Drhopy->d[0]);
 }
-nctemp1259=j*Model->Drhopy->d[0]+nctemp1259;
+nctemp1669=j*Model->Drhopy->d[0]+nctemp1669;
 if((0>j)||(j>=Model->Drhopy->d[1])){
 nctempstring->a="Model->Drhopy";
 nctempstring->d[0]=strlen("Model->Drhopy")+1;;
-LibeArrayex(241,nctempstring,j,1,Model->Drhopy->d[1]);
+LibeArrayex(310,nctempstring,j,1,Model->Drhopy->d[1]);
 }
-int nctemp1263=i;
+int nctemp1673=i;
 if((0>i)||(i>=Model->Rho->d[0])){
 nctempstring->a="Model->Rho";
 nctempstring->d[0]=strlen("Model->Rho")+1;;
-LibeArrayex(241,nctempstring,i,0,Model->Rho->d[0]);
+LibeArrayex(310,nctempstring,i,0,Model->Rho->d[0]);
 }
-nctemp1263=j*Model->Rho->d[0]+nctemp1263;
+nctemp1673=j*Model->Rho->d[0]+nctemp1673;
 if((0>j)||(j>=Model->Rho->d[1])){
 nctempstring->a="Model->Rho";
 nctempstring->d[0]=strlen("Model->Rho")+1;;
-LibeArrayex(241,nctempstring,j,1,Model->Rho->d[1]);
+LibeArrayex(310,nctempstring,j,1,Model->Rho->d[1]);
 }
-Model->Drhopy->a[nctemp1259] =Model->Rho->a[nctemp1263];
+Model->Drhopy->a[nctemp1669] =Model->Rho->a[nctemp1673];
 
-#line 242  "model.e"
-int nctemp1269=i;
-if((0>i)||(i>=Model->Drhosx->d[0])){
-nctempstring->a="Model->Drhosx";
-nctempstring->d[0]=strlen("Model->Drhosx")+1;;
-LibeArrayex(242,nctempstring,i,0,Model->Drhosx->d[0]);
+#line 289  "model.e"
 }
-nctemp1269=j*Model->Drhosx->d[0]+nctemp1269;
-if((0>j)||(j>=Model->Drhosx->d[1])){
-nctempstring->a="Model->Drhosx";
-nctempstring->d[0]=strlen("Model->Drhosx")+1;;
-LibeArrayex(242,nctempstring,j,1,Model->Drhosx->d[1]);
+int nctemp1684 = i + 1;
+i =nctemp1684;
+int nctemp1685 = (i < Nx);
+nctemp1440=nctemp1685;
 }
-int nctemp1273=i;
-if((0>i)||(i>=Model->Rho->d[0])){
-nctempstring->a="Model->Rho";
-nctempstring->d[0]=strlen("Model->Rho")+1;;
-LibeArrayex(242,nctempstring,i,0,Model->Rho->d[0]);
-}
-nctemp1273=j*Model->Rho->d[0]+nctemp1273;
-if((0>j)||(j>=Model->Rho->d[1])){
-nctempstring->a="Model->Rho";
-nctempstring->d[0]=strlen("Model->Rho")+1;;
-LibeArrayex(242,nctempstring,j,1,Model->Rho->d[1]);
-}
-Model->Drhosx->a[nctemp1269] =Model->Rho->a[nctemp1273];
 
-#line 243  "model.e"
-int nctemp1279=i;
-if((0>i)||(i>=Model->Drhosy->d[0])){
-nctempstring->a="Model->Drhosy";
-nctempstring->d[0]=strlen("Model->Drhosy")+1;;
-LibeArrayex(243,nctempstring,i,0,Model->Drhosy->d[0]);
+#line 288  "model.e"
 }
-nctemp1279=j*Model->Drhosy->d[0]+nctemp1279;
-if((0>j)||(j>=Model->Drhosy->d[1])){
-nctempstring->a="Model->Drhosy";
-nctempstring->d[0]=strlen("Model->Drhosy")+1;;
-LibeArrayex(243,nctempstring,j,1,Model->Drhosy->d[1]);
+int nctemp1697 = j + 1;
+j =nctemp1697;
+int nctemp1698 = (j < Ny);
+nctemp1432=nctemp1698;
 }
-int nctemp1283=i;
-if((0>i)||(i>=Model->Rho->d[0])){
-nctempstring->a="Model->Rho";
-nctempstring->d[0]=strlen("Model->Rho")+1;;
-LibeArrayex(243,nctempstring,i,0,Model->Rho->d[0]);
-}
-nctemp1283=j*Model->Rho->d[0]+nctemp1283;
-if((0>j)||(j>=Model->Rho->d[1])){
-nctempstring->a="Model->Rho";
-nctempstring->d[0]=strlen("Model->Rho")+1;;
-LibeArrayex(243,nctempstring,j,1,Model->Rho->d[1]);
-}
-Model->Drhosy->a[nctemp1279] =Model->Rho->a[nctemp1283];
+
+#line 317  "model.e"
+nctempfloat2* nctemp1703= Model->Qlx;
+nctempfloat2* nctemp1706= Model->Qly;
+nctempfloat2* nctemp1709= Model->Dlambdax;
+nctempfloat2* nctemp1712= Model->Dlambday;
+
+#line 318  "model.e"
+nctempfloat2* nctemp1715= Model->Alpha1x;
+nctempfloat2* nctemp1718= Model->Alpha1y;
+
+#line 319  "model.e"
+nctempfloat2* nctemp1721= Model->Alpha2x;
+nctempfloat2* nctemp1724= Model->Alpha2y;
+struct model* nctemp1727= Model;
+
+#line 317  "model.e"
+int nctemp1729=Modelslscoeffs(nctemp1703,nctemp1706,nctemp1709,nctemp1712,nctemp1715,nctemp1718,nctemp1721,nctemp1724,nctemp1727);
+
+#line 320  "model.e"
+nctempfloat2* nctemp1731= Model->Qmx;
+nctempfloat2* nctemp1734= Model->Qmy;
+nctempfloat2* nctemp1737= Model->Dmux;
+nctempfloat2* nctemp1740= Model->Dmuy;
+nctempfloat2* nctemp1743= Model->Beta1x;
+nctempfloat2* nctemp1746= Model->Beta1y;
+
+#line 321  "model.e"
+nctempfloat2* nctemp1749= Model->Beta2x;
+nctempfloat2* nctemp1752= Model->Beta2y;
+struct model* nctemp1755= Model;
+
+#line 320  "model.e"
+int nctemp1757=Modelslscoeffs(nctemp1731,nctemp1734,nctemp1737,nctemp1740,nctemp1743,nctemp1746,nctemp1749,nctemp1752,nctemp1755);
+
+#line 322  "model.e"
+nctempfloat2* nctemp1759= Model->Qpx;
+nctempfloat2* nctemp1762= Model->Qpy;
+nctempfloat2* nctemp1765= Model->Drhopx;
+nctempfloat2* nctemp1768= Model->Drhopy;
+nctempfloat2* nctemp1771= Model->Eta1x;
+
+#line 323  "model.e"
+nctempfloat2* nctemp1774= Model->Eta1y;
+nctempfloat2* nctemp1777= Model->Eta2x;
+nctempfloat2* nctemp1780= Model->Eta2y;
+struct model* nctemp1783= Model;
+
+#line 322  "model.e"
+int nctemp1785=Modelslscoeffs(nctemp1759,nctemp1762,nctemp1765,nctemp1768,nctemp1771,nctemp1774,nctemp1777,nctemp1780,nctemp1783);
+
+#line 328  "model.e"
+nctempfloat2* nctemp1787= Model->Rho;
+nctempfloat2* nctemp1790= Model->Rhox;
+int nctemp1793=Modelstaggerx(nctemp1787,nctemp1790);
+
+#line 329  "model.e"
+nctempfloat2* nctemp1795= Model->Rho;
+nctempfloat2* nctemp1798= Model->Rhoy;
+int nctemp1801=Modelstaggery(nctemp1795,nctemp1798);
+
+#line 331  "model.e"
+nctempfloat2* nctemp1807= Model->Drhopx;
+nctempfloat2* nctemp1810=Modelcopy(nctemp1807);
+wrk=nctemp1810;
+
+#line 332  "model.e"
+nctempfloat2* nctemp1812= wrk;
+nctempfloat2* nctemp1815= Model->Drhopx;
+int nctemp1818=Modelstaggerx(nctemp1812,nctemp1815);
+
+#line 333  "model.e"
+RunFree(wrk->a);
+RunFree(wrk);
+
+#line 334  "model.e"
+nctempfloat2* nctemp1827= Model->Drhopy;
+nctempfloat2* nctemp1830=Modelcopy(nctemp1827);
+wrk=nctemp1830;
+
+#line 335  "model.e"
+nctempfloat2* nctemp1832= wrk;
+nctempfloat2* nctemp1835= Model->Drhopy;
+int nctemp1838=Modelstaggery(nctemp1832,nctemp1835);
+
+#line 338  "model.e"
+nctempfloat2* nctemp1840= Model->Mu;
+nctempfloat2* nctemp1843= wrk;
+int nctemp1846=Modelstaggerx(nctemp1840,nctemp1843);
+
+#line 339  "model.e"
+nctempfloat2* nctemp1848= wrk;
+nctempfloat2* nctemp1851= Model->Muxy;
+int nctemp1854=Modelstaggery(nctemp1848,nctemp1851);
+
+#line 340  "model.e"
+nctempfloat2* nctemp1856= Model->Dmux;
+nctempfloat2* nctemp1859= wrk;
+int nctemp1862=Modelstaggerx(nctemp1856,nctemp1859);
+
+#line 341  "model.e"
+nctempfloat2* nctemp1864= wrk;
+nctempfloat2* nctemp1867= Model->Dmuxyx;
+int nctemp1870=Modelstaggery(nctemp1864,nctemp1867);
+
+#line 342  "model.e"
+nctempfloat2* nctemp1872= Model->Dmuy;
+nctempfloat2* nctemp1875= wrk;
+int nctemp1878=Modelstaggerx(nctemp1872,nctemp1875);
+
+#line 343  "model.e"
+nctempfloat2* nctemp1880= wrk;
+nctempfloat2* nctemp1883= Model->Dmuxyy;
+int nctemp1886=Modelstaggery(nctemp1880,nctemp1883);
+
+#line 344  "model.e"
+RunFree(wrk->a);
+RunFree(wrk);
+
+#line 347  "model.e"
+nctempfloat2* nctemp1895= Model->Beta1x;
+nctempfloat2* nctemp1898=Modelcopy(nctemp1895);
+wrk=nctemp1898;
+
+#line 348  "model.e"
+int nctemp1905=Model->Nx;
+nctemp1905=nctemp1905*Model->Ny;
+nctempfloat2 *nctemp1904;
+nctemp1904=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp1904->d[0]=Model->Nx;
+nctemp1904->d[1]=Model->Ny;
+nctemp1904->a=(float *)RunMalloc(sizeof(float)*nctemp1905);
+wrk2=nctemp1904;
+
+#line 349  "model.e"
+nctempfloat2* nctemp1911= wrk;
+nctempfloat2* nctemp1914= wrk2;
+int nctemp1917=Modelstaggery(nctemp1911,nctemp1914);
+
+#line 350  "model.e"
+nctempfloat2* nctemp1919= wrk2;
+nctempfloat2* nctemp1922= Model->Beta1x;
+int nctemp1925=Modelstaggerx(nctemp1919,nctemp1922);
+
+#line 351  "model.e"
+RunFree(wrk->a);
+RunFree(wrk);
+
+#line 352  "model.e"
+nctempfloat2* nctemp1934= Model->Beta2x;
+nctempfloat2* nctemp1937=Modelcopy(nctemp1934);
+wrk=nctemp1937;
+
+#line 353  "model.e"
+int nctemp1944=Model->Nx;
+nctemp1944=nctemp1944*Model->Ny;
+nctempfloat2 *nctemp1943;
+nctemp1943=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp1943->d[0]=Model->Nx;
+nctemp1943->d[1]=Model->Ny;
+nctemp1943->a=(float *)RunMalloc(sizeof(float)*nctemp1944);
+wrk2=nctemp1943;
+
+#line 354  "model.e"
+nctempfloat2* nctemp1950= wrk;
+nctempfloat2* nctemp1953= wrk2;
+int nctemp1956=Modelstaggery(nctemp1950,nctemp1953);
+
+#line 355  "model.e"
+nctempfloat2* nctemp1958= wrk2;
+nctempfloat2* nctemp1961= Model->Beta2x;
+int nctemp1964=Modelstaggerx(nctemp1958,nctemp1961);
+
+#line 356  "model.e"
+RunFree(wrk->a);
+RunFree(wrk);
+
+#line 357  "model.e"
+RunFree(wrk2->a);
+RunFree(wrk2);
+
+#line 358  "model.e"
+nctempfloat2* nctemp1976= Model->Beta1y;
+nctempfloat2* nctemp1979=Modelcopy(nctemp1976);
+wrk=nctemp1979;
+
+#line 359  "model.e"
+int nctemp1986=Model->Nx;
+nctemp1986=nctemp1986*Model->Ny;
+nctempfloat2 *nctemp1985;
+nctemp1985=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp1985->d[0]=Model->Nx;
+nctemp1985->d[1]=Model->Ny;
+nctemp1985->a=(float *)RunMalloc(sizeof(float)*nctemp1986);
+wrk2=nctemp1985;
+
+#line 360  "model.e"
+nctempfloat2* nctemp1992= wrk;
+nctempfloat2* nctemp1995= wrk2;
+int nctemp1998=Modelstaggery(nctemp1992,nctemp1995);
+
+#line 361  "model.e"
+nctempfloat2* nctemp2000= wrk2;
+nctempfloat2* nctemp2003= Model->Beta1y;
+int nctemp2006=Modelstaggerx(nctemp2000,nctemp2003);
+
+#line 362  "model.e"
+RunFree(wrk->a);
+RunFree(wrk);
+
+#line 363  "model.e"
+nctempfloat2* nctemp2015= Model->Beta2y;
+nctempfloat2* nctemp2018=Modelcopy(nctemp2015);
+wrk=nctemp2018;
+
+#line 364  "model.e"
+int nctemp2025=Model->Nx;
+nctemp2025=nctemp2025*Model->Ny;
+nctempfloat2 *nctemp2024;
+nctemp2024=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp2024->d[0]=Model->Nx;
+nctemp2024->d[1]=Model->Ny;
+nctemp2024->a=(float *)RunMalloc(sizeof(float)*nctemp2025);
+wrk2=nctemp2024;
+
+#line 365  "model.e"
+nctempfloat2* nctemp2031= wrk;
+nctempfloat2* nctemp2034= wrk2;
+int nctemp2037=Modelstaggery(nctemp2031,nctemp2034);
+
+#line 366  "model.e"
+nctempfloat2* nctemp2039= wrk2;
+nctempfloat2* nctemp2042= Model->Beta2y;
+int nctemp2045=Modelstaggerx(nctemp2039,nctemp2042);
+
+#line 367  "model.e"
+RunFree(wrk->a);
+RunFree(wrk);
+
+#line 368  "model.e"
+RunFree(wrk2->a);
+RunFree(wrk2);
+
+#line 371  "model.e"
+nctempfloat2* nctemp2057= Model->Eta1x;
+nctempfloat2* nctemp2060=Modelcopy(nctemp2057);
+wrk=nctemp2060;
+
+#line 372  "model.e"
+nctempfloat2* nctemp2062= wrk;
+nctempfloat2* nctemp2065= Model->Eta1x;
+int nctemp2068=Modelstaggerx(nctemp2062,nctemp2065);
+
+#line 373  "model.e"
+RunFree(wrk->a);
+RunFree(wrk);
+
+#line 374  "model.e"
+nctempfloat2* nctemp2077= Model->Eta2x;
+nctempfloat2* nctemp2080=Modelcopy(nctemp2077);
+wrk=nctemp2080;
+
+#line 375  "model.e"
+nctempfloat2* nctemp2082= wrk;
+nctempfloat2* nctemp2085= Model->Eta2x;
+int nctemp2088=Modelstaggerx(nctemp2082,nctemp2085);
+
+#line 376  "model.e"
+RunFree(wrk->a);
+RunFree(wrk);
+
+#line 378  "model.e"
+nctempfloat2* nctemp2097= Model->Eta1y;
+nctempfloat2* nctemp2100=Modelcopy(nctemp2097);
+wrk=nctemp2100;
+
+#line 379  "model.e"
+nctempfloat2* nctemp2102= wrk;
+nctempfloat2* nctemp2105= Model->Eta1y;
+int nctemp2108=Modelstaggery(nctemp2102,nctemp2105);
+
+#line 380  "model.e"
+RunFree(wrk->a);
+RunFree(wrk);
+
+#line 381  "model.e"
+nctempfloat2* nctemp2117= Model->Eta2y;
+nctempfloat2* nctemp2120=Modelcopy(nctemp2117);
+wrk=nctemp2120;
+
+#line 382  "model.e"
+nctempfloat2* nctemp2122= wrk;
+nctempfloat2* nctemp2125= Model->Eta2y;
+int nctemp2128=Modelstaggery(nctemp2122,nctemp2125);
+
+#line 383  "model.e"
+RunFree(wrk->a);
+RunFree(wrk);
+
+#line 384  "model.e"
+return Model;
 
 #line 220  "model.e"
 }
-int nctemp1294 = i + 1;
-i =nctemp1294;
-int nctemp1295 = (i < Nx);
-nctemp1030=nctemp1295;
-}
 
-#line 219  "model.e"
-}
-int nctemp1307 = j + 1;
-j =nctemp1307;
-int nctemp1308 = (j < Ny);
-nctemp1022=nctemp1308;
-}
-
-#line 248  "model.e"
-nctempfloat2* nctemp1313= Model->Qlx;
-nctempfloat2* nctemp1316= Model->Qly;
-nctempfloat2* nctemp1319= Model->Dlambdax;
-nctempfloat2* nctemp1322= Model->Dlambday;
-
-#line 249  "model.e"
-nctempfloat2* nctemp1325= Model->Alpha1x;
-nctempfloat2* nctemp1328= Model->Alpha1y;
-
-#line 250  "model.e"
-nctempfloat2* nctemp1331= Model->Alpha2x;
-nctempfloat2* nctemp1334= Model->Alpha2y;
-struct model* nctemp1337= Model;
-
-#line 248  "model.e"
-int nctemp1339=Modelslscoeffs(nctemp1313,nctemp1316,nctemp1319,nctemp1322,nctemp1325,nctemp1328,nctemp1331,nctemp1334,nctemp1337);
-
-#line 251  "model.e"
-nctempfloat2* nctemp1341= Model->Qmx;
-nctempfloat2* nctemp1344= Model->Qmy;
-nctempfloat2* nctemp1347= Model->Dmux;
-nctempfloat2* nctemp1350= Model->Dmuy;
-nctempfloat2* nctemp1353= Model->Beta1x;
-nctempfloat2* nctemp1356= Model->Beta1y;
-
-#line 252  "model.e"
-nctempfloat2* nctemp1359= Model->Beta2x;
-nctempfloat2* nctemp1362= Model->Beta2y;
-struct model* nctemp1365= Model;
-
-#line 251  "model.e"
-int nctemp1367=Modelslscoeffs(nctemp1341,nctemp1344,nctemp1347,nctemp1350,nctemp1353,nctemp1356,nctemp1359,nctemp1362,nctemp1365);
-
-#line 253  "model.e"
-nctempfloat2* nctemp1369= Model->Qpx;
-nctempfloat2* nctemp1372= Model->Qpy;
-nctempfloat2* nctemp1375= Model->Drhopx;
-nctempfloat2* nctemp1378= Model->Drhopy;
-nctempfloat2* nctemp1381= Model->Eta1x;
-
-#line 254  "model.e"
-nctempfloat2* nctemp1384= Model->Eta1y;
-nctempfloat2* nctemp1387= Model->Eta2x;
-nctempfloat2* nctemp1390= Model->Eta2y;
-struct model* nctemp1393= Model;
-
-#line 253  "model.e"
-int nctemp1395=Modelslscoeffs(nctemp1369,nctemp1372,nctemp1375,nctemp1378,nctemp1381,nctemp1384,nctemp1387,nctemp1390,nctemp1393);
-
-#line 257  "model.e"
-return Model;
-
-#line 157  "model.e"
-}
-
-#line 260  "model.e"
+#line 387  "model.e"
 struct model* ModelNew (nctempfloat2 *vp,nctempfloat2 *vs,nctempfloat2 *rho,nctempfloat2 *Qlx,nctempfloat2 *Qly,nctempfloat2 *Qmx,nctempfloat2 *Qmy,nctempfloat2 *Qpx,nctempfloat2 *Qpy,float Dx,float Dt,float W0,int Nb,int Rheol)
 
-#line 284  "model.e"
+#line 411  "model.e"
 {
 
-#line 285  "model.e"
+#line 412  "model.e"
 struct model* m;
 
-#line 287  "model.e"
-int nctemp1397 = (Rheol ==2);
-if(nctemp1397)
+#line 414  "model.e"
+int nctemp2133 = (Rheol ==2);
+if(nctemp2133)
 {
 
-#line 288  "model.e"
-nctempfloat2* nctemp1405= vp;
-nctempfloat2* nctemp1408= vs;
-nctempfloat2* nctemp1411= rho;
-nctempfloat2* nctemp1414= Qlx;
-nctempfloat2* nctemp1417= Qly;
-nctempfloat2* nctemp1420= Qmx;
-nctempfloat2* nctemp1423= Qmy;
-nctempfloat2* nctemp1426= Qpx;
-nctempfloat2* nctemp1429= Qpy;
+#line 415  "model.e"
+nctempfloat2* nctemp2141= vp;
+nctempfloat2* nctemp2144= vs;
+nctempfloat2* nctemp2147= rho;
+nctempfloat2* nctemp2150= Qlx;
+nctempfloat2* nctemp2153= Qly;
+nctempfloat2* nctemp2156= Qmx;
+nctempfloat2* nctemp2159= Qmy;
+nctempfloat2* nctemp2162= Qpx;
+nctempfloat2* nctemp2165= Qpy;
 
-#line 289  "model.e"
-float nctemp1432= Dx;
-float nctemp1434= Dt;
-float nctemp1436= W0;
-int nctemp1438= Nb;
+#line 416  "model.e"
+float nctemp2168= Dx;
+float nctemp2170= Dt;
+float nctemp2172= W0;
+int nctemp2174= Nb;
 
-#line 288  "model.e"
-struct model* nctemp1440=Modelsls(nctemp1405,nctemp1408,nctemp1411,nctemp1414,nctemp1417,nctemp1420,nctemp1423,nctemp1426,nctemp1429,nctemp1432,nctemp1434,nctemp1436,nctemp1438);
-m =nctemp1440;
+#line 415  "model.e"
+struct model* nctemp2176=Modelsls(nctemp2141,nctemp2144,nctemp2147,nctemp2150,nctemp2153,nctemp2156,nctemp2159,nctemp2162,nctemp2165,nctemp2168,nctemp2170,nctemp2172,nctemp2174);
+m =nctemp2176;
 
-#line 287  "model.e"
+#line 414  "model.e"
 }
 
-#line 291  "model.e"
+#line 418  "model.e"
 else{
 
-#line 292  "model.e"
-int nctemp1442= 4;
-struct nctempchar1 *nctemp1446;
-static struct nctempchar1 nctemp1447 = {{ 18}, (char*)"Unknown Q-model\n\0"};
-nctemp1446=&nctemp1447;
-nctempchar1* nctemp1444= nctemp1446;
-int nctemp1448=LibePuts(nctemp1442,nctemp1444);
+#line 419  "model.e"
+int nctemp2178= 4;
+struct nctempchar1 *nctemp2182;
+static struct nctempchar1 nctemp2183 = {{ 18}, (char*)"Unknown Q-model\n\0"};
+nctemp2182=&nctemp2183;
+nctempchar1* nctemp2180= nctemp2182;
+int nctemp2184=LibePuts(nctemp2178,nctemp2180);
 
-#line 293  "model.e"
-int nctemp1450= 4;
-int nctemp1452=LibeFlush(nctemp1450);
+#line 420  "model.e"
+int nctemp2186= 4;
+int nctemp2188=LibeFlush(nctemp2186);
 
-#line 295  "model.e"
-int nctemp1454=LibeExit();
+#line 422  "model.e"
+int nctemp2190=LibeExit();
 
-#line 291  "model.e"
+#line 418  "model.e"
 }
 
-#line 297  "model.e"
+#line 424  "model.e"
 return m;
 
-#line 284  "model.e"
+#line 411  "model.e"
 }
 
-#line 300  "model.e"
+#line 427  "model.e"
 float ModelStability (struct model* Model)
 
-#line 309  "model.e"
+#line 436  "model.e"
 {
 
-#line 310  "model.e"
+#line 437  "model.e"
 int nx;
 int ny;
 int i;
@@ -1947,206 +2571,206 @@ int j;
 float vp;
 float stab;
 
-#line 314  "model.e"
+#line 441  "model.e"
 nx =Model->Nx;
 
-#line 315  "model.e"
+#line 442  "model.e"
 ny =Model->Ny;
 
-#line 316  "model.e"
+#line 443  "model.e"
 j =0;
-int nctemp1468 = (j < ny);
-while(nctemp1468){
+int nctemp2204 = (j < ny);
+while(nctemp2204){
 {
 
-#line 317  "model.e"
+#line 444  "model.e"
 i =0;
-int nctemp1476 = (i < nx);
-while(nctemp1476){
+int nctemp2212 = (i < nx);
+while(nctemp2212){
 {
 
-#line 318  "model.e"
-int nctemp1491=i;
+#line 445  "model.e"
+int nctemp2227=i;
 if((0>i)||(i>=Model->Lambda->d[0])){
 nctempstring->a="Model->Lambda";
 nctempstring->d[0]=strlen("Model->Lambda")+1;;
-LibeArrayex(318,nctempstring,i,0,Model->Lambda->d[0]);
+LibeArrayex(445,nctempstring,i,0,Model->Lambda->d[0]);
 }
-nctemp1491=j*Model->Lambda->d[0]+nctemp1491;
+nctemp2227=j*Model->Lambda->d[0]+nctemp2227;
 if((0>j)||(j>=Model->Lambda->d[1])){
 nctempstring->a="Model->Lambda";
 nctempstring->d[0]=strlen("Model->Lambda")+1;;
-LibeArrayex(318,nctempstring,j,1,Model->Lambda->d[1]);
+LibeArrayex(445,nctempstring,j,1,Model->Lambda->d[1]);
 }
-int nctemp1499=i;
+int nctemp2235=i;
 if((0>i)||(i>=Model->Mu->d[0])){
 nctempstring->a="Model->Mu";
 nctempstring->d[0]=strlen("Model->Mu")+1;;
-LibeArrayex(318,nctempstring,i,0,Model->Mu->d[0]);
+LibeArrayex(445,nctempstring,i,0,Model->Mu->d[0]);
 }
-nctemp1499=j*Model->Mu->d[0]+nctemp1499;
+nctemp2235=j*Model->Mu->d[0]+nctemp2235;
 if((0>j)||(j>=Model->Mu->d[1])){
 nctempstring->a="Model->Mu";
 nctempstring->d[0]=strlen("Model->Mu")+1;;
-LibeArrayex(318,nctempstring,j,1,Model->Mu->d[1]);
+LibeArrayex(445,nctempstring,j,1,Model->Mu->d[1]);
 }
-float nctemp1502 = 2.0 * Model->Mu->a[nctemp1499];
-float nctemp1503 = Model->Lambda->a[nctemp1491] + nctemp1502;
-int nctemp1505=i;
+float nctemp2238 = 2.0 * Model->Mu->a[nctemp2235];
+float nctemp2239 = Model->Lambda->a[nctemp2227] + nctemp2238;
+int nctemp2241=i;
 if((0>i)||(i>=Model->Rho->d[0])){
 nctempstring->a="Model->Rho";
 nctempstring->d[0]=strlen("Model->Rho")+1;;
-LibeArrayex(318,nctempstring,i,0,Model->Rho->d[0]);
+LibeArrayex(445,nctempstring,i,0,Model->Rho->d[0]);
 }
-nctemp1505=j*Model->Rho->d[0]+nctemp1505;
+nctemp2241=j*Model->Rho->d[0]+nctemp2241;
 if((0>j)||(j>=Model->Rho->d[1])){
 nctempstring->a="Model->Rho";
 nctempstring->d[0]=strlen("Model->Rho")+1;;
-LibeArrayex(318,nctempstring,j,1,Model->Rho->d[1]);
+LibeArrayex(445,nctempstring,j,1,Model->Rho->d[1]);
 }
-float nctemp1508 = nctemp1503 / Model->Rho->a[nctemp1505];
-float nctemp1484= nctemp1508;
-float nctemp1509=LibeSqrt(nctemp1484);
-vp =nctemp1509;
+float nctemp2244 = nctemp2239 / Model->Rho->a[nctemp2241];
+float nctemp2220= nctemp2244;
+float nctemp2245=LibeSqrt(nctemp2220);
+vp =nctemp2245;
 
-#line 319  "model.e"
-float nctemp1521 = vp * Model->Dt;
-float nctemp1523 = nctemp1521 / Model->Dx;
-stab =nctemp1523;
+#line 446  "model.e"
+float nctemp2257 = vp * Model->Dt;
+float nctemp2259 = nctemp2257 / Model->Dx;
+stab =nctemp2259;
 
-#line 320  "model.e"
-float nctemp1532= 2.0;
-float nctemp1534=LibeSqrt(nctemp1532);
-float nctemp1535 = 1.0 / nctemp1534;
-int nctemp1524 = (stab > nctemp1535);
-if(nctemp1524)
+#line 447  "model.e"
+float nctemp2268= 2.0;
+float nctemp2270=LibeSqrt(nctemp2268);
+float nctemp2271 = 1.0 / nctemp2270;
+int nctemp2260 = (stab > nctemp2271);
+if(nctemp2260)
 {
 
-#line 321  "model.e"
-int nctemp1537= 4;
-struct nctempchar1 *nctemp1541;
-static struct nctempchar1 nctemp1542 = {{ 28}, (char*)"Stability index too large! \0"};
-nctemp1541=&nctemp1542;
-nctempchar1* nctemp1539= nctemp1541;
-int nctemp1543=LibePuts(nctemp1537,nctemp1539);
+#line 448  "model.e"
+int nctemp2273= 4;
+struct nctempchar1 *nctemp2277;
+static struct nctempchar1 nctemp2278 = {{ 28}, (char*)"Stability index too large! \0"};
+nctemp2277=&nctemp2278;
+nctempchar1* nctemp2275= nctemp2277;
+int nctemp2279=LibePuts(nctemp2273,nctemp2275);
 
-#line 322  "model.e"
-int nctemp1545= 4;
-float nctemp1547= stab;
-struct nctempchar1 *nctemp1551;
-static struct nctempchar1 nctemp1552 = {{ 2}, (char*)"g\0"};
-nctemp1551=&nctemp1552;
-nctempchar1* nctemp1549= nctemp1551;
-int nctemp1553=LibePutf(nctemp1545,nctemp1547,nctemp1549);
+#line 449  "model.e"
+int nctemp2281= 4;
+float nctemp2283= stab;
+struct nctempchar1 *nctemp2287;
+static struct nctempchar1 nctemp2288 = {{ 2}, (char*)"g\0"};
+nctemp2287=&nctemp2288;
+nctempchar1* nctemp2285= nctemp2287;
+int nctemp2289=LibePutf(nctemp2281,nctemp2283,nctemp2285);
 
-#line 323  "model.e"
-int nctemp1555= 4;
-struct nctempchar1 *nctemp1559;
-static struct nctempchar1 nctemp1560 = {{ 3}, (char*)"\n\0"};
-nctemp1559=&nctemp1560;
-nctempchar1* nctemp1557= nctemp1559;
-int nctemp1561=LibePuts(nctemp1555,nctemp1557);
+#line 450  "model.e"
+int nctemp2291= 4;
+struct nctempchar1 *nctemp2295;
+static struct nctempchar1 nctemp2296 = {{ 3}, (char*)"\n\0"};
+nctemp2295=&nctemp2296;
+nctempchar1* nctemp2293= nctemp2295;
+int nctemp2297=LibePuts(nctemp2291,nctemp2293);
 
-#line 324  "model.e"
-int nctemp1563= 4;
-struct nctempchar1 *nctemp1567;
-static struct nctempchar1 nctemp1568 = {{ 7}, (char*)"vp: \n\0"};
-nctemp1567=&nctemp1568;
-nctempchar1* nctemp1565= nctemp1567;
-int nctemp1569=LibePuts(nctemp1563,nctemp1565);
+#line 451  "model.e"
+int nctemp2299= 4;
+struct nctempchar1 *nctemp2303;
+static struct nctempchar1 nctemp2304 = {{ 7}, (char*)"vp: \n\0"};
+nctemp2303=&nctemp2304;
+nctempchar1* nctemp2301= nctemp2303;
+int nctemp2305=LibePuts(nctemp2299,nctemp2301);
 
-#line 325  "model.e"
-int nctemp1571= 4;
-float nctemp1573= vp;
-struct nctempchar1 *nctemp1577;
-static struct nctempchar1 nctemp1578 = {{ 2}, (char*)"g\0"};
-nctemp1577=&nctemp1578;
-nctempchar1* nctemp1575= nctemp1577;
-int nctemp1579=LibePutf(nctemp1571,nctemp1573,nctemp1575);
+#line 452  "model.e"
+int nctemp2307= 4;
+float nctemp2309= vp;
+struct nctempchar1 *nctemp2313;
+static struct nctempchar1 nctemp2314 = {{ 2}, (char*)"g\0"};
+nctemp2313=&nctemp2314;
+nctempchar1* nctemp2311= nctemp2313;
+int nctemp2315=LibePutf(nctemp2307,nctemp2309,nctemp2311);
 
-#line 326  "model.e"
-int nctemp1581= 4;
-struct nctempchar1 *nctemp1585;
-static struct nctempchar1 nctemp1586 = {{ 3}, (char*)"\n\0"};
-nctemp1585=&nctemp1586;
-nctempchar1* nctemp1583= nctemp1585;
-int nctemp1587=LibePuts(nctemp1581,nctemp1583);
+#line 453  "model.e"
+int nctemp2317= 4;
+struct nctempchar1 *nctemp2321;
+static struct nctempchar1 nctemp2322 = {{ 3}, (char*)"\n\0"};
+nctemp2321=&nctemp2322;
+nctempchar1* nctemp2319= nctemp2321;
+int nctemp2323=LibePuts(nctemp2317,nctemp2319);
 
-#line 327  "model.e"
-int nctemp1589= 4;
-struct nctempchar1 *nctemp1593;
-static struct nctempchar1 nctemp1594 = {{ 7}, (char*)"dt: \n\0"};
-nctemp1593=&nctemp1594;
-nctempchar1* nctemp1591= nctemp1593;
-int nctemp1595=LibePuts(nctemp1589,nctemp1591);
+#line 454  "model.e"
+int nctemp2325= 4;
+struct nctempchar1 *nctemp2329;
+static struct nctempchar1 nctemp2330 = {{ 7}, (char*)"dt: \n\0"};
+nctemp2329=&nctemp2330;
+nctempchar1* nctemp2327= nctemp2329;
+int nctemp2331=LibePuts(nctemp2325,nctemp2327);
 
-#line 328  "model.e"
-int nctemp1597= 4;
-float nctemp1599= Model->Dt;
-struct nctempchar1 *nctemp1603;
-static struct nctempchar1 nctemp1604 = {{ 2}, (char*)"g\0"};
-nctemp1603=&nctemp1604;
-nctempchar1* nctemp1601= nctemp1603;
-int nctemp1605=LibePutf(nctemp1597,nctemp1599,nctemp1601);
+#line 455  "model.e"
+int nctemp2333= 4;
+float nctemp2335= Model->Dt;
+struct nctempchar1 *nctemp2339;
+static struct nctempchar1 nctemp2340 = {{ 2}, (char*)"g\0"};
+nctemp2339=&nctemp2340;
+nctempchar1* nctemp2337= nctemp2339;
+int nctemp2341=LibePutf(nctemp2333,nctemp2335,nctemp2337);
 
-#line 329  "model.e"
-int nctemp1607= 4;
-struct nctempchar1 *nctemp1611;
-static struct nctempchar1 nctemp1612 = {{ 3}, (char*)"\n\0"};
-nctemp1611=&nctemp1612;
-nctempchar1* nctemp1609= nctemp1611;
-int nctemp1613=LibePuts(nctemp1607,nctemp1609);
+#line 456  "model.e"
+int nctemp2343= 4;
+struct nctempchar1 *nctemp2347;
+static struct nctempchar1 nctemp2348 = {{ 3}, (char*)"\n\0"};
+nctemp2347=&nctemp2348;
+nctempchar1* nctemp2345= nctemp2347;
+int nctemp2349=LibePuts(nctemp2343,nctemp2345);
 
-#line 330  "model.e"
-int nctemp1615= 4;
-struct nctempchar1 *nctemp1619;
-static struct nctempchar1 nctemp1620 = {{ 7}, (char*)"dx: \n\0"};
-nctemp1619=&nctemp1620;
-nctempchar1* nctemp1617= nctemp1619;
-int nctemp1621=LibePuts(nctemp1615,nctemp1617);
+#line 457  "model.e"
+int nctemp2351= 4;
+struct nctempchar1 *nctemp2355;
+static struct nctempchar1 nctemp2356 = {{ 7}, (char*)"dx: \n\0"};
+nctemp2355=&nctemp2356;
+nctempchar1* nctemp2353= nctemp2355;
+int nctemp2357=LibePuts(nctemp2351,nctemp2353);
 
-#line 331  "model.e"
-int nctemp1623= 4;
-float nctemp1625= Model->Dx;
-struct nctempchar1 *nctemp1629;
-static struct nctempchar1 nctemp1630 = {{ 2}, (char*)"g\0"};
-nctemp1629=&nctemp1630;
-nctempchar1* nctemp1627= nctemp1629;
-int nctemp1631=LibePutf(nctemp1623,nctemp1625,nctemp1627);
+#line 458  "model.e"
+int nctemp2359= 4;
+float nctemp2361= Model->Dx;
+struct nctempchar1 *nctemp2365;
+static struct nctempchar1 nctemp2366 = {{ 2}, (char*)"g\0"};
+nctemp2365=&nctemp2366;
+nctempchar1* nctemp2363= nctemp2365;
+int nctemp2367=LibePutf(nctemp2359,nctemp2361,nctemp2363);
 
-#line 332  "model.e"
-int nctemp1633= 4;
-struct nctempchar1 *nctemp1637;
-static struct nctempchar1 nctemp1638 = {{ 3}, (char*)"\n\0"};
-nctemp1637=&nctemp1638;
-nctempchar1* nctemp1635= nctemp1637;
-int nctemp1639=LibePuts(nctemp1633,nctemp1635);
+#line 459  "model.e"
+int nctemp2369= 4;
+struct nctempchar1 *nctemp2373;
+static struct nctempchar1 nctemp2374 = {{ 3}, (char*)"\n\0"};
+nctemp2373=&nctemp2374;
+nctempchar1* nctemp2371= nctemp2373;
+int nctemp2375=LibePuts(nctemp2369,nctemp2371);
 
-#line 333  "model.e"
-int nctemp1641= 4;
-int nctemp1643=LibeFlush(nctemp1641);
+#line 460  "model.e"
+int nctemp2377= 4;
+int nctemp2379=LibeFlush(nctemp2377);
 
-#line 320  "model.e"
+#line 447  "model.e"
 }
 
-#line 317  "model.e"
+#line 444  "model.e"
 }
-int nctemp1652 = i + 1;
-i =nctemp1652;
-int nctemp1653 = (i < nx);
-nctemp1476=nctemp1653;
-}
-
-#line 316  "model.e"
-}
-int nctemp1665 = j + 1;
-j =nctemp1665;
-int nctemp1666 = (j < ny);
-nctemp1468=nctemp1666;
+int nctemp2388 = i + 1;
+i =nctemp2388;
+int nctemp2389 = (i < nx);
+nctemp2212=nctemp2389;
 }
 
-#line 338  "model.e"
+#line 443  "model.e"
+}
+int nctemp2401 = j + 1;
+j =nctemp2401;
+int nctemp2402 = (j < ny);
+nctemp2204=nctemp2402;
+}
+
+#line 465  "model.e"
 return stab;
 
-#line 309  "model.e"
+#line 436  "model.e"
 }

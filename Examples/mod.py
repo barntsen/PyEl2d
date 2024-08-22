@@ -33,8 +33,7 @@ MAXWELL = 1          #Not implemented
 SLS     = 2          #Standard linear solid
 CPML    = 4          #Not implemented
 rheol   = SLS        #Rhology for attenuation and boundary condition
-fqp      = ""        # Qp file name (default Qp=100000)
-fqs      = ""        # Qs file name (default Qs=100000)
+fqp      = ""        # Qp file name (default Qs=100000)
 fql      = ""        # Ql file name (default Ql=100000)
 fqm      = ""        # Qm file name (default Qm=100000)
 
@@ -59,7 +58,7 @@ for i in range(0,nr):
   rx[i] = i
   ry[i] = 40 
 
-#Snapshost (0=flag not set, 1=flag set)
+#Snapshots (0=flag not set, 1=flag set)
 snpflags = np.zeros(4)
 snpflags[0] = 1 #Store sigmaxx on file "snp-sxx.bin"
 snpflags[1] = 1 #Store sigmayy on file "snp-syy.bin"

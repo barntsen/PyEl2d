@@ -356,15 +356,18 @@ nctempfloat2 *Qpx;
 nctempfloat2 *Qpy;
 nctempfloat2 *Lambda;
 nctempfloat2 *Mu;
+nctempfloat2 *Muxy;
+nctempfloat2 *Dmuxyx;
+nctempfloat2 *Dmuxyy;
 nctempfloat2 *Dlambdax;
 nctempfloat2 *Dlambday;
 nctempfloat2 *Dmux;
 nctempfloat2 *Dmuy;
 nctempfloat2 *Drhopx;
 nctempfloat2 *Drhopy;
-nctempfloat2 *Drhosx;
-nctempfloat2 *Drhosy;
 nctempfloat2 *Rho;
+nctempfloat2 *Rhox;
+nctempfloat2 *Rhoy;
 nctempfloat2 *Alpha1x;
 nctempfloat2 *Alpha1y;
 nctempfloat2 *Alpha2x;
@@ -391,10 +394,10 @@ struct nctempmodel2 {int d[2]; struct model *a; } ;
 struct nctempmodel3 {int d[3]; struct model *a; } ;
 struct nctempmodel4 {int d[4]; struct model *a; } ;
 
-#line 53  "model.i"
+#line 58  "model.i"
 struct model* ModelNew (nctempfloat2 *vp,nctempfloat2 *vs,nctempfloat2 *rho,nctempfloat2 *Qlx,nctempfloat2 *Qly,nctempfloat2 *Qmx,nctempfloat2 *Qmy,nctempfloat2 *Qpx,nctempfloat2 *Qpy,float Dx,float Dt,float W0,int Nb,int Rheol);
 
-#line 58  "model.i"
+#line 63  "model.i"
 float ModelStability (struct model* Model);
 
 #line 4  "el2d.i"
@@ -1575,18 +1578,18 @@ nctempstring->d[0]=strlen("El2d->vx")+1;;
 LibeArrayex(225,nctempstring,j,1,El2d->vx->d[1]);
 }
 int nctemp993=i;
-if((0>i)||(i>=Model->Rho->d[0])){
-nctempstring->a="Model->Rho";
-nctempstring->d[0]=strlen("Model->Rho")+1;;
-LibeArrayex(225,nctempstring,i,0,Model->Rho->d[0]);
+if((0>i)||(i>=Model->Rhox->d[0])){
+nctempstring->a="Model->Rhox";
+nctempstring->d[0]=strlen("Model->Rhox")+1;;
+LibeArrayex(225,nctempstring,i,0,Model->Rhox->d[0]);
 }
-nctemp993=j*Model->Rho->d[0]+nctemp993;
-if((0>j)||(j>=Model->Rho->d[1])){
-nctempstring->a="Model->Rho";
-nctempstring->d[0]=strlen("Model->Rho")+1;;
-LibeArrayex(225,nctempstring,j,1,Model->Rho->d[1]);
+nctemp993=j*Model->Rhox->d[0]+nctemp993;
+if((0>j)||(j>=Model->Rhox->d[1])){
+nctempstring->a="Model->Rhox";
+nctempstring->d[0]=strlen("Model->Rhox")+1;;
+LibeArrayex(225,nctempstring,j,1,Model->Rhox->d[1]);
 }
-float nctemp996 = Model->Dt * Model->Rho->a[nctemp993];
+float nctemp996 = Model->Dt * Model->Rhox->a[nctemp993];
 int nctemp1001=i;
 if((0>i)||(i>=El2d->exx->d[0])){
 nctempstring->a="El2d->exx";
@@ -1873,18 +1876,18 @@ nctempstring->d[0]=strlen("El2d->vy")+1;;
 LibeArrayex(253,nctempstring,j,1,El2d->vy->d[1]);
 }
 int nctemp1154=i;
-if((0>i)||(i>=Model->Rho->d[0])){
-nctempstring->a="Model->Rho";
-nctempstring->d[0]=strlen("Model->Rho")+1;;
-LibeArrayex(253,nctempstring,i,0,Model->Rho->d[0]);
+if((0>i)||(i>=Model->Rhoy->d[0])){
+nctempstring->a="Model->Rhoy";
+nctempstring->d[0]=strlen("Model->Rhoy")+1;;
+LibeArrayex(253,nctempstring,i,0,Model->Rhoy->d[0]);
 }
-nctemp1154=j*Model->Rho->d[0]+nctemp1154;
-if((0>j)||(j>=Model->Rho->d[1])){
-nctempstring->a="Model->Rho";
-nctempstring->d[0]=strlen("Model->Rho")+1;;
-LibeArrayex(253,nctempstring,j,1,Model->Rho->d[1]);
+nctemp1154=j*Model->Rhoy->d[0]+nctemp1154;
+if((0>j)||(j>=Model->Rhoy->d[1])){
+nctempstring->a="Model->Rhoy";
+nctempstring->d[0]=strlen("Model->Rhoy")+1;;
+LibeArrayex(253,nctempstring,j,1,Model->Rhoy->d[1]);
 }
-float nctemp1157 = Model->Dt * Model->Rho->a[nctemp1154];
+float nctemp1157 = Model->Dt * Model->Rhoy->a[nctemp1154];
 int nctemp1162=i;
 if((0>i)||(i>=El2d->eyy->d[0])){
 nctempstring->a="El2d->eyy";
@@ -2699,18 +2702,18 @@ LibeArrayex(330,nctempstring,j,1,El2d->sigmaxy->d[1]);
 }
 float nctemp1641 = 2.0 * Model->Dt;
 int nctemp1643=i;
-if((0>i)||(i>=Model->Mu->d[0])){
-nctempstring->a="Model->Mu";
-nctempstring->d[0]=strlen("Model->Mu")+1;;
-LibeArrayex(330,nctempstring,i,0,Model->Mu->d[0]);
+if((0>i)||(i>=Model->Muxy->d[0])){
+nctempstring->a="Model->Muxy";
+nctempstring->d[0]=strlen("Model->Muxy")+1;;
+LibeArrayex(330,nctempstring,i,0,Model->Muxy->d[0]);
 }
-nctemp1643=j*Model->Mu->d[0]+nctemp1643;
-if((0>j)||(j>=Model->Mu->d[1])){
-nctempstring->a="Model->Mu";
-nctempstring->d[0]=strlen("Model->Mu")+1;;
-LibeArrayex(330,nctempstring,j,1,Model->Mu->d[1]);
+nctemp1643=j*Model->Muxy->d[0]+nctemp1643;
+if((0>j)||(j>=Model->Muxy->d[1])){
+nctempstring->a="Model->Muxy";
+nctempstring->d[0]=strlen("Model->Muxy")+1;;
+LibeArrayex(330,nctempstring,j,1,Model->Muxy->d[1]);
 }
-float nctemp1646 = nctemp1641 * Model->Mu->a[nctemp1643];
+float nctemp1646 = nctemp1641 * Model->Muxy->a[nctemp1643];
 int nctemp1648=i;
 if((0>i)||(i>=El2d->exy->d[0])){
 nctempstring->a="El2d->exy";
@@ -2741,18 +2744,18 @@ LibeArrayex(331,nctempstring,j,1,El2d->gammaxy->d[1]);
 }
 float nctemp1668 = nctemp1663 * El2d->gammaxy->a[nctemp1665];
 int nctemp1670=i;
-if((0>i)||(i>=Model->Dmuy->d[0])){
-nctempstring->a="Model->Dmuy";
-nctempstring->d[0]=strlen("Model->Dmuy")+1;;
-LibeArrayex(331,nctempstring,i,0,Model->Dmuy->d[0]);
+if((0>i)||(i>=Model->Dmuxyy->d[0])){
+nctempstring->a="Model->Dmuxyy";
+nctempstring->d[0]=strlen("Model->Dmuxyy")+1;;
+LibeArrayex(331,nctempstring,i,0,Model->Dmuxyy->d[0]);
 }
-nctemp1670=j*Model->Dmuy->d[0]+nctemp1670;
-if((0>j)||(j>=Model->Dmuy->d[1])){
-nctempstring->a="Model->Dmuy";
-nctempstring->d[0]=strlen("Model->Dmuy")+1;;
-LibeArrayex(331,nctempstring,j,1,Model->Dmuy->d[1]);
+nctemp1670=j*Model->Dmuxyy->d[0]+nctemp1670;
+if((0>j)||(j>=Model->Dmuxyy->d[1])){
+nctempstring->a="Model->Dmuxyy";
+nctempstring->d[0]=strlen("Model->Dmuxyy")+1;;
+LibeArrayex(331,nctempstring,j,1,Model->Dmuxyy->d[1]);
 }
-float nctemp1673 = nctemp1668 * Model->Dmuy->a[nctemp1670];
+float nctemp1673 = nctemp1668 * Model->Dmuxyy->a[nctemp1670];
 float nctemp1674 = nctemp1651 + nctemp1673;
 
 #line 332  "el2d.e"
@@ -2788,18 +2791,18 @@ LibeArrayex(333,nctempstring,j,1,El2d->sigmayx->d[1]);
 }
 float nctemp1703 = 2.0 * Model->Dt;
 int nctemp1705=i;
-if((0>i)||(i>=Model->Mu->d[0])){
-nctempstring->a="Model->Mu";
-nctempstring->d[0]=strlen("Model->Mu")+1;;
-LibeArrayex(333,nctempstring,i,0,Model->Mu->d[0]);
+if((0>i)||(i>=Model->Muxy->d[0])){
+nctempstring->a="Model->Muxy";
+nctempstring->d[0]=strlen("Model->Muxy")+1;;
+LibeArrayex(333,nctempstring,i,0,Model->Muxy->d[0]);
 }
-nctemp1705=j*Model->Mu->d[0]+nctemp1705;
-if((0>j)||(j>=Model->Mu->d[1])){
-nctempstring->a="Model->Mu";
-nctempstring->d[0]=strlen("Model->Mu")+1;;
-LibeArrayex(333,nctempstring,j,1,Model->Mu->d[1]);
+nctemp1705=j*Model->Muxy->d[0]+nctemp1705;
+if((0>j)||(j>=Model->Muxy->d[1])){
+nctempstring->a="Model->Muxy";
+nctempstring->d[0]=strlen("Model->Muxy")+1;;
+LibeArrayex(333,nctempstring,j,1,Model->Muxy->d[1]);
 }
-float nctemp1708 = nctemp1703 * Model->Mu->a[nctemp1705];
+float nctemp1708 = nctemp1703 * Model->Muxy->a[nctemp1705];
 int nctemp1710=i;
 if((0>i)||(i>=El2d->exy->d[0])){
 nctempstring->a="El2d->exy";
@@ -2830,18 +2833,18 @@ LibeArrayex(334,nctempstring,j,1,El2d->gammayx->d[1]);
 }
 float nctemp1730 = nctemp1725 * El2d->gammayx->a[nctemp1727];
 int nctemp1732=i;
-if((0>i)||(i>=Model->Dmux->d[0])){
-nctempstring->a="Model->Dmux";
-nctempstring->d[0]=strlen("Model->Dmux")+1;;
-LibeArrayex(334,nctempstring,i,0,Model->Dmux->d[0]);
+if((0>i)||(i>=Model->Dmuxyx->d[0])){
+nctempstring->a="Model->Dmuxyx";
+nctempstring->d[0]=strlen("Model->Dmuxyx")+1;;
+LibeArrayex(334,nctempstring,i,0,Model->Dmuxyx->d[0]);
 }
-nctemp1732=j*Model->Dmux->d[0]+nctemp1732;
-if((0>j)||(j>=Model->Dmux->d[1])){
-nctempstring->a="Model->Dmux";
-nctempstring->d[0]=strlen("Model->Dmux")+1;;
-LibeArrayex(334,nctempstring,j,1,Model->Dmux->d[1]);
+nctemp1732=j*Model->Dmuxyx->d[0]+nctemp1732;
+if((0>j)||(j>=Model->Dmuxyx->d[1])){
+nctempstring->a="Model->Dmuxyx";
+nctempstring->d[0]=strlen("Model->Dmuxyx")+1;;
+LibeArrayex(334,nctempstring,j,1,Model->Dmuxyx->d[1]);
 }
-float nctemp1735 = nctemp1730 * Model->Dmux->a[nctemp1732];
+float nctemp1735 = nctemp1730 * Model->Dmuxyx->a[nctemp1732];
 float nctemp1736 = nctemp1713 + nctemp1735;
 
 #line 335  "el2d.e"

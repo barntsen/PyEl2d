@@ -15,7 +15,11 @@ int Modelslscoeffs(float [*,*] Qx,      float [*,*] Qy, float [*,* ] modx,
                    float [*,*] coeff1y, float [*,*]  coeff2x , 
                    float [*,*] coeff2y, struct model Model){}
 
-int Modeld(float [*] d, float dx, int nb){}
+int         Modeld(float [*] d, float dx, int nb){}
+float [*,*] Modelcopy(float [*,*] a){}
+int         Modelstaggerx(float [*,*] a, float [*,*] astagg){}
+int         Modelstaggery(float [*,*] a, float [*,*] astagg){}
+
 
 // Functions
 
@@ -52,7 +56,66 @@ int Modeld(float [*] d, float dx, int nb){
   return(OK);
 }
 
+float [*,*] Modelcopy(float [*,*] a){
+  int nx,ny;
+  int i,j;
+  float [*,*] b;
 
+  nx=len(a,0);
+  ny=len(a,1);
+  b=new(float [nx,ny]);
+
+  for (j=0; j<ny; j=j+1){
+    for (i=0; i<nx; i=i+1){
+      b[i,j] = a[i,j];
+    }
+  }
+
+  return(b);
+}
+
+
+int Modelstaggerx(float [*,*] a, float [*,*] astagg){
+  int nx,ny;
+  int i,j;
+
+  nx=len(a,0);
+  ny=len(a,1);
+
+  for (j=0; j<ny; j=j+1){
+    for (i=0; i<nx; i=i+1){
+      astagg[i,j] = a[i,j];
+    }
+  }
+
+  for (j=0; j<ny; j=j+1){
+    for (i=0; i<nx-1; i=i+1){
+      astagg[i,j] = 0.5*(a[i,j] + a[i+1,j]);
+    }
+  }
+  return(OK);
+}
+
+int Modelstaggery(float [*,*] a, float [*,*] astagg){
+  int nx,ny;
+  int i,j;
+
+  nx=len(a,0);
+  ny=len(a,1);
+
+  for (j=0; j<ny; j=j+1){
+    for (i=0; i<nx; i=i+1){
+      astagg[i,j] = a[i,j];
+    }
+  }
+
+  for (j=0; j<ny-1; j=j+1){
+    for (i=0; i<nx; i=i+1){
+      astagg[i,j] = 0.5*(a[i,j] + a[i,j+1]);
+    }
+  }
+  return(OK);
+}
 
 int Modelslscoeffs(float [*,*] Qx,      float [*,*] Qy, float [*,* ] modx, 
                    float [*,*] mody,    float [*,*]  coeff1x , 
@@ -162,6 +225,7 @@ struct model Modelsls(float [*,*] vp,  float [*,*] vs, float [*,*] rho,
   int fd;
   int dsize;
   char [*] data;
+  float [*,*] wrk, wrk2;
 
   Model= new(struct model);
   Model.Dx = Dx;
@@ -181,7 +245,10 @@ struct model Modelsls(float [*,*] vp,  float [*,*] vs, float [*,*] rho,
 //  Model.Qsx      = Qsx ; // Rho s  Q-values 
 //  Model.Qsy      = Qsy ; // Rho s  Q-values 
   Model.Rho     =  new(float [Nx,Ny]) ; // Unrelaxed Lame mu 
+  Model.Rhox     =  new(float [Nx,Ny]) ; // Unrelaxed Lame mu 
+  Model.Rhoy     =  new(float [Nx,Ny]) ; // Unrelaxed Lame mu 
   Model.Mu      =  new(float [Nx,Ny]) ; // Unrelaxed Lame mu 
+  Model.Muxy    =  new(float [Nx,Ny]) ; // Unrelaxed Lame mu 
   Model.Lambda  =  new(float [Nx,Ny])  ; // Unrelaxed Lame lambda
 
   // The following parameters are the change in the 
@@ -192,10 +259,12 @@ struct model Modelsls(float [*,*] vp,  float [*,*] vs, float [*,*] rho,
   Model.Dlambday = new(float [Nx,Ny]);  
   Model.Dmux     = new(float [Nx,Ny]);  
   Model.Dmuy     = new(float [Nx,Ny]);
+  Model.Dmuxyx     = new(float [Nx,Ny]);  
+  Model.Dmuxyy     = new(float [Nx,Ny]);
   Model.Drhopx    = new(float [Nx,Ny]);
   Model.Drhopy    = new(float [Nx,Ny]);
-  Model.Drhosx    = new(float [Nx,Ny]);
-  Model.Drhosy    = new(float [Nx,Ny]);
+  //Model.Drhosx    = new(float [Nx,Ny]);
+  //Model.Drhosy    = new(float [Nx,Ny]);
 
   // Coeffcients used for updating memory functions
   Model.Alpha1x   =  new(float [Nx,Ny]);
@@ -239,8 +308,8 @@ struct model Modelsls(float [*,*] vp,  float [*,*] vs, float [*,*] rho,
       Model.Dmuy[i,j] = Model.Mu[i,j];
       Model.Drhopx[i,j] = Model.Rho[i,j];
       Model.Drhopy[i,j] = Model.Rho[i,j];
-      Model.Drhosx[i,j] = Model.Rho[i,j];
-      Model.Drhosy[i,j] = Model.Rho[i,j];
+      //Model.Drhosx[i,j] = Model.Rho[i,j];
+      //Model.Drhosy[i,j] = Model.Rho[i,j];
     }
   }
 
@@ -254,6 +323,64 @@ struct model Modelsls(float [*,*] vp,  float [*,*] vs, float [*,*] rho,
                  Model.Eta1y, Model.Eta2x, Model.Eta2y, Model);
 //  Modelslscoeffs(Model.Qsx, Model.Qsy,Model.Drhosx,Model.Drhosy,Model.Nu1x, Model.Nu1y, 
 //                 Model.Nu2x, Model.Nu2y, Model);
+
+// Stagger the density
+  Modelstaggerx(Model.Rho, Model.Rhox);
+  Modelstaggery(Model.Rho, Model.Rhoy);
+// Stagger viscoelastic part of density
+  wrk = Modelcopy(Model.Drhopx);
+  Modelstaggerx(wrk, Model.Drhopx);
+  delete(wrk);
+  wrk = Modelcopy(Model.Drhopy);
+  Modelstaggery(wrk, Model.Drhopy);
+
+// Stagger Mu  
+  Modelstaggerx(Model.Mu, wrk);
+  Modelstaggery(wrk, Model.Muxy);
+  Modelstaggerx(Model.Dmux, wrk);
+  Modelstaggery(wrk, Model.Dmuxyx);
+  Modelstaggerx(Model.Dmuy, wrk);
+  Modelstaggery(wrk, Model.Dmuxyy);
+  delete(wrk);
+
+// Stagger Beta coeffs
+  wrk = Modelcopy(Model.Beta1x); 
+  wrk2 = new(float[Model.Nx,Model.Ny]);
+  Modelstaggery(wrk, wrk2);
+  Modelstaggerx(wrk2,Model.Beta1x);
+  delete(wrk);
+  wrk = Modelcopy(Model.Beta2x); 
+  wrk2 = new(float[Model.Nx,Model.Ny]);
+  Modelstaggery(wrk, wrk2);
+  Modelstaggerx(wrk2,Model.Beta2x);
+  delete(wrk);
+  delete(wrk2);
+  wrk = Modelcopy(Model.Beta1y); 
+  wrk2 = new(float[Model.Nx,Model.Ny]);
+  Modelstaggery(wrk, wrk2);
+  Modelstaggerx(wrk2,Model.Beta1y);
+  delete(wrk);
+  wrk = Modelcopy(Model.Beta2y); 
+  wrk2 = new(float[Model.Nx,Model.Ny]);
+  Modelstaggery(wrk, wrk2);
+  Modelstaggerx(wrk2,Model.Beta2y);
+  delete(wrk);
+  delete(wrk2);
+
+// Stagger Eta coeffs
+  wrk = Modelcopy(Model.Eta1x);
+  Modelstaggerx(wrk,Model.Eta1x);
+  delete(wrk);
+  wrk = Modelcopy(Model.Eta2x);
+  Modelstaggerx(wrk,Model.Eta2x);
+  delete(wrk);
+
+  wrk = Modelcopy(Model.Eta1y);
+  Modelstaggery(wrk,Model.Eta1y);
+  delete(wrk);
+  wrk = Modelcopy(Model.Eta2y);
+  Modelstaggery(wrk,Model.Eta2y);
+  delete(wrk);
   return(Model);
 }
 
