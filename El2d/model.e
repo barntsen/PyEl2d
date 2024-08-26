@@ -163,7 +163,7 @@ int Modelslscoeffs(float [*,*] Qx,      float [*,*] Qy, float [*,* ] modx,
   // Compute relaxation times
   for(j=0; j<Ny;j=j+1){
     for(i=0; i<Nx;i=i+1){
-      tau0 = 1.0/Model.W0;   // Relaxation time corresponding to absorption top
+      tau0 = 1.0/Model.W0;   
 
       // Compute relaxation times corresponding to Q
       tauex = (tau0/Qx[i,j])*(LibeSqrt(Qx[i,j]*Qx[i,j]+1.0)+1.0);
