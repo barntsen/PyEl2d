@@ -1,6 +1,6 @@
-// Src is the source object
+# Src is the source object
 struct src 
-{ 
+: 
   int [*] Sx;
   int [*] Sy;
   float  [*,*] Sqyy;
@@ -8,11 +8,11 @@ struct src
   float  [*,*] Sfx;
   float  [*,*] Sfy;
   int Ns;
-}
-// SrcNew creates a new source object
+end
+# SrcNew creates a new source object
 struct src SrcNew(int [*] sx, int [*] sy, 
                   float [*,*] sqxx, float [*,*] sqyy,
-                  float [*,*] sfx,  float [*,*] sfy){}
+                  float [*,*] sfx,  float [*,*] sfy):end
 
-// SrcDel deletes a source object
-int SrcDel(struct src Src){}
+# SrcDel deletes a source object
+int SrcDel(struct src Src):end
