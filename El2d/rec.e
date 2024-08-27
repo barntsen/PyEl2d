@@ -86,11 +86,14 @@ float [*,*] RecGetrec(struct rec Rec, int data):
  
   if(data == 0):
     return(Rec.sxx);
-  endelse if(data == 1):
+  end
+  else if(data == 1):
     return(Rec.syy);
-  endelse if(data == 2):
+  end
+  else if(data == 2):
     return(Rec.vx);
-  endelse if(data == 3):
+  end
+  else if(data == 3):
     return(Rec.vy);
   end
 end

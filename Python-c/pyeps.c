@@ -1,6 +1,6 @@
 
 #line 1  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-/*  Translated by epsc  version today */
+//  Translated by epsc  version today  
 
 #line 4  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 #include <stddef.h>
@@ -56,19 +56,19 @@ typedef struct nctempcomplex4 { int d[4]; complex *a;} nctempcomplex4;
 void *RunMalloc(int n); 
 int RunFree(void *n); 
 
-#line 87  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 60  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibeArrayex (int line,nctempchar1 *name,int ival,int index,int bound);
 
-#line 89  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 63  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibeClearerr ();
 
-#line 90  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 65  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibeGeterrno ();
 
-#line 91  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 67  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 nctempchar1* LibeGeterrstr ();
 
-#line 143  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 118  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 struct MainArg {nctempchar1 *arg;
 };
 typedef struct nctempMainArg1 {int d[1]; struct MainArg *a; } nctempMainArg1;
@@ -76,193 +76,193 @@ struct nctempMainArg2 {int d[2]; struct MainArg *a; } ;
 struct nctempMainArg3 {int d[3]; struct MainArg *a; } ;
 struct nctempMainArg4 {int d[4]; struct MainArg *a; } ;
 
-#line 145  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 121  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int Main (struct nctempMainArg1 *MainArgs);
 
-#line 153  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 126  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibeInit ();
 
-#line 154  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 128  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibeDelete ();
 
-#line 155  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 130  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibeExit ();
 
-#line 156  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 132  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 nctempchar1* LibeGetenv (nctempchar1 *name);
 
-#line 172  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 146  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibeOpen (nctempchar1 *name,nctempchar1 *mode);
 
-#line 173  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 148  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibeClose (int fp);
 
-#line 174  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 150  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibeGetc (int fp);
 
-#line 175  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 152  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibeUngetc (int fp);
 
-#line 176  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 154  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibeGetw (int fp,nctempchar1 *text);
 
-#line 177  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 156  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibePs (nctempchar1 *s);
 
-#line 178  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 158  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibePi (int n);
 
-#line 179  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 160  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibePf (float r);
 
-#line 180  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 162  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibePutf (int fp,float r,nctempchar1 *form);
 
-#line 181  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 164  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibePutc (int fp,int c);
 
-#line 182  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 166  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibePuts (int fp,nctempchar1 *s);
 
-#line 183  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 168  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibePuti (int fp,int ival);
 
-#line 184  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 170  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibeRead (int fp,int n,nctempchar1 *array);
 
-#line 185  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 172  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibeWrite (int fp,int n,nctempchar1 *array);
 
-#line 186  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 174  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibeSeek (int fp,int pos,int flag);
 
-#line 187  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 176  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibeFlush (int fp);
 
-#line 222  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 210  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibeStrlen (nctempchar1 *s);
 
-#line 223  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 212  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibeStrcmp (nctempchar1 *s,nctempchar1 *t);
 
-#line 224  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 214  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibeStrev (nctempchar1 *s);
 
-#line 225  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 216  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 nctempchar1* LibeStrsave (nctempchar1 *s);
 
-#line 226  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 218  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibeStrcpy (nctempchar1 *s,nctempchar1 *t);
 
-#line 227  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 220  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibeStrcat (nctempchar1 *s,nctempchar1 *t);
 
-#line 228  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 222  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 nctempchar1* LibeStradd (nctempchar1 *t,nctempchar1 *s);
 
-#line 229  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 224  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibeIsalpha (int c);
 
-#line 230  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 226  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibeIsdigit (int c);
 
-#line 231  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 228  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibeIsalnum (int c);
 
-#line 258  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 252  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibeAtoi (nctempchar1 *s);
 
-#line 259  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 254  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibeItoa (int n,nctempchar1 *s);
 
-#line 260  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 256  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibeItoh (int n,nctempchar1 *s);
 
-#line 261  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 258  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 float LibeAtof (nctempchar1 *s);
 
-#line 262  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 260  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibeFtoa (float f,nctempchar1 *fmt,nctempchar1 *s);
 
-#line 292  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 288  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 float LibeMach (int flag);
 
-#line 293  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 290  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 float LibeFabs (float x);
 
-#line 294  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 292  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 float LibeFscale2 (float x,int n);
 
-#line 295  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 294  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 float LibeGetfman2 (float x);
 
 #line 296  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibeGetfexp2 (float x);
 
-#line 297  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 298  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 float LibeFscale (float x,int n);
 
-#line 298  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 300  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibeGetfman (float f,int maxdig);
 
-#line 299  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 302  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 float LibeGetffman (float f);
 
-#line 300  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 304  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibeGetmaxdig (float f);
 
-#line 301  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 306  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibeGetfexp (float f);
 
-#line 328  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 331  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 float LibeClock ();
 
-#line 333  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 339  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibeSetnb (int n);
 
-#line 335  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 342  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibeSetnt (int n);
 
-#line 338  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 346  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibeGetnb ();
 
-#line 340  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 349  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibeGetnt ();
 
-#line 349  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 354  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibeMod (int n,int r);
 
 #line 362  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 float LibeSqrt (float x);
 
-#line 363  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 364  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 float LibeLn (float x);
 
-#line 364  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 366  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 float LibeExp (float x);
 
-#line 365  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 368  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 float LibeSin (float x);
 
-#line 366  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 370  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 float LibeCos (float x);
 
-#line 367  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 372  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 float LibeTan (float x);
 
-#line 368  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 374  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 float LibeArcsin (float x);
 
-#line 369  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 376  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 float LibeArccos (float x);
 
-#line 370  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 378  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 float LibeArctan (float x);
 
-#line 371  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 380  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 float LibePow (float base,float exponent);
 
-#line 376  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+#line 386  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibeSystem (nctempchar1 *cmd);
 
 #line 5  "pyeps.e"

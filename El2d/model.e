@@ -1,13 +1,15 @@
-# Model contains functions for creating models
+# Methods for the model struct
+#
 
 include <libe.i>  
 include "model.i" # Model struct definition
 
 #Forward declarations for internal functions
 struct model Modelsls(float [*,*] vp,  float [*,*] vs, float [*,*] rho, 
-                      float [*,*] Qlx, float [*,*] Qly,float [*,*] Qmx, float [*,*] Qmy,
-                      float [*,*] Qpx, float [*,*] Qpy,
-                      float Dx,        float Dt,       float W0,        int Nb):end
+       float [*,*] Qlx, float [*,*] Qly,float [*,*] Qmx, float [*,*] Qmy,
+       float [*,*] Qpx, float [*,*] Qpy,
+       float Dx,        float Dt,       float W0,        int Nb):
+end
 
 int Modelslscoeffs(float [*,*] Qx,      float [*,*] Qy, float [*,* ] modx, 
                    float [*,*] mody,    float [*,*]  coeff1x , 
@@ -27,14 +29,13 @@ int Modeld(float [*] d, float dx, int nb):
   # Modeld creates a 1D quadratic profile function tapering the left
   # and right borders.
   #
-  #
   # Parameters:
   #
   #   d  : Input 1D float array
   #   dx : Grid spacing
   #   nb : Width of boarder zone
   #
-  # Return: OK if no error, ERR in all other cases.
+  #   Return: OK if no error, ERR in all other cases.
 
   int i,n;
 
@@ -44,31 +45,30 @@ int Modeld(float [*] d, float dx, int nb):
     d[i]=1.0;
   end
 
+
   # Taper left border
   for(i=0; i<nb;i=i+1):
-      d[i] = d[i]*(cast(float,i)*dx)/(cast(float,nb)*dx)
-                 *(cast(float,i)*dx)/(cast(float,nb)*dx) ;
+      d[i] = d[i]*((cast(float,i)*dx)/(cast(float,nb)*dx)
+                 *(cast(float,i)*dx)/(cast(float,nb)*dx));
   end
-
   # taper right border
   for(i=n-1-nb; i<n;i=i+1):
-      d[i] = d[i]*(cast(float,n-1-i)*dx)/(cast(float,nb)*dx)
-                 *(cast(float,n-1-i)*dx)/(cast(float,nb)*dx);
+      d[i] = d[i]*((cast(float,n-1-i)*dx)/(cast(float,nb)*dx)
+                 *(cast(float,n-1-i)*dx)/(cast(float,nb)*dx));
   end
-
   return(OK);
 end
 
 float [*,*] Modelcopy(float [*,*] a):
 
-  # Modelcopy creates a copy of a 2d array
+  # Modelcopy returns a copy of a 2D arry.
   #
   # Parameters:
-  #   a: Input 2D array
+  #    a : 2D Array to be copied.
   #
-  # Returns:
-  # Copy of 2D array
-
+  # Return:
+  # 2D array with copy of a.
+  
   int nx,ny;
   int i,j;
   float [*,*] b;
@@ -88,6 +88,18 @@ end
 
 
 int Modelstaggerx(float [*,*] a, float [*,*] astagg):
+
+  # Modelstaggerx staggers a 2D array in the x-direction 
+  #
+  # Parameters
+  #    a      : Input array
+  #    
+  # Returns
+  #    astagg : staggered output array
+  # astagg[i,j] = 0,5*(a[i]+a[i+1])
+  # astagg[nx-1,ny-1] = a[nx-1,ny-1].
+  # where nx=len(a,0) and ny=len(a,1)
+
   int nx,ny;
   int i,j;
 
@@ -109,6 +121,17 @@ int Modelstaggerx(float [*,*] a, float [*,*] astagg):
 end
 
 int Modelstaggery(float [*,*] a, float [*,*] astagg):
+
+  # Modelstaggery staggers a 2D array in the y-direction 
+  #
+  # Parameters
+  #    a      : Input array
+  #    
+  # Returns
+  #    astagg : staggered output array
+  # astagg[i,j] = 0,5*(a[i,j]+a[i,j+1])
+  # astagg[nx-1,ny-1] = a[nx-1,ny-1].
+  # where nx=len(a,0) and ny=len(a,1)
   int nx,ny;
   int i,j;
 
@@ -133,25 +156,26 @@ int Modelslscoeffs(float [*,*] Qx,      float [*,*] Qy, float [*,* ] modx,
                    float [*,*] mody,    float [*,*]  coeff1x , 
                    float [*,*] coeff1y, float [*,*]  coeff2x , 
                    float [*,*] coeff2y, struct model Model):
-# Modelslscoeff computes the standard linear solid  coefficients
-# for the wave propagation solver.
-#
-# Parameters :
-#  Qx     : Q-model tapered in the x-direction 
-#  Qy     : Q-model tapered in the y-direction 
-#  modx   : Modulus in x-dir
-#  mody   : Modulus in y-dir
-#  coeff1x : Coefficients used by the solver
-#  coeff1y : Coefficients used by the solver
-#  coeff2x : Coefficients used by the solver
-#  coeff2y : Coefficients used by the solver
-#  Model  : Model struct
-#
-# Returns  : OK or ERR
-#
-# See the documentation for the 
-# definition of coefficients and formulas used.
-# 
+
+  # Modelslscoeff computes the standard linear solid  coefficients
+  # for the wave propagation solver.
+  #
+  # Parameters :
+  #  Qx     : Q-model tapered in the x-direction 
+  #  Qy     : Q-model tapered in the y-direction 
+  #  modx   : Modulus in x-dir
+  #  mody   : Modulus in y-dir
+  #  coeff1x : Coefficients used by the solver
+  #  coeff1y : Coefficients used by the solver
+  #  coeff2x : Coefficients used by the solver
+  #  coeff2y : Coefficients used by the solver
+  #  Model  : Model struct
+  #
+  # Returns  : OK or ERR
+  #
+  # See the documentation for the 
+  # definition of coefficients and formulas used.
+  # 
 
   int Nx,Ny;  # Model dimensions
   float tau0; # Relaxation time corresponding to absorption top
@@ -175,21 +199,21 @@ int Modelslscoeffs(float [*,*] Qx,      float [*,*] Qy, float [*,* ] modx,
   # Compute relaxation times
   for(j=0; j<Ny;j=j+1):
     for(i=0; i<Nx;i=i+1):
-      tau0 = 1.0/Model.W0;   # Relaxation time corresponding to absorption top
+      tau0 = 1.0/Model.W0;   
 
       # Compute relaxation times corresponding to Q
-      tauex = (tau0/x[i,j])*(LibeSqrt(Qx[i,j]*Qx[i,j]+1.0)+1.0);
-      tausx = (tau0/x[i,j])*(LibeSqrt(Qx[i,j]*Qx[i,j]+1.0)-1.0);
-      tauey = (tau0/y[i,j])*(LibeSqrt(Qy[i,j]*Qy[i,j]+1.0)+1.0);
-      tausy = (tau0/y[i,j])*(LibeSqrt(Qy[i,j]*Qy[i,j]+1.0)-1.0);
+      tauex = (tau0/Qx[i,j])*(LibeSqrt(Qx[i,j]*Qx[i,j]+1.0)+1.0);
+      tausx = (tau0/Qx[i,j])*(LibeSqrt(Qx[i,j]*Qx[i,j]+1.0)-1.0);
+      tauey = (tau0/Qy[i,j])*(LibeSqrt(Qy[i,j]*Qy[i,j]+1.0)+1.0);
+      tausy = (tau0/Qy[i,j])*(LibeSqrt(Qy[i,j]*Qy[i,j]+1.0)-1.0);
 
       
       # NOTE: Inverting relaxation times here and below
 
-      tauex = 1.0/auex;
-      tauey = 1.0/auey;
-      tausx = 1.0/ausx;
-      tausy = 1.0/ausy;
+      tauex = 1.0/tauex;
+      tauey = 1.0/tauey;
+      tausx = 1.0/tausx;
+      tausy = 1.0/tausy;
 
       argx = Model.dx[i];
       argy = Model.dy[j];
@@ -201,8 +225,8 @@ int Modelslscoeffs(float [*,*] Qx,      float [*,*] Qy, float [*,* ] modx,
 
       # Compute the relaxed version of the modulus
       # of  the modulus
-      modx[i,j]   = LibeExp(-argx)*modx[i,j]*(1.0-tausx/auex);
-      mody[i,j]   = LibeExp(-argy)*mody[i,j]*(1.0-tausy/auey);
+      modx[i,j]   = LibeExp(-argx)*modx[i,j]*(1.0-tausx/tauex);
+      mody[i,j]   = LibeExp(-argy)*mody[i,j]*(1.0-tausy/tauey);
     end
   end
   delete(d1);
@@ -299,7 +323,7 @@ struct model Modelsls(float [*,*] vp,  float [*,*] vs, float [*,*] rho,
   # Compute Lame parameters and inverse density
   for(j=0; j<Ny;j=j+1):
     for(i=0; i<Nx;i=i+1):
-      Model.Rho[i,j]   = 1.0/ho[i,j];
+      Model.Rho[i,j]   = 1.0/rho[i,j];
       Model.Mu[i,j]       = rho[i,j]*vs[i,j]*vs[i,j]; 
       Model.Lambda[i,j]   = rho[i,j]*(vp[i,j]*vp[i,j]-2.0*vs[i,j]*vs[i,j]);
       Model.Alpha1x[i,j]  = 0.0;
@@ -454,9 +478,9 @@ float ModelStability(struct model Model)
   ny = Model.Ny;
   for(j=0; j<ny; j=j+1):
     for(i=0; i<nx; i=i+1):
-      vp = LibeSqrt((Model.Lambda[i,j]+2.0*Model.Mu[i,j])/odel.Rho[i,j]);
-      stab = (vp*Model.Dt)/odel.Dx;
-      if(stab > 1.0/ibeSqrt(2.0)):
+      vp = LibeSqrt((Model.Lambda[i,j]+2.0*Model.Mu[i,j])/Model.Rho[i,j]);
+      stab = (vp*Model.Dt)/Model.Dx;
+      if(stab > 1.0/LibeSqrt(2.0)):
         LibePuts(stderr,"Stability index too large! ");
         LibePutf(stderr,stab,"g");
         LibePuts(stderr,"\n"); 

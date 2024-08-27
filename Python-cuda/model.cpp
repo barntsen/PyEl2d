@@ -1,4 +1,4 @@
-/*  Translated by epsc  version December 2021 */
+//  Translated by epsc  version December 2021  
 extern "C" {
 typedef struct { float r; float i;} complex; 
 typedef struct nctempfloat1 { int d[1]; float *a;} nctempfloat1; 
