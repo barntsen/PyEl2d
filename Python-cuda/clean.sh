@@ -7,8 +7,8 @@ rm -f src.i
 rm -f src.e 
 rm -f rec.i 
 rm -f rec.e 
-rm -f ac2d.i 
-rm -f ac2d.e 
+rm -f el2d.i 
+rm -f el2d.e 
 rm -f diff.e 
 rm -f diff.i 
 rm -f pyeps.e

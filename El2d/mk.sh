@@ -31,7 +31,7 @@ if  test $cc = c ; then
   ec  -O $f model.e
   ec  -O $f model.e
   ec  -O $f src.e
-  ec  -C -O $f rec.e
+  ec  -O $f rec.e
   ar rcs libel2dcpu.o el2d.o diff.o model.o src.o rec.o
 fi
 
