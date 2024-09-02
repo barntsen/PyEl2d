@@ -80,8 +80,8 @@ if (par.srcflags[3] == 1) :
   sfy[:,0]=Src[:]
 
 # Create sources 
-src=src.src(pyel2d,par.sx,par.sy,
-            sqxx,sqyy,sfx,sfy)
+src=src.src(pyel2d,par.sx,par.sy,par.nt,par.dt,
+            sfx=sfx,sfy=sfy,sqxx=sqxx,sqyy=sqyy)
 
 # Create receivers 
 rec=rec.rec(pyel2d,par.rx,par.ry,par.nt,par.resamp)
@@ -121,7 +121,9 @@ else :
 
 
 # Create model
-m = model.model(pyel2d,par,vp,vs,rho,ql,qm,qp)
+m = model.model(pyel2d,vp,vs,rho,par.dx,par.dt,par.w0,par.nb,par.rheol,
+                Ql=ql,Qm=qm,Qp=qp)
+                      
 print("model time  (secs):", time.perf_counter()-t0, flush=True)
 
 # Create fd solver

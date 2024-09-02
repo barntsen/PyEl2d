@@ -11,16 +11,16 @@
 
 import numpy as np
 
-pi      = 3.14159    #Constant pi
-nx      = 1750       #No of grdipoints in x-direction
-ny      = 336        #No of gridpoints in y-direction
-dx      = 100.0      #Grid interval
-dt      = 0.001      #Time sampling interval
-nt      = 30001      #No of time steps
-f0      = 1.5        #Q-model peak frequency
+pi      = 3.14159  #Constant pi
+nx      = 251      #No of grdipoints in x-direction
+ny      = 251      #No of gridpoints in y-direction
+dx      = 5.0      #Grid interval
+dt      = 0.0005    #Time sampling interval
+nt      = 2001      #No of time steps
+f0      = 25.0        #Q-model peak frequency
 w0      = 2.0*pi*f0  #Q-model peak angular frequency
-resamp  = 10         #Resampling factor (relative to no of timesteps) for data
-sresamp = 100        #Resampling factor (relative to timesteps)for snapshots
+resamp  = 1          #Resampling factor (relative to no of timesteps) for data
+sresamp = 10         #Resampling factor (relative to timesteps)for snapshots
 nb      = 35         #No of PML boundary points
 l       = 6          #Length of differentiator
 fvp     = "vp.bin"   #Vp file name
@@ -41,8 +41,8 @@ fqm      = ""        # Qm file name (default Qm=100000)
 #Source position
 sx       = np.zeros(1) #Source x-position
 sy       = np.zeros(1) #Source y-position
-sx[0]    = 1000 
-sy[0]    = 95
+sx[0]    = nx/2 
+sy[0]    = ny/2
 
 #Source flags 
 srcflags = np.zeros(4)
@@ -57,11 +57,11 @@ rx=np.zeros((nr))
 ry=np.zeros((nr))
 for i in range(0,nr):
   rx[i] = i
-  ry[i] = 40 
+  ry[i] = nb+5
 
 #Snapshost (0=flag not set, 1=flag set)
 snpflags = np.zeros(4)
-snpflags[0] = 1 #Store sigmaxx on file "snp-sxx.bin"
-snpflags[1] = 1 #Store sigmayy on file "snp-syy.bin"
-#snpflags[2] = 1 #Store vx      on file "snp-vx.bin"
+#snpflags[0] = 1 #Store sigmaxx on file "snp-sxx.bin"
+#snpflags[1] = 1 #Store sigmayy on file "snp-syy.bin"
+snpflags[2] = 1 #Store vx      on file "snp-vx.bin"
 #snpflags[3] = 1 #Store vy      on file "snp-vy.bin"

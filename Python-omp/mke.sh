@@ -21,7 +21,7 @@ ec -c  el2d.e
 ec -c  diff.e
 cp $EPS/Src/libe.e .
 cp $EPS/Src/libe.i .
-cp $EPS/Src/m.i .
+cp $EPS/Src/m-cpu.i m.i
 cp $EPS/Src/run.i .
 cp $EPS/Src/runcpu.e .
 ec -c libe.e

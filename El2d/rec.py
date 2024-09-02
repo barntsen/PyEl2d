@@ -1,26 +1,31 @@
-
 from ctypes import *
 import numpy as np
 import pyeps
 import babin as ba
 
-
 class rec :
-  ''' rec is a class for creating receiver geometry 
+  ''' rec is a class for creating receiver geometry. 
+
   '''
 
-  def __init__(self,pyel2d,rx,ry,nt,resamp):
-    ''' rec is a class for creating receiver geometry 
+  def __init__(self,pyel2d,rx,ry,nt,resamp=None):
+
+    ''' Create a new receiver object.
 
        Parameters :
-         pyel2d   : Reference to the pyac2d shared library
+         pyel2d   : Shared library with object code 
          rx       : 1D array with receiver coordinates x-comp.
          ry       : 1D array with receiver coordinates y-comp.
          nt       : No of time samples
-       
+         resamp   : (Optional) Resampling factor (relative to modeling timestep)
+                    Default value = 1
+
        Returns    : Receiver object.
+
     '''
 
+    if resamp == None :
+      resamp =1 
     self.nt = nt
     self.nr = rx.shape[0]
     pyel2d.RecNew.restype=c_void_p
@@ -35,15 +40,16 @@ class rec :
   def getrec(self,pyel2d,dtype):
     ''' Get data record
 
-        Parameters: 
-          pyel2d :  Pointer to the eps pyac2d library.
-          rec     :  Receiver object
-          dtype    : = 0 Gets sigmaxx
+       Parameters: 
+         pyel2d   :  Shared library with object code
+         dtype    : = 0 Gets sigmaxx
                   : = 1 Gets sigmayy
                   : = 2 Gets vx 
                   : = 3 Gets vy 
  
-          Returns :  2D arry with data 
+         Returns  :  
+           2D arry with data 
+
     '''
 
     # Set argument types

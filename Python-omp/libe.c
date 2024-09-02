@@ -1,4 +1,4 @@
-/*  Translated by epsc  version today */
+//  Translated by epsc  version today  
 #include <stddef.h>
 typedef struct { float r; float i;} complex; 
 typedef struct nctempfloat1 { int d[1]; float *a;} nctempfloat1; 
@@ -102,6 +102,8 @@ int RunRead (int fd,int lbuff,nctempchar1 *buffer);
 int RunWrite (int fd,int lbuff,nctempchar1 *buffer);
 int RunSeek (int fd,int pos,int flag);
 nctempchar1* RunGetenv (nctempchar1 *name);
+int RunGetnt ();
+int RunGetnb ();
 int RunStrcmp (nctempchar1 *s,nctempchar1 *t);
 int RunStrlen (nctempchar1 *s);
 int RunExit ();

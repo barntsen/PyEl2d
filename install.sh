@@ -72,6 +72,7 @@ cp El2d/src.py              Bin
 cp El2d/rec.py              Bin
 cp El2d/model.py            Bin
 cp El2d/el2d.py             Bin
+cp El2d/q.py                Bin
 cp El2d/pyeps.py            Bin
 cp Scripts/spike.py         Bin/spike
 chmod +x                    Bin/spike

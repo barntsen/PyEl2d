@@ -65,6 +65,10 @@ echo "** Installing binaries to the Bin folder"
 #Install all python scripts in Bin
 mkdir -p Bin
 
+cd Examples/Basic
+./mk.sh
+cd ../..
+
 cp El2d/el2dmod.py          Bin/el2dmod 
 chmod +x                    Bin/el2dmod
 cp El2d/q.py             Bin

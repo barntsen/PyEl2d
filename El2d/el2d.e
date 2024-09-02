@@ -1,4 +1,4 @@
-# El2d object
+# El2d solves elastodynamic 2D equations.
 
 # Imports
   include <libe.i>             
@@ -95,6 +95,7 @@
       El2d.ts = 0;
     end
   end
+
   # Open snapshot files
   if(El2d.snpflags[0] == 1):
     El2d.fdsxx = LibeOpen("snp-sxx.bin","w");
@@ -257,6 +258,7 @@ int El2dvx(struct el2d El2d, struct model Model) :
                      + Model.Eta2y[i,j]*El2d.exy[i,j];
   end
 end
+
 int El2dvy(struct el2d El2d, struct model Model) :
 
   # El2dvy computes the y-component of particle velocity
@@ -276,6 +278,7 @@ int El2dvy(struct el2d El2d, struct model Model) :
   # The derivative of stress in y and x-direction are stored in eyy
   # and exy.
   # Scale with inverse density and advance one time step
+
   parallel(i=0:nx,j=0:ny):
     El2d.vy[i,j] = Model.Dt*Model.Rhoy[i,j]*(El2d.eyy[i,j] + El2d.eyx[i,j])
                  + Model.Dt*El2d.thetayyy[i,j]*Model.Drhopy[i,j]
@@ -288,6 +291,7 @@ int El2dvy(struct el2d El2d, struct model Model) :
                      + Model.Eta2x[i,j]*El2d.eyx[i,j];
   end
 end
+
 int El2dexy(struct el2d El2d, struct model Model, float [*,*] tmp1, 
             float [*,*] tmp2) :
 
@@ -307,13 +311,15 @@ int El2dexy(struct el2d El2d, struct model Model, float [*,*] tmp1,
     El2d.exy[i,j] = 0.5*(tmp1[i,j]+tmp2[i,j]);
   end
 end
-# El2deyx computes the deyx/dt strain
-#
-# Parameters:
-#   El2d : Solver object 
-#   Model: Model object
+
 int El2deyx(struct el2d El2d, struct model Model, float [*,*] tmp1, 
             float [*,*] tmp2)
+
+  # El2deyx computes the deyx/dt strain.
+  #
+  # Parameters:
+  #   El2d : Solver object 
+  #   Model: Model object
 :
   int nx,ny;
   int i,j;
@@ -325,13 +331,14 @@ int El2deyx(struct el2d El2d, struct model Model, float [*,*] tmp1,
     El2d.eyx[i,j] = 0.5*(tmp1[i,j]+tmp2[i,j]);
   end
 end
+
 int El2dstress(struct el2d El2d, struct model Model):
 
-# El2dstress computes elastic stress
-#
-# Parameters:
-#   El2d : Solver object 
-#   Model: Model object
+  # El2dstress computes elastic stress
+  #
+  # Parameters:
+  #   El2d : Solver object 
+  #   Model: Model object
 
   int nx, ny;
   int i,j,l;
@@ -377,7 +384,7 @@ end
 
 int El2dSnap(struct el2d El2d,int it) :
 
-  # El2dSnap records snapshots
+  # El2dSnap records snapshots.
   #
   # Arguments: 
   #  El2d:   : El2d object

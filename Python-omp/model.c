@@ -1,4 +1,4 @@
-/*  Translated by epsc  version today */
+//  Translated by epsc  version today  
 #include <stddef.h>
 typedef struct { float r; float i;} complex; 
 typedef struct nctempfloat1 { int d[1]; float *a;} nctempfloat1; 

@@ -5,6 +5,7 @@ include <libe.i>
 include "model.i" # Model struct definition
 
 #Forward declarations for internal functions
+
 struct model Modelsls(float [*,*] vp,  float [*,*] vs, float [*,*] rho, 
        float [*,*] Qlx, float [*,*] Qly,float [*,*] Qmx, float [*,*] Qmy,
        float [*,*] Qpx, float [*,*] Qpy,
@@ -14,15 +15,21 @@ end
 int Modelslscoeffs(float [*,*] Qx,      float [*,*] Qy, float [*,* ] modx, 
                    float [*,*] mody,    float [*,*]  coeff1x , 
                    float [*,*] coeff1y, float [*,*]  coeff2x , 
-                   float [*,*] coeff2y, struct model Model):end
+                   float [*,*] coeff2y, struct model Model):
+end
 
-int         Modeld(float [*] d, float dx, int nb):end
-float [*,*] Modelcopy(float [*,*] a):end
-int         Modelstaggerx(float [*,*] a, float [*,*] astagg):end
-int         Modelstaggery(float [*,*] a, float [*,*] astagg):end
+int         Modeld(float [*] d, float dx, int nb):
+end
 
+float [*,*] Modelcopy(float [*,*] a):
+end
 
-# Functions
+int         Modelstaggerx(float [*,*] a, float [*,*] astagg):
+end
+
+int         Modelstaggery(float [*,*] a, float [*,*] astagg):
+end
+
 
 int Modeld(float [*] d, float dx, int nb):
 
@@ -30,12 +37,12 @@ int Modeld(float [*] d, float dx, int nb):
   # and right borders.
   #
   # Parameters:
-  #
   #   d  : Input 1D float array
   #   dx : Grid spacing
   #   nb : Width of boarder zone
   #
-  #   Return: OK if no error, ERR in all other cases.
+  #  Return: 
+  #    OK if no error, ERR in all other cases.
 
   int i,n;
 
@@ -64,10 +71,10 @@ float [*,*] Modelcopy(float [*,*] a):
   # Modelcopy returns a copy of a 2D arry.
   #
   # Parameters:
-  #    a : 2D Array to be copied.
+  #   a : 2D Array to be copied.
   #
   # Return:
-  # 2D array with copy of a.
+  #   2D array with copy of a.
   
   int nx,ny;
   int i,j;
@@ -86,7 +93,6 @@ float [*,*] Modelcopy(float [*,*] a):
   return(b);
 end
 
-
 int Modelstaggerx(float [*,*] a, float [*,*] astagg):
 
   # Modelstaggerx staggers a 2D array in the x-direction 
@@ -95,7 +101,8 @@ int Modelstaggerx(float [*,*] a, float [*,*] astagg):
   #    a      : Input array
   #    
   # Returns
-  #    astagg : staggered output array
+  #   astagg : staggered output array
+  #
   # astagg[i,j] = 0,5*(a[i]+a[i+1])
   # astagg[nx-1,ny-1] = a[nx-1,ny-1].
   # where nx=len(a,0) and ny=len(a,1)
@@ -125,10 +132,11 @@ int Modelstaggery(float [*,*] a, float [*,*] astagg):
   # Modelstaggery staggers a 2D array in the y-direction 
   #
   # Parameters
-  #    a      : Input array
+  #   a      : Input array
   #    
   # Returns
-  #    astagg : staggered output array
+  #   astagg : staggered output array
+  #
   # astagg[i,j] = 0,5*(a[i,j]+a[i,j+1])
   # astagg[nx-1,ny-1] = a[nx-1,ny-1].
   # where nx=len(a,0) and ny=len(a,1)
@@ -236,24 +244,26 @@ int Modelslscoeffs(float [*,*] Qx,      float [*,*] Qy, float [*,* ] modx,
 end
 
 struct model Modelsls(float [*,*] vp,  float [*,*] vs, float [*,*] rho, 
-                      float [*,*] Qlx, float [*,*] Qly,float [*,*] Qmx, float [*,*] Qmy,
-                      float [*,*] Qpx, float [*,*] Qpy, 
-                      float Dx,        float Dt,       float W0,        int Nb)
-# Modelsls creates a new model with Standard Linear Solid Q
-#
-# Parameters: 
-#
-#  - vp :  P-wave velocity model
-#  - rho:  Density 
-#  - Q  :  Q-values
-#  - Dx :  Grid interval in x- and y-directions
-#  - Dt :  Modeling time sampling interval
-#  - W0 :  Q-model peak angular frequency
-#  - Nb :  Width of border attenuation zone (in grid points)
-#
-# Return:  Model structure
-#
-:
+             float [*,*] Qlx, float [*,*] Qly,float [*,*] Qmx, float [*,*] Qmy,
+             float [*,*] Qpx, float [*,*] Qpy, 
+             float Dx,        float Dt,       float W0,        int Nb):
+
+  # Modelsls creates a new model with Standard Linear Solid Q
+ 
+  # Parameters: 
+  #
+  #   vp :  P-wave velocity model
+  #   rho:  Density 
+  #   Q  :  Q-values
+  #   Dx :  Grid interval in x- and y-directions
+  #   Dt :  Modeling time sampling interval
+  #   W0 :  Q-model peak angular frequency
+  #   Nb :  Width of border attenuation zone (in grid points)
+  #
+  # Return:  
+  #   Model structure
+  #
+
   struct model Model; # Object to instantiate
 
   int Nx,Ny;          # Model dimensions in x- and y-directions
@@ -350,19 +360,23 @@ struct model Modelsls(float [*,*] vp,  float [*,*] vs, float [*,*] rho,
   end
 
   # Compute sls coefficients
+
   Modelslscoeffs(Model.Qlx, Model.Qly,Model.Dlambdax,Model.Dlambday,
                  Model.Alpha1x, Model.Alpha1y, 
                  Model.Alpha2x, Model.Alpha2y, Model);
-  Modelslscoeffs(Model.Qmx, Model.Qmy,Model.Dmux,Model.Dmuy,Model.Beta1x, Model.Beta1y, 
+  Modelslscoeffs(Model.Qmx, Model.Qmy,Model.Dmux,Model.Dmuy,
+                 Model.Beta1x, Model.Beta1y, 
                  Model.Beta2x, Model.Beta2y, Model);
-  Modelslscoeffs(Model.Qpx, Model.Qpy,Model.Drhopx,Model.Drhopy,Model.Eta1x, 
-                 Model.Eta1y, Model.Eta2x, Model.Eta2y, Model);
-#  Modelslscoeffs(Model.Qsx, Model.Qsy,Model.Drhosx,Model.Drhosy,Model.Nu1x, Model.Nu1y, 
-#                 Model.Nu2x, Model.Nu2y, Model);
+  Modelslscoeffs(Model.Qpx,  Model.Qpy,Model.Drhopx,Model.Drhopy,
+                 Model.Eta1x,Model.Eta1y, Model.Eta2x, Model.Eta2y, Model);
+#  Modelslscoeffs(Model.Qsx, Model.Qsy,Model.Drhosx,Model.Drhosy,
+#                Model.Nu1x, Model.Nu1y, 
+#                Model.Nu2x, Model.Nu2y, Model);
 
 # Stagger the density
   Modelstaggerx(Model.Rho, Model.Rhox);
   Modelstaggery(Model.Rho, Model.Rhoy);
+
 # Stagger viscoelastic part of density
   wrk = Modelcopy(Model.Drhopx);
   Modelstaggerx(wrk, Model.Drhopx);
@@ -373,6 +387,8 @@ struct model Modelsls(float [*,*] vp,  float [*,*] vs, float [*,*] rho,
 # Stagger Mu  
   Modelstaggerx(Model.Mu, wrk);
   Modelstaggery(wrk, Model.Muxy);
+
+# Stagger viscoelastic part of mu 
   Modelstaggerx(Model.Dmux, wrk);
   Modelstaggery(wrk, Model.Dmuxyx);
   Modelstaggerx(Model.Dmuy, wrk);
@@ -421,37 +437,39 @@ struct model Modelsls(float [*,*] vp,  float [*,*] vs, float [*,*] rho,
 end
 
 struct model ModelNew(float [*,*] vp,  float [*,*] vs, float [*,*] rho, 
-                      float [*,*] Qlx, float [*,*] Qly,float [*,*] Qmx, float [*,*] Qmy,
-                      float [*,*] Qpx, float [*,*] Qpy,
-                      float Dx,        float Dt,       float W0,       int Nb, int Rheol)
-# ModelNew creates a new model.
-#
-# Parameters: 
-#
-#  - vp :  P-wave velocity model
-#  - rho:  Density 
-#  - Q  :  Q-values
-#  - Dx :  Grid interval in x- and y-directions
-#  - Dt :  Modeling time sampling interval
-#  - W0 :  Q-model peak angular frequency
-#  - Nb :  Width of border attenuation zone (in grid points)
-#  - Rheol : Type of Q-model. Rheol=MAXWELL (Maxwell solid)
-#                             Rheol=SLS     (Standard linear solid)
-#
-# Return:  Model structure
-#
-# ModelNew creates the parameters needed by the El2d object
-# to perform 2D Elastic modeling.
-# For the details of the SLS type models
-# see the comments in Modelsls.
-:
+            float [*,*] Qlx, float [*,*] Qly,float [*,*] Qmx, float [*,*] Qmy,
+            float [*,*] Qpx, float [*,*] Qpy,
+            float Dx,        float Dt,       float W0,       int Nb, int Rheol):
+
+  # ModelNew creates a new model.
+  #
+  # Parameters: 
+  #
+  #   vp :  P-wave velocity model
+  #   rho:  Density 
+  #   Q  :  Q-values
+  #   Dx :  Grid interval in x- and y-directions
+  #   Dt :  Modeling time sampling interval
+  #   W0 :  Q-model peak angular frequency
+  #   Nb :  Width of border attenuation zone (in grid points)
+  #   Rheol : Type of Q-model. Rheol=MAXWELL (Maxwell solid)
+  #                             Rheol=SLS     (Standard linear solid)
+  #
+  # Return:  
+  #   Model structure
+  #
+  #   ModelNew creates the parameters needed by the El2d object
+  #   to perform 2D Elastic modeling.
+  #   For the details of the SLS type models
+  #   see the comments in Modelsls.
+
   struct model m;
 
   if(Rheol == SLS):
     m= Modelsls(vp,vs,rho,Qlx,Qly,Qmx,Qmy,Qpx,Qpy,
                 Dx, Dt, W0, Nb);
   end
-  else:
+  else :
     LibePuts(stderr, "Unknown Q-model\n"); 
     LibeFlush(stderr);
     # Bailing out
@@ -460,16 +478,17 @@ struct model ModelNew(float [*,*] vp,  float [*,*] vs, float [*,*] rho,
   return(m);
 end
 
-float ModelStability(struct model Model)
-#
-# Modelstability checks velocity model for stability.
-# 
-# Parameters:
-#       
-#     - Model : Model object
-#
-# Return      : Stability index
-:
+float ModelStability(struct model Model):
+
+  # Modelstability checks velocity model for stability.
+  # 
+  # Parameters:
+  #       
+  #   Model : Model object
+  #
+  # Return  : 
+  #   Stability index
+
   int nx,ny;
   int i,j;
   float vp,stab;
