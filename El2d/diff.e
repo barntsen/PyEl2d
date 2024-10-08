@@ -1,7 +1,16 @@
 # Differentiator object.
-include <libe.i>
-include "diff.i"
 
+import libe
+
+#diff class
+class diff :
+  int  l;        # Differentiator length
+  int lmax;
+  float [*,*] coeffs; 
+  float [*]   w;# Differentiator weights 
+end
+
+#Methods
 struct diff DiffNew( int l) :
 
   # DiffNew creates a new differentiator object.

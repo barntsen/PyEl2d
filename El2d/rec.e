@@ -1,9 +1,24 @@
 # Rec object
 
 # Imports
-include <libe.i>
-include "model.i"
-include "rec.i"
+import libe
+import model
+
+class rec :
+  int nr; # No of receivers
+  int [*] rx;    # Receiver x-postions
+  int [*] ry;    # Receiver y-postions 
+  int fd;        # Snapshot output file descriptor
+  int nt;        # No of time samples
+  float [*,*] p;   # Pressure p[i,j] at time sample no j at position no i
+  float [*,*] sxx; # Stress sxx[i,j] at time sample no j at position no i
+  float [*,*] syy; # Stress syy[i,j] at time sample no j at position no i
+  float [*,*] vx;  # Velocity vx[i,j]  at time sample no j at position no i
+  float [*,*] vy;  # Velocity vy[i,j]  at time sample no j at position no i
+  float [*,*] wrk; # Work array
+  int   resamp;  # Resample factor for receivers
+  int pit;       # Next time sample to be recorded
+end
 
 struct rec RecNew(int [*] rx, int [*] ry, int nt,  
                   int resamp) :

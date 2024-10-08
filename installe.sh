@@ -1,5 +1,5 @@
 #!/bin/sh
-#install compiles and installs all runable codes
+# Compiles and installs all runable codes
 # and scripts.
 
 cc=$1

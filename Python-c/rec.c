@@ -1,271 +1,197 @@
-
-#line 1  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 //  Translated by epsc  version today  
-
-#line 4  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 #include <stddef.h>
 typedef struct { float r; float i;} complex; 
-
-#line 3  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 typedef struct nctempfloat1 { int d[1]; float *a;} nctempfloat1; 
-
-#line 5  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 typedef struct nctempint1 { int d[1]; int *a;} nctempint1; 
-
-#line 7  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 typedef struct nctempchar1 { int d[1]; char *a;} nctempchar1; 
 typedef struct nctempcomplex1 { int d[1]; complex *a;} nctempcomplex1; 
-
-#line 8  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-static struct nctempchar1 nctempstringx = {0, NULL};
-static struct nctempchar1 *nctempstring = &nctempstringx;
 typedef struct nctempfloat2 { int d[2]; float *a;} nctempfloat2; 
-
-#line 10  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 typedef struct nctempint2 { int d[2]; int *a;} nctempint2; 
 typedef struct nctempchar2 { int d[2]; char *a;} nctempchar2; 
-
-#line 12  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 typedef struct nctempcomplex2 { int d[2]; complex *a;} nctempcomplex2; 
-
-#line 13  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 typedef struct nctempfloat3 { int d[3]; float *a;} nctempfloat3; 
-
-#line 14  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 typedef struct nctempint3 { int d[3]; int *a;} nctempint3; 
-
-#line 15  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 typedef struct nctempchar3 { int d[3]; char *a;} nctempchar3; 
-
-#line 16  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 typedef struct nctempcomplex3 { int d[3]; complex *a;} nctempcomplex3; 
-
-#line 17  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 typedef struct nctempfloat4 { int d[4]; float *a;} nctempfloat4; 
-
-#line 18  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 typedef struct nctempint4 { int d[4]; int *a;} nctempint4; 
-
-#line 19  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 typedef struct nctempchar4 { int d[4]; char *a;} nctempchar4; 
-
-#line 20  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 typedef struct nctempcomplex4 { int d[4]; complex *a;} nctempcomplex4; 
 #include <stdlib.h>
 #include <string.h>
 void *RunMalloc(int n); 
 int RunFree(void *n); 
-
-#line 60  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-int LibeArrayex (int line,nctempchar1 *name,int ival,int index,int bound);
-
-#line 63  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-int LibeClearerr ();
-
-#line 65  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-int LibeGeterrno ();
-
-#line 67  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-nctempchar1* LibeGeterrstr ();
-
-#line 118  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
 struct MainArg {nctempchar1 *arg;
 };
 typedef struct nctempMainArg1 {int d[1]; struct MainArg *a; } nctempMainArg1;
 struct nctempMainArg2 {int d[2]; struct MainArg *a; } ;
 struct nctempMainArg3 {int d[3]; struct MainArg *a; } ;
 struct nctempMainArg4 {int d[4]; struct MainArg *a; } ;
-
-#line 121  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-int Main (struct nctempMainArg1 *MainArgs);
-
-#line 126  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-int LibeInit ();
-
-#line 128  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-int LibeDelete ();
-
-#line 130  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-int LibeExit ();
-
-#line 132  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-nctempchar1* LibeGetenv (nctempchar1 *name);
-
-#line 146  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-int LibeOpen (nctempchar1 *name,nctempchar1 *mode);
-
-#line 148  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-int LibeClose (int fp);
-
-#line 150  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-int LibeGetc (int fp);
-
-#line 152  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-int LibeUngetc (int fp);
-
-#line 154  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-int LibeGetw (int fp,nctempchar1 *text);
-
-#line 156  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-int LibePs (nctempchar1 *s);
-
-#line 158  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-int LibePi (int n);
-
-#line 160  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-int LibePf (float r);
-
-#line 162  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-int LibePutf (int fp,float r,nctempchar1 *form);
-
-#line 164  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-int LibePutc (int fp,int c);
-
-#line 166  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-int LibePuts (int fp,nctempchar1 *s);
-
-#line 168  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-int LibePuti (int fp,int ival);
-
-#line 170  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-int LibeRead (int fp,int n,nctempchar1 *array);
-
-#line 172  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-int LibeWrite (int fp,int n,nctempchar1 *array);
-
-#line 174  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-int LibeSeek (int fp,int pos,int flag);
-
-#line 176  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-int LibeFlush (int fp);
-
-#line 210  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-int LibeStrlen (nctempchar1 *s);
-
-#line 212  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-int LibeStrcmp (nctempchar1 *s,nctempchar1 *t);
-
-#line 214  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-int LibeStrev (nctempchar1 *s);
-
-#line 216  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-nctempchar1* LibeStrsave (nctempchar1 *s);
-
-#line 218  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-int LibeStrcpy (nctempchar1 *s,nctempchar1 *t);
-
-#line 220  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-int LibeStrcat (nctempchar1 *s,nctempchar1 *t);
-
-#line 222  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-nctempchar1* LibeStradd (nctempchar1 *t,nctempchar1 *s);
-
-#line 224  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-int LibeIsalpha (int c);
-
-#line 226  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-int LibeIsdigit (int c);
-
-#line 228  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-int LibeIsalnum (int c);
-
-#line 252  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-int LibeAtoi (nctempchar1 *s);
-
-#line 254  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-int LibeItoa (int n,nctempchar1 *s);
-
-#line 256  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-int LibeItoh (int n,nctempchar1 *s);
-
-#line 258  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-float LibeAtof (nctempchar1 *s);
-
-#line 260  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-int LibeFtoa (float f,nctempchar1 *fmt,nctempchar1 *s);
-
-#line 288  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+int LibeErrno;
+nctempchar1 *LibeErrstr;
+int LibeErrinit ();
+int LibeGeterrno ();
+int LibeClearerr ();
+nctempchar1 * LibeGeterrstr ();
+nctempchar1 * LibeGetenv (nctempchar1 *name);
+;
+;
+;
+;
+;
 float LibeMach (int flag);
-
-#line 290  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 float LibeFabs (float x);
-
-#line 292  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 float LibeFscale2 (float x,int n);
-
-#line 294  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 float LibeGetfman2 (float x);
-
-#line 296  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibeGetfexp2 (float x);
-
-#line 298  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 float LibeFscale (float x,int n);
-
-#line 300  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibeGetfman (float f,int maxdig);
-
-#line 302  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 float LibeGetffman (float f);
-
-#line 304  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibeGetmaxdig (float f);
-
-#line 306  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 int LibeGetfexp (float f);
-
-#line 331  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 float LibeClock ();
-
-#line 339  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-int LibeSetnb (int n);
-
-#line 342  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-int LibeSetnt (int n);
-
-#line 346  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-int LibeGetnb ();
-
-#line 349  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
-int LibeGetnt ();
-
-#line 354  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+;
+;
+;
+;
+;
+;
+;
+float LibeSincosmax;
+float LibeSincoslim;
+float LibeLnmax;
+float LibeLnmin;
 int LibeMod (int n,int r);
-
-#line 362  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 float LibeSqrt (float x);
-
-#line 364  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 float LibeLn (float x);
-
-#line 366  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 float LibeExp (float x);
-
-#line 368  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+float LibeSincos (float x,float y,float sign);
 float LibeSin (float x);
-
-#line 370  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 float LibeCos (float x);
-
-#line 372  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 float LibeTan (float x);
-
-#line 374  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 float LibeArcsin (float x);
-
-#line 376  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 float LibeArccos (float x);
-
-#line 378  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+float LibeAtan (float f);
 float LibeArctan (float x);
-
-#line 380  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
 float LibePow (float base,float exponent);
-
-#line 386  "/home/barn/Dropbox/Src/Eps/Inc/libe.i"
+int LibeMathinit ();
+int LibeStrlen (nctempchar1 *s);
+int LibeStrcmp (nctempchar1 *s,nctempchar1 *t);
+int LibeStrev (nctempchar1 *s);
+int LibeStrcpy (nctempchar1 *s,nctempchar1 *t);
+int LibeStrcat (nctempchar1 *s,nctempchar1 *t);
+nctempchar1 * LibeStradd (nctempchar1 *t,nctempchar1 *s);
+nctempchar1 * LibeStrsave (nctempchar1 *s);
+int LibeIsalhpa (int c);
+int LibeIsdigit (int c);
+int LibeIsalnum (int c);
+int LibeAtoi (nctempchar1 *s);
+int LibeItoa (int n,nctempchar1 *s);
+int LibeItoh (int n,nctempchar1 *s);
+float LibeAtof (nctempchar1 *s);
+int LibeFtoaf (int mant,int nexp,int nfield,int nfrac,nctempchar1 *s);
+int LibeFtoae (int mant,int nexp,int nfield,int nfrac,nctempchar1 *s);
+int LibeFtoa (float f,nctempchar1 *fmt,nctempchar1 *s);
+struct LibeFdescr {int cnt;
+int ptr;
+int bufsize;
+nctempchar1 *base;
+int readflg;
+int writflg;
+int unbflg;
+int errflg;
+int eoflg;
+int fd;
+};
+typedef struct nctempLibeFdescr1 {int d[1]; struct LibeFdescr *a; } nctempLibeFdescr1;
+struct nctempLibeFdescr2 {int d[2]; struct LibeFdescr *a; } ;
+struct nctempLibeFdescr3 {int d[3]; struct LibeFdescr *a; } ;
+struct nctempLibeFdescr4 {int d[4]; struct LibeFdescr *a; } ;
+;
+struct nctempLibeFdescr1 *LibeFarr;
+;
+nctempchar1 *LibeTmpstr;
+int LibeIoinit ();
+int LibeFlushbuff (int fp);
+int LibeFillbuff (int fp);
+int LibeFlush (int fp);
+int LibeOpen (nctempchar1 *name,nctempchar1 *mode);
+int LibeClose (int fp);
+int LibeGetc (int fp);
+int LibeUngetc (int fp);
+int LibeGetw (int fp,nctempchar1 *text);
+int LibePutc (int fp,int c);
+int LibePuts (int fp,nctempchar1 *s);
+int LibePuti (int fp,int ival);
+int LibePutf (int fp,float fval,nctempchar1 *form);
+int LibePs (nctempchar1 *s);
+int LibePi (int n);
+int LibePf (float r);
+int LibeRead (int fp,int n,nctempchar1 *buffer);
+int LibeWrite (int fp,int n,nctempchar1 *buffer);
+int LibeSeek (int fp,int pos,int flag);
+int LibeIodelete ();
+int NBLOCKS;
+int NTHREADS;
+int LibeSetnb (int nb);
+int LibeSetnt (int nt);
+int LibeGetnb ();
+int LibeGetnt ();
+int LibeArrayex (int line,nctempchar1 *name,int ival,int index,int bound);
 int LibeSystem (nctempchar1 *cmd);
-
-#line 2  "model.i"
+int LibeInit ();
+int LibeExit ();
 struct model {int Nx;
 int Ny;
 int Nb;
@@ -315,14 +241,18 @@ typedef struct nctempmodel1 {int d[1]; struct model *a; } nctempmodel1;
 struct nctempmodel2 {int d[2]; struct model *a; } ;
 struct nctempmodel3 {int d[3]; struct model *a; } ;
 struct nctempmodel4 {int d[4]; struct model *a; } ;
-
-#line 58  "model.i"
+;
+;
+;
+;
+int Modeld (nctempfloat1 *d,float dx,int nb);
+nctempfloat2 * Modelcopy (nctempfloat2 *a);
+int Modelstaggerx (nctempfloat2 *a,nctempfloat2 *astagg);
+int Modelstaggery (nctempfloat2 *a,nctempfloat2 *astagg);
+int Modelslscoeffs (nctempfloat2 *Qx,nctempfloat2 *Qy,nctempfloat2 *modx,nctempfloat2 *mody,nctempfloat2 *coeff1x,nctempfloat2 *coeff1y,nctempfloat2 *coeff2x,nctempfloat2 *coeff2y,struct model* Model);
+struct model* Modelsls (nctempfloat2 *vp,nctempfloat2 *vs,nctempfloat2 *rho,nctempfloat2 *Qlx,nctempfloat2 *Qly,nctempfloat2 *Qmx,nctempfloat2 *Qmy,nctempfloat2 *Qpx,nctempfloat2 *Qpy,float Dx,float Dt,float W0,int Nb);
 struct model* ModelNew (nctempfloat2 *vp,nctempfloat2 *vs,nctempfloat2 *rho,nctempfloat2 *Qlx,nctempfloat2 *Qly,nctempfloat2 *Qmx,nctempfloat2 *Qmy,nctempfloat2 *Qpx,nctempfloat2 *Qpy,float Dx,float Dt,float W0,int Nb,int Rheol);
-
-#line 63  "model.i"
 float ModelStability (struct model* Model);
-
-#line 5  "rec.i"
 struct rec {int nr;
 nctempint1 *rx;
 nctempint1 *ry;
@@ -341,45 +271,15 @@ typedef struct nctemprec1 {int d[1]; struct rec *a; } nctemprec1;
 struct nctemprec2 {int d[2]; struct rec *a; } ;
 struct nctemprec3 {int d[3]; struct rec *a; } ;
 struct nctemprec4 {int d[4]; struct rec *a; } ;
-
-#line 26  "rec.i"
-struct rec* RecNew (nctempint1 *rx,nctempint1 *ry,int nt,int resamp);
-
-#line 30  "rec.i"
-int RecReceiver (struct rec* Rec,int it,nctempfloat2 *sxx,nctempfloat2 *syy,nctempfloat2 *vx,nctempfloat2 *vy);
-
-#line 35  "rec.i"
-int RecSave (struct rec* Rec,nctempchar1 *file);
-
-#line 37  "rec.i"
-nctempfloat2* RecGetrec (struct rec* Rec,int dtype);
-
-#line 8  "rec.e"
 struct rec* RecNew (nctempint1 *rx,nctempint1 *ry,int nt,int resamp)
-
-#line 9  "rec.e"
 {
-
-#line 23  "rec.e"
 struct rec* Rec;
-
-#line 25  "rec.e"
 struct rec *nctemp5=(struct rec*)RunMalloc(sizeof(struct rec));
 Rec =nctemp5;
-
-#line 26  "rec.e"
 int nctemp11=rx->d[0];Rec->nr =nctemp11;
-
-#line 27  "rec.e"
 Rec->rx=rx;
-
-#line 28  "rec.e"
 Rec->ry=ry;
-
-#line 29  "rec.e"
 Rec->nt =nt;
-
-#line 30  "rec.e"
 int nctemp37=Rec->nr;
 nctemp37=nctemp37*Rec->nt;
 nctempfloat2 *nctemp36;
@@ -388,8 +288,6 @@ nctemp36->d[0]=Rec->nr;
 nctemp36->d[1]=Rec->nt;
 nctemp36->a=(float *)RunMalloc(sizeof(float)*nctemp37);
 Rec->p=nctemp36;
-
-#line 31  "rec.e"
 int nctemp48=Rec->nr;
 nctemp48=nctemp48*Rec->nt;
 nctempfloat2 *nctemp47;
@@ -398,8 +296,6 @@ nctemp47->d[0]=Rec->nr;
 nctemp47->d[1]=Rec->nt;
 nctemp47->a=(float *)RunMalloc(sizeof(float)*nctemp48);
 Rec->sxx=nctemp47;
-
-#line 32  "rec.e"
 int nctemp59=Rec->nr;
 nctemp59=nctemp59*Rec->nt;
 nctempfloat2 *nctemp58;
@@ -408,8 +304,6 @@ nctemp58->d[0]=Rec->nr;
 nctemp58->d[1]=Rec->nt;
 nctemp58->a=(float *)RunMalloc(sizeof(float)*nctemp59);
 Rec->syy=nctemp58;
-
-#line 33  "rec.e"
 int nctemp70=Rec->nr;
 nctemp70=nctemp70*Rec->nt;
 nctempfloat2 *nctemp69;
@@ -418,8 +312,6 @@ nctemp69->d[0]=Rec->nr;
 nctemp69->d[1]=Rec->nt;
 nctemp69->a=(float *)RunMalloc(sizeof(float)*nctemp70);
 Rec->vx=nctemp69;
-
-#line 34  "rec.e"
 int nctemp81=Rec->nr;
 nctemp81=nctemp81*Rec->nt;
 nctempfloat2 *nctemp80;
@@ -428,256 +320,92 @@ nctemp80->d[0]=Rec->nr;
 nctemp80->d[1]=Rec->nt;
 nctemp80->a=(float *)RunMalloc(sizeof(float)*nctemp81);
 Rec->vy=nctemp80;
-
-#line 35  "rec.e"
 Rec->resamp =resamp;
-
-#line 36  "rec.e"
 Rec->pit =0;
-
-#line 38  "rec.e"
 return Rec;
-
-#line 9  "rec.e"
 }
-
-#line 41  "rec.e"
 int RecReceiver (struct rec* Rec,int it,nctempfloat2 *sxx,nctempfloat2 *syy,nctempfloat2 *vx,nctempfloat2 *vy)
-
-#line 42  "rec.e"
 {
-
-#line 55  "rec.e"
 int pos;
 int ixr;
 int iyr;
-
-#line 58  "rec.e"
 int nctemp103 = Rec->nt - 1;
 int nctemp95 = (Rec->pit > nctemp103);
 if(nctemp95)
 {
 return 0;
 }
-
-#line 60  "rec.e"
 int nctemp108= it;
 int nctemp110= Rec->resamp;
 int nctemp112=LibeMod(nctemp108,nctemp110);
 int nctemp105 = (nctemp112 ==0);
 if(nctemp105)
 {
-
-#line 61  "rec.e"
 pos =0;
 int nctemp118 = (pos < Rec->nr);
 while(nctemp118){
 {
-
-#line 62  "rec.e"
 int nctemp126=pos;
-if((0>pos)||(pos>=Rec->rx->d[0])){
-nctempstring->a="Rec->rx";
-nctempstring->d[0]=strlen("Rec->rx")+1;;
-LibeArrayex(62,nctempstring,pos,0,Rec->rx->d[0]);
-}
 ixr =Rec->rx->a[nctemp126];
-
-#line 63  "rec.e"
 int nctemp132=pos;
-if((0>pos)||(pos>=Rec->ry->d[0])){
-nctempstring->a="Rec->ry";
-nctempstring->d[0]=strlen("Rec->ry")+1;;
-LibeArrayex(63,nctempstring,pos,0,Rec->ry->d[0]);
-}
 iyr =Rec->ry->a[nctemp132];
-
-#line 64  "rec.e"
 int nctemp137=pos;
-if((0>pos)||(pos>=Rec->sxx->d[0])){
-nctempstring->a="Rec->sxx";
-nctempstring->d[0]=strlen("Rec->sxx")+1;;
-LibeArrayex(64,nctempstring,pos,0,Rec->sxx->d[0]);
-}
 nctemp137=Rec->pit*Rec->sxx->d[0]+nctemp137;
-if((0>Rec->pit)||(Rec->pit>=Rec->sxx->d[1])){
-nctempstring->a="Rec->sxx";
-nctempstring->d[0]=strlen("Rec->sxx")+1;;
-LibeArrayex(64,nctempstring,Rec->pit,1,Rec->sxx->d[1]);
-}
 int nctemp141=ixr;
-if((0>ixr)||(ixr>=sxx->d[0])){
-nctempstring->a="sxx";
-nctempstring->d[0]=strlen("sxx")+1;;
-LibeArrayex(64,nctempstring,ixr,0,sxx->d[0]);
-}
 nctemp141=iyr*sxx->d[0]+nctemp141;
-if((0>iyr)||(iyr>=sxx->d[1])){
-nctempstring->a="sxx";
-nctempstring->d[0]=strlen("sxx")+1;;
-LibeArrayex(64,nctempstring,iyr,1,sxx->d[1]);
-}
 Rec->sxx->a[nctemp137] =sxx->a[nctemp141];
-
-#line 65  "rec.e"
 int nctemp147=pos;
-if((0>pos)||(pos>=Rec->syy->d[0])){
-nctempstring->a="Rec->syy";
-nctempstring->d[0]=strlen("Rec->syy")+1;;
-LibeArrayex(65,nctempstring,pos,0,Rec->syy->d[0]);
-}
 nctemp147=Rec->pit*Rec->syy->d[0]+nctemp147;
-if((0>Rec->pit)||(Rec->pit>=Rec->syy->d[1])){
-nctempstring->a="Rec->syy";
-nctempstring->d[0]=strlen("Rec->syy")+1;;
-LibeArrayex(65,nctempstring,Rec->pit,1,Rec->syy->d[1]);
-}
 int nctemp151=ixr;
-if((0>ixr)||(ixr>=syy->d[0])){
-nctempstring->a="syy";
-nctempstring->d[0]=strlen("syy")+1;;
-LibeArrayex(65,nctempstring,ixr,0,syy->d[0]);
-}
 nctemp151=iyr*syy->d[0]+nctemp151;
-if((0>iyr)||(iyr>=syy->d[1])){
-nctempstring->a="syy";
-nctempstring->d[0]=strlen("syy")+1;;
-LibeArrayex(65,nctempstring,iyr,1,syy->d[1]);
-}
 Rec->syy->a[nctemp147] =syy->a[nctemp151];
-
-#line 66  "rec.e"
 int nctemp157=pos;
-if((0>pos)||(pos>=Rec->vx->d[0])){
-nctempstring->a="Rec->vx";
-nctempstring->d[0]=strlen("Rec->vx")+1;;
-LibeArrayex(66,nctempstring,pos,0,Rec->vx->d[0]);
-}
 nctemp157=Rec->pit*Rec->vx->d[0]+nctemp157;
-if((0>Rec->pit)||(Rec->pit>=Rec->vx->d[1])){
-nctempstring->a="Rec->vx";
-nctempstring->d[0]=strlen("Rec->vx")+1;;
-LibeArrayex(66,nctempstring,Rec->pit,1,Rec->vx->d[1]);
-}
 int nctemp161=ixr;
-if((0>ixr)||(ixr>=vx->d[0])){
-nctempstring->a="vx";
-nctempstring->d[0]=strlen("vx")+1;;
-LibeArrayex(66,nctempstring,ixr,0,vx->d[0]);
-}
 nctemp161=iyr*vx->d[0]+nctemp161;
-if((0>iyr)||(iyr>=vx->d[1])){
-nctempstring->a="vx";
-nctempstring->d[0]=strlen("vx")+1;;
-LibeArrayex(66,nctempstring,iyr,1,vx->d[1]);
-}
 Rec->vx->a[nctemp157] =vx->a[nctemp161];
-
-#line 67  "rec.e"
 int nctemp167=pos;
-if((0>pos)||(pos>=Rec->vy->d[0])){
-nctempstring->a="Rec->vy";
-nctempstring->d[0]=strlen("Rec->vy")+1;;
-LibeArrayex(67,nctempstring,pos,0,Rec->vy->d[0]);
-}
 nctemp167=Rec->pit*Rec->vy->d[0]+nctemp167;
-if((0>Rec->pit)||(Rec->pit>=Rec->vy->d[1])){
-nctempstring->a="Rec->vy";
-nctempstring->d[0]=strlen("Rec->vy")+1;;
-LibeArrayex(67,nctempstring,Rec->pit,1,Rec->vy->d[1]);
-}
 int nctemp171=ixr;
-if((0>ixr)||(ixr>=vy->d[0])){
-nctempstring->a="vy";
-nctempstring->d[0]=strlen("vy")+1;;
-LibeArrayex(67,nctempstring,ixr,0,vy->d[0]);
-}
 nctemp171=iyr*vy->d[0]+nctemp171;
-if((0>iyr)||(iyr>=vy->d[1])){
-nctempstring->a="vy";
-nctempstring->d[0]=strlen("vy")+1;;
-LibeArrayex(67,nctempstring,iyr,1,vy->d[1]);
-}
 Rec->vy->a[nctemp167] =vy->a[nctemp171];
-
-#line 61  "rec.e"
 }
 int nctemp182 = pos + 1;
 pos =nctemp182;
 int nctemp183 = (pos < Rec->nr);
 nctemp118=nctemp183;
 }
-
-#line 69  "rec.e"
 int nctemp195 = Rec->pit + 1;
 Rec->pit =nctemp195;
-
-#line 60  "rec.e"
 }
-
-#line 71  "rec.e"
 return 1;
-
-#line 42  "rec.e"
 }
-
-#line 74  "rec.e"
 nctempfloat2 * RecGetrec (struct rec* Rec,int data)
 {
-
-#line 87  "rec.e"
 int nctemp197 = (data ==0);
 if(nctemp197)
 {
-
-#line 88  "rec.e"
 return Rec->sxx;
-
-#line 87  "rec.e"
 }
-
-#line 90  "rec.e"
 else{
 int nctemp203 = (data ==1);
 if(nctemp203)
 {
-
-#line 91  "rec.e"
 return Rec->syy;
-
-#line 90  "rec.e"
 }
-
-#line 93  "rec.e"
 else{
 int nctemp209 = (data ==2);
 if(nctemp209)
 {
-
-#line 94  "rec.e"
 return Rec->vx;
-
-#line 93  "rec.e"
 }
-
-#line 96  "rec.e"
 else{
 int nctemp215 = (data ==3);
 if(nctemp215)
 {
-
-#line 97  "rec.e"
 return Rec->vy;
-
-#line 96  "rec.e"
 }
 }
-
-#line 93  "rec.e"
 }
-
-#line 90  "rec.e"
 }
-
-#line 74  "rec.e"
 }

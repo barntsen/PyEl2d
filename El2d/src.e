@@ -1,14 +1,19 @@
 # Src object
 
-# Imports
-include <libe.i>
-include "src.i"
+import libe
 
-# Sricker creates a Ricker wavelet
-int Srcricker(float [*] src, float t0, float f0, int nt, float dt):end
+class src :
+  int [*] Sx;
+  int [*] Sy;
+  float  [*,*] Sqyy;
+  float [*,*]  Sqxx;
+  float  [*,*] Sfx;
+  float  [*,*] Sfy;
+  int Ns;
+end
 
 
-  struct src SrcNew(int [*] sx, int [*] sy,
+class src SrcNew(int [*] sx, int [*] sy,
                   float [*,*] sqxx, float [*,*] sqyy,
                   float [*,*] sfx,  float [*,*] sfy) :
 

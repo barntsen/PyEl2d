@@ -1,35 +1,42 @@
 # El2d solves elastodynamic 2D equations.
 
 # Imports
-  include <libe.i>             
-  include "diff.i"
-  include "rec.i"
-  include "src.i"
-  include "model.i"
-  include "el2d.i"
+  import libe             
+  import diff
+  import rec
+  import src 
+  import model
 
-# Internal functions
+class el2d :
+  float [*,*] p;     # Stress 
+  float [*,*] sigmaxx;     # Stress xx comp.
+  float [*,*] sigmayy;     # Stress yy comp.
+  float [*,*] sigmaxy;     # Stress xy comp.
+  float [*,*] sigmayx;     # Stress xy comp.
+  float [*,*] vx;          # x-component of particle velocity
+  float [*,*] vy;          # y-component of particle velocity
+  float [*,*] exx;         # time derivative of strain x-component
+  float [*,*] eyy;         # time derivative of strain y-component
+  float [*,*] exy;         # time derivative of strain y-component
+  float [*,*] eyx;         # time derivative of strain y-component
+  float [*,*] gammaxx;     # Memory variable for sigmaxx
+  float [*,*] gammayy;    
+  float [*,*] gammaxy;
+  float [*,*] gammayx;
+  float [*,*] thetaxxx;
+  float [*,*] thetayyy;
+  float [*,*] thetaxyx;
+  float [*,*] thetayxy;
+  int ts;                 # Timestep no
+  int fdsxx;              # Snapshot file descriptor
+  int fdsyy;              # Snapshot file descriptor
+  int fdvx;               # Snapshot file descriptor
+  int fdvy;               # Snapshot file descriptor
+  int sresamp;            # Snapshot resampling factor
+  int [*] snpflags;       # Flags for types of snapshots
+end
 
-  int El2dvx(struct el2d El2d, struct model Model):
-  end
-
-  int El2dvy(struct el2d El2d, struct model Model):
-  end
-  int El2dexy(struct el2d El2d, struct model Model, float [*,*] vx, 
-              float [*,*] vy):
-  end
-  int El2deyx(struct el2d El2d, struct model Model, float [*,*] vx,          
-              float [*,*] vy):
-  end
-  int El2dstress(struct el2d El2d, struct model Model):
-  end 
-
-  int El2dSnap(struct el2d El2d,int it):
-  end
-
-# Public functions
-
-  struct el2d El2dNew(struct model Model, int sresamp, int [*] snpflags):
+class el2d El2dNew(struct model Model, int sresamp, int [*] snpflags):
 
   # El2dNew creates a new El2d object
   #
@@ -111,118 +118,6 @@
   end
 
   return(El2d);
-end
-
-int El2dSolve(struct el2d El2d, struct model Model, struct src Src, 
-              struct rec Rec,int nt,int l):
-
-  # El2dSolve computes the solution of the elastic wave equation.
-  #  Parameters:  
-  #    El2d : Solver object
-  #    Model: Model object
-  #    Src  : Source object
-  #    Rec  : Receiver object
-  #    nt   : Number of timesteps to do starting with current step  
-  #    l    : The differentiator operator length
-  # 
-  # Returns:
-  # The elastic equation of motion are integrated using Virieux's (1986) 
-  # stress-velocity scheme.
-  # (See the Manual in the Doc directory).
-  # 
-  #     vx(t+dt)   = dt/rhox [d^+x sigma_xx(t) + d^+y sigma_yx dt fx] + vx(t)
-  #     vy(t+dt)   = dt/rhox [d^+x sigma_xy(t) + d^+y sigma_yy dt fy] + vy(t)
-  #
-  #     dexx/dt     =  d^-_x v_x 
-  #     deyy/dt     =  d^-_y v_y 
-  #     dexy/dt     =  0.5*[d^-_x v_y + d^-_y v_x]
-  #
-  #     sigmaxx(t+dt)     = dt*lambda[dexx/dt(t+dt/2) + deyy(t+dt/2)] 
-  #                       + 2*mu*dexx/dt(t+dt/2) + dt*qxx(t+dt/2)
-  #                       + sigmaxx(t)
-  #                                                     
-  #     sigmayy(t+dt)     = dt*lambda[deyy/dt(t+dt/2) + dexx(t+dt/2)] 
-  #                       + 2*mu*deyy/dt(t+dt/2) + dt*qxx(t+dt/2)
-  #                         + sigmayy(t)
-  #     sigmaxy(t+dt)     = 2*dt*mu*dexy/dt(t+dt/2)
-  #                       + sigmaxy(t)
-  #
-  #  
-
-  int sx,sy;         # Pressure Source x,y-coordinates 
-  struct diff Diff;  # Differentiator object
-  int ns,ne;         # Start stop timesteps
-  float [*,*] tmp1,tmp2;
-  int i,k;
-  float [*,*] p;
-
-  float perc,oldperc; # Percentage finished current and old
-  int iperc;          # Percentage finished
-
-  Diff = DiffNew(l);  # Create differentiator object
-  tmp1 = new(float[Model.Nx, Model.Ny]);
-  tmp2 = new(float[Model.Nx, Model.Ny]);
-
-  oldperc=0.0;
-  ns=El2d.ts;         #Get current timestep 
-  ne = ns+nt;         
-  for(i=ns; i<ne; i=i+1):
-
-    # Compute spatial derivatives of stress
-    # Use exx, exy and eyy as temp storage
-    DiffDxplus(Diff,El2d.sigmaxx,El2d.exx,Model.Dx); 
-    DiffDyminus(Diff,El2d.sigmaxy,El2d.exy,Model.Dx); 
-    # Compute vx
-    El2dvx(El2d,Model);                        
-    DiffDyplus(Diff,El2d.sigmayy,El2d.eyy,Model.Dx); 
-    DiffDxminus(Diff,El2d.sigmaxy,El2d.eyx,Model.Dx); 
-    # Compute vy
-    El2dvy(El2d,Model);                        
-
-    # Compute strains
-    DiffDxminus(Diff,El2d.vx,El2d.exx,Model.Dx);  
-    DiffDyminus(Diff,El2d.vy,El2d.eyy,Model.Dx); 
-    DiffDxplus(Diff,El2d.vy,tmp1,Model.Dx);       
-    DiffDyplus(Diff,El2d.vx,tmp2,Model.Dx);    
-    El2dexy(El2d,Model,tmp1,tmp2);
-    El2deyx(El2d,Model,tmp1,tmp2);
-
-    # Update stress
-     El2dstress(El2d,Model);  
-   
-    # Add source
-    for (k=0; k<Src.Ns;k=k+1):
-      sx=Src.Sx[k];
-      sy=Src.Sy[k];
-      El2d.sigmaxx[sx,sy] = El2d.sigmaxx[sx,sy]
-                    + Model.Dt*(Src.Sqxx[i,k]/(Model.Dx*Model.Dx)) ; 
-        El2d.sigmayy[sx,sy] = El2d.sigmayy[sx,sy]
-                    + Model.Dt*(Src.Sqyy[i,k]/(Model.Dx*Model.Dx)) ; 
-        El2d.vx[sx,sy] = El2d.vx[sx,sy]
-                    + Model.Dt*(Src.Sfx[i,k]/(Model.Dx*Model.Dx)) ; 
-        El2d.vy[sx,sy] = El2d.vy[sx,sy]
-                    + Model.Dt*(Src.Sfy[i,k]/(Model.Dx*Model.Dx)) ; 
-    end
-
-    # Print progress
-    perc=1000.0*(cast(float,i)/cast(float,ne-ns-1));
-    if(perc-oldperc >= 10.0):
-      iperc=cast(int,perc)/10;
-      if(LibeMod(iperc,10)==0):
-        LibePuti(stderr,iperc);
-        LibePuts(stderr,"\n");
-        LibeFlush(stderr);
-      end
-      oldperc=perc;
-   end
-
-    #Record wavefield
-    RecReceiver(Rec,i,El2d.sigmaxx,El2d.sigmayy,El2d.vx,El2d.vy); 
-
-    # Record Snapshots
-    El2dSnap(El2d,i);
-  end
-  return(1);
 end
 
 int El2dvx(struct el2d El2d, struct model Model) :
@@ -380,6 +275,7 @@ int El2dstress(struct el2d El2d, struct model Model):
    El2d.gammayx[i,j] = Model.Beta1x[i,j]*El2d.gammayx[i,j] 
                      + Model.Beta2x[i,j]*El2d.eyx[i,j];
   end
+
 end
 
 int El2dSnap(struct el2d El2d,int it) :
@@ -421,3 +317,117 @@ int El2dSnap(struct el2d El2d,int it) :
   end
   return(OK);
 end
+
+int El2dSolve(struct el2d El2d, struct model Model, struct src Src, 
+              struct rec Rec,int nt,int l):
+
+  # El2dSolve computes the solution of the elastic wave equation.
+  #  Parameters:  
+  #    El2d : Solver object
+  #    Model: Model object
+  #    Src  : Source object
+  #    Rec  : Receiver object
+  #    nt   : Number of timesteps to do starting with current step  
+  #    l    : The differentiator operator length
+  # 
+  # Returns:
+  # The elastic equation of motion are integrated using Virieux's (1986) 
+  # stress-velocity scheme.
+  # (See the Manual in the Doc directory).
+  # 
+  #     vx(t+dt)   = dt/rhox [d^+x sigma_xx(t) + d^+y sigma_yx dt fx] + vx(t)
+  #     vy(t+dt)   = dt/rhox [d^+x sigma_xy(t) + d^+y sigma_yy dt fy] + vy(t)
+  #
+  #     dexx/dt     =  d^-_x v_x 
+  #     deyy/dt     =  d^-_y v_y 
+  #     dexy/dt     =  0.5*[d^-_x v_y + d^-_y v_x]
+  #
+  #     sigmaxx(t+dt)     = dt*lambda[dexx/dt(t+dt/2) + deyy(t+dt/2)] 
+  #                       + 2*mu*dexx/dt(t+dt/2) + dt*qxx(t+dt/2)
+  #                       + sigmaxx(t)
+  #                                                     
+  #     sigmayy(t+dt)     = dt*lambda[deyy/dt(t+dt/2) + dexx(t+dt/2)] 
+  #                       + 2*mu*deyy/dt(t+dt/2) + dt*qxx(t+dt/2)
+  #                         + sigmayy(t)
+  #     sigmaxy(t+dt)     = 2*dt*mu*dexy/dt(t+dt/2)
+  #                       + sigmaxy(t)
+  #
+  #  
+
+  int sx,sy;         # Pressure Source x,y-coordinates 
+  struct diff Diff;  # Differentiator object
+  int ns,ne;         # Start stop timesteps
+  float [*,*] tmp1,tmp2;
+  int i,k;
+  float [*,*] p;
+
+  float perc,oldperc; # Percentage finished current and old
+  int iperc;          # Percentage finished
+
+  Diff = DiffNew(l);  # Create differentiator object
+  tmp1 = new(float[Model.Nx, Model.Ny]);
+  tmp2 = new(float[Model.Nx, Model.Ny]);
+
+  oldperc=0.0;
+  ns=El2d.ts;         #Get current timestep 
+  ne = ns+nt;         
+  for(i=ns; i<ne; i=i+1):
+
+    # Compute spatial derivatives of stress
+    # Use exx, exy and eyy as temp storage
+    DiffDxplus(Diff,El2d.sigmaxx,El2d.exx,Model.Dx); 
+    DiffDyminus(Diff,El2d.sigmaxy,El2d.exy,Model.Dx); 
+
+    # Compute vx
+    El2dvx(El2d,Model);                        
+    DiffDyplus(Diff,El2d.sigmayy,El2d.eyy,Model.Dx); 
+    DiffDxminus(Diff,El2d.sigmaxy,El2d.eyx,Model.Dx); 
+    # Compute vy
+    El2dvy(El2d,Model);                        
+
+    # Compute strains
+    DiffDxminus(Diff,El2d.vx,El2d.exx,Model.Dx);  
+    DiffDyminus(Diff,El2d.vy,El2d.eyy,Model.Dx); 
+    DiffDxplus(Diff,El2d.vy,tmp1,Model.Dx);       
+    DiffDyplus(Diff,El2d.vx,tmp2,Model.Dx);    
+    El2dexy(El2d,Model,tmp1,tmp2);
+    El2deyx(El2d,Model,tmp1,tmp2);
+
+    # Update stress
+     El2dstress(El2d,Model);  
+   
+    # Add source
+    for (k=0; k<Src.Ns;k=k+1):
+      sx=Src.Sx[k];
+      sy=Src.Sy[k];
+      El2d.sigmaxx[sx,sy] = El2d.sigmaxx[sx,sy]
+                    + Model.Dt*(Src.Sqxx[i,k]/(Model.Dx*Model.Dx)) ; 
+        El2d.sigmayy[sx,sy] = El2d.sigmayy[sx,sy]
+                    + Model.Dt*(Src.Sqyy[i,k]/(Model.Dx*Model.Dx)) ; 
+        El2d.vx[sx,sy] = El2d.vx[sx,sy]
+                    + Model.Dt*(Src.Sfx[i,k]/(Model.Dx*Model.Dx)) ; 
+        El2d.vy[sx,sy] = El2d.vy[sx,sy]
+                    + Model.Dt*(Src.Sfy[i,k]/(Model.Dx*Model.Dx)) ; 
+    end
+
+    # Print progress
+    perc=1000.0*(cast(float,i)/cast(float,ne-ns-1));
+    if(perc-oldperc >= 10.0):
+      iperc=cast(int,perc)/10;
+      if(LibeMod(iperc,10)==0):
+        LibePuti(stderr,iperc);
+        LibePuts(stderr,"\n");
+        LibeFlush(stderr);
+      end
+      oldperc=perc;
+   end
+
+    #Record wavefield
+    RecReceiver(Rec,i,El2d.sigmaxx,El2d.sigmayy,El2d.vx,El2d.vy); 
+
+    # Record Snapshots
+    El2dSnap(El2d,i);
+  end
+  return(1);
+end
+
