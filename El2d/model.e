@@ -3,11 +3,11 @@
 import libe  
 
 class model :
-int Nx,Ny;
-int Nb;
-float W0;
-float [*,*] Qlx;
-float [*,*] Qly;
+  int Nx,Ny;
+  int Nb;
+  float W0;
+  float [*,*] Qlx;
+  float [*,*] Qly;
 float [*,*] Qmx;
 float [*,*] Qmy;
 float [*,*] Qpx;
@@ -299,9 +299,6 @@ struct model Modelsls(float [*,*] vp,  float [*,*] vs, float [*,*] rho,
 
   int Nx,Ny;          # Model dimensions in x- and y-directions
   int i,j;            # Loop indices
-  int fd;
-  int dsize;
-  char [*] data;
   float [*,*] wrk, wrk2;
 
   Model= new(struct model);

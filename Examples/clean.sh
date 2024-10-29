@@ -6,3 +6,8 @@ cd ..
 
 cd OBS
   ./clean.sh
+cd ..
+
+cd Marmousi
+  ./clean.sh
+cd ..

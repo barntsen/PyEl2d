@@ -8,7 +8,7 @@
   import model
 
 class el2d :
-  float [*,*] p;     # Stress 
+  float [*,*] p;           # Pressure
   float [*,*] sigmaxx;     # Stress xx comp.
   float [*,*] sigmayy;     # Stress yy comp.
   float [*,*] sigmaxy;     # Stress xy comp.
@@ -20,10 +20,10 @@ class el2d :
   float [*,*] exy;         # time derivative of strain y-component
   float [*,*] eyx;         # time derivative of strain y-component
   float [*,*] gammaxx;     # Memory variable for sigmaxx
-  float [*,*] gammayy;    
-  float [*,*] gammaxy;
-  float [*,*] gammayx;
-  float [*,*] thetaxxx;
+  float [*,*] gammayy;     # Memory variable for sigmayy   
+  float [*,*] gammaxy;     # Memory variable for sigmaxy
+  float [*,*] gammayx;     # Memory variable for sigmayx
+  float [*,*] thetaxxx;    # Memory variable for particle velocity
   float [*,*] thetayyy;
   float [*,*] thetaxyx;
   float [*,*] thetayxy;
@@ -236,7 +236,7 @@ int El2dstress(struct el2d El2d, struct model Model):
   #   Model: Model object
 
   int nx, ny;
-  int i,j,l;
+  int i,j;
 
   nx = Model.Nx;
   ny = Model.Ny;
@@ -359,7 +359,6 @@ int El2dSolve(struct el2d El2d, struct model Model, struct src Src,
   int ns,ne;         # Start stop timesteps
   float [*,*] tmp1,tmp2;
   int i,k;
-  float [*,*] p;
 
   float perc,oldperc; # Percentage finished current and old
   int iperc;          # Percentage finished

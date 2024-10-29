@@ -43,6 +43,8 @@ cd Examples
 ./clean.sh
 cd ..
 
+exit
+
 cd Scripts
 ./clean.sh
 cd ..

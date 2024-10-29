@@ -825,7 +825,6 @@ int nx;
 int ny;
 int i;
 int j;
-int l;
 nx =Model->Nx;
 ny =Model->Ny;
 
@@ -1122,7 +1121,6 @@ nctempfloat2 *tmp1;
 nctempfloat2 *tmp2;
 int i;
 int k;
-nctempfloat2 *p;
 float perc;
 float oldperc;
 int iperc;

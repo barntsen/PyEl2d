@@ -31,7 +31,7 @@ args = parser.parse_args()
 
 print("** el2dmod ", args.m, "version **",flush=True)
 
-#Get pyeps library
+#Get PyEl2d library
 if args.m == 'c' :
   module1 = 'pyel2dcpu.so'
 elif args.m == 'cuda':
@@ -133,6 +133,7 @@ el2d = el2d.el2d(pyel2d,m,par.sresamp,par.snpflags)
 t1=time.perf_counter()
 el2d.solve(pyel2d,m,src,rec,par.nt,par.l)
 tsolve = time.perf_counter()-t1
+
 # Get data
 dtype=0
 data = rec.getrec(pyel2d,dtype)

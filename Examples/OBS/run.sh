@@ -15,11 +15,14 @@ export NTHREADS=1024
 export NBLOCKS=1024
 
 $BIN/el2dmod -m cuda modvx.py 
+#$BIN/el2dmod -m c    modvx.py 
 
 add -op '+' snp-sxx.bin snp-syy.bin snpvx.bin
 add -op '+' sxx.bin syy.bin vx.bin
 rm snp-sxx.bin snp-syy.bin
 rm sxx.bin syy.bin
+
+exit
 
 #$BIN/el2dmod -m cuda modvy.py 
 

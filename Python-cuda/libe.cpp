@@ -29,79 +29,24 @@ int RunFree(void * );
 int RunSync();
 int RunGetnt();
 int RunGetnb();
-int LibeArrayex (int line,nctempchar1 *name,int ival,int index,int bound);
-int LibeClearerr ();
-int LibeGeterrno ();
-nctempchar1* LibeGeterrstr ();
-struct MainArg {nctempchar1 *arg;
-};
-typedef struct nctempMainArg1 {int d[1]; struct MainArg *a; } nctempMainArg1;
-struct nctempMainArg2 {int d[2]; struct MainArg *a; } ;
-struct nctempMainArg3 {int d[3]; struct MainArg *a; } ;
-struct nctempMainArg4 {int d[4]; struct MainArg *a; } ;
-int Main (struct nctempMainArg1 *MainArgs);
-int LibeInit ();
-int LibeDelete ();
-int LibeExit ();
-nctempchar1* LibeGetenv (nctempchar1 *name);
-int LibeOpen (nctempchar1 *name,nctempchar1 *mode);
-int LibeClose (int fp);
-int LibeGetc (int fp);
-int LibeUngetc (int fp);
-int LibeGetw (int fp,nctempchar1 *text);
-int LibePs (nctempchar1 *s);
-int LibePi (int n);
-int LibePf (float r);
-int LibePutf (int fp,float r,nctempchar1 *form);
-int LibePutc (int fp,int c);
-int LibePuts (int fp,nctempchar1 *s);
-int LibePuti (int fp,int ival);
-int LibeRead (int fp,int n,nctempchar1 *array);
-int LibeWrite (int fp,int n,nctempchar1 *array);
-int LibeSeek (int fp,int pos,int flag);
-int LibeFlush (int fp);
-int LibeStrlen (nctempchar1 *s);
-int LibeStrcmp (nctempchar1 *s,nctempchar1 *t);
-int LibeStrev (nctempchar1 *s);
-nctempchar1* LibeStrsave (nctempchar1 *s);
-int LibeStrcpy (nctempchar1 *s,nctempchar1 *t);
-int LibeStrcat (nctempchar1 *s,nctempchar1 *t);
-nctempchar1* LibeStradd (nctempchar1 *t,nctempchar1 *s);
-int LibeIsalpha (int c);
-int LibeIsdigit (int c);
-int LibeIsalnum (int c);
-int LibeAtoi (nctempchar1 *s);
-int LibeItoa (int n,nctempchar1 *s);
-int LibeItoh (int n,nctempchar1 *s);
-float LibeAtof (nctempchar1 *s);
-int LibeFtoa (float f,nctempchar1 *fmt,nctempchar1 *s);
-float LibeMach (int flag);
-float LibeFabs (float x);
-float LibeFscale2 (float x,int n);
-float LibeGetfman2 (float x);
-int LibeGetfexp2 (float x);
-float LibeFscale (float x,int n);
-int LibeGetfman (float f,int maxdig);
-float LibeGetffman (float f);
-int LibeGetmaxdig (float f);
-int LibeGetfexp (float f);
-float LibeClock ();
-int LibeSetnb (int n);
-int LibeSetnt (int n);
-int LibeGetnb ();
-int LibeGetnt ();
-int LibeMod (int n,int r);
-float LibeSqrt (float x);
-float LibeLn (float x);
-float LibeExp (float x);
-float LibeSin (float x);
-float LibeCos (float x);
-float LibeTan (float x);
-float LibeArcsin (float x);
-float LibeArccos (float x);
-float LibeArctan (float x);
-float LibePow (float base,float exponent);
-int LibeSystem (nctempchar1 *cmd);
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
 int RunCreate (nctempchar1 *name);
 float RunClock ();
 int RunOpen (nctempchar1 *name,nctempchar1 *mode);
@@ -109,16 +54,21 @@ int RunClose (int fd);
 int RunRead (int fd,int lbuff,nctempchar1 *buffer);
 int RunWrite (int fd,int lbuff,nctempchar1 *buffer);
 int RunSeek (int fd,int pos,int flag);
-nctempchar1* RunGetenv (nctempchar1 *name);
+nctempchar1 * RunGetenv (nctempchar1 *name);
 int RunGetnt ();
 int RunGetnb ();
 int RunStrcmp (nctempchar1 *s,nctempchar1 *t);
 int RunStrlen (nctempchar1 *s);
 int RunExit ();
 int RunSystem (nctempchar1 *cmd);
+struct MainArg {nctempchar1 *arg;
+};
+typedef struct nctempMainArg1 {int d[1]; struct MainArg *a; } nctempMainArg1;
+struct nctempMainArg2 {int d[2]; struct MainArg *a; } ;
+struct nctempMainArg3 {int d[3]; struct MainArg *a; } ;
+struct nctempMainArg4 {int d[4]; struct MainArg *a; } ;
 int LibeErrno;
 nctempchar1 *LibeErrstr;
-int LibeErrinit ();
 int LibeErrinit ()
 {
 LibeErrno =1;
@@ -144,117 +94,2599 @@ nctempchar1* nctemp20= name;
 nctempchar1* nctemp23=RunGetenv(nctemp20);
 return nctemp23;
 }
-int LibeArrayex (int line,nctempchar1 *name,int ival,int index,int bound)
+float LibeMach (int flag)
 {
-int nctemp25= 4;
-struct nctempchar1 *nctemp29;
-static struct nctempchar1 nctemp30 = {{ 37}, (char*)"Array index out of bond at line no: \0"};
-nctemp29=&nctemp30;
-nctempchar1* nctemp27= nctemp29;
-int nctemp31=LibePuts(nctemp25,nctemp27);
-int nctemp33= 4;
-int nctemp35= line;
-int nctemp37=LibePuti(nctemp33,nctemp35);
-int nctemp39= 4;
-struct nctempchar1 *nctemp43;
-static struct nctempchar1 nctemp44 = {{ 3}, (char*)"\n\0"};
-nctemp43=&nctemp44;
-nctempchar1* nctemp41= nctemp43;
-int nctemp45=LibePuts(nctemp39,nctemp41);
-int nctemp47= 4;
-struct nctempchar1 *nctemp51;
-static struct nctempchar1 nctemp52 = {{ 13}, (char*)"Array name: \0"};
-nctemp51=&nctemp52;
-nctempchar1* nctemp49= nctemp51;
-int nctemp53=LibePuts(nctemp47,nctemp49);
-int nctemp55= 4;
-nctempchar1* nctemp57= name;
-int nctemp60=LibePuts(nctemp55,nctemp57);
-int nctemp62= 4;
-struct nctempchar1 *nctemp66;
-static struct nctempchar1 nctemp67 = {{ 3}, (char*)"\n\0"};
-nctemp66=&nctemp67;
-nctempchar1* nctemp64= nctemp66;
-int nctemp68=LibePuts(nctemp62,nctemp64);
-int nctemp70= 4;
-struct nctempchar1 *nctemp74;
-static struct nctempchar1 nctemp75 = {{ 11}, (char*)"Index no: \0"};
-nctemp74=&nctemp75;
-nctempchar1* nctemp72= nctemp74;
-int nctemp76=LibePuts(nctemp70,nctemp72);
-int nctemp78= 4;
-int nctemp80= index;
-int nctemp82=LibePuti(nctemp78,nctemp80);
-int nctemp84= 4;
-struct nctempchar1 *nctemp88;
-static struct nctempchar1 nctemp89 = {{ 3}, (char*)"\n\0"};
-nctemp88=&nctemp89;
-nctempchar1* nctemp86= nctemp88;
-int nctemp90=LibePuts(nctemp84,nctemp86);
-int nctemp92= 4;
-struct nctempchar1 *nctemp96;
-static struct nctempchar1 nctemp97 = {{ 14}, (char*)"Index value: \0"};
-nctemp96=&nctemp97;
-nctempchar1* nctemp94= nctemp96;
-int nctemp98=LibePuts(nctemp92,nctemp94);
-int nctemp100= 4;
-int nctemp102= ival;
-int nctemp104=LibePuti(nctemp100,nctemp102);
-int nctemp106= 4;
-struct nctempchar1 *nctemp110;
-static struct nctempchar1 nctemp111 = {{ 3}, (char*)"\n\0"};
-nctemp110=&nctemp111;
-nctempchar1* nctemp108= nctemp110;
-int nctemp112=LibePuts(nctemp106,nctemp108);
-int nctemp114= 4;
-struct nctempchar1 *nctemp118;
-static struct nctempchar1 nctemp119 = {{ 16}, (char*)"Index bound: 0-\0"};
-nctemp118=&nctemp119;
-nctempchar1* nctemp116= nctemp118;
-int nctemp120=LibePuts(nctemp114,nctemp116);
-int nctemp122= 4;
-int nctemp129 = bound - 1;
-int nctemp124= nctemp129;
-int nctemp130=LibePuti(nctemp122,nctemp124);
-int nctemp132= 4;
-struct nctempchar1 *nctemp136;
-static struct nctempchar1 nctemp137 = {{ 3}, (char*)"\n\0"};
-nctemp136=&nctemp137;
-nctempchar1* nctemp134= nctemp136;
-int nctemp138=LibePuts(nctemp132,nctemp134);
-int nctemp140= 4;
-int nctemp142=LibeFlush(nctemp140);
-int nctemp144=RunExit();
-return 1;
+int nctemp24 = (flag ==1);
+if(nctemp24)
+{
+return 1.1754943508222875e-38;
 }
-int LibeIoinit ();
-int LibeMathinit ();
-int LibeInit ()
+else{
+int nctemp29 = (flag ==2);
+if(nctemp29)
 {
-int rval;
-int nctemp150=LibeErrinit();
-rval =nctemp150;
-int nctemp155=LibeIoinit();
-rval =nctemp155;
-int nctemp160=LibeMathinit();
-rval =nctemp160;
-int nctemp165= 1024;
-int nctemp167=LibeSetnb(nctemp165);
-rval =nctemp167;
-int nctemp172= 1024;
-int nctemp174=LibeSetnt(nctemp172);
-rval =nctemp174;
+return 3.4028234663852886e+38;
+}
+else{
+int nctemp34 = (flag ==3);
+if(nctemp34)
+{
+return 5.9604644775390625e-08;
+}
+else{
+int nctemp39 = (flag ==4);
+if(nctemp39)
+{
+return 1.1920928955078125e-07;
+}
+else{
+int nctemp44 = (flag ==5);
+if(nctemp44)
+{
+return 0.6931471805599453;
+}
+else{
+float nctemp50=(float)(0);
+return nctemp50;
+}
+}
+}
+}
+}
+}
+float LibeFabs (float x)
+{
+int nctemp53 = (x < 0.0);
+if(nctemp53)
+{
+float nctemp57= -x;
+return nctemp57;
+}
+else{
+return x;
+}
+}
+float LibeFscale2 (float x,int n)
+{
+int i;
+float rval;
+int nctemp59 = (n ==0);
+if(nctemp59)
+{
+return x;
+}
+rval =1.0;
+int nctemp68 = (n > 0);
+if(nctemp68)
+{
+i =0;
+int nctemp76 = (i < n);
+while(nctemp76){
+{
+float nctemp88 = rval * 2.0;
+rval =nctemp88;
+}
+int nctemp97 = i + 1;
+i =nctemp97;
+int nctemp98 = (i < n);
+nctemp76=nctemp98;
+}
+}
+else{
+int nctemp105= -n;
+n =nctemp105;
+i =0;
+int nctemp110 = (i < n);
+while(nctemp110){
+{
+float nctemp122 = rval * 0.5;
+rval =nctemp122;
+}
+int nctemp131 = i + 1;
+i =nctemp131;
+int nctemp132 = (i < n);
+nctemp110=nctemp132;
+}
+}
+float nctemp140 = rval * x;
+return nctemp140;
+}
+float LibeGetfman2 (float x)
+{
+float absx;
+int n;
+float nctemp145= x;
+float nctemp147=LibeFabs(nctemp145);
+absx =nctemp147;
+n =0;
+int nctemp152 = (x ==0.0);
+if(nctemp152)
+{
+return 0.0;
+}
+int nctemp157 = (absx < 0.5);
+int nctemp161=nctemp157;
+while(nctemp161)
+{{
+int nctemp170 = n - 1;
+n =nctemp170;
+float nctemp179 = absx * 2.0;
+absx =nctemp179;
+}
+int nctemp180 = (absx < 0.5);
+nctemp161=nctemp180;}int nctemp184 = (absx >= 1.0);
+int nctemp188=nctemp184;
+while(nctemp188)
+{{
+int nctemp197 = n + 1;
+n =nctemp197;
+float nctemp206 = absx * 0.5;
+absx =nctemp206;
+}
+int nctemp207 = (absx >= 1.0);
+nctemp188=nctemp207;}int nctemp211 = (x < 0.0);
+if(nctemp211)
+{
+float nctemp215= -absx;
+return nctemp215;
+}
+else{
+return absx;
+}
+}
+int LibeGetfexp2 (float x)
+{
+float absx;
+int n;
+float nctemp221= x;
+float nctemp223=LibeFabs(nctemp221);
+absx =nctemp223;
+n =0;
+int nctemp228 = (x ==0.0);
+if(nctemp228)
+{
+return 0;
+}
+int nctemp233 = (absx < 0.5);
+int nctemp237=nctemp233;
+while(nctemp237)
+{{
+int nctemp246 = n - 1;
+n =nctemp246;
+float nctemp255 = absx * 2.0;
+absx =nctemp255;
+}
+int nctemp256 = (absx < 0.5);
+nctemp237=nctemp256;}int nctemp260 = (absx >= 1.0);
+int nctemp264=nctemp260;
+while(nctemp264)
+{{
+int nctemp273 = n + 1;
+n =nctemp273;
+float nctemp282 = absx * 0.5;
+absx =nctemp282;
+}
+int nctemp283 = (absx >= 1.0);
+nctemp264=nctemp283;}return n;
+}
+float LibeFscale (float x,int n)
+{
+int i;
+float rval;
+rval =1.0;
+int nctemp292 = (n ==0);
+if(nctemp292)
+{
+return x;
+}
+int nctemp297 = (n > 0);
+if(nctemp297)
+{
+i =0;
+int nctemp305 = (i < n);
+while(nctemp305){
+{
+float nctemp317 = rval * 10.0;
+rval =nctemp317;
+}
+int nctemp326 = i + 1;
+i =nctemp326;
+int nctemp327 = (i < n);
+nctemp305=nctemp327;
+}
+}
+else{
+int nctemp334= -n;
+n =nctemp334;
+i =0;
+int nctemp339 = (i < n);
+while(nctemp339){
+{
+float nctemp351 = rval * 0.1;
+rval =nctemp351;
+}
+int nctemp360 = i + 1;
+i =nctemp360;
+int nctemp361 = (i < n);
+nctemp339=nctemp361;
+}
+}
+float nctemp369 = rval * x;
+return nctemp369;
+}
+int LibeGetfman (float f,int maxdig)
+{
+int sign;
+int nexp;
+int n;
+int i;
+int nctemp370 = (f ==0.0);
+if(nctemp370)
+{
+return 0;
+}
+sign =1;
+int nctemp379 = (f < 0.0);
+if(nctemp379)
+{
+float nctemp386= -f;
+f =nctemp386;
+int nctemp390= -sign;
+sign =nctemp390;
+}
+nexp =0;
+float nctemp405 = f / 10.0;
+float nctemp407 = nctemp405 + 1.1920928955078125e-07;
+int nctemp395 = (nctemp407 >= 1.0);
+if(nctemp395)
+{
+float nctemp419 = f / 10.0;
+float nctemp421 = nctemp419 + 1.1920928955078125e-07;
+int nctemp409 = (nctemp421 >= 1.0);
+int nctemp423=nctemp409;
+while(nctemp423)
+{{
+float nctemp432 = f / 10.0;
+f =nctemp432;
+int nctemp441 = nexp + 1;
+nexp =nctemp441;
+}
+float nctemp452 = f / 10.0;
+float nctemp454 = nctemp452 + 1.1920928955078125e-07;
+int nctemp442 = (nctemp454 >= 1.0);
+nctemp423=nctemp442;}}
+else{
+float nctemp463 = f + 1.1920928955078125e-07;
+int nctemp456 = (nctemp463 < 1.0);
+if(nctemp456)
+{
+float nctemp472 = f + 1.1920928955078125e-07;
+int nctemp465 = (nctemp472 < 1.0);
+int nctemp474=nctemp465;
+while(nctemp474)
+{{
+float nctemp483 = f * 10.0;
+f =nctemp483;
+int nctemp492 = nexp - 1;
+nexp =nctemp492;
+}
+float nctemp500 = f + 1.1920928955078125e-07;
+int nctemp493 = (nctemp500 < 1.0);
+nctemp474=nctemp493;}}
+}
+i =0;
+int nctemp514 = maxdig - 1;
+int nctemp506 = (i < nctemp514);
+while(nctemp506){
+{
+float nctemp523 = f * 10.0;
+f =nctemp523;
+}
+int nctemp532 = i + 1;
+i =nctemp532;
+int nctemp541 = maxdig - 1;
+int nctemp533 = (i < nctemp541);
+nctemp506=nctemp533;
+}
+float nctemp552 = f + 0.5;
+int nctemp546=(int)(nctemp552);
+n =nctemp546;
+int nctemp553 = (sign < 0);
+if(nctemp553)
+{
+int nctemp560= -n;
+n =nctemp560;
+}
+return n;
+}
+float LibeGetffman (float f)
+{
+int sign;
+int nexp;
+int nctemp562 = (f ==0.0);
+if(nctemp562)
+{
+return 0.0;
+}
+sign =1;
+int nctemp571 = (f < 0.0);
+if(nctemp571)
+{
+float nctemp578= -f;
+f =nctemp578;
+int nctemp582= -sign;
+sign =nctemp582;
+}
+nexp =0;
+float nctemp597 = f / 10.0;
+float nctemp599 = nctemp597 + 1.1920928955078125e-07;
+int nctemp587 = (nctemp599 >= 1.0);
+if(nctemp587)
+{
+float nctemp611 = f / 10.0;
+float nctemp613 = nctemp611 + 1.1920928955078125e-07;
+int nctemp601 = (nctemp613 >= 1.0);
+int nctemp615=nctemp601;
+while(nctemp615)
+{{
+float nctemp624 = f / 10.0;
+f =nctemp624;
+int nctemp633 = nexp + 1;
+nexp =nctemp633;
+}
+float nctemp644 = f / 10.0;
+float nctemp646 = nctemp644 + 1.1920928955078125e-07;
+int nctemp634 = (nctemp646 >= 1.0);
+nctemp615=nctemp634;}}
+else{
+float nctemp655 = f + 1.1920928955078125e-07;
+int nctemp648 = (nctemp655 < 1.0);
+if(nctemp648)
+{
+float nctemp664 = f + 1.1920928955078125e-07;
+int nctemp657 = (nctemp664 < 1.0);
+int nctemp666=nctemp657;
+while(nctemp666)
+{{
+float nctemp675 = f * 10.0;
+f =nctemp675;
+int nctemp684 = nexp - 1;
+nexp =nctemp684;
+}
+float nctemp692 = f + 1.1920928955078125e-07;
+int nctemp685 = (nctemp692 < 1.0);
+nctemp666=nctemp685;}}
+}
+return f;
+}
+int LibeGetmaxdig (float f)
+{
+int sign;
+int nexp;
+int i;
+int loop;
+float r;
+int nctemp695 = (f ==0.0);
+if(nctemp695)
+{
+return 0;
+}
+sign =1;
+int nctemp704 = (f < 0.0);
+if(nctemp704)
+{
+float nctemp711= -f;
+f =nctemp711;
+int nctemp715= -sign;
+sign =nctemp715;
+}
+nexp =0;
+float nctemp730 = f / 10.0;
+float nctemp732 = nctemp730 + 1.1920928955078125e-07;
+int nctemp720 = (nctemp732 >= 1.0);
+if(nctemp720)
+{
+float nctemp744 = f / 10.0;
+float nctemp746 = nctemp744 + 1.1920928955078125e-07;
+int nctemp734 = (nctemp746 >= 1.0);
+int nctemp748=nctemp734;
+while(nctemp748)
+{{
+float nctemp757 = f / 10.0;
+f =nctemp757;
+int nctemp766 = nexp + 1;
+nexp =nctemp766;
+}
+float nctemp777 = f / 10.0;
+float nctemp779 = nctemp777 + 1.1920928955078125e-07;
+int nctemp767 = (nctemp779 >= 1.0);
+nctemp748=nctemp767;}}
+else{
+float nctemp788 = f + 1.1920928955078125e-07;
+int nctemp781 = (nctemp788 < 1.0);
+if(nctemp781)
+{
+float nctemp797 = f + 1.1920928955078125e-07;
+int nctemp790 = (nctemp797 < 1.0);
+int nctemp799=nctemp790;
+while(nctemp799)
+{{
+float nctemp808 = f * 10.0;
+f =nctemp808;
+int nctemp817 = nexp - 1;
+nexp =nctemp817;
+}
+float nctemp825 = f + 1.1920928955078125e-07;
+int nctemp818 = (nctemp825 < 1.0);
+nctemp799=nctemp818;}}
+}
+i =0;
+loop =1;
+int nctemp836=loop;
+while(nctemp836)
+{{
+int nctemp848=(int)(f);
+float nctemp845=(float)(nctemp848);
+float nctemp851 = f - nctemp845;
+r =nctemp851;
+int nctemp852 = (r < 1.1920928955078125e-07);
+if(nctemp852)
+{
+loop =0;
+}
+else{
+float nctemp868 = f * 10.0;
+f =nctemp868;
+}
+int nctemp877 = i + 1;
+i =nctemp877;
+int nctemp878 = (i >= 10);
+if(nctemp878)
+{
+loop =0;
+}
+}
+nctemp836=loop;}return i;
+}
+int LibeGetfexp (float f)
+{
+int nexp;
+int nctemp888 = (f ==0.0);
+if(nctemp888)
+{
+return 0;
+}
+nexp =0;
+int nctemp897 = (f < 0.0);
+if(nctemp897)
+{
+float nctemp904= -f;
+f =nctemp904;
+}
+float nctemp915 = f / 10.0;
+float nctemp917 = nctemp915 + 1.1920928955078125e-07;
+int nctemp905 = (nctemp917 >= 1.0);
+if(nctemp905)
+{
+float nctemp929 = f / 10.0;
+float nctemp931 = nctemp929 + 1.1920928955078125e-07;
+int nctemp919 = (nctemp931 >= 1.0);
+int nctemp933=nctemp919;
+while(nctemp933)
+{{
+float nctemp942 = f / 10.0;
+f =nctemp942;
+int nctemp951 = nexp + 1;
+nexp =nctemp951;
+}
+float nctemp962 = f / 10.0;
+float nctemp964 = nctemp962 + 1.1920928955078125e-07;
+int nctemp952 = (nctemp964 >= 1.0);
+nctemp933=nctemp952;}}
+else{
+float nctemp973 = f + 1.1920928955078125e-07;
+int nctemp966 = (nctemp973 < 1.0);
+if(nctemp966)
+{
+float nctemp982 = f + 1.1920928955078125e-07;
+int nctemp975 = (nctemp982 < 1.0);
+int nctemp984=nctemp975;
+while(nctemp984)
+{{
+float nctemp993 = f * 10.0;
+f =nctemp993;
+int nctemp1002 = nexp - 1;
+nexp =nctemp1002;
+}
+float nctemp1010 = f + 1.1920928955078125e-07;
+int nctemp1003 = (nctemp1010 < 1.0);
+nctemp984=nctemp1003;}}
+}
+return nexp;
+}
+float LibeClock ()
+{
+float nctemp1014=RunClock();
+return nctemp1014;
+}
+float LibeSincosmax;
+float LibeSincoslim;
+float LibeLnmax;
+float LibeLnmin;
+int LibeMod (int n,int r)
+{
+int nctemp1015 = (r ==0);
+if(nctemp1015)
+{
+return n;
+}
+int nctemp1031 = n / r;
+int nctemp1033 = nctemp1031 * r;
+int nctemp1034 = n - nctemp1033;
+return nctemp1034;
+}
+float LibeSqrt (float x)
+{
+float f;
+float yest;
+float z;
+int n;
+int nctemp1035 = (x ==0.0);
+if(nctemp1035)
+{
+return 0.0;
+}
+int nctemp1040 = (x < 0.0);
+if(nctemp1040)
+{
+LibeErrno =(-101);
+struct nctempchar1 *nctemp1053;
+static struct nctempchar1 nctemp1054 = {{ 25}, (char*)"Sqrt input argument < 0 \0"};
+nctemp1053=&nctemp1054;
+LibeErrstr=nctemp1053;
+return 0.0;
+}
+float nctemp1060= x;
+float nctemp1062=LibeGetfman2(nctemp1060);
+f =nctemp1062;
+float nctemp1067= x;
+int nctemp1069=LibeGetfexp2(nctemp1067);
+n =nctemp1069;
+float nctemp1082 = 0.59016 * f;
+float nctemp1083 = 0.41731 + nctemp1082;
+yest =nctemp1083;
+float nctemp1096 = f / yest;
+float nctemp1097 = yest + nctemp1096;
+z =nctemp1097;
+float nctemp1109 = 0.25 * z;
+float nctemp1115 = f / z;
+float nctemp1116 = nctemp1109 + nctemp1115;
+yest =nctemp1116;
+int nctemp1120= n;
+int nctemp1122= 2;
+int nctemp1124=LibeMod(nctemp1120,nctemp1122);
+int nctemp1117 = (nctemp1124 !=0);
+if(nctemp1117)
+{
+float nctemp1134 = yest * 0.70710678118654752440;
+yest =nctemp1134;
+int nctemp1143 = n + 1;
+n =nctemp1143;
+}
+float nctemp1145= yest;
+int nctemp1152 = n / 2;
+int nctemp1147= nctemp1152;
+float nctemp1153=LibeFscale2(nctemp1145,nctemp1147);
+return nctemp1153;
+}
+float LibeLn (float x)
+{
+float f;
+int n;
+float z;
+float zn;
+float zd;
+float w;
+float r;
+float xn;
+int nctemp1154 = (x <= 0.0);
+if(nctemp1154)
+{
+LibeErrno =(-101);
+struct nctempchar1 *nctemp1167;
+static struct nctempchar1 nctemp1168 = {{ 23}, (char*)"Ln input argument < 0 \0"};
+nctemp1167=&nctemp1168;
+LibeErrstr=nctemp1167;
+return 3.4028234663852886e+38;
+}
+float nctemp1174= x;
+float nctemp1176=LibeGetfman2(nctemp1174);
+f =nctemp1176;
+float nctemp1181= x;
+int nctemp1183=LibeGetfexp2(nctemp1181);
+n =nctemp1183;
+int nctemp1184 = (f > 0.70710678118654752440);
+if(nctemp1184)
+{
+float nctemp1199 = f - 0.5;
+float nctemp1201 = nctemp1199 - 0.5;
+zn =nctemp1201;
+float nctemp1213 = f * 0.5;
+float nctemp1215 = nctemp1213 + 0.5;
+zd =nctemp1215;
+}
+else{
+float nctemp1224 = f - 0.5;
+zn =nctemp1224;
+float nctemp1236 = zn * 0.5;
+float nctemp1238 = nctemp1236 + 0.5;
+zd =nctemp1238;
+int nctemp1247 = n - 1;
+n =nctemp1247;
+}
+float nctemp1256 = zn / zd;
+z =nctemp1256;
+float nctemp1265 = z * z;
+w =nctemp1265;
+float nctemp1285 = w * (-0.5527074855E+0);
+float nctemp1291 = w + (-0.6632718214E+1);
+float nctemp1292 = nctemp1285 / nctemp1291;
+float nctemp1293 = z * nctemp1292;
+float nctemp1294 = z + nctemp1293;
+r =nctemp1294;
+float nctemp1299=(float)(n);
+xn =nctemp1299;
+float nctemp1312 = xn * (-2.121944400546905827679E-4);
+float nctemp1314 = nctemp1312 + r;
+float nctemp1320 = xn * 0.69335938;
+float nctemp1321 = nctemp1314 + nctemp1320;
+return nctemp1321;
+}
+float LibeExp (float x)
+{
+int n;
+float g;
+float z;
+float p;
+float q;
+float xn;
+float P0;
+float P1;
+float Q1;
+float rval;
+P0 =0.24999999950E+0;
+P1 =0.41602886268E-2;
+Q1 =0.49987178778E-1;
+int nctemp1334 = (x >= LibeLnmax);
+if(nctemp1334)
+{
+LibeErrno =(-102);
+struct nctempchar1 *nctemp1347;
+static struct nctempchar1 nctemp1348 = {{ 25}, (char*)"Overflow in exp function\0"};
+nctemp1347=&nctemp1348;
+LibeErrstr=nctemp1347;
+return 3.4028234663852886e+38;
+}
+int nctemp1350 = (x < LibeLnmin);
+if(nctemp1350)
+{
+LibeErrno =(-102);
+struct nctempchar1 *nctemp1363;
+static struct nctempchar1 nctemp1364 = {{ 26}, (char*)"Underflow in exp function\0"};
+nctemp1363=&nctemp1364;
+LibeErrstr=nctemp1363;
+return 0.0;
+}
+float nctemp1376 = x * 1.4426950408889634073;
+int nctemp1370=(int)(nctemp1376);
+n =nctemp1370;
+float nctemp1381=(float)(n);
+xn =nctemp1381;
+float nctemp1396 = xn * 0.693147180559945309417232;
+float nctemp1397 = x - nctemp1396;
+g =nctemp1397;
+float nctemp1406 = g * g;
+z =nctemp1406;
+float nctemp1421 = P1 * z;
+float nctemp1423 = nctemp1421 + P0;
+float nctemp1425 = nctemp1423 * g;
+p =nctemp1425;
+float nctemp1437 = Q1 * z;
+float nctemp1439 = nctemp1437 + 0.5;
+q =nctemp1439;
+float nctemp1456 = q - p;
+float nctemp1457 = p / nctemp1456;
+float nctemp1458 = 0.5 + nctemp1457;
+rval =nctemp1458;
+float nctemp1460= rval;
+int nctemp1467 = n + 1;
+int nctemp1462= nctemp1467;
+float nctemp1468=LibeFscale2(nctemp1460,nctemp1462);
+return nctemp1468;
+}
+float LibeSincos (float x,float y,float sign)
+{
+int n;
+float xn;
+float f;
+float g;
+float R1;
+float R2;
+float R3;
+float R4;
+float nctemp1472= -0.1666665668E+0;
+R1 =nctemp1472;
+R2 =0.8333025139E-2;
+float nctemp1480= -0.1980741872E-3;
+R3 =nctemp1480;
+R4 =0.2601903036E-5;
+int nctemp1485 = (y > LibeSincosmax);
+if(nctemp1485)
+{
+LibeErrno =(-102);
+struct nctempchar1 *nctemp1498;
+static struct nctempchar1 nctemp1499 = {{ 37}, (char*)"Loss of accuracy in sin/cos function\0"};
+nctemp1498=&nctemp1499;
+LibeErrstr=nctemp1498;
+return 0.0;
+}
+float nctemp1514 = y * 0.31830988618379067154;
+float nctemp1516 = nctemp1514 + 0.5;
+int nctemp1505=(int)(nctemp1516);
+n =nctemp1505;
+float nctemp1521=(float)(n);
+xn =nctemp1521;
+int nctemp1527= n;
+int nctemp1529= 2;
+int nctemp1531=LibeMod(nctemp1527,nctemp1529);
+int nctemp1524 = (nctemp1531 !=0);
+if(nctemp1524)
+{
+float nctemp1536= -sign;
+sign =nctemp1536;
+}
+float nctemp1541= x;
+float nctemp1543=LibeFabs(nctemp1541);
+x =nctemp1543;
+int nctemp1544 = (x !=y);
+if(nctemp1544)
+{
+float nctemp1556 = xn - 0.5;
+xn =nctemp1556;
+}
+float nctemp1564= x;
+float nctemp1566=LibeFabs(nctemp1564);
+float nctemp1572 = xn * 3.1415926535897932384626433832795028841972;
+float nctemp1573 = nctemp1566 - nctemp1572;
+f =nctemp1573;
+float nctemp1577= f;
+float nctemp1579=LibeFabs(nctemp1577);
+int nctemp1574 = (nctemp1579 < LibeSincoslim);
+if(nctemp1574)
+{
+float nctemp1585 = sign * f;
+return nctemp1585;
+}
+float nctemp1594 = f * f;
+g =nctemp1594;
+float nctemp1621 = R4 * g;
+float nctemp1623 = nctemp1621 + R3;
+float nctemp1625 = nctemp1623 * g;
+float nctemp1627 = nctemp1625 + R2;
+float nctemp1629 = nctemp1627 * g;
+float nctemp1631 = nctemp1629 + R1;
+float nctemp1633 = nctemp1631 * g;
+g =nctemp1633;
+float nctemp1646 = f * g;
+float nctemp1647 = f + nctemp1646;
+g =nctemp1647;
+float nctemp1652 = sign * g;
+return nctemp1652;
+}
+float LibeSin (float x)
+{
+int nctemp1653 = (x < 0.0);
+if(nctemp1653)
+{
+float nctemp1658= x;
+float nctemp1661= -x;
+float nctemp1660= nctemp1661;
+float nctemp1663= -1.0;
+float nctemp1662= nctemp1663;
+float nctemp1664=LibeSincos(nctemp1658,nctemp1660,nctemp1662);
+return nctemp1664;
+}
+else{
+float nctemp1666= x;
+float nctemp1668= x;
+float nctemp1670= 1.0;
+float nctemp1672=LibeSincos(nctemp1666,nctemp1668,nctemp1670);
+return nctemp1672;
+}
+}
+float LibeCos (float x)
+{
+float nctemp1674= x;
+float nctemp1680= x;
+float nctemp1682=LibeFabs(nctemp1680);
+float nctemp1684 = nctemp1682 + 1.57079632679489661923132;
+float nctemp1676= nctemp1684;
+float nctemp1685= 1.0;
+float nctemp1687=LibeSincos(nctemp1674,nctemp1676,nctemp1685);
+return nctemp1687;
+}
+float LibeTan (float x)
+{
+float P1;
+float Q1;
+float Q2;
+int n;
+float y;
+float xn;
+float f;
+float xnum;
+float xden;
+float g;
+float nctemp1691= -0.958017723E-1;
+P1 =nctemp1691;
+float nctemp1695= -0.429135777E+0;
+Q1 =nctemp1695;
+Q2 =0.971685835E-2;
+float nctemp1704= x;
+float nctemp1706=LibeFabs(nctemp1704);
+y =nctemp1706;
+int nctemp1707 = (y > LibeSincosmax);
+if(nctemp1707)
+{
+LibeErrno =(-102);
+struct nctempchar1 *nctemp1720;
+static struct nctempchar1 nctemp1721 = {{ 33}, (char*)"Loss of accuracy in tan function\0"};
+nctemp1720=&nctemp1721;
+LibeErrstr=nctemp1720;
+return 0.0;
+}
+float nctemp1733 = x * 0.63661977236758134308;
+int nctemp1727=(int)(nctemp1733);
+n =nctemp1727;
+float nctemp1738=(float)(n);
+xn =nctemp1738;
+float nctemp1753 = xn * 1.57079632679489661923132;
+float nctemp1754 = x - nctemp1753;
+f =nctemp1754;
+float nctemp1758= f;
+float nctemp1760=LibeFabs(nctemp1758);
+int nctemp1755 = (nctemp1760 < LibeSincoslim);
+if(nctemp1755)
+{
+xnum =f;
+xden =1.0;
+}
+else{
+float nctemp1778 = f * f;
+g =nctemp1778;
+float nctemp1793 = P1 * g;
+float nctemp1795 = nctemp1793 * f;
+float nctemp1797 = nctemp1795 + f;
+xnum =nctemp1797;
+float nctemp1818 = Q2 * g;
+float nctemp1820 = nctemp1818 + Q1;
+float nctemp1822 = nctemp1820 * g;
+float nctemp1824 = nctemp1822 + 0.5;
+float nctemp1826 = nctemp1824 + 0.5;
+xden =nctemp1826;
+}
+int nctemp1830= n;
+int nctemp1832= 2;
+int nctemp1834=LibeMod(nctemp1830,nctemp1832);
+int nctemp1827 = (nctemp1834 !=0);
+if(nctemp1827)
+{
+float nctemp1839= -xnum;
+float nctemp1840 = xden / nctemp1839;
+return nctemp1840;
+}
+else{
+float nctemp1845 = xnum / xden;
+return nctemp1845;
+}
+}
+float LibeArcsin (float x)
+{
+float P1;
+float P2;
+float Q0;
+float Q1;
+float y;
+float g;
+float r;
+float res;
+int i;
+P1 =0.933935835E+0;
+float nctemp1853= -0.504400557E+0;
+P2 =nctemp1853;
+Q0 =0.560363004E+1;
+float nctemp1861= -0.554846723E+1;
+Q1 =nctemp1861;
+float nctemp1866= x;
+float nctemp1868=LibeFabs(nctemp1866);
+y =nctemp1868;
+int nctemp1869 = (y > 0.5);
+if(nctemp1869)
+{
+i =1;
+int nctemp1877 = (y > 1.0);
+if(nctemp1877)
+{
+LibeErrno =(-101);
+struct nctempchar1 *nctemp1890;
+static struct nctempchar1 nctemp1891 = {{ 41}, (char*)"Absolute value of argument of arcsin > 1\0"};
+nctemp1890=&nctemp1891;
+LibeErrstr=nctemp1890;
+return 3.4028234663852886e+38;
+}
+float nctemp1904 = 1.0 - y;
+float nctemp1906 = nctemp1904 * 0.5;
+g =nctemp1906;
+float nctemp1911= g;
+float nctemp1913=LibeSqrt(nctemp1911);
+r =nctemp1913;
+float nctemp1917= -r;
+r =nctemp1917;
+float nctemp1926 = r + r;
+y =nctemp1926;
+float nctemp1944 = P2 * g;
+float nctemp1946 = nctemp1944 + P1;
+float nctemp1948 = nctemp1946 * g;
+float nctemp1960 = g + Q1;
+float nctemp1962 = nctemp1960 * g;
+float nctemp1964 = nctemp1962 + Q0;
+float nctemp1965 = nctemp1948 / nctemp1964;
+r =nctemp1965;
+float nctemp1978 = y * r;
+float nctemp1979 = y + nctemp1978;
+res =nctemp1979;
+}
+else{
+i =0;
+int nctemp1984 = (y < LibeSincoslim);
+if(nctemp1984)
+{
+res =y;
+}
+else{
+float nctemp2000 = y * y;
+g =nctemp2000;
+float nctemp2018 = P2 * g;
+float nctemp2020 = nctemp2018 + P1;
+float nctemp2022 = nctemp2020 * g;
+float nctemp2034 = g + Q1;
+float nctemp2036 = nctemp2034 * g;
+float nctemp2038 = nctemp2036 + Q0;
+float nctemp2039 = nctemp2022 / nctemp2038;
+g =nctemp2039;
+float nctemp2052 = y * g;
+float nctemp2053 = y + nctemp2052;
+res =nctemp2053;
+}
+}
+int nctemp2054 = (i ==1);
+if(nctemp2054)
+{
+float nctemp2070 = 0.78539816339744830962 + res;
+float nctemp2071 = 0.78539816339744830962 + nctemp2070;
+res =nctemp2071;
+}
+int nctemp2072 = (x < 0.0);
+if(nctemp2072)
+{
+float nctemp2079= -res;
+res =nctemp2079;
+}
+return res;
+}
+float LibeArccos (float x)
+{
+float P1;
+float P2;
+float Q0;
+float Q1;
+float y;
+float g;
+float r;
+float res;
+int i;
+P1 =0.933935835E+0;
+float nctemp2088= -0.504400557E+0;
+P2 =nctemp2088;
+Q0 =0.560363004E+1;
+float nctemp2096= -0.554846723E+1;
+Q1 =nctemp2096;
+float nctemp2101= x;
+float nctemp2103=LibeFabs(nctemp2101);
+y =nctemp2103;
+int nctemp2104 = (y > 0.5);
+if(nctemp2104)
+{
+i =0;
+int nctemp2112 = (y > 1.0);
+if(nctemp2112)
+{
+LibeErrno =(-101);
+struct nctempchar1 *nctemp2125;
+static struct nctempchar1 nctemp2126 = {{ 50}, (char*)"Absolute value of argument of arccos out of range\0"};
+nctemp2125=&nctemp2126;
+LibeErrstr=nctemp2125;
+return 3.4028234663852886e+38;
+}
+float nctemp2139 = 1.0 - y;
+float nctemp2141 = nctemp2139 * 0.5;
+g =nctemp2141;
+float nctemp2146= g;
+float nctemp2148=LibeSqrt(nctemp2146);
+r =nctemp2148;
+float nctemp2152= -r;
+r =nctemp2152;
+float nctemp2161 = r + r;
+y =nctemp2161;
+float nctemp2179 = P2 * g;
+float nctemp2181 = nctemp2179 + P1;
+float nctemp2183 = nctemp2181 * g;
+float nctemp2195 = g + Q1;
+float nctemp2197 = nctemp2195 * g;
+float nctemp2199 = nctemp2197 + Q0;
+float nctemp2200 = nctemp2183 / nctemp2199;
+r =nctemp2200;
+float nctemp2213 = y * r;
+float nctemp2214 = y + nctemp2213;
+res =nctemp2214;
+}
+else{
+i =1;
+int nctemp2219 = (y < LibeSincoslim);
+if(nctemp2219)
+{
+res =y;
+}
+else{
+float nctemp2235 = y * y;
+g =nctemp2235;
+float nctemp2253 = P2 * g;
+float nctemp2255 = nctemp2253 + P1;
+float nctemp2257 = nctemp2255 * g;
+float nctemp2269 = g + Q1;
+float nctemp2271 = nctemp2269 * g;
+float nctemp2273 = nctemp2271 + Q0;
+float nctemp2274 = nctemp2257 / nctemp2273;
+g =nctemp2274;
+float nctemp2287 = y * g;
+float nctemp2288 = y + nctemp2287;
+res =nctemp2288;
+}
+}
+int nctemp2289 = (x < 0.0);
+if(nctemp2289)
+{
+int nctemp2293 = (i ==0);
+if(nctemp2293)
+{
+float nctemp2309 = 1.57079632679489661923132 + res;
+float nctemp2310 = 1.57079632679489661923132 + nctemp2309;
+res =nctemp2310;
+}
+else{
+float nctemp2323 = 0.78539816339744830962 + res;
+float nctemp2324 = 0.78539816339744830962 + nctemp2323;
+res =nctemp2324;
+}
+}
+else{
+int nctemp2325 = (i ==1);
+if(nctemp2325)
+{
+float nctemp2341 = 0.78539816339744830962 - res;
+float nctemp2342 = 0.78539816339744830962 + nctemp2341;
+res =nctemp2342;
+}
+else{
+float nctemp2346= -res;
+res =nctemp2346;
+}
+}
+return res;
+}
+float LibeAtan (float f)
+{
+float rt32;
+float rt3;
+float a;
+float P0;
+float P1;
+float Q0;
+int n;
+float res;
+float g;
+rt32 =0.26794919243112270647;
+rt3 =1.73205080756887729353;
+float nctemp2364 = rt3 - 1.0;
+a =nctemp2364;
+float nctemp2368= -0.4708325141E+0;
+P0 =nctemp2368;
+float nctemp2372= -0.5090958253E-1;
+P1 =nctemp2372;
+Q0 =0.1412500740E+1;
+int nctemp2377 = (f > 1.0);
+if(nctemp2377)
+{
+float nctemp2389 = 1.0 / f;
+f =nctemp2389;
+n =2;
+}
+else{
+n =0;
+}
+int nctemp2398 = (f > rt32);
+if(nctemp2398)
+{
+float nctemp2422 = a * f;
+float nctemp2424 = nctemp2422 - 0.5;
+float nctemp2426 = nctemp2424 - 0.5;
+float nctemp2428 = nctemp2426 + f;
+float nctemp2434 = rt3 + f;
+float nctemp2435 = nctemp2428 / nctemp2434;
+f =nctemp2435;
+int nctemp2444 = n + 1;
+n =nctemp2444;
+}
+float nctemp2448= f;
+float nctemp2450=LibeFabs(nctemp2448);
+int nctemp2445 = (nctemp2450 < LibeSincoslim);
+if(nctemp2445)
+{
+res =f;
+}
+else{
+float nctemp2464 = f * f;
+g =nctemp2464;
+float nctemp2482 = P1 * g;
+float nctemp2484 = nctemp2482 + P0;
+float nctemp2486 = nctemp2484 * g;
+float nctemp2492 = g + Q0;
+float nctemp2493 = nctemp2486 / nctemp2492;
+res =nctemp2493;
+float nctemp2506 = f * res;
+float nctemp2507 = f + nctemp2506;
+res =nctemp2507;
+}
+int nctemp2508 = (n > 1);
+if(nctemp2508)
+{
+float nctemp2515= -res;
+res =nctemp2515;
+}
+int nctemp2516 = (n ==1);
+if(nctemp2516)
+{
+float nctemp2528 = res + 0.52359877559829887308;
+res =nctemp2528;
+}
+else{
+int nctemp2529 = (n ==2);
+if(nctemp2529)
+{
+float nctemp2541 = res + 1.57079632679489661923132;
+res =nctemp2541;
+}
+else{
+int nctemp2542 = (n ==3);
+if(nctemp2542)
+{
+float nctemp2554 = res + 1.04719755119659774615;
+res =nctemp2554;
+}
+}
+}
+return res;
+}
+float LibeArctan (float x)
+{
+float rval;
+int nctemp2556 = (x < 0.0);
+if(nctemp2556)
+{
+float nctemp2565= -x;
+float nctemp2564= nctemp2565;
+float nctemp2566=LibeAtan(nctemp2564);
+rval =nctemp2566;
+float nctemp2570= -rval;
+rval =nctemp2570;
+}
+else{
+float nctemp2575= x;
+float nctemp2577=LibeAtan(nctemp2575);
+rval =nctemp2577;
+}
 return rval;
 }
-int LibeIodelete ();
-int LibeDelete ()
+float LibePow (float base,float exponent)
 {
-int nctemp177=LibeIodelete();
+float nctemp2585= base;
+float nctemp2587=LibeLn(nctemp2585);
+float nctemp2588 = exponent * nctemp2587;
+float nctemp2580= nctemp2588;
+float nctemp2589=LibeExp(nctemp2580);
+return nctemp2589;
+}
+int LibeMathinit ()
+{
+float nctemp2594= 1.0;
+int nctemp2601 = 24 - 1;
+int nctemp2596= nctemp2601;
+float nctemp2602=LibeFscale2(nctemp2594,nctemp2596);
+LibeSincosmax =nctemp2602;
+float nctemp2611= LibeSincosmax;
+float nctemp2613=LibeSqrt(nctemp2611);
+float nctemp2614 = 3.1415926535897932384626433832795028841972 * nctemp2613;
+LibeSincosmax =nctemp2614;
+float nctemp2623= 1.0;
+int nctemp2630 = 24 / 2;
+int nctemp2625= nctemp2630;
+float nctemp2631=LibeFscale2(nctemp2623,nctemp2625);
+float nctemp2632 = 1.0 / nctemp2631;
+LibeSincoslim =nctemp2632;
+float nctemp2637= 3.4028234663852886e+38;
+float nctemp2639=LibeLn(nctemp2637);
+LibeLnmax =nctemp2639;
+float nctemp2644= 1.1754943508222875e-38;
+float nctemp2646=LibeLn(nctemp2644);
+LibeLnmin =nctemp2646;
 return 1;
 }
-int LibeExit ()
+int LibeStrlen (nctempchar1 *s)
 {
-int nctemp180=RunExit();
+int ls;
+int i;
+int nctemp2652=s->d[0];ls =nctemp2652;
+i =0;
+int nctemp2669=i;
+int nctemp2666=(int)(s->a[nctemp2669]);
+int nctemp2663 = (nctemp2666 !=0);
+int nctemp2673 = (i < ls);
+int nctemp2660 = (nctemp2663 && nctemp2673);
+int nctemp2677=nctemp2660;
+while(nctemp2677)
+{{
+int nctemp2686 = i + 1;
+i =nctemp2686;
+}
+int nctemp2696=i;
+int nctemp2693=(int)(s->a[nctemp2696]);
+int nctemp2690 = (nctemp2693 !=0);
+int nctemp2700 = (i < ls);
+int nctemp2687 = (nctemp2690 && nctemp2700);
+nctemp2677=nctemp2687;}return i;
+}
+int LibeStrcmp (nctempchar1 *s,nctempchar1 *t)
+{
+int ls;
+int i;
+int nctemp2709=s->d[0];ls =nctemp2709;
+i =0;
+int nctemp2723=i;
+int nctemp2726=i;
+int nctemp2720 = (s->a[nctemp2723] ==t->a[nctemp2726]);
+int nctemp2729 = (i < ls);
+int nctemp2717 = (nctemp2720 && nctemp2729);
+int nctemp2733=nctemp2717;
+while(nctemp2733)
+{{
+int nctemp2740=i;
+int nctemp2737=(int)(s->a[nctemp2740]);
+int nctemp2734 = (nctemp2737 ==0);
+if(nctemp2734)
+{
+return 1;
+}
+int nctemp2752 = i + 1;
+i =nctemp2752;
+}
+int nctemp2759=i;
+int nctemp2762=i;
+int nctemp2756 = (s->a[nctemp2759] ==t->a[nctemp2762]);
+int nctemp2765 = (i < ls);
+int nctemp2753 = (nctemp2756 && nctemp2765);
+nctemp2733=nctemp2753;}return 0;
+}
+int LibeStrev (nctempchar1 *s)
+{
+char c;
+int i;
+int j;
+i =0;
+nctempchar1* nctemp2781= s;
+int nctemp2784=LibeStrlen(nctemp2781);
+int nctemp2786 = nctemp2784 - 1;
+j =nctemp2786;
+int nctemp2787 = (i < j);
+int nctemp2791=nctemp2787;
+while(nctemp2791)
+{{
+int nctemp2796=i;
+c =s->a[nctemp2796];
+int nctemp2801=i;
+int nctemp2804=j;
+s->a[nctemp2801] =s->a[nctemp2804];
+int nctemp2809=j;
+s->a[nctemp2809] =c;
+int nctemp2820 = i + 1;
+i =nctemp2820;
+int nctemp2829 = j - 1;
+j =nctemp2829;
+}
+int nctemp2830 = (i < j);
+nctemp2791=nctemp2830;}return 1;
+}
+int LibeStrcpy (nctempchar1 *s,nctempchar1 *t)
+{
+int ls;
+int i;
+nctempchar1* nctemp2839= s;
+int nctemp2842=LibeStrlen(nctemp2839);
+ls =nctemp2842;
+int nctemp2843 = (ls ==0);
+if(nctemp2843)
+{
+return 1;
+}
+int nctemp2851=t->d[0];int nctemp2848 = (nctemp2851 <= ls);
+if(nctemp2848)
+{
+return 0;
+}
+i =0;
+int nctemp2861 = (i <= ls);
+while(nctemp2861){
+{
+int nctemp2868=i;
+int nctemp2871=i;
+t->a[nctemp2868] =s->a[nctemp2871];
+}
+int nctemp2881 = i + 1;
+i =nctemp2881;
+int nctemp2882 = (i <= ls);
+nctemp2861=nctemp2882;
+}
+return 1;
+}
+int LibeStrcat (nctempchar1 *s,nctempchar1 *t)
+{
+int ls;
+int lt;
+int i;
+nctempchar1* nctemp2891= s;
+int nctemp2894=LibeStrlen(nctemp2891);
+ls =nctemp2894;
+nctempchar1* nctemp2899= t;
+int nctemp2902=LibeStrlen(nctemp2899);
+lt =nctemp2902;
+int nctemp2906=t->d[0];int nctemp2915 = lt + ls;
+int nctemp2903 = (nctemp2906 < nctemp2915);
+if(nctemp2903)
+{
+return 0;
+}
+i =lt;
+int nctemp2929 = ls + lt;
+int nctemp2921 = (i < nctemp2929);
+while(nctemp2921){
+{
+int nctemp2933=i;
+int nctemp2941 = i - lt;
+int nctemp2936=nctemp2941;
+t->a[nctemp2933] =s->a[nctemp2936];
+}
+int nctemp2950 = i + 1;
+i =nctemp2950;
+int nctemp2959 = ls + lt;
+int nctemp2951 = (i < nctemp2959);
+nctemp2921=nctemp2951;
+}
+int nctemp2968 = ls + lt;
+int nctemp2963=nctemp2968;
+char nctemp2970=(char)(0);
+t->a[nctemp2963] =nctemp2970;
+return 1;
+}
+nctempchar1 * LibeStradd (nctempchar1 *t,nctempchar1 *s)
+{
+int ls;
+int lt;
+nctempchar1 *r;
+int i;
+nctempchar1* nctemp2978= s;
+int nctemp2981=LibeStrlen(nctemp2978);
+ls =nctemp2981;
+nctempchar1* nctemp2986= t;
+int nctemp2989=LibeStrlen(nctemp2986);
+lt =nctemp2989;
+int nctemp3004 = lt + ls;
+int nctemp3006 = nctemp3004 + 1;
+int nctemp2996=nctemp3006;
+nctempchar1 *nctemp2995;
+nctemp2995=(nctempchar1*)RunMalloc(sizeof(nctempchar1));
+int nctemp3014 = lt + ls;
+int nctemp3016 = nctemp3014 + 1;
+nctemp2995->d[0]=nctemp3016;
+nctemp2995->a=(char *)RunMalloc(sizeof(char)*nctemp2996);
+r=nctemp2995;
+i =0;
+int nctemp3021 = (i < lt);
+while(nctemp3021){
+{
+int nctemp3028=i;
+int nctemp3031=i;
+r->a[nctemp3028] =t->a[nctemp3031];
+}
+int nctemp3041 = i + 1;
+i =nctemp3041;
+int nctemp3042 = (i < lt);
+nctemp3021=nctemp3042;
+}
+i =lt;
+int nctemp3058 = ls + lt;
+int nctemp3050 = (i < nctemp3058);
+while(nctemp3050){
+{
+int nctemp3062=i;
+int nctemp3070 = i - lt;
+int nctemp3065=nctemp3070;
+r->a[nctemp3062] =s->a[nctemp3065];
+}
+int nctemp3079 = i + 1;
+i =nctemp3079;
+int nctemp3088 = ls + lt;
+int nctemp3080 = (i < nctemp3088);
+nctemp3050=nctemp3080;
+}
+int nctemp3097 = ls + lt;
+int nctemp3092=nctemp3097;
+char nctemp3099=(char)(0);
+r->a[nctemp3092] =nctemp3099;
+return r;
+}
+nctempchar1 * LibeStrsave (nctempchar1 *s)
+{
+int l;
+nctempchar1 *tmp;
+tmp=(0);
+l =0;
+nctempchar1* nctemp3117= s;
+int nctemp3120=LibeStrlen(nctemp3117);
+l =nctemp3120;
+int nctemp3132 = l + 1;
+int nctemp3127=nctemp3132;
+nctempchar1 *nctemp3126;
+nctemp3126=(nctempchar1*)RunMalloc(sizeof(nctempchar1));
+int nctemp3137 = l + 1;
+nctemp3126->d[0]=nctemp3137;
+nctemp3126->a=(char *)RunMalloc(sizeof(char)*nctemp3127);
+tmp=nctemp3126;
+nctempchar1 *nctemp3139 =tmp;
+int nctemp3138 =(nctemp3139!=0);
+if(nctemp3138)
+{
+nctempchar1* nctemp3144= s;
+nctempchar1* nctemp3147= tmp;
+int nctemp3150=LibeStrcpy(nctemp3144,nctemp3147);
+}
+return tmp;
+}
+int LibeIsalhpa (int c)
+{
+int nctemp3159 = (c >= 'a');
+int nctemp3164 = (c <= 'z');
+int nctemp3156 = (nctemp3159 && nctemp3164);
+int nctemp3172 = (c >= 'A');
+int nctemp3177 = (c <= 'Z');
+int nctemp3169 = (nctemp3172 && nctemp3177);
+int nctemp3153 = (nctemp3156 || nctemp3169);
+if(nctemp3153)
+{
+return 1;
+}
+else{
+return 0;
+}
+}
+int LibeIsdigit (int c)
+{
+int nctemp3186 = (c >= '0');
+int nctemp3191 = (c <= '9');
+int nctemp3183 = (nctemp3186 && nctemp3191);
+if(nctemp3183)
+{
+return 1;
+}
+else{
+return 0;
+}
+}
+int LibeIsalnum (int c)
+{
+int nctemp3203 = (c >= 'a');
+int nctemp3208 = (c <= 'z');
+int nctemp3200 = (nctemp3203 && nctemp3208);
+int nctemp3216 = (c >= 'A');
+int nctemp3221 = (c <= 'Z');
+int nctemp3213 = (nctemp3216 && nctemp3221);
+int nctemp3197 = (nctemp3200 || nctemp3213);
+if(nctemp3197)
+{
+return 1;
+}
+else{
+int nctemp3229 = (c >= '0');
+int nctemp3234 = (c <= '9');
+int nctemp3226 = (nctemp3229 && nctemp3234);
+if(nctemp3226)
+{
+return 1;
+}
+else{
+return 0;
+}
+}
+}
+int LibeAtoi (nctempchar1 *s)
+{
+int sign;
+int i;
+int n;
+i =0;
+int nctemp3253=i;
+char nctemp3256=(char)(' ');
+int nctemp3250 = (s->a[nctemp3253] ==nctemp3256);
+int nctemp3263=i;
+char nctemp3266=(char)(10);
+int nctemp3260 = (s->a[nctemp3263] ==nctemp3266);
+int nctemp3247 = (nctemp3250 || nctemp3260);
+int nctemp3273=i;
+char nctemp3276=(char)(9);
+int nctemp3270 = (s->a[nctemp3273] ==nctemp3276);
+int nctemp3244 = (nctemp3247 || nctemp3270);
+int nctemp3279=nctemp3244;
+while(nctemp3279)
+{{
+int nctemp3288 = i + 1;
+i =nctemp3288;
+}
+int nctemp3298=i;
+char nctemp3301=(char)(' ');
+int nctemp3295 = (s->a[nctemp3298] ==nctemp3301);
+int nctemp3308=i;
+char nctemp3311=(char)(10);
+int nctemp3305 = (s->a[nctemp3308] ==nctemp3311);
+int nctemp3292 = (nctemp3295 || nctemp3305);
+int nctemp3318=i;
+char nctemp3321=(char)(9);
+int nctemp3315 = (s->a[nctemp3318] ==nctemp3321);
+int nctemp3289 = (nctemp3292 || nctemp3315);
+nctemp3279=nctemp3289;}int nctemp3327=i;
+char nctemp3330=(char)('-');
+int nctemp3324 = (s->a[nctemp3327] ==nctemp3330);
+if(nctemp3324)
+{
+int nctemp3336= -1;
+sign =nctemp3336;
+int nctemp3345 = i + 1;
+i =nctemp3345;
+}
+else{
+int nctemp3349=i;
+char nctemp3352=(char)('+');
+int nctemp3346 = (s->a[nctemp3349] ==nctemp3352);
+if(nctemp3346)
+{
+sign =1;
+int nctemp3367 = i + 1;
+i =nctemp3367;
+}
+else{
+sign =1;
+}
+}
+n =0;
+int nctemp3382=i;
+int nctemp3379=(int)(s->a[nctemp3382]);
+int nctemp3377= nctemp3379;
+int nctemp3384=LibeIsdigit(nctemp3377);
+while(nctemp3384){
+{
+int nctemp3399 = 10 * n;
+int nctemp3404=i;
+int nctemp3401=(int)(s->a[nctemp3404]);
+int nctemp3406 = nctemp3399 + nctemp3401;
+int nctemp3408 = nctemp3406 - '0';
+n =nctemp3408;
+}
+int nctemp3417 = i + 1;
+i =nctemp3417;
+int nctemp3424=i;
+int nctemp3421=(int)(s->a[nctemp3424]);
+int nctemp3419= nctemp3421;
+int nctemp3426=LibeIsdigit(nctemp3419);
+nctemp3384=nctemp3426;
+}
+int nctemp3431 = sign * n;
+return nctemp3431;
+}
+int LibeItoa (int n,nctempchar1 *s)
+{
+int sign;
+int i;
+nctempchar1 *nctemp3433 =s;
+int nctemp3432 =(nctemp3433==0);
+if(nctemp3432)
+{
+return 0;
+}
+sign =n;
+int nctemp3438 = (sign < 0);
+if(nctemp3438)
+{
+int nctemp3449= -n;
+n =nctemp3449;
+}
+i =0;
+int nctemp3457=0;
+int nctemp3465= n;
+int nctemp3467= 10;
+int nctemp3469=LibeMod(nctemp3465,nctemp3467);
+int nctemp3471 = nctemp3469 + 48;
+char nctemp3460=(char)(nctemp3471);
+s->a[nctemp3457] =nctemp3460;
+int nctemp3483 = n / 10;
+n =nctemp3483;
+int nctemp3472 = (n > 0);
+int nctemp3485=nctemp3472;
+while(nctemp3485)
+{{
+int nctemp3493 = i + 1;
+int nctemp3498=s->d[0];int nctemp3503 = nctemp3498 - 1;
+int nctemp3486 = (nctemp3493 > nctemp3503);
+if(nctemp3486)
+{
+return 0;
+}
+int nctemp3517 = i + 1;
+i =nctemp3517;
+int nctemp3508=i;
+int nctemp3524= n;
+int nctemp3526= 10;
+int nctemp3528=LibeMod(nctemp3524,nctemp3526);
+int nctemp3530 = nctemp3528 + 48;
+char nctemp3519=(char)(nctemp3530);
+s->a[nctemp3508] =nctemp3519;
+}
+int nctemp3542 = n / 10;
+n =nctemp3542;
+int nctemp3531 = (n > 0);
+nctemp3485=nctemp3531;}int nctemp3544 = (sign < 0);
+if(nctemp3544)
+{
+int nctemp3555 = i + 1;
+int nctemp3560=s->d[0];int nctemp3565 = nctemp3560 - 1;
+int nctemp3548 = (nctemp3555 > nctemp3565);
+if(nctemp3548)
+{
+return 0;
+}
+int nctemp3579 = i + 1;
+i =nctemp3579;
+int nctemp3570=i;
+char nctemp3581=(char)(45);
+s->a[nctemp3570] =nctemp3581;
+}
+int nctemp3591 = i + 1;
+int nctemp3596=s->d[0];int nctemp3601 = nctemp3596 - 1;
+int nctemp3584 = (nctemp3591 > nctemp3601);
+if(nctemp3584)
+{
+return 0;
+}
+int nctemp3615 = i + 1;
+i =nctemp3615;
+int nctemp3606=i;
+char nctemp3617=(char)(0);
+s->a[nctemp3606] =nctemp3617;
+nctempchar1* nctemp3621= s;
+int nctemp3624=LibeStrev(nctemp3621);
+return 1;
+}
+int LibeItoh (int n,nctempchar1 *s)
+{
+int i;
+int sign;
+sign =n;
+int nctemp3626 = (sign < 0);
+if(nctemp3626)
+{
+int nctemp3637= -n;
+n =nctemp3637;
+}
+i =0;
+int nctemp3645= n;
+int nctemp3647= 16;
+int nctemp3649=LibeMod(nctemp3645,nctemp3647);
+int nctemp3642 = (nctemp3649 <= 9);
+if(nctemp3642)
+{
+int nctemp3654=0;
+int nctemp3662= n;
+int nctemp3664= 16;
+int nctemp3666=LibeMod(nctemp3662,nctemp3664);
+int nctemp3668 = nctemp3666 + 48;
+char nctemp3657=(char)(nctemp3668);
+s->a[nctemp3654] =nctemp3657;
+}
+else{
+int nctemp3672=0;
+int nctemp3683= n;
+int nctemp3685= 16;
+int nctemp3687=LibeMod(nctemp3683,nctemp3685);
+int nctemp3689 = nctemp3687 + 'a';
+int nctemp3691 = nctemp3689 - 10;
+char nctemp3675=(char)(nctemp3691);
+s->a[nctemp3672] =nctemp3675;
+}
+int nctemp3703 = n / 16;
+n =nctemp3703;
+int nctemp3692 = (n > 0);
+int nctemp3705=nctemp3692;
+while(nctemp3705)
+{{
+int nctemp3709= n;
+int nctemp3711= 16;
+int nctemp3713=LibeMod(nctemp3709,nctemp3711);
+int nctemp3706 = (nctemp3713 <= 9);
+if(nctemp3706)
+{
+int nctemp3727 = i + 1;
+i =nctemp3727;
+int nctemp3718=i;
+int nctemp3734= n;
+int nctemp3736= 16;
+int nctemp3738=LibeMod(nctemp3734,nctemp3736);
+int nctemp3740 = nctemp3738 + 48;
+char nctemp3729=(char)(nctemp3740);
+s->a[nctemp3718] =nctemp3729;
+}
+else{
+int nctemp3753 = i + 1;
+i =nctemp3753;
+int nctemp3744=i;
+int nctemp3763= n;
+int nctemp3765= 16;
+int nctemp3767=LibeMod(nctemp3763,nctemp3765);
+int nctemp3769 = nctemp3767 + 'a';
+int nctemp3771 = nctemp3769 - 10;
+char nctemp3755=(char)(nctemp3771);
+s->a[nctemp3744] =nctemp3755;
+}
+}
+int nctemp3783 = n / 16;
+n =nctemp3783;
+int nctemp3772 = (n > 0);
+nctemp3705=nctemp3772;}int nctemp3785 = (sign < 0);
+if(nctemp3785)
+{
+int nctemp3801 = i + 1;
+i =nctemp3801;
+int nctemp3792=i;
+char nctemp3803=(char)(45);
+s->a[nctemp3792] =nctemp3803;
+}
+int nctemp3818 = i + 1;
+i =nctemp3818;
+int nctemp3809=i;
+char nctemp3820=(char)(0);
+s->a[nctemp3809] =nctemp3820;
+nctempchar1* nctemp3824= s;
+int nctemp3827=LibeStrev(nctemp3824);
+return 0;
+}
+float LibeAtof (nctempchar1 *s)
+{
+float val;
+float power;
+int exponent;
+int sign;
+int esign;
+int i;
+sign =1;
+val =0.0;
+power =1.0;
+exponent =0;
+esign =1;
+i =0;
+int nctemp3856=i;
+char nctemp3859=(char)(' ');
+int nctemp3853 = (s->a[nctemp3856] ==nctemp3859);
+int nctemp3862=nctemp3853;
+while(nctemp3862)
+{{
+int nctemp3871 = i + 1;
+i =nctemp3871;
+}
+int nctemp3875=i;
+char nctemp3878=(char)(' ');
+int nctemp3872 = (s->a[nctemp3875] ==nctemp3878);
+nctemp3862=nctemp3872;}int nctemp3887=i;
+char nctemp3890=(char)('+');
+int nctemp3884 = (s->a[nctemp3887] ==nctemp3890);
+int nctemp3897=i;
+char nctemp3900=(char)('-');
+int nctemp3894 = (s->a[nctemp3897] ==nctemp3900);
+int nctemp3881 = (nctemp3884 || nctemp3894);
+if(nctemp3881)
+{
+int nctemp3906=i;
+char nctemp3909=(char)('-');
+int nctemp3903 = (s->a[nctemp3906] ==nctemp3909);
+if(nctemp3903)
+{
+int nctemp3915= -1;
+sign =nctemp3915;
+}
+int nctemp3924 = i + 1;
+i =nctemp3924;
+}
+int nctemp3931=i;
+int nctemp3928=(int)(s->a[nctemp3931]);
+int nctemp3926= nctemp3928;
+int nctemp3933=LibeIsdigit(nctemp3926);
+int nctemp3934=nctemp3933;
+while(nctemp3934)
+{{
+float nctemp3946 = 10.0 * val;
+int nctemp3956=i;
+int nctemp3953=(int)(s->a[nctemp3956]);
+int nctemp3959 = nctemp3953 - '0';
+float nctemp3948=(float)(nctemp3959);
+float nctemp3960 = nctemp3946 + nctemp3948;
+val =nctemp3960;
+int nctemp3969 = i + 1;
+i =nctemp3969;
+}
+int nctemp3976=i;
+int nctemp3973=(int)(s->a[nctemp3976]);
+int nctemp3971= nctemp3973;
+int nctemp3978=LibeIsdigit(nctemp3971);
+nctemp3934=nctemp3978;}int nctemp3982=i;
+char nctemp3985=(char)('.');
+int nctemp3979 = (s->a[nctemp3982] ==nctemp3985);
+if(nctemp3979)
+{
+int nctemp3996 = i + 1;
+i =nctemp3996;
+int nctemp4003=i;
+int nctemp4000=(int)(s->a[nctemp4003]);
+int nctemp3998= nctemp4000;
+int nctemp4005=LibeIsdigit(nctemp3998);
+int nctemp4006=nctemp4005;
+while(nctemp4006)
+{{
+float nctemp4018 = 10.0 * val;
+int nctemp4028=i;
+int nctemp4025=(int)(s->a[nctemp4028]);
+int nctemp4031 = nctemp4025 - '0';
+float nctemp4020=(float)(nctemp4031);
+float nctemp4032 = nctemp4018 + nctemp4020;
+val =nctemp4032;
+int nctemp4041 = i + 1;
+i =nctemp4041;
+float nctemp4050 = 10.0 * power;
+power =nctemp4050;
+}
+int nctemp4057=i;
+int nctemp4054=(int)(s->a[nctemp4057]);
+int nctemp4052= nctemp4054;
+int nctemp4059=LibeIsdigit(nctemp4052);
+nctemp4006=nctemp4059;}}
+int nctemp4066=i;
+char nctemp4069=(char)('e');
+int nctemp4063 = (s->a[nctemp4066] ==nctemp4069);
+int nctemp4076=i;
+char nctemp4079=(char)('E');
+int nctemp4073 = (s->a[nctemp4076] ==nctemp4079);
+int nctemp4060 = (nctemp4063 || nctemp4073);
+if(nctemp4060)
+{
+int nctemp4090 = i + 1;
+i =nctemp4090;
+int nctemp4097=i;
+char nctemp4100=(char)('+');
+int nctemp4094 = (s->a[nctemp4097] ==nctemp4100);
+int nctemp4107=i;
+char nctemp4110=(char)('-');
+int nctemp4104 = (s->a[nctemp4107] ==nctemp4110);
+int nctemp4091 = (nctemp4094 || nctemp4104);
+if(nctemp4091)
+{
+int nctemp4116=i;
+char nctemp4119=(char)('-');
+int nctemp4113 = (s->a[nctemp4116] ==nctemp4119);
+if(nctemp4113)
+{
+int nctemp4125= -1;
+esign =nctemp4125;
+}
+int nctemp4134 = i + 1;
+i =nctemp4134;
+}
+int nctemp4141=i;
+int nctemp4138=(int)(s->a[nctemp4141]);
+int nctemp4136= nctemp4138;
+int nctemp4143=LibeIsdigit(nctemp4136);
+int nctemp4144=nctemp4143;
+while(nctemp4144)
+{{
+int nctemp4159 = 10 * exponent;
+int nctemp4164=i;
+int nctemp4161=(int)(s->a[nctemp4164]);
+int nctemp4166 = nctemp4159 + nctemp4161;
+int nctemp4168 = nctemp4166 - '0';
+exponent =nctemp4168;
+int nctemp4177 = i + 1;
+i =nctemp4177;
+}
+int nctemp4184=i;
+int nctemp4181=(int)(s->a[nctemp4184]);
+int nctemp4179= nctemp4181;
+int nctemp4186=LibeIsdigit(nctemp4179);
+nctemp4144=nctemp4186;}}
+float nctemp4195=(float)(sign);
+float nctemp4199 = nctemp4195 * val;
+float nctemp4201=(float)(power);
+float nctemp4204 = nctemp4199 / nctemp4201;
+float nctemp4188= nctemp4204;
+int nctemp4210 = esign * exponent;
+int nctemp4205= nctemp4210;
+float nctemp4211=LibeFscale(nctemp4188,nctemp4205);
+return nctemp4211;
+}
+int LibeFtoaf (int mant,int nexp,int nfield,int nfrac,nctempchar1 *s)
+{
+nctempchar1 *t;
+int sign;
+int i;
+int tp;
+int l;
+int nctemp4212 = (mant < 0);
+if(nctemp4212)
+{
+int nctemp4219= -1;
+sign =nctemp4219;
+int nctemp4223= -mant;
+mant =nctemp4223;
+}
+else{
+sign =1;
+}
+int nctemp4231=s->d[0];int nctemp4240 = nfield + 1;
+int nctemp4228 = (nctemp4231 < nctemp4240);
+if(nctemp4228)
+{
+return 0;
+}
+int nctemp4256 = nexp + 1;
+int nctemp4258 = nctemp4256 + 1;
+int nctemp4260 = nctemp4258 + nfrac;
+l =nctemp4260;
+int nctemp4261 = (sign < 0);
+if(nctemp4261)
+{
+int nctemp4273 = l + 1;
+l =nctemp4273;
+}
+int nctemp4274 = (nfield < l);
+if(nctemp4274)
+{
+i =0;
+int nctemp4282 = (i < nfield);
+while(nctemp4282){
+{
+int nctemp4289=i;
+char nctemp4292=(char)('*');
+s->a[nctemp4289] =nctemp4292;
+}
+int nctemp4303 = i + 1;
+i =nctemp4303;
+int nctemp4304 = (i < nfield);
+nctemp4282=nctemp4304;
+}
+int nctemp4311=nfield;
+char nctemp4314=(char)(0);
+s->a[nctemp4311] =nctemp4314;
+return 0;
+}
+else{
+int nctemp4326 = nfield - l;
+tp =nctemp4326;
+}
+int nctemp4338 = 6 + 1;
+int nctemp4333=nctemp4338;
+nctempchar1 *nctemp4332;
+nctemp4332=(nctempchar1*)RunMalloc(sizeof(nctempchar1));
+int nctemp4343 = 6 + 1;
+nctemp4332->d[0]=nctemp4343;
+nctemp4332->a=(char *)RunMalloc(sizeof(char)*nctemp4333);
+t=nctemp4332;
+int nctemp4345= mant;
+nctempchar1* nctemp4347= t;
+int nctemp4350=LibeItoa(nctemp4345,nctemp4347);
+i =0;
+int nctemp4355 = (i < tp);
+while(nctemp4355){
+{
+int nctemp4362=i;
+char nctemp4365=(char)(' ');
+s->a[nctemp4362] =nctemp4365;
+}
+int nctemp4376 = i + 1;
+i =nctemp4376;
+int nctemp4377 = (i < tp);
+nctemp4355=nctemp4377;
+}
+int nctemp4381 = (nexp >= 0);
+if(nctemp4381)
+{
+int nctemp4388= -1;
+int nctemp4385 = (sign ==nctemp4388);
+if(nctemp4385)
+{
+int nctemp4392=tp;
+char nctemp4395=(char)('-');
+s->a[nctemp4392] =nctemp4395;
+int nctemp4406 = tp + 1;
+tp =nctemp4406;
+}
+i =0;
+int nctemp4411 = (i <= nexp);
+while(nctemp4411){
+{
+int nctemp4423 = i + tp;
+int nctemp4418=nctemp4423;
+int nctemp4425=i;
+s->a[nctemp4418] =t->a[nctemp4425];
+}
+int nctemp4435 = i + 1;
+i =nctemp4435;
+int nctemp4436 = (i <= nexp);
+nctemp4411=nctemp4436;
+}
+int nctemp4440 = (nfrac > 0);
+if(nctemp4440)
+{
+int nctemp4455 = tp + nexp;
+int nctemp4457 = nctemp4455 + 1;
+int nctemp4447=nctemp4457;
+char nctemp4459=(char)('.');
+s->a[nctemp4447] =nctemp4459;
+}
+i =0;
+int nctemp4466 = (i < nfrac);
+while(nctemp4466){
+{
+int nctemp4470 = (mant ==0);
+if(nctemp4470)
+{
+int nctemp4491 = tp + nexp;
+int nctemp4493 = nctemp4491 + 1;
+int nctemp4495 = nctemp4493 + 1;
+int nctemp4497 = nctemp4495 + i;
+int nctemp4477=nctemp4497;
+char nctemp4499=(char)('0');
+s->a[nctemp4477] =nctemp4499;
+}
+else{
+int nctemp4519 = tp + nexp;
+int nctemp4521 = nctemp4519 + 1;
+int nctemp4523 = nctemp4521 + 1;
+int nctemp4525 = nctemp4523 + i;
+int nctemp4505=nctemp4525;
+int nctemp4535 = nexp + 1;
+int nctemp4537 = nctemp4535 + i;
+int nctemp4527=nctemp4537;
+s->a[nctemp4505] =t->a[nctemp4527];
+}
+}
+int nctemp4546 = i + 1;
+i =nctemp4546;
+int nctemp4547 = (i < nfrac);
+nctemp4466=nctemp4547;
+}
+int nctemp4551 = (nfrac > 0);
+if(nctemp4551)
+{
+int nctemp4572 = tp + nexp;
+int nctemp4574 = nctemp4572 + 1;
+int nctemp4576 = nctemp4574 + 1;
+int nctemp4578 = nctemp4576 + nfrac;
+int nctemp4558=nctemp4578;
+char nctemp4580=(char)(0);
+s->a[nctemp4558] =nctemp4580;
+}
+else{
+int nctemp4594 = tp + nexp;
+int nctemp4596 = nctemp4594 + 1;
+int nctemp4586=nctemp4596;
+char nctemp4598=(char)(0);
+s->a[nctemp4586] =nctemp4598;
+}
+}
+else{
+int nctemp4604= -nexp;
+nexp =nctemp4604;
+int nctemp4608= -1;
+int nctemp4605 = (sign ==nctemp4608);
+if(nctemp4605)
+{
+int nctemp4612=tp;
+char nctemp4615=(char)('-');
+s->a[nctemp4612] =nctemp4615;
+int nctemp4626 = tp + 1;
+tp =nctemp4626;
+}
+int nctemp4630=tp;
+char nctemp4633=(char)('0');
+s->a[nctemp4630] =nctemp4633;
+int nctemp4644 = tp + 1;
+int nctemp4639=nctemp4644;
+char nctemp4646=(char)('.');
+s->a[nctemp4639] =nctemp4646;
+i =0;
+int nctemp4661 = nexp - 1;
+int nctemp4653 = (i < nctemp4661);
+while(nctemp4653){
+{
+int nctemp4673 = i + tp;
+int nctemp4675 = nctemp4673 + 2;
+int nctemp4665=nctemp4675;
+char nctemp4677=(char)('0');
+s->a[nctemp4665] =nctemp4677;
+}
+int nctemp4688 = i + 1;
+i =nctemp4688;
+int nctemp4697 = nexp - 1;
+int nctemp4689 = (i < nctemp4697);
+nctemp4653=nctemp4689;
+}
+i =0;
+int nctemp4713 = nfrac - nexp;
+int nctemp4715 = nctemp4713 + 1;
+int nctemp4702 = (i < nctemp4715);
+while(nctemp4702){
+{
+int nctemp4733 = tp + 2;
+int nctemp4735 = nctemp4733 + i;
+int nctemp4737 = nctemp4735 + nexp;
+int nctemp4739 = nctemp4737 - 1;
+int nctemp4719=nctemp4739;
+int nctemp4741=i;
+s->a[nctemp4719] =t->a[nctemp4741];
+}
+int nctemp4751 = i + 1;
+i =nctemp4751;
+int nctemp4763 = nfrac - nexp;
+int nctemp4765 = nctemp4763 + 1;
+int nctemp4752 = (i < nctemp4765);
+nctemp4702=nctemp4752;
+}
+int nctemp4777 = tp + 2;
+int nctemp4779 = nctemp4777 + nfrac;
+int nctemp4769=nctemp4779;
+char nctemp4781=(char)(0);
+s->a[nctemp4769] =nctemp4781;
+}
+return 1;
+}
+int LibeFtoae (int mant,int nexp,int nfield,int nfrac,nctempchar1 *s)
+{
+int tp;
+int sign;
+int i;
+int l;
+nctempchar1 *t;
+int nctemp4785 = (mant < 0);
+if(nctemp4785)
+{
+int nctemp4792= -mant;
+mant =nctemp4792;
+int nctemp4796= -1;
+sign =nctemp4796;
+}
+else{
+sign =1;
+}
+int nctemp4804=s->d[0];int nctemp4831 = 1 + 1;
+int nctemp4833 = nctemp4831 + 1;
+int nctemp4835 = nctemp4833 + nfrac;
+int nctemp4837 = nctemp4835 + 1;
+int nctemp4839 = nctemp4837 + 1;
+int nctemp4841 = nctemp4839 + 2;
+int nctemp4843 = nctemp4841 + 1;
+int nctemp4801 = (nctemp4804 < nctemp4843);
+if(nctemp4801)
+{
+return 0;
+}
+int nctemp4853=s->d[0];int nctemp4851=nctemp4853;
+nctempchar1 *nctemp4850;
+nctemp4850=(nctempchar1*)RunMalloc(sizeof(nctempchar1));
+int nctemp4858=s->d[0];nctemp4850->d[0]=nctemp4858;
+nctemp4850->a=(char *)RunMalloc(sizeof(char)*nctemp4851);
+t=nctemp4850;
+int nctemp4885 = 1 + 1;
+int nctemp4887 = nctemp4885 + nfrac;
+int nctemp4889 = nctemp4887 + 1;
+int nctemp4891 = nctemp4889 + 1;
+int nctemp4893 = nctemp4891 + 2;
+int nctemp4895 = nctemp4893 + 1;
+l =nctemp4895;
+int nctemp4896 = (sign < 0);
+if(nctemp4896)
+{
+int nctemp4908 = l + 1;
+l =nctemp4908;
+}
+int nctemp4909 = (nfield < l);
+if(nctemp4909)
+{
+i =0;
+int nctemp4917 = (i < nfield);
+while(nctemp4917){
+{
+int nctemp4924=i;
+char nctemp4927=(char)('*');
+s->a[nctemp4924] =nctemp4927;
+}
+int nctemp4938 = i + 1;
+i =nctemp4938;
+int nctemp4939 = (i < nfield);
+nctemp4917=nctemp4939;
+}
+int nctemp4946=nfield;
+char nctemp4949=(char)(0);
+s->a[nctemp4946] =nctemp4949;
+return 0;
+}
+else{
+int nctemp4961 = nfield - l;
+tp =nctemp4961;
+}
+i =0;
+int nctemp4966 = (i < tp);
+while(nctemp4966){
+{
+int nctemp4973=i;
+char nctemp4976=(char)(' ');
+s->a[nctemp4973] =nctemp4976;
+}
+int nctemp4987 = i + 1;
+i =nctemp4987;
+int nctemp4988 = (i < tp);
+nctemp4966=nctemp4988;
+}
+int nctemp4993= mant;
+nctempchar1* nctemp4995= t;
+int nctemp4998=LibeItoa(nctemp4993,nctemp4995);
+int nctemp4999 = (sign < 0);
+if(nctemp4999)
+{
+int nctemp5006=tp;
+char nctemp5009=(char)('-');
+s->a[nctemp5006] =nctemp5009;
+int nctemp5020 = tp + 1;
+tp =nctemp5020;
+}
+int nctemp5024=tp;
+int nctemp5027=0;
+s->a[nctemp5024] =t->a[nctemp5027];
+int nctemp5037 = tp + 1;
+int nctemp5032=nctemp5037;
+char nctemp5039=(char)('.');
+s->a[nctemp5032] =nctemp5039;
+i =0;
+int nctemp5046 = (i < nfrac);
+while(nctemp5046){
+{
+int nctemp5061 = tp + 2;
+int nctemp5063 = nctemp5061 + i;
+int nctemp5053=nctemp5063;
+int nctemp5070 = i + 1;
+int nctemp5065=nctemp5070;
+s->a[nctemp5053] =t->a[nctemp5065];
+}
+int nctemp5079 = i + 1;
+i =nctemp5079;
+int nctemp5080 = (i < nfrac);
+nctemp5046=nctemp5080;
+}
+int nctemp5095 = tp + 2;
+int nctemp5097 = nctemp5095 + nfrac;
+int nctemp5087=nctemp5097;
+char nctemp5099=(char)(0);
+s->a[nctemp5087] =nctemp5099;
+sign =1;
+int nctemp5106 = (nexp < 0);
+if(nctemp5106)
+{
+int nctemp5113= -1;
+sign =nctemp5113;
+int nctemp5117= -nexp;
+nexp =nctemp5117;
+}
+struct nctempchar1 *nctemp5121;
+static struct nctempchar1 nctemp5122 = {{ 2}, (char*)"e\0"};
+nctemp5121=&nctemp5122;
+nctempchar1* nctemp5119= nctemp5121;
+nctempchar1* nctemp5123= s;
+int nctemp5126=LibeStrcat(nctemp5119,nctemp5123);
+int nctemp5127 = (sign > 0);
+if(nctemp5127)
+{
+struct nctempchar1 *nctemp5134;
+static struct nctempchar1 nctemp5135 = {{ 2}, (char*)"+\0"};
+nctemp5134=&nctemp5135;
+nctempchar1* nctemp5132= nctemp5134;
+nctempchar1* nctemp5136= s;
+int nctemp5139=LibeStrcat(nctemp5132,nctemp5136);
+}
+else{
+struct nctempchar1 *nctemp5143;
+static struct nctempchar1 nctemp5144 = {{ 2}, (char*)"-\0"};
+nctemp5143=&nctemp5144;
+nctempchar1* nctemp5141= nctemp5143;
+nctempchar1* nctemp5145= s;
+int nctemp5148=LibeStrcat(nctemp5141,nctemp5145);
+}
+int nctemp5150= nexp;
+nctempchar1* nctemp5152= t;
+int nctemp5155=LibeItoa(nctemp5150,nctemp5152);
+nctempchar1* nctemp5159= t;
+int nctemp5162=LibeStrlen(nctemp5159);
+int nctemp5156 = (nctemp5162 ==1);
+if(nctemp5156)
+{
+struct nctempchar1 *nctemp5167;
+static struct nctempchar1 nctemp5168 = {{ 2}, (char*)"0\0"};
+nctemp5167=&nctemp5168;
+nctempchar1* nctemp5165= nctemp5167;
+nctempchar1* nctemp5169= s;
+int nctemp5172=LibeStrcat(nctemp5165,nctemp5169);
+}
+nctempchar1* nctemp5174= t;
+nctempchar1* nctemp5177= s;
+int nctemp5180=LibeStrcat(nctemp5174,nctemp5177);
+RunFree(t->a);
+RunFree(t);
+return 1;
+}
+int LibeFtoa (float f,nctempchar1 *fmt,nctempchar1 *s)
+{
+int nexp;
+int mant;
+int c;
+int p;
+int q;
+int l;
+int mode;
+int ndigit;
+int nfield;
+int nfrac;
+int nctemp5188=s->d[0];int nctemp5193=fmt->d[0];int nctemp5185 = (nctemp5188 < nctemp5193);
+if(nctemp5185)
+{
+return 0;
+}
+int nctemp5205=fmt->d[0];int nctemp5210 = nctemp5205 - 2;
+l =nctemp5210;
+p =0;
+q =0;
+int nctemp5226=p;
+int nctemp5223=(int)(fmt->a[nctemp5226]);
+c =nctemp5223;
+int nctemp5228 = (c =='g');
+if(nctemp5228)
+{
+mode ='g';
+}
+else{
+int nctemp5239= c;
+int nctemp5241=LibeIsdigit(nctemp5239);
+int nctemp5236 = (nctemp5241 ==1);
+if(nctemp5236)
+{
+int nctemp5246= c;
+int nctemp5248=LibeIsdigit(nctemp5246);
+int nctemp5243 = (nctemp5248 ==1);
+int nctemp5250=nctemp5243;
+while(nctemp5250)
+{{
+int nctemp5254=q;
+int nctemp5257=p;
+s->a[nctemp5254] =fmt->a[nctemp5257];
+int nctemp5270 = p + 1;
+p =nctemp5270;
+int nctemp5259 = (p > l);
+if(nctemp5259)
+{
+return 0;
+}
+int nctemp5281 = q + 1;
+q =nctemp5281;
+int nctemp5289=p;
+int nctemp5286=(int)(fmt->a[nctemp5289]);
+c =nctemp5286;
+}
+int nctemp5294= c;
+int nctemp5296=LibeIsdigit(nctemp5294);
+int nctemp5291 = (nctemp5296 ==1);
+nctemp5250=nctemp5291;}int nctemp5301=q;
+char nctemp5304=(char)(0);
+s->a[nctemp5301] =nctemp5304;
+nctempchar1* nctemp5311= s;
+int nctemp5314=LibeAtoi(nctemp5311);
+nfield =nctemp5314;
+}
+else{
+return 0;
+}
+int nctemp5316 = (c !='.');
+if(nctemp5316)
+{
+return 0;
+}
+int nctemp5332 = p + 1;
+p =nctemp5332;
+int nctemp5321 = (p > l);
+if(nctemp5321)
+{
+return 0;
+}
+int nctemp5342=p;
+int nctemp5339=(int)(fmt->a[nctemp5342]);
+c =nctemp5339;
+q =0;
+int nctemp5351= c;
+int nctemp5353=LibeIsdigit(nctemp5351);
+int nctemp5348 = (nctemp5353 ==1);
+if(nctemp5348)
+{
+int nctemp5358= c;
+int nctemp5360=LibeIsdigit(nctemp5358);
+int nctemp5355 = (nctemp5360 ==1);
+int nctemp5362=nctemp5355;
+while(nctemp5362)
+{{
+int nctemp5366=q;
+int nctemp5369=p;
+s->a[nctemp5366] =fmt->a[nctemp5369];
+int nctemp5382 = p + 1;
+p =nctemp5382;
+int nctemp5371 = (p > l);
+if(nctemp5371)
+{
+return 0;
+}
+int nctemp5393 = q + 1;
+q =nctemp5393;
+int nctemp5401=p;
+int nctemp5398=(int)(fmt->a[nctemp5401]);
+c =nctemp5398;
+}
+int nctemp5406= c;
+int nctemp5408=LibeIsdigit(nctemp5406);
+int nctemp5403 = (nctemp5408 ==1);
+nctemp5362=nctemp5403;}int nctemp5413=q;
+char nctemp5416=(char)(0);
+s->a[nctemp5413] =nctemp5416;
+nctempchar1* nctemp5423= s;
+int nctemp5426=LibeAtoi(nctemp5423);
+nfrac =nctemp5426;
+}
+else{
+return 0;
+}
+int nctemp5428 = (c =='f');
+if(nctemp5428)
+{
+mode ='f';
+}
+else{
+int nctemp5436 = (c =='e');
+if(nctemp5436)
+{
+mode ='e';
+}
+else{
+return 0;
+}
+}
+}
+int nctemp5445 = (mode =='g');
+if(nctemp5445)
+{
+float nctemp5453= f;
+int nctemp5455=LibeGetmaxdig(nctemp5453);
+nfrac =nctemp5455;
+int nctemp5482 = 1 + 1;
+int nctemp5484 = nctemp5482 + 1;
+int nctemp5486 = nctemp5484 + 1;
+int nctemp5488 = nctemp5486 + nfrac;
+int nctemp5490 = nctemp5488 + 1;
+int nctemp5492 = nctemp5490 + 1;
+int nctemp5494 = nctemp5492 + 2;
+nfield =nctemp5494;
+int nctemp5503 = nfrac + 1;
+ndigit =nctemp5503;
+float nctemp5508= f;
+int nctemp5510= ndigit;
+int nctemp5512=LibeGetfman(nctemp5508,nctemp5510);
+mant =nctemp5512;
+float nctemp5517= f;
+int nctemp5519=LibeGetfexp(nctemp5517);
+nexp =nctemp5519;
+int nctemp5521= mant;
+int nctemp5523= nexp;
+int nctemp5525= nfield;
+int nctemp5527= nfrac;
+nctempchar1* nctemp5529= s;
+int nctemp5532=LibeFtoae(nctemp5521,nctemp5523,nctemp5525,nctemp5527,nctemp5529);
+}
+else{
+int nctemp5533 = (mode =='e');
+if(nctemp5533)
+{
+int nctemp5545 = nfrac + 1;
+ndigit =nctemp5545;
+float nctemp5550= f;
+int nctemp5552= ndigit;
+int nctemp5554=LibeGetfman(nctemp5550,nctemp5552);
+mant =nctemp5554;
+float nctemp5559= f;
+int nctemp5561=LibeGetfexp(nctemp5559);
+nexp =nctemp5561;
+int nctemp5563= mant;
+int nctemp5565= nexp;
+int nctemp5567= nfield;
+int nctemp5569= nfrac;
+nctempchar1* nctemp5571= s;
+int nctemp5574=LibeFtoae(nctemp5563,nctemp5565,nctemp5567,nctemp5569,nctemp5571);
+}
+else{
+int nctemp5575 = (mode =='f');
+if(nctemp5575)
+{
+float nctemp5583= f;
+int nctemp5585=LibeGetfexp(nctemp5583);
+nexp =nctemp5585;
+int nctemp5597 = nexp + nfrac;
+int nctemp5599 = nctemp5597 + 1;
+ndigit =nctemp5599;
+float nctemp5604= f;
+int nctemp5606= ndigit;
+int nctemp5608=LibeGetfman(nctemp5604,nctemp5606);
+mant =nctemp5608;
+int nctemp5610= mant;
+int nctemp5612= nexp;
+int nctemp5614= nfield;
+int nctemp5616= nfrac;
+nctempchar1* nctemp5618= s;
+int nctemp5621=LibeFtoaf(nctemp5610,nctemp5612,nctemp5614,nctemp5616,nctemp5618);
+}
+}
+}
 return 1;
 }
 struct LibeFdescr {int cnt;
@@ -273,288 +2705,431 @@ struct nctempLibeFdescr2 {int d[2]; struct LibeFdescr *a; } ;
 struct nctempLibeFdescr3 {int d[3]; struct LibeFdescr *a; } ;
 struct nctempLibeFdescr4 {int d[4]; struct LibeFdescr *a; } ;
 struct nctempLibeFdescr1 *LibeFarr;
-int LibeFillbuff (int fp);
-int LibeFlushbuff (int fp);
 nctempchar1 *LibeTmpstr;
 int LibeIoinit ()
 {
 int i;
-int nctemp188=40;
-struct nctempLibeFdescr1 *nctemp187;
-nctemp187=(struct nctempLibeFdescr1*)RunMalloc(sizeof(struct nctempLibeFdescr1));
-nctemp187->d[0]=40;
-nctemp187->a=(struct LibeFdescr*)RunMalloc(sizeof(struct LibeFdescr)*nctemp188);
-LibeFarr=nctemp187;
-nctempLibeFdescr1 *nctemp192 =LibeFarr;
-int nctemp191 =(nctemp192==0);
-if(nctemp191)
+int nctemp5629=40;
+struct nctempLibeFdescr1 *nctemp5628;
+nctemp5628=(struct nctempLibeFdescr1*)RunMalloc(sizeof(struct nctempLibeFdescr1));
+nctemp5628->d[0]=40;
+nctemp5628->a=(struct LibeFdescr*)RunMalloc(sizeof(struct LibeFdescr)*nctemp5629);
+LibeFarr=nctemp5628;
+nctempLibeFdescr1 *nctemp5633 =LibeFarr;
+int nctemp5632 =(nctemp5633==0);
+if(nctemp5632)
 {
 LibeErrno =(-100);
 return 0;
 }
 i =0;
-int nctemp205 = (i < 40);
-while(nctemp205){
+int nctemp5646 = (i < 40);
+while(nctemp5646){
 {
-int nctemp212=i;
-LibeFarr->a[nctemp212].cnt =0;
-int nctemp218=i;
-LibeFarr->a[nctemp218].ptr =0;
-int nctemp224=i;
-LibeFarr->a[nctemp224].bufsize =0;
-int nctemp230=i;
-LibeFarr->a[nctemp230].base=(0);
-int nctemp237=i;
-LibeFarr->a[nctemp237].readflg =0;
-int nctemp243=i;
-LibeFarr->a[nctemp243].writflg =0;
-int nctemp249=i;
-LibeFarr->a[nctemp249].unbflg =0;
-int nctemp255=i;
-LibeFarr->a[nctemp255].errflg =1;
-int nctemp261=i;
-LibeFarr->a[nctemp261].eoflg =0;
-int nctemp267=i;
-LibeFarr->a[nctemp267].fd =0;
+int nctemp5653=i;
+LibeFarr->a[nctemp5653].cnt =0;
+int nctemp5659=i;
+LibeFarr->a[nctemp5659].ptr =0;
+int nctemp5665=i;
+LibeFarr->a[nctemp5665].bufsize =0;
+int nctemp5671=i;
+LibeFarr->a[nctemp5671].base=(0);
+int nctemp5678=i;
+LibeFarr->a[nctemp5678].readflg =0;
+int nctemp5684=i;
+LibeFarr->a[nctemp5684].writflg =0;
+int nctemp5690=i;
+LibeFarr->a[nctemp5690].unbflg =0;
+int nctemp5696=i;
+LibeFarr->a[nctemp5696].errflg =1;
+int nctemp5702=i;
+LibeFarr->a[nctemp5702].eoflg =0;
+int nctemp5708=i;
+LibeFarr->a[nctemp5708].fd =0;
 }
-int nctemp278 = i + 1;
-i =nctemp278;
-int nctemp279 = (i < 40);
-nctemp205=nctemp279;
+int nctemp5719 = i + 1;
+i =nctemp5719;
+int nctemp5720 = (i < 40);
+nctemp5646=nctemp5720;
 }
-int nctemp286=0;
-int nctemp288= -1;
-LibeFarr->a[nctemp286].fd =nctemp288;
-int nctemp292=0;
-LibeFarr->a[nctemp292].readflg =1;
-int nctemp298=1;
-int nctemp300= -1;
-LibeFarr->a[nctemp298].fd =nctemp300;
-int nctemp304=1;
-LibeFarr->a[nctemp304].readflg =1;
-int nctemp310=2;
-LibeFarr->a[nctemp310].fd =0;
-int nctemp316=2;
-LibeFarr->a[nctemp316].readflg =1;
-int nctemp322=3;
-LibeFarr->a[nctemp322].fd =1;
-int nctemp328=3;
-LibeFarr->a[nctemp328].writflg =1;
-int nctemp334=4;
-LibeFarr->a[nctemp334].fd =2;
-int nctemp340=4;
-LibeFarr->a[nctemp340].writflg =1;
-int nctemp349=64;
-nctempchar1 *nctemp348;
-nctemp348=(nctempchar1*)RunMalloc(sizeof(nctempchar1));
-nctemp348->d[0]=64;
-nctemp348->a=(char *)RunMalloc(sizeof(char)*nctemp349);
-LibeTmpstr=nctemp348;
-nctempchar1 *nctemp353 =LibeTmpstr;
-int nctemp352 =(nctemp353==0);
-if(nctemp352)
+int nctemp5727=0;
+int nctemp5729= -1;
+LibeFarr->a[nctemp5727].fd =nctemp5729;
+int nctemp5733=0;
+LibeFarr->a[nctemp5733].readflg =1;
+int nctemp5739=1;
+int nctemp5741= -1;
+LibeFarr->a[nctemp5739].fd =nctemp5741;
+int nctemp5745=1;
+LibeFarr->a[nctemp5745].readflg =1;
+int nctemp5751=2;
+LibeFarr->a[nctemp5751].fd =0;
+int nctemp5757=2;
+LibeFarr->a[nctemp5757].readflg =1;
+int nctemp5763=3;
+LibeFarr->a[nctemp5763].fd =1;
+int nctemp5769=3;
+LibeFarr->a[nctemp5769].writflg =1;
+int nctemp5775=4;
+LibeFarr->a[nctemp5775].fd =2;
+int nctemp5781=4;
+LibeFarr->a[nctemp5781].writflg =1;
+int nctemp5790=64;
+nctempchar1 *nctemp5789;
+nctemp5789=(nctempchar1*)RunMalloc(sizeof(nctempchar1));
+nctemp5789->d[0]=64;
+nctemp5789->a=(char *)RunMalloc(sizeof(char)*nctemp5790);
+LibeTmpstr=nctemp5789;
+nctempchar1 *nctemp5794 =LibeTmpstr;
+int nctemp5793 =(nctemp5794==0);
+if(nctemp5793)
 {
 LibeErrno =(-100);
 return 0;
 }
 return 1;
 }
-int LibeIodelete ()
+int LibeFlushbuff (int fp)
 {
-int stat;
-int fd;
-int i;
-RunFree(LibeTmpstr->a);
-RunFree(LibeTmpstr);
-stat =1;
-i =0;
-int nctemp374 = (i < 40);
-while(nctemp374){
+int st;
+int size;
+int nctemp5807=fp;
+int nctemp5804 = (LibeFarr->a[nctemp5807].writflg !=1);
+if(nctemp5804)
 {
-int nctemp381=i;
-nctempchar1 *nctemp379 =LibeFarr->a[nctemp381].base;
-int nctemp378 =(nctemp379!=0);
-if(nctemp378)
+struct nctempchar1 *nctemp5815;
+static struct nctempchar1 nctemp5816 = {{ 28}, (char*)"file not open for writing\n\0"};
+nctemp5815=&nctemp5816;
+LibeErrstr=nctemp5815;
+LibeErrno =(-110);
+return 0;
+}
+int nctemp5825=fp;
+int nctemp5822 = (LibeFarr->a[nctemp5825].unbflg ==1);
+if(nctemp5822)
 {
-int nctemp385 = (i > 4);
-if(nctemp385)
+int nctemp5831=fp;
+LibeFarr->a[nctemp5831].bufsize =1;
+}
+else{
+int nctemp5837=fp;
+LibeFarr->a[nctemp5837].bufsize =1024;
+}
+int nctemp5843=fp;
+nctempchar1 *nctemp5841 =LibeFarr->a[nctemp5843].base;
+int nctemp5840 =(nctemp5841==0);
+if(nctemp5840)
 {
-int nctemp393=i;
-fd =LibeFarr->a[nctemp393].fd;
-int nctemp399= fd;
-int nctemp401=RunClose(nctemp399);
-stat =nctemp401;
-int nctemp402 = (stat ==0);
-if(nctemp402)
+int nctemp5851=fp;
+size =LibeFarr->a[nctemp5851].bufsize;
+int nctemp5859=fp;
+int nctemp5864=size;
+nctempchar1 *nctemp5863;
+nctemp5863=(nctempchar1*)RunMalloc(sizeof(nctempchar1));
+nctemp5863->d[0]=size;
+nctemp5863->a=(char *)RunMalloc(sizeof(char)*nctemp5864);
+LibeFarr->a[nctemp5859].base=nctemp5863;
+nctempchar1 *nctemp5854 =LibeFarr->a[nctemp5859].base;
+int nctemp5853 =(nctemp5854==0);
+if(nctemp5853)
 {
-struct nctempchar1 *nctemp411;
-static struct nctempchar1 nctemp412 = {{ 21}, (char*)"Could not close file\0"};
-nctemp411=&nctemp412;
-LibeErrstr=nctemp411;
-LibeErrno =(-106);
+struct nctempchar1 *nctemp5873;
+static struct nctempchar1 nctemp5874 = {{ 24}, (char*)"can not allocate buffer\0"};
+nctemp5873=&nctemp5874;
+LibeErrstr=nctemp5873;
+LibeErrno =(-113);
+return 0;
 }
 }
-int nctemp421= i;
-int nctemp423=LibeFlush(nctemp421);
-stat =nctemp423;
-int nctemp426=i;
-RunFree(LibeFarr->a[nctemp426].base->a);
-RunFree(LibeFarr->a[nctemp426].base);
+int nctemp5883=fp;
+LibeFarr->a[nctemp5883].ptr =0;
+int nctemp5892=fp;
+int nctemp5890= LibeFarr->a[nctemp5892].fd;
+int nctemp5896=fp;
+int nctemp5894= LibeFarr->a[nctemp5896].cnt;
+int nctemp5900=fp;
+nctempchar1* nctemp5898= LibeFarr->a[nctemp5900].base;
+int nctemp5903=RunWrite(nctemp5890,nctemp5894,nctemp5898);
+st =nctemp5903;
+int nctemp5908=fp;
+int nctemp5904 = (st !=LibeFarr->a[nctemp5908].cnt);
+if(nctemp5904)
+{
+int nctemp5913=fp;
+LibeFarr->a[nctemp5913].errflg =1;
+struct nctempchar1 *nctemp5921;
+static struct nctempchar1 nctemp5922 = {{ 12}, (char*)"write error\0"};
+nctemp5921=&nctemp5922;
+LibeErrstr=nctemp5921;
+LibeErrno =(-112);
+int nctemp5930=fp;
+LibeFarr->a[nctemp5930].cnt =0;
+int nctemp5936=fp;
+LibeFarr->a[nctemp5936].ptr =0;
+return 0;
+}
+else{
+int nctemp5943=fp;
+LibeFarr->a[nctemp5943].cnt =0;
+int nctemp5949=fp;
+LibeFarr->a[nctemp5949].ptr =0;
+return 1;
 }
 }
-int nctemp437 = i + 1;
-i =nctemp437;
-int nctemp438 = (i < 40);
-nctemp374=nctemp438;
+int LibeFillbuff (int fp)
+{
+int size;
+int rval;
+int nctemp5956=fp;
+int nctemp5953 = (LibeFarr->a[nctemp5956].readflg !=1);
+if(nctemp5953)
+{
+struct nctempchar1 *nctemp5964;
+static struct nctempchar1 nctemp5965 = {{ 28}, (char*)"file not open for reading\n\0"};
+nctemp5964=&nctemp5965;
+LibeErrstr=nctemp5964;
+LibeErrno =(-110);
+return (-1);
 }
-RunFree(LibeFarr->a);
-RunFree(LibeFarr);
-return stat;
+int nctemp5974=fp;
+int nctemp5971 = (LibeFarr->a[nctemp5974].unbflg ==1);
+if(nctemp5971)
+{
+int nctemp5980=fp;
+LibeFarr->a[nctemp5980].bufsize =1;
+}
+else{
+int nctemp5986=fp;
+LibeFarr->a[nctemp5986].bufsize =1024;
+}
+int nctemp5992=fp;
+nctempchar1 *nctemp5990 =LibeFarr->a[nctemp5992].base;
+int nctemp5989 =(nctemp5990==0);
+if(nctemp5989)
+{
+int nctemp6000=fp;
+size =LibeFarr->a[nctemp6000].bufsize;
+int nctemp6008=fp;
+int nctemp6013=size;
+nctempchar1 *nctemp6012;
+nctemp6012=(nctempchar1*)RunMalloc(sizeof(nctempchar1));
+nctemp6012->d[0]=size;
+nctemp6012->a=(char *)RunMalloc(sizeof(char)*nctemp6013);
+LibeFarr->a[nctemp6008].base=nctemp6012;
+nctempchar1 *nctemp6003 =LibeFarr->a[nctemp6008].base;
+int nctemp6002 =(nctemp6003==0);
+if(nctemp6002)
+{
+struct nctempchar1 *nctemp6022;
+static struct nctempchar1 nctemp6023 = {{ 24}, (char*)"Can not allocate buffer\0"};
+nctemp6022=&nctemp6023;
+LibeErrstr=nctemp6022;
+LibeErrno =(-113);
+return (-1);
+}
+}
+int nctemp6032=fp;
+LibeFarr->a[nctemp6032].ptr =0;
+int nctemp6038=fp;
+int nctemp6043=fp;
+int nctemp6041= LibeFarr->a[nctemp6043].fd;
+int nctemp6047=fp;
+int nctemp6045= LibeFarr->a[nctemp6047].bufsize;
+int nctemp6051=fp;
+nctempchar1* nctemp6049= LibeFarr->a[nctemp6051].base;
+int nctemp6054=RunRead(nctemp6041,nctemp6045,nctemp6049);
+LibeFarr->a[nctemp6038].cnt =nctemp6054;
+int nctemp6058=fp;
+int nctemp6055 = (LibeFarr->a[nctemp6058].cnt <= 0);
+if(nctemp6055)
+{
+int nctemp6064=fp;
+int nctemp6061 = (LibeFarr->a[nctemp6064].cnt ==(-1));
+if(nctemp6061)
+{
+int nctemp6070=fp;
+LibeFarr->a[nctemp6070].eoflg =1;
+rval =(-1);
+}
+else{
+int nctemp6080=fp;
+LibeFarr->a[nctemp6080].errflg =1;
+struct nctempchar1 *nctemp6088;
+static struct nctempchar1 nctemp6089 = {{ 11}, (char*)"read error\0"};
+nctemp6088=&nctemp6089;
+LibeErrstr=nctemp6088;
+LibeErrno =(-111);
+rval =(-1);
+}
+int nctemp6101=fp;
+LibeFarr->a[nctemp6101].cnt =0;
+return rval;
+}
+int nctemp6108=fp;
+int nctemp6114=fp;
+int nctemp6117 = LibeFarr->a[nctemp6114].ptr + 1;
+LibeFarr->a[nctemp6108].ptr =nctemp6117;
+int nctemp6121=fp;
+int nctemp6127=fp;
+int nctemp6130 = LibeFarr->a[nctemp6127].cnt - 1;
+LibeFarr->a[nctemp6121].cnt =nctemp6130;
+int nctemp6135=fp;
+int nctemp6141=fp;
+int nctemp6144 = LibeFarr->a[nctemp6141].ptr - 1;
+int nctemp6137=nctemp6144;
+int nctemp6132=(int)(LibeFarr->a[nctemp6135].base->a[nctemp6137]);
+return nctemp6132;
+}
+int LibeFlush (int fp)
+{
+int nctemp6146= fp;
+int nctemp6148=LibeFlushbuff(nctemp6146);
+return nctemp6148;
 }
 int LibeOpen (nctempchar1 *name,nctempchar1 *mode)
 {
 int fd;
 int slot;
 int i;
-int nctemp449=0;
-char nctemp452=(char)('r');
-int nctemp446 = (mode->a[nctemp449] !=nctemp452);
-if(nctemp446)
+int nctemp6152=0;
+char nctemp6155=(char)('r');
+int nctemp6149 = (mode->a[nctemp6152] !=nctemp6155);
+if(nctemp6149)
 {
-int nctemp458=0;
-char nctemp461=(char)('w');
-int nctemp455 = (mode->a[nctemp458] !=nctemp461);
-if(nctemp455)
+int nctemp6161=0;
+char nctemp6164=(char)('w');
+int nctemp6158 = (mode->a[nctemp6161] !=nctemp6164);
+if(nctemp6158)
 {
-int nctemp467=0;
-char nctemp470=(char)('a');
-int nctemp464 = (mode->a[nctemp467] !=nctemp470);
-if(nctemp464)
+int nctemp6170=0;
+char nctemp6173=(char)('a');
+int nctemp6167 = (mode->a[nctemp6170] !=nctemp6173);
+if(nctemp6167)
 {
-struct nctempchar1 *nctemp478;
-static struct nctempchar1 nctemp479 = {{ 20}, (char*)"Unknown file mode\n\0"};
-nctemp478=&nctemp479;
-LibeErrstr=nctemp478;
+struct nctempchar1 *nctemp6181;
+static struct nctempchar1 nctemp6182 = {{ 20}, (char*)"Unknown file mode\n\0"};
+nctemp6181=&nctemp6182;
+LibeErrstr=nctemp6181;
 LibeErrno =(-103);
 return 0;
 }
 }
 }
 i =0;
-int nctemp492= -1;
-slot =nctemp492;
-int nctemp496 = (slot < 0);
-int nctemp501 = (i < 40);
-int nctemp493 = (nctemp496 && nctemp501);
-int nctemp505=nctemp493;
-while(nctemp505)
+int nctemp6195= -1;
+slot =nctemp6195;
+int nctemp6199 = (slot < 0);
+int nctemp6204 = (i < 40);
+int nctemp6196 = (nctemp6199 && nctemp6204);
+int nctemp6208=nctemp6196;
+while(nctemp6208)
 {{
-int nctemp512=i;
-int nctemp509 = (LibeFarr->a[nctemp512].readflg ==0);
-int nctemp519=i;
-int nctemp516 = (LibeFarr->a[nctemp519].writflg ==0);
-int nctemp506 = (nctemp509 && nctemp516);
-if(nctemp506)
+int nctemp6215=i;
+int nctemp6212 = (LibeFarr->a[nctemp6215].readflg ==0);
+int nctemp6222=i;
+int nctemp6219 = (LibeFarr->a[nctemp6222].writflg ==0);
+int nctemp6209 = (nctemp6212 && nctemp6219);
+if(nctemp6209)
 {
 slot =i;
 }
-int nctemp534 = i + 1;
-i =nctemp534;
+int nctemp6237 = i + 1;
+i =nctemp6237;
 }
-int nctemp538 = (slot < 0);
-int nctemp543 = (i < 40);
-int nctemp535 = (nctemp538 && nctemp543);
-nctemp505=nctemp535;}int nctemp547 = (slot < 0);
-if(nctemp547)
+int nctemp6241 = (slot < 0);
+int nctemp6246 = (i < 40);
+int nctemp6238 = (nctemp6241 && nctemp6246);
+nctemp6208=nctemp6238;}int nctemp6250 = (slot < 0);
+if(nctemp6250)
 {
-struct nctempchar1 *nctemp556;
-static struct nctempchar1 nctemp557 = {{ 22}, (char*)"Too many open files\n\0"};
-nctemp556=&nctemp557;
-LibeErrstr=nctemp556;
+struct nctempchar1 *nctemp6259;
+static struct nctempchar1 nctemp6260 = {{ 22}, (char*)"Too many open files\n\0"};
+nctemp6259=&nctemp6260;
+LibeErrstr=nctemp6259;
 LibeErrno =(-104);
 return 0;
 }
-int nctemp569=0;
-int nctemp566=(int)(mode->a[nctemp569]);
-int nctemp563 = (nctemp566 =='w');
-if(nctemp563)
+int nctemp6272=0;
+int nctemp6269=(int)(mode->a[nctemp6272]);
+int nctemp6266 = (nctemp6269 =='w');
+if(nctemp6266)
 {
-nctempchar1* nctemp576= name;
-int nctemp579=RunCreate(nctemp576);
-fd =nctemp579;
+nctempchar1* nctemp6279= name;
+int nctemp6282=RunCreate(nctemp6279);
+fd =nctemp6282;
 }
 else{
-int nctemp586=0;
-int nctemp583=(int)(mode->a[nctemp586]);
-int nctemp580 = (nctemp583 =='a');
-if(nctemp580)
+int nctemp6289=0;
+int nctemp6286=(int)(mode->a[nctemp6289]);
+int nctemp6283 = (nctemp6286 =='a');
+if(nctemp6283)
 {
-nctempchar1* nctemp596= name;
-nctempchar1* nctemp599= mode;
-int nctemp602=RunOpen(nctemp596,nctemp599);
-fd =nctemp602;
-int nctemp589 = (fd ==0);
-if(nctemp589)
+nctempchar1* nctemp6299= name;
+nctempchar1* nctemp6302= mode;
+int nctemp6305=RunOpen(nctemp6299,nctemp6302);
+fd =nctemp6305;
+int nctemp6292 = (fd ==0);
+if(nctemp6292)
 {
-nctempchar1* nctemp608= name;
-int nctemp611=RunCreate(nctemp608);
-fd =nctemp611;
+nctempchar1* nctemp6311= name;
+int nctemp6314=RunCreate(nctemp6311);
+fd =nctemp6314;
 }
 else{
-nctempchar1* nctemp616= name;
-nctempchar1* nctemp619= mode;
-int nctemp622=RunOpen(nctemp616,nctemp619);
-fd =nctemp622;
+nctempchar1* nctemp6319= name;
+nctempchar1* nctemp6322= mode;
+int nctemp6325=RunOpen(nctemp6319,nctemp6322);
+fd =nctemp6325;
 }
 }
 else{
-int nctemp629=0;
-int nctemp626=(int)(mode->a[nctemp629]);
-int nctemp623 = (nctemp626 =='r');
-if(nctemp623)
+int nctemp6332=0;
+int nctemp6329=(int)(mode->a[nctemp6332]);
+int nctemp6326 = (nctemp6329 =='r');
+if(nctemp6326)
 {
-nctempchar1* nctemp636= name;
-nctempchar1* nctemp639= mode;
-int nctemp642=RunOpen(nctemp636,nctemp639);
-fd =nctemp642;
+nctempchar1* nctemp6339= name;
+nctempchar1* nctemp6342= mode;
+int nctemp6345=RunOpen(nctemp6339,nctemp6342);
+fd =nctemp6345;
 }
 else{
-struct nctempchar1 *nctemp648;
-static struct nctempchar1 nctemp649 = {{ 20}, (char*)"Unknown file mode\n\0"};
-nctemp648=&nctemp649;
-LibeErrstr=nctemp648;
+struct nctempchar1 *nctemp6351;
+static struct nctempchar1 nctemp6352 = {{ 20}, (char*)"Unknown file mode\n\0"};
+nctemp6351=&nctemp6352;
+LibeErrstr=nctemp6351;
 LibeErrno =(-103);
 return 0;
 }
 }
 }
-int nctemp655 = (fd ==0);
-if(nctemp655)
+int nctemp6358 = (fd ==0);
+if(nctemp6358)
 {
-struct nctempchar1 *nctemp664;
-static struct nctempchar1 nctemp665 = {{ 20}, (char*)"Could not open file\0"};
-nctemp664=&nctemp665;
-LibeErrstr=nctemp664;
+struct nctempchar1 *nctemp6367;
+static struct nctempchar1 nctemp6368 = {{ 20}, (char*)"Could not open file\0"};
+nctemp6367=&nctemp6368;
+LibeErrstr=nctemp6367;
 LibeErrno =(-105);
 return 0;
 }
-int nctemp674=slot;
-LibeFarr->a[nctemp674].fd =fd;
-int nctemp680=slot;
-LibeFarr->a[nctemp680].cnt =0;
-int nctemp686=slot;
-LibeFarr->a[nctemp686].base=(0);
-int nctemp696=0;
-int nctemp693=(int)(mode->a[nctemp696]);
-int nctemp690 = (nctemp693 =='r');
-if(nctemp690)
+int nctemp6377=slot;
+LibeFarr->a[nctemp6377].fd =fd;
+int nctemp6383=slot;
+LibeFarr->a[nctemp6383].cnt =0;
+int nctemp6389=slot;
+LibeFarr->a[nctemp6389].base=(0);
+int nctemp6399=0;
+int nctemp6396=(int)(mode->a[nctemp6399]);
+int nctemp6393 = (nctemp6396 =='r');
+if(nctemp6393)
 {
-int nctemp702=slot;
-LibeFarr->a[nctemp702].readflg =1;
+int nctemp6405=slot;
+LibeFarr->a[nctemp6405].readflg =1;
 }
 else{
-int nctemp708=slot;
-LibeFarr->a[nctemp708].writflg =1;
+int nctemp6411=slot;
+LibeFarr->a[nctemp6411].writflg =1;
 }
 return slot;
 }
@@ -562,136 +3137,136 @@ int LibeClose (int fp)
 {
 int fd;
 int stat;
-int nctemp715=fp;
-nctempchar1 *nctemp713 =LibeFarr->a[nctemp715].base;
-int nctemp712 =(nctemp713!=0);
-if(nctemp712)
+int nctemp6418=fp;
+nctempchar1 *nctemp6416 =LibeFarr->a[nctemp6418].base;
+int nctemp6415 =(nctemp6416!=0);
+if(nctemp6415)
 {
-int nctemp720= fp;
-int nctemp722=LibeFlush(nctemp720);
+int nctemp6423= fp;
+int nctemp6425=LibeFlush(nctemp6423);
 }
-int nctemp727=fp;
-fd =LibeFarr->a[nctemp727].fd;
-int nctemp733= fd;
-int nctemp735=RunClose(nctemp733);
-stat =nctemp735;
-int nctemp736 = (stat ==0);
-if(nctemp736)
+int nctemp6430=fp;
+fd =LibeFarr->a[nctemp6430].fd;
+int nctemp6436= fd;
+int nctemp6438=RunClose(nctemp6436);
+stat =nctemp6438;
+int nctemp6439 = (stat ==0);
+if(nctemp6439)
 {
-int nctemp743=fp;
-LibeFarr->a[nctemp743].errflg =1;
-struct nctempchar1 *nctemp751;
-static struct nctempchar1 nctemp752 = {{ 21}, (char*)"Could not close file\0"};
-nctemp751=&nctemp752;
-LibeErrstr=nctemp751;
+int nctemp6446=fp;
+LibeFarr->a[nctemp6446].errflg =1;
+struct nctempchar1 *nctemp6454;
+static struct nctempchar1 nctemp6455 = {{ 21}, (char*)"Could not close file\0"};
+nctemp6454=&nctemp6455;
+LibeErrstr=nctemp6454;
 LibeErrno =(-106);
 return 0;
 }
-int nctemp761=fp;
-LibeFarr->a[nctemp761].cnt =0;
-int nctemp767=fp;
-LibeFarr->a[nctemp767].ptr =0;
-int nctemp773=fp;
-LibeFarr->a[nctemp773].bufsize =0;
-int nctemp779=fp;
-nctempchar1 *nctemp777 =LibeFarr->a[nctemp779].base;
-int nctemp776 =(nctemp777!=0);
-if(nctemp776)
+int nctemp6464=fp;
+LibeFarr->a[nctemp6464].cnt =0;
+int nctemp6470=fp;
+LibeFarr->a[nctemp6470].ptr =0;
+int nctemp6476=fp;
+LibeFarr->a[nctemp6476].bufsize =0;
+int nctemp6482=fp;
+nctempchar1 *nctemp6480 =LibeFarr->a[nctemp6482].base;
+int nctemp6479 =(nctemp6480!=0);
+if(nctemp6479)
 {
-int nctemp785=fp;
-RunFree(LibeFarr->a[nctemp785].base->a);
-RunFree(LibeFarr->a[nctemp785].base);
+int nctemp6488=fp;
+RunFree(LibeFarr->a[nctemp6488].base->a);
+RunFree(LibeFarr->a[nctemp6488].base);
 }
-int nctemp791=fp;
-LibeFarr->a[nctemp791].base=(0);
-int nctemp798=fp;
-LibeFarr->a[nctemp798].readflg =0;
-int nctemp804=fp;
-LibeFarr->a[nctemp804].writflg =0;
-int nctemp810=fp;
-LibeFarr->a[nctemp810].unbflg =0;
-int nctemp816=fp;
-LibeFarr->a[nctemp816].errflg =0;
-int nctemp822=fp;
-LibeFarr->a[nctemp822].eoflg =0;
-int nctemp828=fp;
-LibeFarr->a[nctemp828].fd =0;
+int nctemp6494=fp;
+LibeFarr->a[nctemp6494].base=(0);
+int nctemp6501=fp;
+LibeFarr->a[nctemp6501].readflg =0;
+int nctemp6507=fp;
+LibeFarr->a[nctemp6507].writflg =0;
+int nctemp6513=fp;
+LibeFarr->a[nctemp6513].unbflg =0;
+int nctemp6519=fp;
+LibeFarr->a[nctemp6519].errflg =0;
+int nctemp6525=fp;
+LibeFarr->a[nctemp6525].eoflg =0;
+int nctemp6531=fp;
+LibeFarr->a[nctemp6531].fd =0;
 return 1;
 }
 int LibeGetc (int fp)
 {
-int nctemp835=fp;
-int nctemp832 = (LibeFarr->a[nctemp835].cnt ==0);
-if(nctemp832)
+int nctemp6538=fp;
+int nctemp6535 = (LibeFarr->a[nctemp6538].cnt ==0);
+if(nctemp6535)
 {
-int nctemp839= fp;
-int nctemp841=LibeFillbuff(nctemp839);
-return nctemp841;
+int nctemp6542= fp;
+int nctemp6544=LibeFillbuff(nctemp6542);
+return nctemp6544;
 }
 else{
-int nctemp845=fp;
-int nctemp851=fp;
-int nctemp854 = LibeFarr->a[nctemp851].cnt - 1;
-LibeFarr->a[nctemp845].cnt =nctemp854;
-int nctemp858=fp;
-int nctemp864=fp;
-int nctemp867 = LibeFarr->a[nctemp864].ptr + 1;
-LibeFarr->a[nctemp858].ptr =nctemp867;
-int nctemp872=fp;
-int nctemp878=fp;
-int nctemp881 = LibeFarr->a[nctemp878].ptr - 1;
-int nctemp874=nctemp881;
-int nctemp869=(int)(LibeFarr->a[nctemp872].base->a[nctemp874]);
-return nctemp869;
+int nctemp6548=fp;
+int nctemp6554=fp;
+int nctemp6557 = LibeFarr->a[nctemp6554].cnt - 1;
+LibeFarr->a[nctemp6548].cnt =nctemp6557;
+int nctemp6561=fp;
+int nctemp6567=fp;
+int nctemp6570 = LibeFarr->a[nctemp6567].ptr + 1;
+LibeFarr->a[nctemp6561].ptr =nctemp6570;
+int nctemp6575=fp;
+int nctemp6581=fp;
+int nctemp6584 = LibeFarr->a[nctemp6581].ptr - 1;
+int nctemp6577=nctemp6584;
+int nctemp6572=(int)(LibeFarr->a[nctemp6575].base->a[nctemp6577]);
+return nctemp6572;
 }
 }
 int LibeUngetc (int fp)
 {
-int nctemp885=fp;
-int nctemp882 = (LibeFarr->a[nctemp885].eoflg ==1);
-if(nctemp882)
+int nctemp6588=fp;
+int nctemp6585 = (LibeFarr->a[nctemp6588].eoflg ==1);
+if(nctemp6585)
 {
 return (-1);
 }
-int nctemp892=fp;
-int nctemp895=fp;
-int nctemp889 = (LibeFarr->a[nctemp892].cnt < LibeFarr->a[nctemp895].bufsize);
-if(nctemp889)
+int nctemp6595=fp;
+int nctemp6598=fp;
+int nctemp6592 = (LibeFarr->a[nctemp6595].cnt < LibeFarr->a[nctemp6598].bufsize);
+if(nctemp6592)
 {
-int nctemp900=fp;
-int nctemp906=fp;
-int nctemp909 = LibeFarr->a[nctemp906].cnt + 1;
-LibeFarr->a[nctemp900].cnt =nctemp909;
-int nctemp913=fp;
-int nctemp919=fp;
-int nctemp922 = LibeFarr->a[nctemp919].ptr - 1;
-LibeFarr->a[nctemp913].ptr =nctemp922;
-int nctemp926=fp;
-int nctemp932=fp;
-int nctemp935 = LibeFarr->a[nctemp932].bufsize - 1;
-int nctemp923 = (LibeFarr->a[nctemp926].ptr ==nctemp935);
-if(nctemp923)
+int nctemp6603=fp;
+int nctemp6609=fp;
+int nctemp6612 = LibeFarr->a[nctemp6609].cnt + 1;
+LibeFarr->a[nctemp6603].cnt =nctemp6612;
+int nctemp6616=fp;
+int nctemp6622=fp;
+int nctemp6625 = LibeFarr->a[nctemp6622].ptr - 1;
+LibeFarr->a[nctemp6616].ptr =nctemp6625;
+int nctemp6629=fp;
+int nctemp6635=fp;
+int nctemp6638 = LibeFarr->a[nctemp6635].bufsize - 1;
+int nctemp6626 = (LibeFarr->a[nctemp6629].ptr ==nctemp6638);
+if(nctemp6626)
 {
-int nctemp940=fp;
-int nctemp944=fp;
-int nctemp942=LibeFarr->a[nctemp944].ptr;
-int nctemp937=(int)(LibeFarr->a[nctemp940].base->a[nctemp942]);
-return nctemp937;
+int nctemp6643=fp;
+int nctemp6647=fp;
+int nctemp6645=LibeFarr->a[nctemp6647].ptr;
+int nctemp6640=(int)(LibeFarr->a[nctemp6643].base->a[nctemp6645]);
+return nctemp6640;
 }
 else{
-int nctemp950=fp;
-int nctemp956=fp;
-int nctemp959 = LibeFarr->a[nctemp956].ptr + 1;
-int nctemp952=nctemp959;
-int nctemp947=(int)(LibeFarr->a[nctemp950].base->a[nctemp952]);
-return nctemp947;
+int nctemp6653=fp;
+int nctemp6659=fp;
+int nctemp6662 = LibeFarr->a[nctemp6659].ptr + 1;
+int nctemp6655=nctemp6662;
+int nctemp6650=(int)(LibeFarr->a[nctemp6653].base->a[nctemp6655]);
+return nctemp6650;
 }
 }
 else{
-struct nctempchar1 *nctemp965;
-static struct nctempchar1 nctemp966 = {{ 15}, (char*)"Pushback error\0"};
-nctemp965=&nctemp966;
-LibeErrstr=nctemp965;
+struct nctempchar1 *nctemp6668;
+static struct nctempchar1 nctemp6669 = {{ 15}, (char*)"Pushback error\0"};
+nctemp6668=&nctemp6669;
+LibeErrstr=nctemp6668;
 LibeErrno =(-107);
 return (-1);
 }
@@ -701,77 +3276,77 @@ int LibeGetw (int fp,nctempchar1 *text)
 int p;
 int ch;
 int lim;
-int nctemp976=text->d[0];lim =nctemp976;
+int nctemp6679=text->d[0];lim =nctemp6679;
 p =0;
-int nctemp985=LibeClearerr();
-int nctemp999= fp;
-int nctemp1001=LibeGetc(nctemp999);
-ch =nctemp1001;
-int nctemp992 = (ch ==32);
-int nctemp1004 = (ch ==9);
-int nctemp989 = (nctemp992 || nctemp1004);
-int nctemp1009 = (ch ==10);
-int nctemp986 = (nctemp989 || nctemp1009);
-int nctemp1013=nctemp986;
-while(nctemp1013)
+int nctemp6688=LibeClearerr();
+int nctemp6702= fp;
+int nctemp6704=LibeGetc(nctemp6702);
+ch =nctemp6704;
+int nctemp6695 = (ch ==32);
+int nctemp6707 = (ch ==9);
+int nctemp6692 = (nctemp6695 || nctemp6707);
+int nctemp6712 = (ch ==10);
+int nctemp6689 = (nctemp6692 || nctemp6712);
+int nctemp6716=nctemp6689;
+while(nctemp6716)
 {{
 p =0;
 }
-int nctemp1031= fp;
-int nctemp1033=LibeGetc(nctemp1031);
-ch =nctemp1033;
-int nctemp1024 = (ch ==32);
-int nctemp1036 = (ch ==9);
-int nctemp1021 = (nctemp1024 || nctemp1036);
-int nctemp1041 = (ch ==10);
-int nctemp1018 = (nctemp1021 || nctemp1041);
-nctemp1013=nctemp1018;}int nctemp1046= fp;
-int nctemp1048=LibeUngetc(nctemp1046);
-int nctemp1059= fp;
-int nctemp1061=LibeGetc(nctemp1059);
-ch =nctemp1061;
-int nctemp1052 = (ch !=(-1));
-int nctemp1064 = (p < lim);
-int nctemp1049 = (nctemp1052 && nctemp1064);
-int nctemp1068=nctemp1049;
-while(nctemp1068)
+int nctemp6734= fp;
+int nctemp6736=LibeGetc(nctemp6734);
+ch =nctemp6736;
+int nctemp6727 = (ch ==32);
+int nctemp6739 = (ch ==9);
+int nctemp6724 = (nctemp6727 || nctemp6739);
+int nctemp6744 = (ch ==10);
+int nctemp6721 = (nctemp6724 || nctemp6744);
+nctemp6716=nctemp6721;}int nctemp6749= fp;
+int nctemp6751=LibeUngetc(nctemp6749);
+int nctemp6762= fp;
+int nctemp6764=LibeGetc(nctemp6762);
+ch =nctemp6764;
+int nctemp6755 = (ch !=(-1));
+int nctemp6767 = (p < lim);
+int nctemp6752 = (nctemp6755 && nctemp6767);
+int nctemp6771=nctemp6752;
+while(nctemp6771)
 {{
-int nctemp1075 = (ch ==32);
-int nctemp1080 = (ch ==9);
-int nctemp1072 = (nctemp1075 || nctemp1080);
-int nctemp1085 = (ch ==10);
-int nctemp1069 = (nctemp1072 || nctemp1085);
-if(nctemp1069)
+int nctemp6778 = (ch ==32);
+int nctemp6783 = (ch ==9);
+int nctemp6775 = (nctemp6778 || nctemp6783);
+int nctemp6788 = (ch ==10);
+int nctemp6772 = (nctemp6775 || nctemp6788);
+if(nctemp6772)
 {
-int nctemp1090= fp;
-int nctemp1092=LibeUngetc(nctemp1090);
-int nctemp1096=p;
-char nctemp1099=(char)(0);
-text->a[nctemp1096] =nctemp1099;
+int nctemp6793= fp;
+int nctemp6795=LibeUngetc(nctemp6793);
+int nctemp6799=p;
+char nctemp6802=(char)(0);
+text->a[nctemp6799] =nctemp6802;
 return 1;
 }
 else{
-int nctemp1106=p;
-char nctemp1109=(char)(ch);
-text->a[nctemp1106] =nctemp1109;
-int nctemp1120 = p + 1;
-p =nctemp1120;
+int nctemp6809=p;
+char nctemp6812=(char)(ch);
+text->a[nctemp6809] =nctemp6812;
+int nctemp6823 = p + 1;
+p =nctemp6823;
 }
 }
-int nctemp1131= fp;
-int nctemp1133=LibeGetc(nctemp1131);
-ch =nctemp1133;
-int nctemp1124 = (ch !=(-1));
-int nctemp1136 = (p < lim);
-int nctemp1121 = (nctemp1124 && nctemp1136);
-nctemp1068=nctemp1121;}int nctemp1140 = (p >= lim);
-if(nctemp1140)
+int nctemp6834= fp;
+int nctemp6836=LibeGetc(nctemp6834);
+ch =nctemp6836;
+int nctemp6827 = (ch !=(-1));
+int nctemp6839 = (p < lim);
+int nctemp6824 = (nctemp6827 && nctemp6839);
+nctemp6771=nctemp6824;}int nctemp6843 = (p >= lim);
+if(nctemp6843)
 {
 return 0;
 }
 else{
-int nctemp1145 = (ch ==(-1));
-if(nctemp1145)
+int nctemp6848 = (ch ==(-1));
+if(nctemp6848)
 {
 return (-1);
 }
@@ -783,192 +3358,192 @@ return 1;
 int LibePutc (int fp,int c)
 {
 int rval;
-int nctemp1154=fp;
-int nctemp1151 = (LibeFarr->a[nctemp1154].cnt ==0);
-if(nctemp1151)
+int nctemp6857=fp;
+int nctemp6854 = (LibeFarr->a[nctemp6857].cnt ==0);
+if(nctemp6854)
 {
-int nctemp1158= fp;
-int nctemp1160=LibeFlushbuff(nctemp1158);
+int nctemp6861= fp;
+int nctemp6863=LibeFlushbuff(nctemp6861);
 }
-int nctemp1164=fp;
-int nctemp1167=fp;
-int nctemp1161 = (LibeFarr->a[nctemp1164].cnt ==LibeFarr->a[nctemp1167].bufsize);
-if(nctemp1161)
+int nctemp6867=fp;
+int nctemp6870=fp;
+int nctemp6864 = (LibeFarr->a[nctemp6867].cnt ==LibeFarr->a[nctemp6870].bufsize);
+if(nctemp6864)
 {
-int nctemp1173= fp;
-int nctemp1175=LibeFlushbuff(nctemp1173);
-rval =nctemp1175;
-int nctemp1179=fp;
-int nctemp1183=fp;
-int nctemp1181=LibeFarr->a[nctemp1183].ptr;
-char nctemp1186=(char)(c);
-LibeFarr->a[nctemp1179].base->a[nctemp1181] =nctemp1186;
-int nctemp1192=fp;
-int nctemp1198=fp;
-int nctemp1201 = LibeFarr->a[nctemp1198].ptr + 1;
-LibeFarr->a[nctemp1192].ptr =nctemp1201;
-int nctemp1205=fp;
-int nctemp1211=fp;
-int nctemp1214 = LibeFarr->a[nctemp1211].cnt + 1;
-LibeFarr->a[nctemp1205].cnt =nctemp1214;
+int nctemp6876= fp;
+int nctemp6878=LibeFlushbuff(nctemp6876);
+rval =nctemp6878;
+int nctemp6882=fp;
+int nctemp6886=fp;
+int nctemp6884=LibeFarr->a[nctemp6886].ptr;
+char nctemp6889=(char)(c);
+LibeFarr->a[nctemp6882].base->a[nctemp6884] =nctemp6889;
+int nctemp6895=fp;
+int nctemp6901=fp;
+int nctemp6904 = LibeFarr->a[nctemp6901].ptr + 1;
+LibeFarr->a[nctemp6895].ptr =nctemp6904;
+int nctemp6908=fp;
+int nctemp6914=fp;
+int nctemp6917 = LibeFarr->a[nctemp6914].cnt + 1;
+LibeFarr->a[nctemp6908].cnt =nctemp6917;
 return rval;
 }
 else{
-int nctemp1219=fp;
-int nctemp1223=fp;
-int nctemp1221=LibeFarr->a[nctemp1223].ptr;
-char nctemp1226=(char)(c);
-LibeFarr->a[nctemp1219].base->a[nctemp1221] =nctemp1226;
-int nctemp1232=fp;
-int nctemp1238=fp;
-int nctemp1241 = LibeFarr->a[nctemp1238].cnt + 1;
-LibeFarr->a[nctemp1232].cnt =nctemp1241;
-int nctemp1245=fp;
-int nctemp1251=fp;
-int nctemp1254 = LibeFarr->a[nctemp1251].ptr + 1;
-LibeFarr->a[nctemp1245].ptr =nctemp1254;
+int nctemp6922=fp;
+int nctemp6926=fp;
+int nctemp6924=LibeFarr->a[nctemp6926].ptr;
+char nctemp6929=(char)(c);
+LibeFarr->a[nctemp6922].base->a[nctemp6924] =nctemp6929;
+int nctemp6935=fp;
+int nctemp6941=fp;
+int nctemp6944 = LibeFarr->a[nctemp6941].cnt + 1;
+LibeFarr->a[nctemp6935].cnt =nctemp6944;
+int nctemp6948=fp;
+int nctemp6954=fp;
+int nctemp6957 = LibeFarr->a[nctemp6954].ptr + 1;
+LibeFarr->a[nctemp6948].ptr =nctemp6957;
 return 1;
 }
-}
-int LibePs (nctempchar1 *s)
-{
-int nctemp1257= 3;
-nctempchar1* nctemp1259= s;
-int nctemp1262=LibePuts(nctemp1257,nctemp1259);
-return 1;
-}
-int LibePi (int n)
-{
-int nctemp1265= 3;
-int nctemp1267= n;
-int nctemp1269=LibePuti(nctemp1265,nctemp1267);
-return 1;
-}
-int LibePf (float r)
-{
-int nctemp1272= 3;
-float nctemp1274= r;
-struct nctempchar1 *nctemp1278;
-static struct nctempchar1 nctemp1279 = {{ 2}, (char*)"g\0"};
-nctemp1278=&nctemp1279;
-nctempchar1* nctemp1276= nctemp1278;
-int nctemp1280=LibePutf(nctemp1272,nctemp1274,nctemp1276);
-return 1;
 }
 int LibePuts (int fp,nctempchar1 *s)
 {
 int ls;
 int i;
-int nctemp1286=s->d[0];ls =nctemp1286;
+int nctemp6963=s->d[0];ls =nctemp6963;
 i =0;
-int nctemp1303=i;
-int nctemp1300=(int)(s->a[nctemp1303]);
-int nctemp1297 = (nctemp1300 !=0);
-int nctemp1307 = (i < ls);
-int nctemp1294 = (nctemp1297 && nctemp1307);
-int nctemp1311=nctemp1294;
-while(nctemp1311)
+int nctemp6980=i;
+int nctemp6977=(int)(s->a[nctemp6980]);
+int nctemp6974 = (nctemp6977 !=0);
+int nctemp6984 = (i < ls);
+int nctemp6971 = (nctemp6974 && nctemp6984);
+int nctemp6988=nctemp6971;
+while(nctemp6988)
 {{
-int nctemp1315= fp;
-int nctemp1322=i;
-int nctemp1319=(int)(s->a[nctemp1322]);
-int nctemp1317= nctemp1319;
-int nctemp1324=LibePutc(nctemp1315,nctemp1317);
-int nctemp1312 = (nctemp1324 ==0);
-if(nctemp1312)
+int nctemp6992= fp;
+int nctemp6999=i;
+int nctemp6996=(int)(s->a[nctemp6999]);
+int nctemp6994= nctemp6996;
+int nctemp7001=LibePutc(nctemp6992,nctemp6994);
+int nctemp6989 = (nctemp7001 ==0);
+if(nctemp6989)
 {
-struct nctempchar1 *nctemp1331;
-static struct nctempchar1 nctemp1332 = {{ 12}, (char*)"write error\0"};
-nctemp1331=&nctemp1332;
-LibeErrstr=nctemp1331;
+struct nctempchar1 *nctemp7008;
+static struct nctempchar1 nctemp7009 = {{ 12}, (char*)"write error\0"};
+nctemp7008=&nctemp7009;
+LibeErrstr=nctemp7008;
 LibeErrno =0;
 return 0;
 }
 else{
-int nctemp1346 = i + 1;
-i =nctemp1346;
+int nctemp7023 = i + 1;
+i =nctemp7023;
 }
 }
-int nctemp1356=i;
-int nctemp1353=(int)(s->a[nctemp1356]);
-int nctemp1350 = (nctemp1353 !=0);
-int nctemp1360 = (i < ls);
-int nctemp1347 = (nctemp1350 && nctemp1360);
-nctemp1311=nctemp1347;}int nctemp1365= fp;
-int nctemp1367=LibeFlushbuff(nctemp1365);
+int nctemp7033=i;
+int nctemp7030=(int)(s->a[nctemp7033]);
+int nctemp7027 = (nctemp7030 !=0);
+int nctemp7037 = (i < ls);
+int nctemp7024 = (nctemp7027 && nctemp7037);
+nctemp6988=nctemp7024;}int nctemp7042= fp;
+int nctemp7044=LibeFlushbuff(nctemp7042);
 return 1;
 }
 int LibePuti (int fp,int ival)
 {
-int nctemp1370= ival;
-nctempchar1* nctemp1372= LibeTmpstr;
-int nctemp1375=LibeItoa(nctemp1370,nctemp1372);
-int nctemp1377= fp;
-nctempchar1* nctemp1379= LibeTmpstr;
-int nctemp1382=LibePuts(nctemp1377,nctemp1379);
-return nctemp1382;
+int nctemp7047= ival;
+nctempchar1* nctemp7049= LibeTmpstr;
+int nctemp7052=LibeItoa(nctemp7047,nctemp7049);
+int nctemp7054= fp;
+nctempchar1* nctemp7056= LibeTmpstr;
+int nctemp7059=LibePuts(nctemp7054,nctemp7056);
+return nctemp7059;
 }
 int LibePutf (int fp,float fval,nctempchar1 *form)
 {
-float nctemp1384= fval;
-nctempchar1* nctemp1386= form;
-nctempchar1* nctemp1389= LibeTmpstr;
-int nctemp1392=LibeFtoa(nctemp1384,nctemp1386,nctemp1389);
-int nctemp1394= fp;
-nctempchar1* nctemp1396= LibeTmpstr;
-int nctemp1399=LibePuts(nctemp1394,nctemp1396);
-return nctemp1399;
+float nctemp7061= fval;
+nctempchar1* nctemp7063= form;
+nctempchar1* nctemp7066= LibeTmpstr;
+int nctemp7069=LibeFtoa(nctemp7061,nctemp7063,nctemp7066);
+int nctemp7071= fp;
+nctempchar1* nctemp7073= LibeTmpstr;
+int nctemp7076=LibePuts(nctemp7071,nctemp7073);
+return nctemp7076;
+}
+int LibePs (nctempchar1 *s)
+{
+int nctemp7078= 3;
+nctempchar1* nctemp7080= s;
+int nctemp7083=LibePuts(nctemp7078,nctemp7080);
+return 1;
+}
+int LibePi (int n)
+{
+int nctemp7086= 3;
+int nctemp7088= n;
+int nctemp7090=LibePuti(nctemp7086,nctemp7088);
+return 1;
+}
+int LibePf (float r)
+{
+int nctemp7093= 3;
+float nctemp7095= r;
+struct nctempchar1 *nctemp7099;
+static struct nctempchar1 nctemp7100 = {{ 2}, (char*)"g\0"};
+nctemp7099=&nctemp7100;
+nctempchar1* nctemp7097= nctemp7099;
+int nctemp7101=LibePutf(nctemp7093,nctemp7095,nctemp7097);
+return 1;
 }
 int LibeRead (int fp,int n,nctempchar1 *buffer)
 {
 int rval;
-int nctemp1403=fp;
-int nctemp1400 = (LibeFarr->a[nctemp1403].readflg !=1);
-if(nctemp1400)
+int nctemp7106=fp;
+int nctemp7103 = (LibeFarr->a[nctemp7106].readflg !=1);
+if(nctemp7103)
 {
-struct nctempchar1 *nctemp1411;
-static struct nctempchar1 nctemp1412 = {{ 26}, (char*)"File not open for reading\0"};
-nctemp1411=&nctemp1412;
-LibeErrstr=nctemp1411;
+struct nctempchar1 *nctemp7114;
+static struct nctempchar1 nctemp7115 = {{ 26}, (char*)"File not open for reading\0"};
+nctemp7114=&nctemp7115;
+LibeErrstr=nctemp7114;
 LibeErrno =(-109);
 return (-1);
 }
-int nctemp1422=buffer->d[0];int nctemp1418 = (n > nctemp1422);
-if(nctemp1418)
+int nctemp7125=buffer->d[0];int nctemp7121 = (n > nctemp7125);
+if(nctemp7121)
 {
 LibeErrno =(-108);
-struct nctempchar1 *nctemp1435;
-static struct nctempchar1 nctemp1436 = {{ 30}, (char*)"The buffer array is too small\0"};
-nctemp1435=&nctemp1436;
-LibeErrstr=nctemp1435;
+struct nctempchar1 *nctemp7138;
+static struct nctempchar1 nctemp7139 = {{ 30}, (char*)"The buffer array is too small\0"};
+nctemp7138=&nctemp7139;
+LibeErrstr=nctemp7138;
 return 0;
 }
-int nctemp1444=fp;
-int nctemp1442= LibeFarr->a[nctemp1444].fd;
-int nctemp1446= n;
-nctempchar1* nctemp1448= buffer;
-int nctemp1451=RunRead(nctemp1442,nctemp1446,nctemp1448);
-rval =nctemp1451;
-int nctemp1452 = (rval ==(-1));
-if(nctemp1452)
+int nctemp7147=fp;
+int nctemp7145= LibeFarr->a[nctemp7147].fd;
+int nctemp7149= n;
+nctempchar1* nctemp7151= buffer;
+int nctemp7154=RunRead(nctemp7145,nctemp7149,nctemp7151);
+rval =nctemp7154;
+int nctemp7155 = (rval ==(-1));
+if(nctemp7155)
 {
-int nctemp1459=fp;
-LibeFarr->a[nctemp1459].eoflg =1;
+int nctemp7162=fp;
+LibeFarr->a[nctemp7162].eoflg =1;
 rval =(-1);
 }
 else{
-int nctemp1466 = (rval ==0);
-if(nctemp1466)
+int nctemp7169 = (rval ==0);
+if(nctemp7169)
 {
-int nctemp1473=fp;
-LibeFarr->a[nctemp1473].errflg =1;
-struct nctempchar1 *nctemp1481;
-static struct nctempchar1 nctemp1482 = {{ 11}, (char*)"read error\0"};
-nctemp1481=&nctemp1482;
-LibeErrstr=nctemp1481;
+int nctemp7176=fp;
+LibeFarr->a[nctemp7176].errflg =1;
+struct nctempchar1 *nctemp7184;
+static struct nctempchar1 nctemp7185 = {{ 11}, (char*)"read error\0"};
+nctemp7184=&nctemp7185;
+LibeErrstr=nctemp7184;
 LibeErrno =0;
-int nctemp1490=fp;
-LibeFarr->a[nctemp1490].errflg =0;
+int nctemp7193=fp;
+LibeFarr->a[nctemp7193].errflg =0;
 rval =0;
 }
 }
@@ -977,45 +3552,45 @@ return rval;
 int LibeWrite (int fp,int n,nctempchar1 *buffer)
 {
 int rval;
-int nctemp1502=buffer->d[0];int nctemp1498 = (n > nctemp1502);
-if(nctemp1498)
+int nctemp7205=buffer->d[0];int nctemp7201 = (n > nctemp7205);
+if(nctemp7201)
 {
 LibeErrno =(-108);
-struct nctempchar1 *nctemp1515;
-static struct nctempchar1 nctemp1516 = {{ 30}, (char*)"The buffer array is too small\0"};
-nctemp1515=&nctemp1516;
-LibeErrstr=nctemp1515;
+struct nctempchar1 *nctemp7218;
+static struct nctempchar1 nctemp7219 = {{ 30}, (char*)"The buffer array is too small\0"};
+nctemp7218=&nctemp7219;
+LibeErrstr=nctemp7218;
 return 0;
 }
-int nctemp1521=fp;
-int nctemp1518 = (LibeFarr->a[nctemp1521].writflg !=1);
-if(nctemp1518)
+int nctemp7224=fp;
+int nctemp7221 = (LibeFarr->a[nctemp7224].writflg !=1);
+if(nctemp7221)
 {
-struct nctempchar1 *nctemp1529;
-static struct nctempchar1 nctemp1530 = {{ 26}, (char*)"file not open for writing\0"};
-nctemp1529=&nctemp1530;
-LibeErrstr=nctemp1529;
+struct nctempchar1 *nctemp7232;
+static struct nctempchar1 nctemp7233 = {{ 26}, (char*)"file not open for writing\0"};
+nctemp7232=&nctemp7233;
+LibeErrstr=nctemp7232;
 LibeErrno =(-110);
 return 0;
 }
-int nctemp1542=fp;
-int nctemp1540= LibeFarr->a[nctemp1542].fd;
-int nctemp1544= n;
-nctempchar1* nctemp1546= buffer;
-int nctemp1549=RunWrite(nctemp1540,nctemp1544,nctemp1546);
-rval =nctemp1549;
-int nctemp1550 = (rval ==0);
-if(nctemp1550)
+int nctemp7245=fp;
+int nctemp7243= LibeFarr->a[nctemp7245].fd;
+int nctemp7247= n;
+nctempchar1* nctemp7249= buffer;
+int nctemp7252=RunWrite(nctemp7243,nctemp7247,nctemp7249);
+rval =nctemp7252;
+int nctemp7253 = (rval ==0);
+if(nctemp7253)
 {
-int nctemp1557=fp;
-LibeFarr->a[nctemp1557].errflg =1;
-struct nctempchar1 *nctemp1565;
-static struct nctempchar1 nctemp1566 = {{ 12}, (char*)"write error\0"};
-nctemp1565=&nctemp1566;
-LibeErrstr=nctemp1565;
+int nctemp7260=fp;
+LibeFarr->a[nctemp7260].errflg =1;
+struct nctempchar1 *nctemp7268;
+static struct nctempchar1 nctemp7269 = {{ 12}, (char*)"write error\0"};
+nctemp7268=&nctemp7269;
+LibeErrstr=nctemp7268;
 LibeErrno =0;
-int nctemp1574=fp;
-LibeFarr->a[nctemp1574].errflg =0;
+int nctemp7277=fp;
+LibeFarr->a[nctemp7277].errflg =0;
 rval =0;
 }
 return rval;
@@ -1023,2089 +3598,79 @@ return rval;
 int LibeSeek (int fp,int pos,int flag)
 {
 int rval;
-int nctemp1588=fp;
-int nctemp1586= LibeFarr->a[nctemp1588].fd;
-int nctemp1590= pos;
-int nctemp1592= flag;
-int nctemp1594=RunSeek(nctemp1586,nctemp1590,nctemp1592);
-rval =nctemp1594;
-int nctemp1595 = (rval ==0);
-if(nctemp1595)
+int nctemp7291=fp;
+int nctemp7289= LibeFarr->a[nctemp7291].fd;
+int nctemp7293= pos;
+int nctemp7295= flag;
+int nctemp7297=RunSeek(nctemp7289,nctemp7293,nctemp7295);
+rval =nctemp7297;
+int nctemp7298 = (rval ==0);
+if(nctemp7298)
 {
-int nctemp1602=fp;
-LibeFarr->a[nctemp1602].errflg =1;
-struct nctempchar1 *nctemp1610;
-static struct nctempchar1 nctemp1611 = {{ 11}, (char*)"Seek error\0"};
-nctemp1610=&nctemp1611;
-LibeErrstr=nctemp1610;
+int nctemp7305=fp;
+LibeFarr->a[nctemp7305].errflg =1;
+struct nctempchar1 *nctemp7313;
+static struct nctempchar1 nctemp7314 = {{ 11}, (char*)"Seek error\0"};
+nctemp7313=&nctemp7314;
+LibeErrstr=nctemp7313;
 LibeErrno =0;
-int nctemp1619=fp;
-LibeFarr->a[nctemp1619].errflg =0;
+int nctemp7322=fp;
+LibeFarr->a[nctemp7322].errflg =0;
 rval =0;
 }
 return rval;
 }
-int LibeFlush (int fp)
+int LibeIodelete ()
 {
-int nctemp1628= fp;
-int nctemp1630=LibeFlushbuff(nctemp1628);
-return nctemp1630;
-}
-int LibeFillbuff (int fp)
-{
-int size;
-int rval;
-int nctemp1634=fp;
-int nctemp1631 = (LibeFarr->a[nctemp1634].readflg !=1);
-if(nctemp1631)
-{
-struct nctempchar1 *nctemp1642;
-static struct nctempchar1 nctemp1643 = {{ 28}, (char*)"file not open for reading\n\0"};
-nctemp1642=&nctemp1643;
-LibeErrstr=nctemp1642;
-LibeErrno =(-110);
-return (-1);
-}
-int nctemp1652=fp;
-int nctemp1649 = (LibeFarr->a[nctemp1652].unbflg ==1);
-if(nctemp1649)
-{
-int nctemp1658=fp;
-LibeFarr->a[nctemp1658].bufsize =1;
-}
-else{
-int nctemp1664=fp;
-LibeFarr->a[nctemp1664].bufsize =1024;
-}
-int nctemp1670=fp;
-nctempchar1 *nctemp1668 =LibeFarr->a[nctemp1670].base;
-int nctemp1667 =(nctemp1668==0);
-if(nctemp1667)
-{
-int nctemp1678=fp;
-size =LibeFarr->a[nctemp1678].bufsize;
-int nctemp1686=fp;
-int nctemp1691=size;
-nctempchar1 *nctemp1690;
-nctemp1690=(nctempchar1*)RunMalloc(sizeof(nctempchar1));
-nctemp1690->d[0]=size;
-nctemp1690->a=(char *)RunMalloc(sizeof(char)*nctemp1691);
-LibeFarr->a[nctemp1686].base=nctemp1690;
-nctempchar1 *nctemp1681 =LibeFarr->a[nctemp1686].base;
-int nctemp1680 =(nctemp1681==0);
-if(nctemp1680)
-{
-struct nctempchar1 *nctemp1700;
-static struct nctempchar1 nctemp1701 = {{ 24}, (char*)"Can not allocate buffer\0"};
-nctemp1700=&nctemp1701;
-LibeErrstr=nctemp1700;
-LibeErrno =(-113);
-return (-1);
-}
-}
-int nctemp1710=fp;
-LibeFarr->a[nctemp1710].ptr =0;
-int nctemp1716=fp;
-int nctemp1721=fp;
-int nctemp1719= LibeFarr->a[nctemp1721].fd;
-int nctemp1725=fp;
-int nctemp1723= LibeFarr->a[nctemp1725].bufsize;
-int nctemp1729=fp;
-nctempchar1* nctemp1727= LibeFarr->a[nctemp1729].base;
-int nctemp1732=RunRead(nctemp1719,nctemp1723,nctemp1727);
-LibeFarr->a[nctemp1716].cnt =nctemp1732;
-int nctemp1736=fp;
-int nctemp1733 = (LibeFarr->a[nctemp1736].cnt <= 0);
-if(nctemp1733)
-{
-int nctemp1742=fp;
-int nctemp1739 = (LibeFarr->a[nctemp1742].cnt ==(-1));
-if(nctemp1739)
-{
-int nctemp1748=fp;
-LibeFarr->a[nctemp1748].eoflg =1;
-rval =(-1);
-}
-else{
-int nctemp1758=fp;
-LibeFarr->a[nctemp1758].errflg =1;
-struct nctempchar1 *nctemp1766;
-static struct nctempchar1 nctemp1767 = {{ 11}, (char*)"read error\0"};
-nctemp1766=&nctemp1767;
-LibeErrstr=nctemp1766;
-LibeErrno =(-111);
-rval =(-1);
-}
-int nctemp1779=fp;
-LibeFarr->a[nctemp1779].cnt =0;
-return rval;
-}
-int nctemp1786=fp;
-int nctemp1792=fp;
-int nctemp1795 = LibeFarr->a[nctemp1792].ptr + 1;
-LibeFarr->a[nctemp1786].ptr =nctemp1795;
-int nctemp1799=fp;
-int nctemp1805=fp;
-int nctemp1808 = LibeFarr->a[nctemp1805].cnt - 1;
-LibeFarr->a[nctemp1799].cnt =nctemp1808;
-int nctemp1813=fp;
-int nctemp1819=fp;
-int nctemp1822 = LibeFarr->a[nctemp1819].ptr - 1;
-int nctemp1815=nctemp1822;
-int nctemp1810=(int)(LibeFarr->a[nctemp1813].base->a[nctemp1815]);
-return nctemp1810;
-}
-int LibeFlushbuff (int fp)
-{
-int st;
-int size;
-int nctemp1826=fp;
-int nctemp1823 = (LibeFarr->a[nctemp1826].writflg !=1);
-if(nctemp1823)
-{
-struct nctempchar1 *nctemp1834;
-static struct nctempchar1 nctemp1835 = {{ 28}, (char*)"file not open for writing\n\0"};
-nctemp1834=&nctemp1835;
-LibeErrstr=nctemp1834;
-LibeErrno =(-110);
-return 0;
-}
-int nctemp1844=fp;
-int nctemp1841 = (LibeFarr->a[nctemp1844].unbflg ==1);
-if(nctemp1841)
-{
-int nctemp1850=fp;
-LibeFarr->a[nctemp1850].bufsize =1;
-}
-else{
-int nctemp1856=fp;
-LibeFarr->a[nctemp1856].bufsize =1024;
-}
-int nctemp1862=fp;
-nctempchar1 *nctemp1860 =LibeFarr->a[nctemp1862].base;
-int nctemp1859 =(nctemp1860==0);
-if(nctemp1859)
-{
-int nctemp1870=fp;
-size =LibeFarr->a[nctemp1870].bufsize;
-int nctemp1878=fp;
-int nctemp1883=size;
-nctempchar1 *nctemp1882;
-nctemp1882=(nctempchar1*)RunMalloc(sizeof(nctempchar1));
-nctemp1882->d[0]=size;
-nctemp1882->a=(char *)RunMalloc(sizeof(char)*nctemp1883);
-LibeFarr->a[nctemp1878].base=nctemp1882;
-nctempchar1 *nctemp1873 =LibeFarr->a[nctemp1878].base;
-int nctemp1872 =(nctemp1873==0);
-if(nctemp1872)
-{
-struct nctempchar1 *nctemp1892;
-static struct nctempchar1 nctemp1893 = {{ 24}, (char*)"can not allocate buffer\0"};
-nctemp1892=&nctemp1893;
-LibeErrstr=nctemp1892;
-LibeErrno =(-113);
-return 0;
-}
-}
-int nctemp1902=fp;
-LibeFarr->a[nctemp1902].ptr =0;
-int nctemp1911=fp;
-int nctemp1909= LibeFarr->a[nctemp1911].fd;
-int nctemp1915=fp;
-int nctemp1913= LibeFarr->a[nctemp1915].cnt;
-int nctemp1919=fp;
-nctempchar1* nctemp1917= LibeFarr->a[nctemp1919].base;
-int nctemp1922=RunWrite(nctemp1909,nctemp1913,nctemp1917);
-st =nctemp1922;
-int nctemp1927=fp;
-int nctemp1923 = (st !=LibeFarr->a[nctemp1927].cnt);
-if(nctemp1923)
-{
-int nctemp1932=fp;
-LibeFarr->a[nctemp1932].errflg =1;
-struct nctempchar1 *nctemp1940;
-static struct nctempchar1 nctemp1941 = {{ 12}, (char*)"write error\0"};
-nctemp1940=&nctemp1941;
-LibeErrstr=nctemp1940;
-LibeErrno =(-112);
-int nctemp1949=fp;
-LibeFarr->a[nctemp1949].cnt =0;
-int nctemp1955=fp;
-LibeFarr->a[nctemp1955].ptr =0;
-return 0;
-}
-else{
-int nctemp1962=fp;
-LibeFarr->a[nctemp1962].cnt =0;
-int nctemp1968=fp;
-LibeFarr->a[nctemp1968].ptr =0;
-return 1;
-}
-}
-int LibeStrlen (nctempchar1 *s)
-{
-int ls;
+int stat;
+int fd;
 int i;
-int nctemp1976=s->d[0];ls =nctemp1976;
+RunFree(LibeTmpstr->a);
+RunFree(LibeTmpstr);
+stat =1;
 i =0;
-int nctemp1993=i;
-int nctemp1990=(int)(s->a[nctemp1993]);
-int nctemp1987 = (nctemp1990 !=0);
-int nctemp1997 = (i < ls);
-int nctemp1984 = (nctemp1987 && nctemp1997);
-int nctemp2001=nctemp1984;
-while(nctemp2001)
-{{
-int nctemp2010 = i + 1;
-i =nctemp2010;
-}
-int nctemp2020=i;
-int nctemp2017=(int)(s->a[nctemp2020]);
-int nctemp2014 = (nctemp2017 !=0);
-int nctemp2024 = (i < ls);
-int nctemp2011 = (nctemp2014 && nctemp2024);
-nctemp2001=nctemp2011;}return i;
-}
-int LibeStrcmp (nctempchar1 *s,nctempchar1 *t)
-{
-int ls;
-int i;
-int nctemp2033=s->d[0];ls =nctemp2033;
-i =0;
-int nctemp2047=i;
-int nctemp2050=i;
-int nctemp2044 = (s->a[nctemp2047] ==t->a[nctemp2050]);
-int nctemp2053 = (i < ls);
-int nctemp2041 = (nctemp2044 && nctemp2053);
-int nctemp2057=nctemp2041;
-while(nctemp2057)
-{{
-int nctemp2064=i;
-int nctemp2061=(int)(s->a[nctemp2064]);
-int nctemp2058 = (nctemp2061 ==0);
-if(nctemp2058)
-{
-return 1;
-}
-int nctemp2076 = i + 1;
-i =nctemp2076;
-}
-int nctemp2083=i;
-int nctemp2086=i;
-int nctemp2080 = (s->a[nctemp2083] ==t->a[nctemp2086]);
-int nctemp2089 = (i < ls);
-int nctemp2077 = (nctemp2080 && nctemp2089);
-nctemp2057=nctemp2077;}return 0;
-}
-int LibeStrev (nctempchar1 *s)
-{
-char c;
-int i;
-int j;
-i =0;
-nctempchar1* nctemp2105= s;
-int nctemp2108=LibeStrlen(nctemp2105);
-int nctemp2110 = nctemp2108 - 1;
-j =nctemp2110;
-int nctemp2111 = (i < j);
-int nctemp2115=nctemp2111;
-while(nctemp2115)
-{{
-int nctemp2120=i;
-c =s->a[nctemp2120];
-int nctemp2125=i;
-int nctemp2128=j;
-s->a[nctemp2125] =s->a[nctemp2128];
-int nctemp2133=j;
-s->a[nctemp2133] =c;
-int nctemp2144 = i + 1;
-i =nctemp2144;
-int nctemp2153 = j - 1;
-j =nctemp2153;
-}
-int nctemp2154 = (i < j);
-nctemp2115=nctemp2154;}return 1;
-}
-int LibeStrcpy (nctempchar1 *s,nctempchar1 *t)
-{
-int ls;
-int i;
-nctempchar1* nctemp2163= s;
-int nctemp2166=LibeStrlen(nctemp2163);
-ls =nctemp2166;
-int nctemp2167 = (ls ==0);
-if(nctemp2167)
-{
-return 1;
-}
-int nctemp2175=t->d[0];int nctemp2172 = (nctemp2175 <= ls);
-if(nctemp2172)
-{
-return 0;
-}
-i =0;
-int nctemp2185 = (i <= ls);
-while(nctemp2185){
-{
-int nctemp2192=i;
-int nctemp2195=i;
-t->a[nctemp2192] =s->a[nctemp2195];
-}
-int nctemp2205 = i + 1;
-i =nctemp2205;
-int nctemp2206 = (i <= ls);
-nctemp2185=nctemp2206;
-}
-return 1;
-}
-int LibeStrcat (nctempchar1 *s,nctempchar1 *t)
-{
-int ls;
-int lt;
-int i;
-nctempchar1* nctemp2215= s;
-int nctemp2218=LibeStrlen(nctemp2215);
-ls =nctemp2218;
-nctempchar1* nctemp2223= t;
-int nctemp2226=LibeStrlen(nctemp2223);
-lt =nctemp2226;
-int nctemp2230=t->d[0];int nctemp2239 = lt + ls;
-int nctemp2227 = (nctemp2230 < nctemp2239);
-if(nctemp2227)
-{
-return 0;
-}
-i =lt;
-int nctemp2253 = ls + lt;
-int nctemp2245 = (i < nctemp2253);
-while(nctemp2245){
-{
-int nctemp2257=i;
-int nctemp2265 = i - lt;
-int nctemp2260=nctemp2265;
-t->a[nctemp2257] =s->a[nctemp2260];
-}
-int nctemp2274 = i + 1;
-i =nctemp2274;
-int nctemp2283 = ls + lt;
-int nctemp2275 = (i < nctemp2283);
-nctemp2245=nctemp2275;
-}
-int nctemp2292 = ls + lt;
-int nctemp2287=nctemp2292;
-char nctemp2294=(char)(0);
-t->a[nctemp2287] =nctemp2294;
-return 1;
-}
-nctempchar1 * LibeStradd (nctempchar1 *t,nctempchar1 *s)
-{
-int ls;
-int lt;
-nctempchar1 *r;
-int i;
-nctempchar1* nctemp2302= s;
-int nctemp2305=LibeStrlen(nctemp2302);
-ls =nctemp2305;
-nctempchar1* nctemp2310= t;
-int nctemp2313=LibeStrlen(nctemp2310);
-lt =nctemp2313;
-int nctemp2328 = lt + ls;
-int nctemp2330 = nctemp2328 + 1;
-int nctemp2320=nctemp2330;
-nctempchar1 *nctemp2319;
-nctemp2319=(nctempchar1*)RunMalloc(sizeof(nctempchar1));
-int nctemp2338 = lt + ls;
-int nctemp2340 = nctemp2338 + 1;
-nctemp2319->d[0]=nctemp2340;
-nctemp2319->a=(char *)RunMalloc(sizeof(char)*nctemp2320);
-r=nctemp2319;
-i =0;
-int nctemp2345 = (i < lt);
-while(nctemp2345){
-{
-int nctemp2352=i;
-int nctemp2355=i;
-r->a[nctemp2352] =t->a[nctemp2355];
-}
-int nctemp2365 = i + 1;
-i =nctemp2365;
-int nctemp2366 = (i < lt);
-nctemp2345=nctemp2366;
-}
-i =lt;
-int nctemp2382 = ls + lt;
-int nctemp2374 = (i < nctemp2382);
-while(nctemp2374){
-{
-int nctemp2386=i;
-int nctemp2394 = i - lt;
-int nctemp2389=nctemp2394;
-r->a[nctemp2386] =s->a[nctemp2389];
-}
-int nctemp2403 = i + 1;
-i =nctemp2403;
-int nctemp2412 = ls + lt;
-int nctemp2404 = (i < nctemp2412);
-nctemp2374=nctemp2404;
-}
-int nctemp2421 = ls + lt;
-int nctemp2416=nctemp2421;
-char nctemp2423=(char)(0);
-r->a[nctemp2416] =nctemp2423;
-return r;
-}
-nctempchar1 * LibeStrsave (nctempchar1 *s)
-{
-int l;
-nctempchar1 *tmp;
-tmp=(0);
-l =0;
-nctempchar1* nctemp2441= s;
-int nctemp2444=LibeStrlen(nctemp2441);
-l =nctemp2444;
-int nctemp2456 = l + 1;
-int nctemp2451=nctemp2456;
-nctempchar1 *nctemp2450;
-nctemp2450=(nctempchar1*)RunMalloc(sizeof(nctempchar1));
-int nctemp2461 = l + 1;
-nctemp2450->d[0]=nctemp2461;
-nctemp2450->a=(char *)RunMalloc(sizeof(char)*nctemp2451);
-tmp=nctemp2450;
-nctempchar1 *nctemp2463 =tmp;
-int nctemp2462 =(nctemp2463!=0);
-if(nctemp2462)
-{
-nctempchar1* nctemp2468= s;
-nctempchar1* nctemp2471= tmp;
-int nctemp2474=LibeStrcpy(nctemp2468,nctemp2471);
-}
-return tmp;
-}
-int LibeIsalpha (int c)
-{
-int nctemp2483 = (c >= 'a');
-int nctemp2488 = (c <= 'z');
-int nctemp2480 = (nctemp2483 && nctemp2488);
-int nctemp2496 = (c >= 'A');
-int nctemp2501 = (c <= 'Z');
-int nctemp2493 = (nctemp2496 && nctemp2501);
-int nctemp2477 = (nctemp2480 || nctemp2493);
-if(nctemp2477)
-{
-return 1;
-}
-else{
-return 0;
-}
-}
-int LibeIsdigit (int c)
-{
-int nctemp2510 = (c >= '0');
-int nctemp2515 = (c <= '9');
-int nctemp2507 = (nctemp2510 && nctemp2515);
-if(nctemp2507)
-{
-return 1;
-}
-else{
-return 0;
-}
-}
-int LibeIsalnum (int c)
-{
-int nctemp2527 = (c >= 'a');
-int nctemp2532 = (c <= 'z');
-int nctemp2524 = (nctemp2527 && nctemp2532);
-int nctemp2540 = (c >= 'A');
-int nctemp2545 = (c <= 'Z');
-int nctemp2537 = (nctemp2540 && nctemp2545);
-int nctemp2521 = (nctemp2524 || nctemp2537);
-if(nctemp2521)
-{
-return 1;
-}
-else{
-int nctemp2553 = (c >= '0');
-int nctemp2558 = (c <= '9');
-int nctemp2550 = (nctemp2553 && nctemp2558);
-if(nctemp2550)
-{
-return 1;
-}
-else{
-return 0;
-}
-}
-}
-int LibeFtoaf (int mant,int nexp,int nfield,int nfrac,nctempchar1 *s);
-int LibeFtoae (int mant,int nexp,int nfield,int nfrac,nctempchar1 *s);
-int LibeAtoi (nctempchar1 *s)
-{
-int sign;
-int i;
-int n;
-i =0;
-int nctemp2577=i;
-char nctemp2580=(char)(' ');
-int nctemp2574 = (s->a[nctemp2577] ==nctemp2580);
-int nctemp2587=i;
-char nctemp2590=(char)(10);
-int nctemp2584 = (s->a[nctemp2587] ==nctemp2590);
-int nctemp2571 = (nctemp2574 || nctemp2584);
-int nctemp2597=i;
-char nctemp2600=(char)(9);
-int nctemp2594 = (s->a[nctemp2597] ==nctemp2600);
-int nctemp2568 = (nctemp2571 || nctemp2594);
-int nctemp2603=nctemp2568;
-while(nctemp2603)
-{{
-int nctemp2612 = i + 1;
-i =nctemp2612;
-}
-int nctemp2622=i;
-char nctemp2625=(char)(' ');
-int nctemp2619 = (s->a[nctemp2622] ==nctemp2625);
-int nctemp2632=i;
-char nctemp2635=(char)(10);
-int nctemp2629 = (s->a[nctemp2632] ==nctemp2635);
-int nctemp2616 = (nctemp2619 || nctemp2629);
-int nctemp2642=i;
-char nctemp2645=(char)(9);
-int nctemp2639 = (s->a[nctemp2642] ==nctemp2645);
-int nctemp2613 = (nctemp2616 || nctemp2639);
-nctemp2603=nctemp2613;}int nctemp2651=i;
-char nctemp2654=(char)('-');
-int nctemp2648 = (s->a[nctemp2651] ==nctemp2654);
-if(nctemp2648)
-{
-int nctemp2660= -1;
-sign =nctemp2660;
-int nctemp2669 = i + 1;
-i =nctemp2669;
-}
-else{
-int nctemp2673=i;
-char nctemp2676=(char)('+');
-int nctemp2670 = (s->a[nctemp2673] ==nctemp2676);
-if(nctemp2670)
-{
-sign =1;
-int nctemp2691 = i + 1;
-i =nctemp2691;
-}
-else{
-sign =1;
-}
-}
-n =0;
-int nctemp2706=i;
-int nctemp2703=(int)(s->a[nctemp2706]);
-int nctemp2701= nctemp2703;
-int nctemp2708=LibeIsdigit(nctemp2701);
-while(nctemp2708){
-{
-int nctemp2723 = 10 * n;
-int nctemp2728=i;
-int nctemp2725=(int)(s->a[nctemp2728]);
-int nctemp2730 = nctemp2723 + nctemp2725;
-int nctemp2732 = nctemp2730 - '0';
-n =nctemp2732;
-}
-int nctemp2741 = i + 1;
-i =nctemp2741;
-int nctemp2748=i;
-int nctemp2745=(int)(s->a[nctemp2748]);
-int nctemp2743= nctemp2745;
-int nctemp2750=LibeIsdigit(nctemp2743);
-nctemp2708=nctemp2750;
-}
-int nctemp2755 = sign * n;
-return nctemp2755;
-}
-int LibeItoa (int n,nctempchar1 *s)
-{
-int sign;
-int i;
-nctempchar1 *nctemp2757 =s;
-int nctemp2756 =(nctemp2757==0);
-if(nctemp2756)
-{
-return 0;
-}
-sign =n;
-int nctemp2762 = (sign < 0);
-if(nctemp2762)
-{
-int nctemp2773= -n;
-n =nctemp2773;
-}
-i =0;
-int nctemp2781=0;
-int nctemp2789= n;
-int nctemp2791= 10;
-int nctemp2793=LibeMod(nctemp2789,nctemp2791);
-int nctemp2795 = nctemp2793 + 48;
-char nctemp2784=(char)(nctemp2795);
-s->a[nctemp2781] =nctemp2784;
-int nctemp2807 = n / 10;
-n =nctemp2807;
-int nctemp2796 = (n > 0);
-int nctemp2809=nctemp2796;
-while(nctemp2809)
-{{
-int nctemp2817 = i + 1;
-int nctemp2822=s->d[0];int nctemp2827 = nctemp2822 - 1;
-int nctemp2810 = (nctemp2817 > nctemp2827);
-if(nctemp2810)
-{
-return 0;
-}
-int nctemp2841 = i + 1;
-i =nctemp2841;
-int nctemp2832=i;
-int nctemp2848= n;
-int nctemp2850= 10;
-int nctemp2852=LibeMod(nctemp2848,nctemp2850);
-int nctemp2854 = nctemp2852 + 48;
-char nctemp2843=(char)(nctemp2854);
-s->a[nctemp2832] =nctemp2843;
-}
-int nctemp2866 = n / 10;
-n =nctemp2866;
-int nctemp2855 = (n > 0);
-nctemp2809=nctemp2855;}int nctemp2868 = (sign < 0);
-if(nctemp2868)
-{
-int nctemp2879 = i + 1;
-int nctemp2884=s->d[0];int nctemp2889 = nctemp2884 - 1;
-int nctemp2872 = (nctemp2879 > nctemp2889);
-if(nctemp2872)
-{
-return 0;
-}
-int nctemp2903 = i + 1;
-i =nctemp2903;
-int nctemp2894=i;
-char nctemp2905=(char)(45);
-s->a[nctemp2894] =nctemp2905;
-}
-int nctemp2915 = i + 1;
-int nctemp2920=s->d[0];int nctemp2925 = nctemp2920 - 1;
-int nctemp2908 = (nctemp2915 > nctemp2925);
-if(nctemp2908)
-{
-return 0;
-}
-int nctemp2939 = i + 1;
-i =nctemp2939;
-int nctemp2930=i;
-char nctemp2941=(char)(0);
-s->a[nctemp2930] =nctemp2941;
-nctempchar1* nctemp2945= s;
-int nctemp2948=LibeStrev(nctemp2945);
-return 1;
-}
-int LibeItoh (int n,nctempchar1 *s)
-{
-int i;
-int sign;
-sign =n;
-int nctemp2950 = (sign < 0);
-if(nctemp2950)
-{
-int nctemp2961= -n;
-n =nctemp2961;
-}
-i =0;
-int nctemp2969= n;
-int nctemp2971= 16;
-int nctemp2973=LibeMod(nctemp2969,nctemp2971);
-int nctemp2966 = (nctemp2973 <= 9);
-if(nctemp2966)
-{
-int nctemp2978=0;
-int nctemp2986= n;
-int nctemp2988= 16;
-int nctemp2990=LibeMod(nctemp2986,nctemp2988);
-int nctemp2992 = nctemp2990 + 48;
-char nctemp2981=(char)(nctemp2992);
-s->a[nctemp2978] =nctemp2981;
-}
-else{
-int nctemp2996=0;
-int nctemp3007= n;
-int nctemp3009= 16;
-int nctemp3011=LibeMod(nctemp3007,nctemp3009);
-int nctemp3013 = nctemp3011 + 'a';
-int nctemp3015 = nctemp3013 - 10;
-char nctemp2999=(char)(nctemp3015);
-s->a[nctemp2996] =nctemp2999;
-}
-int nctemp3027 = n / 16;
-n =nctemp3027;
-int nctemp3016 = (n > 0);
-int nctemp3029=nctemp3016;
-while(nctemp3029)
-{{
-int nctemp3033= n;
-int nctemp3035= 16;
-int nctemp3037=LibeMod(nctemp3033,nctemp3035);
-int nctemp3030 = (nctemp3037 <= 9);
-if(nctemp3030)
-{
-int nctemp3051 = i + 1;
-i =nctemp3051;
-int nctemp3042=i;
-int nctemp3058= n;
-int nctemp3060= 16;
-int nctemp3062=LibeMod(nctemp3058,nctemp3060);
-int nctemp3064 = nctemp3062 + 48;
-char nctemp3053=(char)(nctemp3064);
-s->a[nctemp3042] =nctemp3053;
-}
-else{
-int nctemp3077 = i + 1;
-i =nctemp3077;
-int nctemp3068=i;
-int nctemp3087= n;
-int nctemp3089= 16;
-int nctemp3091=LibeMod(nctemp3087,nctemp3089);
-int nctemp3093 = nctemp3091 + 'a';
-int nctemp3095 = nctemp3093 - 10;
-char nctemp3079=(char)(nctemp3095);
-s->a[nctemp3068] =nctemp3079;
-}
-}
-int nctemp3107 = n / 16;
-n =nctemp3107;
-int nctemp3096 = (n > 0);
-nctemp3029=nctemp3096;}int nctemp3109 = (sign < 0);
-if(nctemp3109)
-{
-int nctemp3125 = i + 1;
-i =nctemp3125;
-int nctemp3116=i;
-char nctemp3127=(char)(45);
-s->a[nctemp3116] =nctemp3127;
-}
-int nctemp3142 = i + 1;
-i =nctemp3142;
-int nctemp3133=i;
-char nctemp3144=(char)(0);
-s->a[nctemp3133] =nctemp3144;
-nctempchar1* nctemp3148= s;
-int nctemp3151=LibeStrev(nctemp3148);
-return 0;
-}
-float LibeAtof (nctempchar1 *s)
-{
-float val;
-float power;
-int exponent;
-int sign;
-int esign;
-int i;
-sign =1;
-val =0.0;
-power =1.0;
-exponent =0;
-esign =1;
-i =0;
-int nctemp3180=i;
-char nctemp3183=(char)(' ');
-int nctemp3177 = (s->a[nctemp3180] ==nctemp3183);
-int nctemp3186=nctemp3177;
-while(nctemp3186)
-{{
-int nctemp3195 = i + 1;
-i =nctemp3195;
-}
-int nctemp3199=i;
-char nctemp3202=(char)(' ');
-int nctemp3196 = (s->a[nctemp3199] ==nctemp3202);
-nctemp3186=nctemp3196;}int nctemp3211=i;
-char nctemp3214=(char)('+');
-int nctemp3208 = (s->a[nctemp3211] ==nctemp3214);
-int nctemp3221=i;
-char nctemp3224=(char)('-');
-int nctemp3218 = (s->a[nctemp3221] ==nctemp3224);
-int nctemp3205 = (nctemp3208 || nctemp3218);
-if(nctemp3205)
-{
-int nctemp3230=i;
-char nctemp3233=(char)('-');
-int nctemp3227 = (s->a[nctemp3230] ==nctemp3233);
-if(nctemp3227)
-{
-int nctemp3239= -1;
-sign =nctemp3239;
-}
-int nctemp3248 = i + 1;
-i =nctemp3248;
-}
-int nctemp3255=i;
-int nctemp3252=(int)(s->a[nctemp3255]);
-int nctemp3250= nctemp3252;
-int nctemp3257=LibeIsdigit(nctemp3250);
-int nctemp3258=nctemp3257;
-while(nctemp3258)
-{{
-float nctemp3270 = 10.0 * val;
-int nctemp3280=i;
-int nctemp3277=(int)(s->a[nctemp3280]);
-int nctemp3283 = nctemp3277 - '0';
-float nctemp3272=(float)(nctemp3283);
-float nctemp3284 = nctemp3270 + nctemp3272;
-val =nctemp3284;
-int nctemp3293 = i + 1;
-i =nctemp3293;
-}
-int nctemp3300=i;
-int nctemp3297=(int)(s->a[nctemp3300]);
-int nctemp3295= nctemp3297;
-int nctemp3302=LibeIsdigit(nctemp3295);
-nctemp3258=nctemp3302;}int nctemp3306=i;
-char nctemp3309=(char)('.');
-int nctemp3303 = (s->a[nctemp3306] ==nctemp3309);
-if(nctemp3303)
-{
-int nctemp3320 = i + 1;
-i =nctemp3320;
-int nctemp3327=i;
-int nctemp3324=(int)(s->a[nctemp3327]);
-int nctemp3322= nctemp3324;
-int nctemp3329=LibeIsdigit(nctemp3322);
-int nctemp3330=nctemp3329;
-while(nctemp3330)
-{{
-float nctemp3342 = 10.0 * val;
-int nctemp3352=i;
-int nctemp3349=(int)(s->a[nctemp3352]);
-int nctemp3355 = nctemp3349 - '0';
-float nctemp3344=(float)(nctemp3355);
-float nctemp3356 = nctemp3342 + nctemp3344;
-val =nctemp3356;
-int nctemp3365 = i + 1;
-i =nctemp3365;
-float nctemp3374 = 10.0 * power;
-power =nctemp3374;
-}
-int nctemp3381=i;
-int nctemp3378=(int)(s->a[nctemp3381]);
-int nctemp3376= nctemp3378;
-int nctemp3383=LibeIsdigit(nctemp3376);
-nctemp3330=nctemp3383;}}
-int nctemp3390=i;
-char nctemp3393=(char)('e');
-int nctemp3387 = (s->a[nctemp3390] ==nctemp3393);
-int nctemp3400=i;
-char nctemp3403=(char)('E');
-int nctemp3397 = (s->a[nctemp3400] ==nctemp3403);
-int nctemp3384 = (nctemp3387 || nctemp3397);
-if(nctemp3384)
-{
-int nctemp3414 = i + 1;
-i =nctemp3414;
-int nctemp3421=i;
-char nctemp3424=(char)('+');
-int nctemp3418 = (s->a[nctemp3421] ==nctemp3424);
-int nctemp3431=i;
-char nctemp3434=(char)('-');
-int nctemp3428 = (s->a[nctemp3431] ==nctemp3434);
-int nctemp3415 = (nctemp3418 || nctemp3428);
-if(nctemp3415)
-{
-int nctemp3440=i;
-char nctemp3443=(char)('-');
-int nctemp3437 = (s->a[nctemp3440] ==nctemp3443);
-if(nctemp3437)
-{
-int nctemp3449= -1;
-esign =nctemp3449;
-}
-int nctemp3458 = i + 1;
-i =nctemp3458;
-}
-int nctemp3465=i;
-int nctemp3462=(int)(s->a[nctemp3465]);
-int nctemp3460= nctemp3462;
-int nctemp3467=LibeIsdigit(nctemp3460);
-int nctemp3468=nctemp3467;
-while(nctemp3468)
-{{
-int nctemp3483 = 10 * exponent;
-int nctemp3488=i;
-int nctemp3485=(int)(s->a[nctemp3488]);
-int nctemp3490 = nctemp3483 + nctemp3485;
-int nctemp3492 = nctemp3490 - '0';
-exponent =nctemp3492;
-int nctemp3501 = i + 1;
-i =nctemp3501;
-}
-int nctemp3508=i;
-int nctemp3505=(int)(s->a[nctemp3508]);
-int nctemp3503= nctemp3505;
-int nctemp3510=LibeIsdigit(nctemp3503);
-nctemp3468=nctemp3510;}}
-float nctemp3519=(float)(sign);
-float nctemp3523 = nctemp3519 * val;
-float nctemp3525=(float)(power);
-float nctemp3528 = nctemp3523 / nctemp3525;
-float nctemp3512= nctemp3528;
-int nctemp3534 = esign * exponent;
-int nctemp3529= nctemp3534;
-float nctemp3535=LibeFscale(nctemp3512,nctemp3529);
-return nctemp3535;
-}
-int LibeFtoa (float f,nctempchar1 *fmt,nctempchar1 *s)
-{
-int nexp;
-int mant;
-int c;
-int p;
-int q;
-int l;
-int mode;
-int ndigit;
-int nfield;
-int nfrac;
-int nctemp3539=s->d[0];int nctemp3544=fmt->d[0];int nctemp3536 = (nctemp3539 < nctemp3544);
-if(nctemp3536)
-{
-return 0;
-}
-int nctemp3556=fmt->d[0];int nctemp3561 = nctemp3556 - 2;
-l =nctemp3561;
-p =0;
-q =0;
-int nctemp3577=p;
-int nctemp3574=(int)(fmt->a[nctemp3577]);
-c =nctemp3574;
-int nctemp3579 = (c =='g');
-if(nctemp3579)
-{
-mode ='g';
-}
-else{
-int nctemp3590= c;
-int nctemp3592=LibeIsdigit(nctemp3590);
-int nctemp3587 = (nctemp3592 ==1);
-if(nctemp3587)
-{
-int nctemp3597= c;
-int nctemp3599=LibeIsdigit(nctemp3597);
-int nctemp3594 = (nctemp3599 ==1);
-int nctemp3601=nctemp3594;
-while(nctemp3601)
-{{
-int nctemp3605=q;
-int nctemp3608=p;
-s->a[nctemp3605] =fmt->a[nctemp3608];
-int nctemp3621 = p + 1;
-p =nctemp3621;
-int nctemp3610 = (p > l);
-if(nctemp3610)
-{
-return 0;
-}
-int nctemp3632 = q + 1;
-q =nctemp3632;
-int nctemp3640=p;
-int nctemp3637=(int)(fmt->a[nctemp3640]);
-c =nctemp3637;
-}
-int nctemp3645= c;
-int nctemp3647=LibeIsdigit(nctemp3645);
-int nctemp3642 = (nctemp3647 ==1);
-nctemp3601=nctemp3642;}int nctemp3652=q;
-char nctemp3655=(char)(0);
-s->a[nctemp3652] =nctemp3655;
-nctempchar1* nctemp3662= s;
-int nctemp3665=LibeAtoi(nctemp3662);
-nfield =nctemp3665;
-}
-else{
-return 0;
-}
-int nctemp3667 = (c !='.');
-if(nctemp3667)
-{
-return 0;
-}
-int nctemp3683 = p + 1;
-p =nctemp3683;
-int nctemp3672 = (p > l);
-if(nctemp3672)
-{
-return 0;
-}
-int nctemp3693=p;
-int nctemp3690=(int)(fmt->a[nctemp3693]);
-c =nctemp3690;
-q =0;
-int nctemp3702= c;
-int nctemp3704=LibeIsdigit(nctemp3702);
-int nctemp3699 = (nctemp3704 ==1);
-if(nctemp3699)
-{
-int nctemp3709= c;
-int nctemp3711=LibeIsdigit(nctemp3709);
-int nctemp3706 = (nctemp3711 ==1);
-int nctemp3713=nctemp3706;
-while(nctemp3713)
-{{
-int nctemp3717=q;
-int nctemp3720=p;
-s->a[nctemp3717] =fmt->a[nctemp3720];
-int nctemp3733 = p + 1;
-p =nctemp3733;
-int nctemp3722 = (p > l);
-if(nctemp3722)
-{
-return 0;
-}
-int nctemp3744 = q + 1;
-q =nctemp3744;
-int nctemp3752=p;
-int nctemp3749=(int)(fmt->a[nctemp3752]);
-c =nctemp3749;
-}
-int nctemp3757= c;
-int nctemp3759=LibeIsdigit(nctemp3757);
-int nctemp3754 = (nctemp3759 ==1);
-nctemp3713=nctemp3754;}int nctemp3764=q;
-char nctemp3767=(char)(0);
-s->a[nctemp3764] =nctemp3767;
-nctempchar1* nctemp3774= s;
-int nctemp3777=LibeAtoi(nctemp3774);
-nfrac =nctemp3777;
-}
-else{
-return 0;
-}
-int nctemp3779 = (c =='f');
-if(nctemp3779)
-{
-mode ='f';
-}
-else{
-int nctemp3787 = (c =='e');
-if(nctemp3787)
-{
-mode ='e';
-}
-else{
-return 0;
-}
-}
-}
-int nctemp3796 = (mode =='g');
-if(nctemp3796)
-{
-float nctemp3804= f;
-int nctemp3806=LibeGetmaxdig(nctemp3804);
-nfrac =nctemp3806;
-int nctemp3833 = 1 + 1;
-int nctemp3835 = nctemp3833 + 1;
-int nctemp3837 = nctemp3835 + 1;
-int nctemp3839 = nctemp3837 + nfrac;
-int nctemp3841 = nctemp3839 + 1;
-int nctemp3843 = nctemp3841 + 1;
-int nctemp3845 = nctemp3843 + 2;
-nfield =nctemp3845;
-int nctemp3854 = nfrac + 1;
-ndigit =nctemp3854;
-float nctemp3859= f;
-int nctemp3861= ndigit;
-int nctemp3863=LibeGetfman(nctemp3859,nctemp3861);
-mant =nctemp3863;
-float nctemp3868= f;
-int nctemp3870=LibeGetfexp(nctemp3868);
-nexp =nctemp3870;
-int nctemp3872= mant;
-int nctemp3874= nexp;
-int nctemp3876= nfield;
-int nctemp3878= nfrac;
-nctempchar1* nctemp3880= s;
-int nctemp3883=LibeFtoae(nctemp3872,nctemp3874,nctemp3876,nctemp3878,nctemp3880);
-}
-else{
-int nctemp3884 = (mode =='e');
-if(nctemp3884)
-{
-int nctemp3896 = nfrac + 1;
-ndigit =nctemp3896;
-float nctemp3901= f;
-int nctemp3903= ndigit;
-int nctemp3905=LibeGetfman(nctemp3901,nctemp3903);
-mant =nctemp3905;
-float nctemp3910= f;
-int nctemp3912=LibeGetfexp(nctemp3910);
-nexp =nctemp3912;
-int nctemp3914= mant;
-int nctemp3916= nexp;
-int nctemp3918= nfield;
-int nctemp3920= nfrac;
-nctempchar1* nctemp3922= s;
-int nctemp3925=LibeFtoae(nctemp3914,nctemp3916,nctemp3918,nctemp3920,nctemp3922);
-}
-else{
-int nctemp3926 = (mode =='f');
-if(nctemp3926)
-{
-float nctemp3934= f;
-int nctemp3936=LibeGetfexp(nctemp3934);
-nexp =nctemp3936;
-int nctemp3948 = nexp + nfrac;
-int nctemp3950 = nctemp3948 + 1;
-ndigit =nctemp3950;
-float nctemp3955= f;
-int nctemp3957= ndigit;
-int nctemp3959=LibeGetfman(nctemp3955,nctemp3957);
-mant =nctemp3959;
-int nctemp3961= mant;
-int nctemp3963= nexp;
-int nctemp3965= nfield;
-int nctemp3967= nfrac;
-nctempchar1* nctemp3969= s;
-int nctemp3972=LibeFtoaf(nctemp3961,nctemp3963,nctemp3965,nctemp3967,nctemp3969);
-}
-}
-}
-return 1;
-}
-int LibeFtoae (int mant,int nexp,int nfield,int nfrac,nctempchar1 *s)
-{
-int tp;
-int sign;
-int i;
-int l;
-nctempchar1 *t;
-int nctemp3974 = (mant < 0);
-if(nctemp3974)
-{
-int nctemp3981= -mant;
-mant =nctemp3981;
-int nctemp3985= -1;
-sign =nctemp3985;
-}
-else{
-sign =1;
-}
-int nctemp3993=s->d[0];int nctemp4020 = 1 + 1;
-int nctemp4022 = nctemp4020 + 1;
-int nctemp4024 = nctemp4022 + nfrac;
-int nctemp4026 = nctemp4024 + 1;
-int nctemp4028 = nctemp4026 + 1;
-int nctemp4030 = nctemp4028 + 2;
-int nctemp4032 = nctemp4030 + 1;
-int nctemp3990 = (nctemp3993 < nctemp4032);
-if(nctemp3990)
-{
-return 0;
-}
-int nctemp4042=s->d[0];int nctemp4040=nctemp4042;
-nctempchar1 *nctemp4039;
-nctemp4039=(nctempchar1*)RunMalloc(sizeof(nctempchar1));
-int nctemp4047=s->d[0];nctemp4039->d[0]=nctemp4047;
-nctemp4039->a=(char *)RunMalloc(sizeof(char)*nctemp4040);
-t=nctemp4039;
-int nctemp4074 = 1 + 1;
-int nctemp4076 = nctemp4074 + nfrac;
-int nctemp4078 = nctemp4076 + 1;
-int nctemp4080 = nctemp4078 + 1;
-int nctemp4082 = nctemp4080 + 2;
-int nctemp4084 = nctemp4082 + 1;
-l =nctemp4084;
-int nctemp4085 = (sign < 0);
-if(nctemp4085)
-{
-int nctemp4097 = l + 1;
-l =nctemp4097;
-}
-int nctemp4098 = (nfield < l);
-if(nctemp4098)
-{
-i =0;
-int nctemp4106 = (i < nfield);
-while(nctemp4106){
-{
-int nctemp4113=i;
-char nctemp4116=(char)('*');
-s->a[nctemp4113] =nctemp4116;
-}
-int nctemp4127 = i + 1;
-i =nctemp4127;
-int nctemp4128 = (i < nfield);
-nctemp4106=nctemp4128;
-}
-int nctemp4135=nfield;
-char nctemp4138=(char)(0);
-s->a[nctemp4135] =nctemp4138;
-return 0;
-}
-else{
-int nctemp4150 = nfield - l;
-tp =nctemp4150;
-}
-i =0;
-int nctemp4155 = (i < tp);
-while(nctemp4155){
-{
-int nctemp4162=i;
-char nctemp4165=(char)(' ');
-s->a[nctemp4162] =nctemp4165;
-}
-int nctemp4176 = i + 1;
-i =nctemp4176;
-int nctemp4177 = (i < tp);
-nctemp4155=nctemp4177;
-}
-int nctemp4182= mant;
-nctempchar1* nctemp4184= t;
-int nctemp4187=LibeItoa(nctemp4182,nctemp4184);
-int nctemp4188 = (sign < 0);
-if(nctemp4188)
-{
-int nctemp4195=tp;
-char nctemp4198=(char)('-');
-s->a[nctemp4195] =nctemp4198;
-int nctemp4209 = tp + 1;
-tp =nctemp4209;
-}
-int nctemp4213=tp;
-int nctemp4216=0;
-s->a[nctemp4213] =t->a[nctemp4216];
-int nctemp4226 = tp + 1;
-int nctemp4221=nctemp4226;
-char nctemp4228=(char)('.');
-s->a[nctemp4221] =nctemp4228;
-i =0;
-int nctemp4235 = (i < nfrac);
-while(nctemp4235){
-{
-int nctemp4250 = tp + 2;
-int nctemp4252 = nctemp4250 + i;
-int nctemp4242=nctemp4252;
-int nctemp4259 = i + 1;
-int nctemp4254=nctemp4259;
-s->a[nctemp4242] =t->a[nctemp4254];
-}
-int nctemp4268 = i + 1;
-i =nctemp4268;
-int nctemp4269 = (i < nfrac);
-nctemp4235=nctemp4269;
-}
-int nctemp4284 = tp + 2;
-int nctemp4286 = nctemp4284 + nfrac;
-int nctemp4276=nctemp4286;
-char nctemp4288=(char)(0);
-s->a[nctemp4276] =nctemp4288;
-sign =1;
-int nctemp4295 = (nexp < 0);
-if(nctemp4295)
-{
-int nctemp4302= -1;
-sign =nctemp4302;
-int nctemp4306= -nexp;
-nexp =nctemp4306;
-}
-struct nctempchar1 *nctemp4310;
-static struct nctempchar1 nctemp4311 = {{ 2}, (char*)"e\0"};
-nctemp4310=&nctemp4311;
-nctempchar1* nctemp4308= nctemp4310;
-nctempchar1* nctemp4312= s;
-int nctemp4315=LibeStrcat(nctemp4308,nctemp4312);
-int nctemp4316 = (sign > 0);
-if(nctemp4316)
-{
-struct nctempchar1 *nctemp4323;
-static struct nctempchar1 nctemp4324 = {{ 2}, (char*)"+\0"};
-nctemp4323=&nctemp4324;
-nctempchar1* nctemp4321= nctemp4323;
-nctempchar1* nctemp4325= s;
-int nctemp4328=LibeStrcat(nctemp4321,nctemp4325);
-}
-else{
-struct nctempchar1 *nctemp4332;
-static struct nctempchar1 nctemp4333 = {{ 2}, (char*)"-\0"};
-nctemp4332=&nctemp4333;
-nctempchar1* nctemp4330= nctemp4332;
-nctempchar1* nctemp4334= s;
-int nctemp4337=LibeStrcat(nctemp4330,nctemp4334);
-}
-int nctemp4339= nexp;
-nctempchar1* nctemp4341= t;
-int nctemp4344=LibeItoa(nctemp4339,nctemp4341);
-nctempchar1* nctemp4348= t;
-int nctemp4351=LibeStrlen(nctemp4348);
-int nctemp4345 = (nctemp4351 ==1);
-if(nctemp4345)
-{
-struct nctempchar1 *nctemp4356;
-static struct nctempchar1 nctemp4357 = {{ 2}, (char*)"0\0"};
-nctemp4356=&nctemp4357;
-nctempchar1* nctemp4354= nctemp4356;
-nctempchar1* nctemp4358= s;
-int nctemp4361=LibeStrcat(nctemp4354,nctemp4358);
-}
-nctempchar1* nctemp4363= t;
-nctempchar1* nctemp4366= s;
-int nctemp4369=LibeStrcat(nctemp4363,nctemp4366);
-RunFree(t->a);
-RunFree(t);
-return 1;
-}
-int LibeFtoaf (int mant,int nexp,int nfield,int nfrac,nctempchar1 *s)
-{
-nctempchar1 *t;
-int sign;
-int i;
-int tp;
-int l;
-int nctemp4374 = (mant < 0);
-if(nctemp4374)
-{
-int nctemp4381= -1;
-sign =nctemp4381;
-int nctemp4385= -mant;
-mant =nctemp4385;
-}
-else{
-sign =1;
-}
-int nctemp4393=s->d[0];int nctemp4402 = nfield + 1;
-int nctemp4390 = (nctemp4393 < nctemp4402);
-if(nctemp4390)
-{
-return 0;
-}
-int nctemp4418 = nexp + 1;
-int nctemp4420 = nctemp4418 + 1;
-int nctemp4422 = nctemp4420 + nfrac;
-l =nctemp4422;
-int nctemp4423 = (sign < 0);
-if(nctemp4423)
-{
-int nctemp4435 = l + 1;
-l =nctemp4435;
-}
-int nctemp4436 = (nfield < l);
-if(nctemp4436)
-{
-i =0;
-int nctemp4444 = (i < nfield);
-while(nctemp4444){
-{
-int nctemp4451=i;
-char nctemp4454=(char)('*');
-s->a[nctemp4451] =nctemp4454;
-}
-int nctemp4465 = i + 1;
-i =nctemp4465;
-int nctemp4466 = (i < nfield);
-nctemp4444=nctemp4466;
-}
-int nctemp4473=nfield;
-char nctemp4476=(char)(0);
-s->a[nctemp4473] =nctemp4476;
-return 0;
-}
-else{
-int nctemp4488 = nfield - l;
-tp =nctemp4488;
-}
-int nctemp4500 = 6 + 1;
-int nctemp4495=nctemp4500;
-nctempchar1 *nctemp4494;
-nctemp4494=(nctempchar1*)RunMalloc(sizeof(nctempchar1));
-int nctemp4505 = 6 + 1;
-nctemp4494->d[0]=nctemp4505;
-nctemp4494->a=(char *)RunMalloc(sizeof(char)*nctemp4495);
-t=nctemp4494;
-int nctemp4507= mant;
-nctempchar1* nctemp4509= t;
-int nctemp4512=LibeItoa(nctemp4507,nctemp4509);
-i =0;
-int nctemp4517 = (i < tp);
-while(nctemp4517){
-{
-int nctemp4524=i;
-char nctemp4527=(char)(' ');
-s->a[nctemp4524] =nctemp4527;
-}
-int nctemp4538 = i + 1;
-i =nctemp4538;
-int nctemp4539 = (i < tp);
-nctemp4517=nctemp4539;
-}
-int nctemp4543 = (nexp >= 0);
-if(nctemp4543)
-{
-int nctemp4550= -1;
-int nctemp4547 = (sign ==nctemp4550);
-if(nctemp4547)
-{
-int nctemp4554=tp;
-char nctemp4557=(char)('-');
-s->a[nctemp4554] =nctemp4557;
-int nctemp4568 = tp + 1;
-tp =nctemp4568;
-}
-i =0;
-int nctemp4573 = (i <= nexp);
-while(nctemp4573){
-{
-int nctemp4585 = i + tp;
-int nctemp4580=nctemp4585;
-int nctemp4587=i;
-s->a[nctemp4580] =t->a[nctemp4587];
-}
-int nctemp4597 = i + 1;
-i =nctemp4597;
-int nctemp4598 = (i <= nexp);
-nctemp4573=nctemp4598;
-}
-int nctemp4602 = (nfrac > 0);
-if(nctemp4602)
-{
-int nctemp4617 = tp + nexp;
-int nctemp4619 = nctemp4617 + 1;
-int nctemp4609=nctemp4619;
-char nctemp4621=(char)('.');
-s->a[nctemp4609] =nctemp4621;
-}
-i =0;
-int nctemp4628 = (i < nfrac);
-while(nctemp4628){
-{
-int nctemp4632 = (mant ==0);
-if(nctemp4632)
-{
-int nctemp4653 = tp + nexp;
-int nctemp4655 = nctemp4653 + 1;
-int nctemp4657 = nctemp4655 + 1;
-int nctemp4659 = nctemp4657 + i;
-int nctemp4639=nctemp4659;
-char nctemp4661=(char)('0');
-s->a[nctemp4639] =nctemp4661;
-}
-else{
-int nctemp4681 = tp + nexp;
-int nctemp4683 = nctemp4681 + 1;
-int nctemp4685 = nctemp4683 + 1;
-int nctemp4687 = nctemp4685 + i;
-int nctemp4667=nctemp4687;
-int nctemp4697 = nexp + 1;
-int nctemp4699 = nctemp4697 + i;
-int nctemp4689=nctemp4699;
-s->a[nctemp4667] =t->a[nctemp4689];
-}
-}
-int nctemp4708 = i + 1;
-i =nctemp4708;
-int nctemp4709 = (i < nfrac);
-nctemp4628=nctemp4709;
-}
-int nctemp4713 = (nfrac > 0);
-if(nctemp4713)
-{
-int nctemp4734 = tp + nexp;
-int nctemp4736 = nctemp4734 + 1;
-int nctemp4738 = nctemp4736 + 1;
-int nctemp4740 = nctemp4738 + nfrac;
-int nctemp4720=nctemp4740;
-char nctemp4742=(char)(0);
-s->a[nctemp4720] =nctemp4742;
-}
-else{
-int nctemp4756 = tp + nexp;
-int nctemp4758 = nctemp4756 + 1;
-int nctemp4748=nctemp4758;
-char nctemp4760=(char)(0);
-s->a[nctemp4748] =nctemp4760;
-}
-}
-else{
-int nctemp4766= -nexp;
-nexp =nctemp4766;
-int nctemp4770= -1;
-int nctemp4767 = (sign ==nctemp4770);
-if(nctemp4767)
-{
-int nctemp4774=tp;
-char nctemp4777=(char)('-');
-s->a[nctemp4774] =nctemp4777;
-int nctemp4788 = tp + 1;
-tp =nctemp4788;
-}
-int nctemp4792=tp;
-char nctemp4795=(char)('0');
-s->a[nctemp4792] =nctemp4795;
-int nctemp4806 = tp + 1;
-int nctemp4801=nctemp4806;
-char nctemp4808=(char)('.');
-s->a[nctemp4801] =nctemp4808;
-i =0;
-int nctemp4823 = nexp - 1;
-int nctemp4815 = (i < nctemp4823);
-while(nctemp4815){
-{
-int nctemp4835 = i + tp;
-int nctemp4837 = nctemp4835 + 2;
-int nctemp4827=nctemp4837;
-char nctemp4839=(char)('0');
-s->a[nctemp4827] =nctemp4839;
-}
-int nctemp4850 = i + 1;
-i =nctemp4850;
-int nctemp4859 = nexp - 1;
-int nctemp4851 = (i < nctemp4859);
-nctemp4815=nctemp4851;
-}
-i =0;
-int nctemp4875 = nfrac - nexp;
-int nctemp4877 = nctemp4875 + 1;
-int nctemp4864 = (i < nctemp4877);
-while(nctemp4864){
-{
-int nctemp4895 = tp + 2;
-int nctemp4897 = nctemp4895 + i;
-int nctemp4899 = nctemp4897 + nexp;
-int nctemp4901 = nctemp4899 - 1;
-int nctemp4881=nctemp4901;
-int nctemp4903=i;
-s->a[nctemp4881] =t->a[nctemp4903];
-}
-int nctemp4913 = i + 1;
-i =nctemp4913;
-int nctemp4925 = nfrac - nexp;
-int nctemp4927 = nctemp4925 + 1;
-int nctemp4914 = (i < nctemp4927);
-nctemp4864=nctemp4914;
-}
-int nctemp4939 = tp + 2;
-int nctemp4941 = nctemp4939 + nfrac;
-int nctemp4931=nctemp4941;
-char nctemp4943=(char)(0);
-s->a[nctemp4931] =nctemp4943;
-}
-return 1;
-}
-float LibeMach (int flag)
-{
-int nctemp4947 = (flag ==1);
-if(nctemp4947)
-{
-return 1.1754943508222875e-38;
-}
-else{
-int nctemp4952 = (flag ==2);
-if(nctemp4952)
-{
-return 3.4028234663852886e+38;
-}
-else{
-int nctemp4957 = (flag ==3);
-if(nctemp4957)
-{
-return 5.9604644775390625e-08;
-}
-else{
-int nctemp4962 = (flag ==4);
-if(nctemp4962)
-{
-return 1.1920928955078125e-07;
-}
-else{
-int nctemp4967 = (flag ==5);
-if(nctemp4967)
-{
-return 0.6931471805599453;
-}
-else{
-float nctemp4973=(float)(0);
-return nctemp4973;
-}
-}
-}
-}
-}
-}
-float LibeFabs (float x)
-{
-int nctemp4976 = (x < 0.0);
-if(nctemp4976)
-{
-float nctemp4980= -x;
-return nctemp4980;
-}
-else{
-return x;
-}
-}
-float LibeFscale2 (float x,int n)
-{
-int i;
-float rval;
-int nctemp4982 = (n ==0);
-if(nctemp4982)
-{
-return x;
-}
-rval =1.0;
-int nctemp4991 = (n > 0);
-if(nctemp4991)
-{
-i =0;
-int nctemp4999 = (i < n);
-while(nctemp4999){
-{
-float nctemp5011 = rval * 2.0;
-rval =nctemp5011;
-}
-int nctemp5020 = i + 1;
-i =nctemp5020;
-int nctemp5021 = (i < n);
-nctemp4999=nctemp5021;
-}
-}
-else{
-int nctemp5028= -n;
-n =nctemp5028;
-i =0;
-int nctemp5033 = (i < n);
-while(nctemp5033){
-{
-float nctemp5045 = rval * 0.5;
-rval =nctemp5045;
-}
-int nctemp5054 = i + 1;
-i =nctemp5054;
-int nctemp5055 = (i < n);
-nctemp5033=nctemp5055;
-}
-}
-float nctemp5063 = rval * x;
-return nctemp5063;
-}
-float LibeGetfman2 (float x)
-{
-float absx;
-int n;
-float nctemp5068= x;
-float nctemp5070=LibeFabs(nctemp5068);
-absx =nctemp5070;
-n =0;
-int nctemp5075 = (x ==0.0);
-if(nctemp5075)
-{
-return 0.0;
-}
-int nctemp5080 = (absx < 0.5);
-int nctemp5084=nctemp5080;
-while(nctemp5084)
-{{
-int nctemp5093 = n - 1;
-n =nctemp5093;
-float nctemp5102 = absx * 2.0;
-absx =nctemp5102;
-}
-int nctemp5103 = (absx < 0.5);
-nctemp5084=nctemp5103;}int nctemp5107 = (absx >= 1.0);
-int nctemp5111=nctemp5107;
-while(nctemp5111)
-{{
-int nctemp5120 = n + 1;
-n =nctemp5120;
-float nctemp5129 = absx * 0.5;
-absx =nctemp5129;
-}
-int nctemp5130 = (absx >= 1.0);
-nctemp5111=nctemp5130;}int nctemp5134 = (x < 0.0);
-if(nctemp5134)
-{
-float nctemp5138= -absx;
-return nctemp5138;
-}
-else{
-return absx;
-}
-}
-int LibeGetfexp2 (float x)
-{
-float absx;
-int n;
-float nctemp5144= x;
-float nctemp5146=LibeFabs(nctemp5144);
-absx =nctemp5146;
-n =0;
-int nctemp5151 = (x ==0.0);
-if(nctemp5151)
-{
-return 0;
-}
-int nctemp5156 = (absx < 0.5);
-int nctemp5160=nctemp5156;
-while(nctemp5160)
-{{
-int nctemp5169 = n - 1;
-n =nctemp5169;
-float nctemp5178 = absx * 2.0;
-absx =nctemp5178;
-}
-int nctemp5179 = (absx < 0.5);
-nctemp5160=nctemp5179;}int nctemp5183 = (absx >= 1.0);
-int nctemp5187=nctemp5183;
-while(nctemp5187)
-{{
-int nctemp5196 = n + 1;
-n =nctemp5196;
-float nctemp5205 = absx * 0.5;
-absx =nctemp5205;
-}
-int nctemp5206 = (absx >= 1.0);
-nctemp5187=nctemp5206;}return n;
-}
-float LibeFscale (float x,int n)
-{
-int i;
-float rval;
-rval =1.0;
-int nctemp5215 = (n ==0);
-if(nctemp5215)
-{
-return x;
-}
-int nctemp5220 = (n > 0);
-if(nctemp5220)
-{
-i =0;
-int nctemp5228 = (i < n);
-while(nctemp5228){
-{
-float nctemp5240 = rval * 10.0;
-rval =nctemp5240;
-}
-int nctemp5249 = i + 1;
-i =nctemp5249;
-int nctemp5250 = (i < n);
-nctemp5228=nctemp5250;
-}
-}
-else{
-int nctemp5257= -n;
-n =nctemp5257;
-i =0;
-int nctemp5262 = (i < n);
-while(nctemp5262){
-{
-float nctemp5274 = rval * 0.1;
-rval =nctemp5274;
-}
-int nctemp5283 = i + 1;
-i =nctemp5283;
-int nctemp5284 = (i < n);
-nctemp5262=nctemp5284;
-}
-}
-float nctemp5292 = rval * x;
-return nctemp5292;
-}
-int LibeGetfman (float f,int maxdig)
-{
-int sign;
-int nexp;
-int n;
-int i;
-int nctemp5293 = (f ==0.0);
-if(nctemp5293)
-{
-return 0;
-}
-sign =1;
-int nctemp5302 = (f < 0.0);
-if(nctemp5302)
-{
-float nctemp5309= -f;
-f =nctemp5309;
-int nctemp5313= -sign;
-sign =nctemp5313;
-}
-nexp =0;
-float nctemp5328 = f / 10.0;
-float nctemp5330 = nctemp5328 + 1.1920928955078125e-07;
-int nctemp5318 = (nctemp5330 >= 1.0);
-if(nctemp5318)
-{
-float nctemp5342 = f / 10.0;
-float nctemp5344 = nctemp5342 + 1.1920928955078125e-07;
-int nctemp5332 = (nctemp5344 >= 1.0);
-int nctemp5346=nctemp5332;
-while(nctemp5346)
-{{
-float nctemp5355 = f / 10.0;
-f =nctemp5355;
-int nctemp5364 = nexp + 1;
-nexp =nctemp5364;
-}
-float nctemp5375 = f / 10.0;
-float nctemp5377 = nctemp5375 + 1.1920928955078125e-07;
-int nctemp5365 = (nctemp5377 >= 1.0);
-nctemp5346=nctemp5365;}}
-else{
-float nctemp5386 = f + 1.1920928955078125e-07;
-int nctemp5379 = (nctemp5386 < 1.0);
-if(nctemp5379)
-{
-float nctemp5395 = f + 1.1920928955078125e-07;
-int nctemp5388 = (nctemp5395 < 1.0);
-int nctemp5397=nctemp5388;
-while(nctemp5397)
-{{
-float nctemp5406 = f * 10.0;
-f =nctemp5406;
-int nctemp5415 = nexp - 1;
-nexp =nctemp5415;
-}
-float nctemp5423 = f + 1.1920928955078125e-07;
-int nctemp5416 = (nctemp5423 < 1.0);
-nctemp5397=nctemp5416;}}
-}
-i =0;
-int nctemp5437 = maxdig - 1;
-int nctemp5429 = (i < nctemp5437);
-while(nctemp5429){
-{
-float nctemp5446 = f * 10.0;
-f =nctemp5446;
-}
-int nctemp5455 = i + 1;
-i =nctemp5455;
-int nctemp5464 = maxdig - 1;
-int nctemp5456 = (i < nctemp5464);
-nctemp5429=nctemp5456;
-}
-float nctemp5475 = f + 0.5;
-int nctemp5469=(int)(nctemp5475);
-n =nctemp5469;
-int nctemp5476 = (sign < 0);
-if(nctemp5476)
-{
-int nctemp5483= -n;
-n =nctemp5483;
-}
-return n;
-}
-float LibeGetffman (float f)
-{
-int sign;
-int nexp;
-int nctemp5485 = (f ==0.0);
-if(nctemp5485)
-{
-return 0.0;
-}
-sign =1;
-int nctemp5494 = (f < 0.0);
-if(nctemp5494)
-{
-float nctemp5501= -f;
-f =nctemp5501;
-int nctemp5505= -sign;
-sign =nctemp5505;
-}
-nexp =0;
-float nctemp5520 = f / 10.0;
-float nctemp5522 = nctemp5520 + 1.1920928955078125e-07;
-int nctemp5510 = (nctemp5522 >= 1.0);
-if(nctemp5510)
-{
-float nctemp5534 = f / 10.0;
-float nctemp5536 = nctemp5534 + 1.1920928955078125e-07;
-int nctemp5524 = (nctemp5536 >= 1.0);
-int nctemp5538=nctemp5524;
-while(nctemp5538)
-{{
-float nctemp5547 = f / 10.0;
-f =nctemp5547;
-int nctemp5556 = nexp + 1;
-nexp =nctemp5556;
-}
-float nctemp5567 = f / 10.0;
-float nctemp5569 = nctemp5567 + 1.1920928955078125e-07;
-int nctemp5557 = (nctemp5569 >= 1.0);
-nctemp5538=nctemp5557;}}
-else{
-float nctemp5578 = f + 1.1920928955078125e-07;
-int nctemp5571 = (nctemp5578 < 1.0);
-if(nctemp5571)
-{
-float nctemp5587 = f + 1.1920928955078125e-07;
-int nctemp5580 = (nctemp5587 < 1.0);
-int nctemp5589=nctemp5580;
-while(nctemp5589)
-{{
-float nctemp5598 = f * 10.0;
-f =nctemp5598;
-int nctemp5607 = nexp - 1;
-nexp =nctemp5607;
-}
-float nctemp5615 = f + 1.1920928955078125e-07;
-int nctemp5608 = (nctemp5615 < 1.0);
-nctemp5589=nctemp5608;}}
-}
-return f;
-}
-int LibeGetmaxdig (float f)
-{
-int sign;
-int nexp;
-int i;
-int loop;
-float r;
-int nctemp5618 = (f ==0.0);
-if(nctemp5618)
-{
-return 0;
-}
-sign =1;
-int nctemp5627 = (f < 0.0);
-if(nctemp5627)
-{
-float nctemp5634= -f;
-f =nctemp5634;
-int nctemp5638= -sign;
-sign =nctemp5638;
-}
-nexp =0;
-float nctemp5653 = f / 10.0;
-float nctemp5655 = nctemp5653 + 1.1920928955078125e-07;
-int nctemp5643 = (nctemp5655 >= 1.0);
-if(nctemp5643)
-{
-float nctemp5667 = f / 10.0;
-float nctemp5669 = nctemp5667 + 1.1920928955078125e-07;
-int nctemp5657 = (nctemp5669 >= 1.0);
-int nctemp5671=nctemp5657;
-while(nctemp5671)
-{{
-float nctemp5680 = f / 10.0;
-f =nctemp5680;
-int nctemp5689 = nexp + 1;
-nexp =nctemp5689;
-}
-float nctemp5700 = f / 10.0;
-float nctemp5702 = nctemp5700 + 1.1920928955078125e-07;
-int nctemp5690 = (nctemp5702 >= 1.0);
-nctemp5671=nctemp5690;}}
-else{
-float nctemp5711 = f + 1.1920928955078125e-07;
-int nctemp5704 = (nctemp5711 < 1.0);
-if(nctemp5704)
-{
-float nctemp5720 = f + 1.1920928955078125e-07;
-int nctemp5713 = (nctemp5720 < 1.0);
-int nctemp5722=nctemp5713;
-while(nctemp5722)
-{{
-float nctemp5731 = f * 10.0;
-f =nctemp5731;
-int nctemp5740 = nexp - 1;
-nexp =nctemp5740;
-}
-float nctemp5748 = f + 1.1920928955078125e-07;
-int nctemp5741 = (nctemp5748 < 1.0);
-nctemp5722=nctemp5741;}}
-}
-i =0;
-loop =1;
-int nctemp5759=loop;
-while(nctemp5759)
-{{
-int nctemp5771=(int)(f);
-float nctemp5768=(float)(nctemp5771);
-float nctemp5774 = f - nctemp5768;
-r =nctemp5774;
-int nctemp5775 = (r < 1.1920928955078125e-07);
-if(nctemp5775)
-{
-loop =0;
-}
-else{
-float nctemp5791 = f * 10.0;
-f =nctemp5791;
-}
-int nctemp5800 = i + 1;
-i =nctemp5800;
-int nctemp5801 = (i >= 10);
-if(nctemp5801)
-{
-loop =0;
-}
-}
-nctemp5759=loop;}return i;
-}
-int LibeGetfexp (float f)
-{
-int nexp;
-int nctemp5811 = (f ==0.0);
-if(nctemp5811)
-{
-return 0;
-}
-nexp =0;
-int nctemp5820 = (f < 0.0);
-if(nctemp5820)
-{
-float nctemp5827= -f;
-f =nctemp5827;
-}
-float nctemp5838 = f / 10.0;
-float nctemp5840 = nctemp5838 + 1.1920928955078125e-07;
-int nctemp5828 = (nctemp5840 >= 1.0);
-if(nctemp5828)
-{
-float nctemp5852 = f / 10.0;
-float nctemp5854 = nctemp5852 + 1.1920928955078125e-07;
-int nctemp5842 = (nctemp5854 >= 1.0);
-int nctemp5856=nctemp5842;
-while(nctemp5856)
-{{
-float nctemp5865 = f / 10.0;
-f =nctemp5865;
-int nctemp5874 = nexp + 1;
-nexp =nctemp5874;
-}
-float nctemp5885 = f / 10.0;
-float nctemp5887 = nctemp5885 + 1.1920928955078125e-07;
-int nctemp5875 = (nctemp5887 >= 1.0);
-nctemp5856=nctemp5875;}}
-else{
-float nctemp5896 = f + 1.1920928955078125e-07;
-int nctemp5889 = (nctemp5896 < 1.0);
-if(nctemp5889)
-{
-float nctemp5905 = f + 1.1920928955078125e-07;
-int nctemp5898 = (nctemp5905 < 1.0);
-int nctemp5907=nctemp5898;
-while(nctemp5907)
-{{
-float nctemp5916 = f * 10.0;
-f =nctemp5916;
-int nctemp5925 = nexp - 1;
-nexp =nctemp5925;
-}
-float nctemp5933 = f + 1.1920928955078125e-07;
-int nctemp5926 = (nctemp5933 < 1.0);
-nctemp5907=nctemp5926;}}
-}
-return nexp;
-}
-float LibeClock ()
-{
-float nctemp5937=RunClock();
-return nctemp5937;
+int nctemp7341 = (i < 40);
+while(nctemp7341){
+{
+int nctemp7348=i;
+nctempchar1 *nctemp7346 =LibeFarr->a[nctemp7348].base;
+int nctemp7345 =(nctemp7346!=0);
+if(nctemp7345)
+{
+int nctemp7352 = (i > 4);
+if(nctemp7352)
+{
+int nctemp7360=i;
+fd =LibeFarr->a[nctemp7360].fd;
+int nctemp7366= fd;
+int nctemp7368=RunClose(nctemp7366);
+stat =nctemp7368;
+int nctemp7369 = (stat ==0);
+if(nctemp7369)
+{
+struct nctempchar1 *nctemp7378;
+static struct nctempchar1 nctemp7379 = {{ 21}, (char*)"Could not close file\0"};
+nctemp7378=&nctemp7379;
+LibeErrstr=nctemp7378;
+LibeErrno =(-106);
+}
+}
+int nctemp7388= i;
+int nctemp7390=LibeFlush(nctemp7388);
+stat =nctemp7390;
+int nctemp7393=i;
+RunFree(LibeFarr->a[nctemp7393].base->a);
+RunFree(LibeFarr->a[nctemp7393].base);
+}
+}
+int nctemp7404 = i + 1;
+i =nctemp7404;
+int nctemp7405 = (i < 40);
+nctemp7341=nctemp7405;
+}
+RunFree(LibeFarr->a);
+RunFree(LibeFarr);
+return stat;
 }
 int NBLOCKS;
 int NTHREADS;
@@ -3127,746 +3692,117 @@ int LibeGetnt ()
 {
 return NTHREADS;
 }
-float LibeSincosmax;
-float LibeSincoslim;
-float LibeLnmax;
-float LibeLnmin;
-float LibeSincos (float x,float y,float sign);
-float LibeAtan (float f);
-int LibeMathinit ()
+int LibeArrayex (int line,nctempchar1 *name,int ival,int index,int bound)
 {
-float nctemp5954= 1.0;
-int nctemp5961 = 24 - 1;
-int nctemp5956= nctemp5961;
-float nctemp5962=LibeFscale2(nctemp5954,nctemp5956);
-LibeSincosmax =nctemp5962;
-float nctemp5971= LibeSincosmax;
-float nctemp5973=LibeSqrt(nctemp5971);
-float nctemp5974 = 3.1415926535897932384626433832795028841972 * nctemp5973;
-LibeSincosmax =nctemp5974;
-float nctemp5983= 1.0;
-int nctemp5990 = 24 / 2;
-int nctemp5985= nctemp5990;
-float nctemp5991=LibeFscale2(nctemp5983,nctemp5985);
-float nctemp5992 = 1.0 / nctemp5991;
-LibeSincoslim =nctemp5992;
-float nctemp5997= 3.4028234663852886e+38;
-float nctemp5999=LibeLn(nctemp5997);
-LibeLnmax =nctemp5999;
-float nctemp6004= 1.1754943508222875e-38;
-float nctemp6006=LibeLn(nctemp6004);
-LibeLnmin =nctemp6006;
+int nctemp7426= 4;
+struct nctempchar1 *nctemp7430;
+static struct nctempchar1 nctemp7431 = {{ 37}, (char*)"Array index out of bond at line no: \0"};
+nctemp7430=&nctemp7431;
+nctempchar1* nctemp7428= nctemp7430;
+int nctemp7432=LibePuts(nctemp7426,nctemp7428);
+int nctemp7434= 4;
+int nctemp7436= line;
+int nctemp7438=LibePuti(nctemp7434,nctemp7436);
+int nctemp7440= 4;
+struct nctempchar1 *nctemp7444;
+static struct nctempchar1 nctemp7445 = {{ 3}, (char*)"\n\0"};
+nctemp7444=&nctemp7445;
+nctempchar1* nctemp7442= nctemp7444;
+int nctemp7446=LibePuts(nctemp7440,nctemp7442);
+int nctemp7448= 4;
+struct nctempchar1 *nctemp7452;
+static struct nctempchar1 nctemp7453 = {{ 13}, (char*)"Array name: \0"};
+nctemp7452=&nctemp7453;
+nctempchar1* nctemp7450= nctemp7452;
+int nctemp7454=LibePuts(nctemp7448,nctemp7450);
+int nctemp7456= 4;
+nctempchar1* nctemp7458= name;
+int nctemp7461=LibePuts(nctemp7456,nctemp7458);
+int nctemp7463= 4;
+struct nctempchar1 *nctemp7467;
+static struct nctempchar1 nctemp7468 = {{ 3}, (char*)"\n\0"};
+nctemp7467=&nctemp7468;
+nctempchar1* nctemp7465= nctemp7467;
+int nctemp7469=LibePuts(nctemp7463,nctemp7465);
+int nctemp7471= 4;
+struct nctempchar1 *nctemp7475;
+static struct nctempchar1 nctemp7476 = {{ 11}, (char*)"Index no: \0"};
+nctemp7475=&nctemp7476;
+nctempchar1* nctemp7473= nctemp7475;
+int nctemp7477=LibePuts(nctemp7471,nctemp7473);
+int nctemp7479= 4;
+int nctemp7481= index;
+int nctemp7483=LibePuti(nctemp7479,nctemp7481);
+int nctemp7485= 4;
+struct nctempchar1 *nctemp7489;
+static struct nctempchar1 nctemp7490 = {{ 3}, (char*)"\n\0"};
+nctemp7489=&nctemp7490;
+nctempchar1* nctemp7487= nctemp7489;
+int nctemp7491=LibePuts(nctemp7485,nctemp7487);
+int nctemp7493= 4;
+struct nctempchar1 *nctemp7497;
+static struct nctempchar1 nctemp7498 = {{ 14}, (char*)"Index value: \0"};
+nctemp7497=&nctemp7498;
+nctempchar1* nctemp7495= nctemp7497;
+int nctemp7499=LibePuts(nctemp7493,nctemp7495);
+int nctemp7501= 4;
+int nctemp7503= ival;
+int nctemp7505=LibePuti(nctemp7501,nctemp7503);
+int nctemp7507= 4;
+struct nctempchar1 *nctemp7511;
+static struct nctempchar1 nctemp7512 = {{ 3}, (char*)"\n\0"};
+nctemp7511=&nctemp7512;
+nctempchar1* nctemp7509= nctemp7511;
+int nctemp7513=LibePuts(nctemp7507,nctemp7509);
+int nctemp7515= 4;
+struct nctempchar1 *nctemp7519;
+static struct nctempchar1 nctemp7520 = {{ 16}, (char*)"Index bound: 0-\0"};
+nctemp7519=&nctemp7520;
+nctempchar1* nctemp7517= nctemp7519;
+int nctemp7521=LibePuts(nctemp7515,nctemp7517);
+int nctemp7523= 4;
+int nctemp7530 = bound - 1;
+int nctemp7525= nctemp7530;
+int nctemp7531=LibePuti(nctemp7523,nctemp7525);
+int nctemp7533= 4;
+struct nctempchar1 *nctemp7537;
+static struct nctempchar1 nctemp7538 = {{ 3}, (char*)"\n\0"};
+nctemp7537=&nctemp7538;
+nctempchar1* nctemp7535= nctemp7537;
+int nctemp7539=LibePuts(nctemp7533,nctemp7535);
+int nctemp7541= 4;
+int nctemp7543=LibeFlush(nctemp7541);
+int nctemp7545=RunExit();
 return 1;
-}
-float LibeSqrt (float x)
-{
-float f;
-float yest;
-float z;
-int n;
-int nctemp6008 = (x ==0.0);
-if(nctemp6008)
-{
-return 0.0;
-}
-int nctemp6013 = (x < 0.0);
-if(nctemp6013)
-{
-LibeErrno =(-101);
-struct nctempchar1 *nctemp6026;
-static struct nctempchar1 nctemp6027 = {{ 25}, (char*)"Sqrt input argument < 0 \0"};
-nctemp6026=&nctemp6027;
-LibeErrstr=nctemp6026;
-return 0.0;
-}
-float nctemp6033= x;
-float nctemp6035=LibeGetfman2(nctemp6033);
-f =nctemp6035;
-float nctemp6040= x;
-int nctemp6042=LibeGetfexp2(nctemp6040);
-n =nctemp6042;
-float nctemp6055 = 0.59016 * f;
-float nctemp6056 = 0.41731 + nctemp6055;
-yest =nctemp6056;
-float nctemp6069 = f / yest;
-float nctemp6070 = yest + nctemp6069;
-z =nctemp6070;
-float nctemp6082 = 0.25 * z;
-float nctemp6088 = f / z;
-float nctemp6089 = nctemp6082 + nctemp6088;
-yest =nctemp6089;
-int nctemp6093= n;
-int nctemp6095= 2;
-int nctemp6097=LibeMod(nctemp6093,nctemp6095);
-int nctemp6090 = (nctemp6097 !=0);
-if(nctemp6090)
-{
-float nctemp6107 = yest * 0.70710678118654752440;
-yest =nctemp6107;
-int nctemp6116 = n + 1;
-n =nctemp6116;
-}
-float nctemp6118= yest;
-int nctemp6125 = n / 2;
-int nctemp6120= nctemp6125;
-float nctemp6126=LibeFscale2(nctemp6118,nctemp6120);
-return nctemp6126;
-}
-float LibeLn (float x)
-{
-float f;
-int n;
-float z;
-float zn;
-float zd;
-float w;
-float r;
-float xn;
-int nctemp6127 = (x <= 0.0);
-if(nctemp6127)
-{
-LibeErrno =(-101);
-struct nctempchar1 *nctemp6140;
-static struct nctempchar1 nctemp6141 = {{ 23}, (char*)"Ln input argument < 0 \0"};
-nctemp6140=&nctemp6141;
-LibeErrstr=nctemp6140;
-return 3.4028234663852886e+38;
-}
-float nctemp6147= x;
-float nctemp6149=LibeGetfman2(nctemp6147);
-f =nctemp6149;
-float nctemp6154= x;
-int nctemp6156=LibeGetfexp2(nctemp6154);
-n =nctemp6156;
-int nctemp6157 = (f > 0.70710678118654752440);
-if(nctemp6157)
-{
-float nctemp6172 = f - 0.5;
-float nctemp6174 = nctemp6172 - 0.5;
-zn =nctemp6174;
-float nctemp6186 = f * 0.5;
-float nctemp6188 = nctemp6186 + 0.5;
-zd =nctemp6188;
-}
-else{
-float nctemp6197 = f - 0.5;
-zn =nctemp6197;
-float nctemp6209 = zn * 0.5;
-float nctemp6211 = nctemp6209 + 0.5;
-zd =nctemp6211;
-int nctemp6220 = n - 1;
-n =nctemp6220;
-}
-float nctemp6229 = zn / zd;
-z =nctemp6229;
-float nctemp6238 = z * z;
-w =nctemp6238;
-float nctemp6258 = w * (-0.5527074855E+0);
-float nctemp6264 = w + (-0.6632718214E+1);
-float nctemp6265 = nctemp6258 / nctemp6264;
-float nctemp6266 = z * nctemp6265;
-float nctemp6267 = z + nctemp6266;
-r =nctemp6267;
-float nctemp6272=(float)(n);
-xn =nctemp6272;
-float nctemp6285 = xn * (-2.121944400546905827679E-4);
-float nctemp6287 = nctemp6285 + r;
-float nctemp6293 = xn * 0.69335938;
-float nctemp6294 = nctemp6287 + nctemp6293;
-return nctemp6294;
-}
-float LibeExp (float x)
-{
-int n;
-float g;
-float z;
-float p;
-float q;
-float xn;
-float P0;
-float P1;
-float Q1;
-float rval;
-P0 =0.24999999950E+0;
-P1 =0.41602886268E-2;
-Q1 =0.49987178778E-1;
-int nctemp6307 = (x >= LibeLnmax);
-if(nctemp6307)
-{
-LibeErrno =(-102);
-struct nctempchar1 *nctemp6320;
-static struct nctempchar1 nctemp6321 = {{ 25}, (char*)"Overflow in exp function\0"};
-nctemp6320=&nctemp6321;
-LibeErrstr=nctemp6320;
-return 3.4028234663852886e+38;
-}
-int nctemp6323 = (x < LibeLnmin);
-if(nctemp6323)
-{
-LibeErrno =(-102);
-struct nctempchar1 *nctemp6336;
-static struct nctempchar1 nctemp6337 = {{ 26}, (char*)"Underflow in exp function\0"};
-nctemp6336=&nctemp6337;
-LibeErrstr=nctemp6336;
-return 0.0;
-}
-float nctemp6349 = x * 1.4426950408889634073;
-int nctemp6343=(int)(nctemp6349);
-n =nctemp6343;
-float nctemp6354=(float)(n);
-xn =nctemp6354;
-float nctemp6369 = xn * 0.693147180559945309417232;
-float nctemp6370 = x - nctemp6369;
-g =nctemp6370;
-float nctemp6379 = g * g;
-z =nctemp6379;
-float nctemp6394 = P1 * z;
-float nctemp6396 = nctemp6394 + P0;
-float nctemp6398 = nctemp6396 * g;
-p =nctemp6398;
-float nctemp6410 = Q1 * z;
-float nctemp6412 = nctemp6410 + 0.5;
-q =nctemp6412;
-float nctemp6429 = q - p;
-float nctemp6430 = p / nctemp6429;
-float nctemp6431 = 0.5 + nctemp6430;
-rval =nctemp6431;
-float nctemp6433= rval;
-int nctemp6440 = n + 1;
-int nctemp6435= nctemp6440;
-float nctemp6441=LibeFscale2(nctemp6433,nctemp6435);
-return nctemp6441;
-}
-float LibeSincos (float x,float y,float sign)
-{
-int n;
-float xn;
-float f;
-float g;
-float R1;
-float R2;
-float R3;
-float R4;
-float nctemp6445= -0.1666665668E+0;
-R1 =nctemp6445;
-R2 =0.8333025139E-2;
-float nctemp6453= -0.1980741872E-3;
-R3 =nctemp6453;
-R4 =0.2601903036E-5;
-int nctemp6458 = (y > LibeSincosmax);
-if(nctemp6458)
-{
-LibeErrno =(-102);
-struct nctempchar1 *nctemp6471;
-static struct nctempchar1 nctemp6472 = {{ 37}, (char*)"Loss of accuracy in sin/cos function\0"};
-nctemp6471=&nctemp6472;
-LibeErrstr=nctemp6471;
-return 0.0;
-}
-float nctemp6487 = y * 0.31830988618379067154;
-float nctemp6489 = nctemp6487 + 0.5;
-int nctemp6478=(int)(nctemp6489);
-n =nctemp6478;
-float nctemp6494=(float)(n);
-xn =nctemp6494;
-int nctemp6500= n;
-int nctemp6502= 2;
-int nctemp6504=LibeMod(nctemp6500,nctemp6502);
-int nctemp6497 = (nctemp6504 !=0);
-if(nctemp6497)
-{
-float nctemp6509= -sign;
-sign =nctemp6509;
-}
-float nctemp6514= x;
-float nctemp6516=LibeFabs(nctemp6514);
-x =nctemp6516;
-int nctemp6517 = (x !=y);
-if(nctemp6517)
-{
-float nctemp6529 = xn - 0.5;
-xn =nctemp6529;
-}
-float nctemp6537= x;
-float nctemp6539=LibeFabs(nctemp6537);
-float nctemp6545 = xn * 3.1415926535897932384626433832795028841972;
-float nctemp6546 = nctemp6539 - nctemp6545;
-f =nctemp6546;
-float nctemp6550= f;
-float nctemp6552=LibeFabs(nctemp6550);
-int nctemp6547 = (nctemp6552 < LibeSincoslim);
-if(nctemp6547)
-{
-float nctemp6558 = sign * f;
-return nctemp6558;
-}
-float nctemp6567 = f * f;
-g =nctemp6567;
-float nctemp6594 = R4 * g;
-float nctemp6596 = nctemp6594 + R3;
-float nctemp6598 = nctemp6596 * g;
-float nctemp6600 = nctemp6598 + R2;
-float nctemp6602 = nctemp6600 * g;
-float nctemp6604 = nctemp6602 + R1;
-float nctemp6606 = nctemp6604 * g;
-g =nctemp6606;
-float nctemp6619 = f * g;
-float nctemp6620 = f + nctemp6619;
-g =nctemp6620;
-float nctemp6625 = sign * g;
-return nctemp6625;
-}
-float LibeSin (float x)
-{
-int nctemp6626 = (x < 0.0);
-if(nctemp6626)
-{
-float nctemp6631= x;
-float nctemp6634= -x;
-float nctemp6633= nctemp6634;
-float nctemp6636= -1.0;
-float nctemp6635= nctemp6636;
-float nctemp6637=LibeSincos(nctemp6631,nctemp6633,nctemp6635);
-return nctemp6637;
-}
-else{
-float nctemp6639= x;
-float nctemp6641= x;
-float nctemp6643= 1.0;
-float nctemp6645=LibeSincos(nctemp6639,nctemp6641,nctemp6643);
-return nctemp6645;
-}
-}
-float LibeCos (float x)
-{
-float nctemp6647= x;
-float nctemp6653= x;
-float nctemp6655=LibeFabs(nctemp6653);
-float nctemp6657 = nctemp6655 + 1.57079632679489661923132;
-float nctemp6649= nctemp6657;
-float nctemp6658= 1.0;
-float nctemp6660=LibeSincos(nctemp6647,nctemp6649,nctemp6658);
-return nctemp6660;
-}
-float LibeTan (float x)
-{
-float P1;
-float Q1;
-float Q2;
-int n;
-float y;
-float xn;
-float f;
-float xnum;
-float xden;
-float g;
-float nctemp6664= -0.958017723E-1;
-P1 =nctemp6664;
-float nctemp6668= -0.429135777E+0;
-Q1 =nctemp6668;
-Q2 =0.971685835E-2;
-float nctemp6677= x;
-float nctemp6679=LibeFabs(nctemp6677);
-y =nctemp6679;
-int nctemp6680 = (y > LibeSincosmax);
-if(nctemp6680)
-{
-LibeErrno =(-102);
-struct nctempchar1 *nctemp6693;
-static struct nctempchar1 nctemp6694 = {{ 33}, (char*)"Loss of accuracy in tan function\0"};
-nctemp6693=&nctemp6694;
-LibeErrstr=nctemp6693;
-return 0.0;
-}
-float nctemp6706 = x * 0.63661977236758134308;
-int nctemp6700=(int)(nctemp6706);
-n =nctemp6700;
-float nctemp6711=(float)(n);
-xn =nctemp6711;
-float nctemp6726 = xn * 1.57079632679489661923132;
-float nctemp6727 = x - nctemp6726;
-f =nctemp6727;
-float nctemp6731= f;
-float nctemp6733=LibeFabs(nctemp6731);
-int nctemp6728 = (nctemp6733 < LibeSincoslim);
-if(nctemp6728)
-{
-xnum =f;
-xden =1.0;
-}
-else{
-float nctemp6751 = f * f;
-g =nctemp6751;
-float nctemp6766 = P1 * g;
-float nctemp6768 = nctemp6766 * f;
-float nctemp6770 = nctemp6768 + f;
-xnum =nctemp6770;
-float nctemp6791 = Q2 * g;
-float nctemp6793 = nctemp6791 + Q1;
-float nctemp6795 = nctemp6793 * g;
-float nctemp6797 = nctemp6795 + 0.5;
-float nctemp6799 = nctemp6797 + 0.5;
-xden =nctemp6799;
-}
-int nctemp6803= n;
-int nctemp6805= 2;
-int nctemp6807=LibeMod(nctemp6803,nctemp6805);
-int nctemp6800 = (nctemp6807 !=0);
-if(nctemp6800)
-{
-float nctemp6812= -xnum;
-float nctemp6813 = xden / nctemp6812;
-return nctemp6813;
-}
-else{
-float nctemp6818 = xnum / xden;
-return nctemp6818;
-}
-}
-float LibeArcsin (float x)
-{
-float P1;
-float P2;
-float Q0;
-float Q1;
-float y;
-float g;
-float r;
-float res;
-int i;
-P1 =0.933935835E+0;
-float nctemp6826= -0.504400557E+0;
-P2 =nctemp6826;
-Q0 =0.560363004E+1;
-float nctemp6834= -0.554846723E+1;
-Q1 =nctemp6834;
-float nctemp6839= x;
-float nctemp6841=LibeFabs(nctemp6839);
-y =nctemp6841;
-int nctemp6842 = (y > 0.5);
-if(nctemp6842)
-{
-i =1;
-int nctemp6850 = (y > 1.0);
-if(nctemp6850)
-{
-LibeErrno =(-101);
-struct nctempchar1 *nctemp6863;
-static struct nctempchar1 nctemp6864 = {{ 41}, (char*)"Absolute value of argument of arcsin > 1\0"};
-nctemp6863=&nctemp6864;
-LibeErrstr=nctemp6863;
-return 3.4028234663852886e+38;
-}
-float nctemp6877 = 1.0 - y;
-float nctemp6879 = nctemp6877 * 0.5;
-g =nctemp6879;
-float nctemp6884= g;
-float nctemp6886=LibeSqrt(nctemp6884);
-r =nctemp6886;
-float nctemp6890= -r;
-r =nctemp6890;
-float nctemp6899 = r + r;
-y =nctemp6899;
-float nctemp6917 = P2 * g;
-float nctemp6919 = nctemp6917 + P1;
-float nctemp6921 = nctemp6919 * g;
-float nctemp6933 = g + Q1;
-float nctemp6935 = nctemp6933 * g;
-float nctemp6937 = nctemp6935 + Q0;
-float nctemp6938 = nctemp6921 / nctemp6937;
-r =nctemp6938;
-float nctemp6951 = y * r;
-float nctemp6952 = y + nctemp6951;
-res =nctemp6952;
-}
-else{
-i =0;
-int nctemp6957 = (y < LibeSincoslim);
-if(nctemp6957)
-{
-res =y;
-}
-else{
-float nctemp6973 = y * y;
-g =nctemp6973;
-float nctemp6991 = P2 * g;
-float nctemp6993 = nctemp6991 + P1;
-float nctemp6995 = nctemp6993 * g;
-float nctemp7007 = g + Q1;
-float nctemp7009 = nctemp7007 * g;
-float nctemp7011 = nctemp7009 + Q0;
-float nctemp7012 = nctemp6995 / nctemp7011;
-g =nctemp7012;
-float nctemp7025 = y * g;
-float nctemp7026 = y + nctemp7025;
-res =nctemp7026;
-}
-}
-int nctemp7027 = (i ==1);
-if(nctemp7027)
-{
-float nctemp7043 = 0.78539816339744830962 + res;
-float nctemp7044 = 0.78539816339744830962 + nctemp7043;
-res =nctemp7044;
-}
-int nctemp7045 = (x < 0.0);
-if(nctemp7045)
-{
-float nctemp7052= -res;
-res =nctemp7052;
-}
-return res;
-}
-float LibeArccos (float x)
-{
-float P1;
-float P2;
-float Q0;
-float Q1;
-float y;
-float g;
-float r;
-float res;
-int i;
-P1 =0.933935835E+0;
-float nctemp7061= -0.504400557E+0;
-P2 =nctemp7061;
-Q0 =0.560363004E+1;
-float nctemp7069= -0.554846723E+1;
-Q1 =nctemp7069;
-float nctemp7074= x;
-float nctemp7076=LibeFabs(nctemp7074);
-y =nctemp7076;
-int nctemp7077 = (y > 0.5);
-if(nctemp7077)
-{
-i =0;
-int nctemp7085 = (y > 1.0);
-if(nctemp7085)
-{
-LibeErrno =(-101);
-struct nctempchar1 *nctemp7098;
-static struct nctempchar1 nctemp7099 = {{ 50}, (char*)"Absolute value of argument of arccos out of range\0"};
-nctemp7098=&nctemp7099;
-LibeErrstr=nctemp7098;
-return 3.4028234663852886e+38;
-}
-float nctemp7112 = 1.0 - y;
-float nctemp7114 = nctemp7112 * 0.5;
-g =nctemp7114;
-float nctemp7119= g;
-float nctemp7121=LibeSqrt(nctemp7119);
-r =nctemp7121;
-float nctemp7125= -r;
-r =nctemp7125;
-float nctemp7134 = r + r;
-y =nctemp7134;
-float nctemp7152 = P2 * g;
-float nctemp7154 = nctemp7152 + P1;
-float nctemp7156 = nctemp7154 * g;
-float nctemp7168 = g + Q1;
-float nctemp7170 = nctemp7168 * g;
-float nctemp7172 = nctemp7170 + Q0;
-float nctemp7173 = nctemp7156 / nctemp7172;
-r =nctemp7173;
-float nctemp7186 = y * r;
-float nctemp7187 = y + nctemp7186;
-res =nctemp7187;
-}
-else{
-i =1;
-int nctemp7192 = (y < LibeSincoslim);
-if(nctemp7192)
-{
-res =y;
-}
-else{
-float nctemp7208 = y * y;
-g =nctemp7208;
-float nctemp7226 = P2 * g;
-float nctemp7228 = nctemp7226 + P1;
-float nctemp7230 = nctemp7228 * g;
-float nctemp7242 = g + Q1;
-float nctemp7244 = nctemp7242 * g;
-float nctemp7246 = nctemp7244 + Q0;
-float nctemp7247 = nctemp7230 / nctemp7246;
-g =nctemp7247;
-float nctemp7260 = y * g;
-float nctemp7261 = y + nctemp7260;
-res =nctemp7261;
-}
-}
-int nctemp7262 = (x < 0.0);
-if(nctemp7262)
-{
-int nctemp7266 = (i ==0);
-if(nctemp7266)
-{
-float nctemp7282 = 1.57079632679489661923132 + res;
-float nctemp7283 = 1.57079632679489661923132 + nctemp7282;
-res =nctemp7283;
-}
-else{
-float nctemp7296 = 0.78539816339744830962 + res;
-float nctemp7297 = 0.78539816339744830962 + nctemp7296;
-res =nctemp7297;
-}
-}
-else{
-int nctemp7298 = (i ==1);
-if(nctemp7298)
-{
-float nctemp7314 = 0.78539816339744830962 - res;
-float nctemp7315 = 0.78539816339744830962 + nctemp7314;
-res =nctemp7315;
-}
-else{
-float nctemp7319= -res;
-res =nctemp7319;
-}
-}
-return res;
-}
-float LibeAtan (float f)
-{
-float rt32;
-float rt3;
-float a;
-float P0;
-float P1;
-float Q0;
-int n;
-float res;
-float g;
-rt32 =0.26794919243112270647;
-rt3 =1.73205080756887729353;
-float nctemp7337 = rt3 - 1.0;
-a =nctemp7337;
-float nctemp7341= -0.4708325141E+0;
-P0 =nctemp7341;
-float nctemp7345= -0.5090958253E-1;
-P1 =nctemp7345;
-Q0 =0.1412500740E+1;
-int nctemp7350 = (f > 1.0);
-if(nctemp7350)
-{
-float nctemp7362 = 1.0 / f;
-f =nctemp7362;
-n =2;
-}
-else{
-n =0;
-}
-int nctemp7371 = (f > rt32);
-if(nctemp7371)
-{
-float nctemp7395 = a * f;
-float nctemp7397 = nctemp7395 - 0.5;
-float nctemp7399 = nctemp7397 - 0.5;
-float nctemp7401 = nctemp7399 + f;
-float nctemp7407 = rt3 + f;
-float nctemp7408 = nctemp7401 / nctemp7407;
-f =nctemp7408;
-int nctemp7417 = n + 1;
-n =nctemp7417;
-}
-float nctemp7421= f;
-float nctemp7423=LibeFabs(nctemp7421);
-int nctemp7418 = (nctemp7423 < LibeSincoslim);
-if(nctemp7418)
-{
-res =f;
-}
-else{
-float nctemp7437 = f * f;
-g =nctemp7437;
-float nctemp7455 = P1 * g;
-float nctemp7457 = nctemp7455 + P0;
-float nctemp7459 = nctemp7457 * g;
-float nctemp7465 = g + Q0;
-float nctemp7466 = nctemp7459 / nctemp7465;
-res =nctemp7466;
-float nctemp7479 = f * res;
-float nctemp7480 = f + nctemp7479;
-res =nctemp7480;
-}
-int nctemp7481 = (n > 1);
-if(nctemp7481)
-{
-float nctemp7488= -res;
-res =nctemp7488;
-}
-int nctemp7489 = (n ==1);
-if(nctemp7489)
-{
-float nctemp7501 = res + 0.52359877559829887308;
-res =nctemp7501;
-}
-else{
-int nctemp7502 = (n ==2);
-if(nctemp7502)
-{
-float nctemp7514 = res + 1.57079632679489661923132;
-res =nctemp7514;
-}
-else{
-int nctemp7515 = (n ==3);
-if(nctemp7515)
-{
-float nctemp7527 = res + 1.04719755119659774615;
-res =nctemp7527;
-}
-}
-}
-return res;
-}
-float LibeArctan (float x)
-{
-float rval;
-int nctemp7529 = (x < 0.0);
-if(nctemp7529)
-{
-float nctemp7538= -x;
-float nctemp7537= nctemp7538;
-float nctemp7539=LibeAtan(nctemp7537);
-rval =nctemp7539;
-float nctemp7543= -rval;
-rval =nctemp7543;
-}
-else{
-float nctemp7548= x;
-float nctemp7550=LibeAtan(nctemp7548);
-rval =nctemp7550;
-}
-return rval;
-}
-float LibePow (float base,float exponent)
-{
-float nctemp7558= base;
-float nctemp7560=LibeLn(nctemp7558);
-float nctemp7561 = exponent * nctemp7560;
-float nctemp7553= nctemp7561;
-float nctemp7562=LibeExp(nctemp7553);
-return nctemp7562;
-}
-int LibeMod (int n,int r)
-{
-int nctemp7563 = (r ==0);
-if(nctemp7563)
-{
-return n;
-}
-int nctemp7579 = n / r;
-int nctemp7581 = nctemp7579 * r;
-int nctemp7582 = n - nctemp7581;
-return nctemp7582;
 }
 int LibeSystem (nctempchar1 *cmd)
 {
 int rval;
-nctempchar1* nctemp7587= cmd;
-int nctemp7590=RunSystem(nctemp7587);
-rval =nctemp7590;
+nctempchar1* nctemp7551= cmd;
+int nctemp7554=RunSystem(nctemp7551);
+rval =nctemp7554;
 return rval;
+}
+int LibeInit ()
+{
+int rval;
+int nctemp7560=LibeErrinit();
+rval =nctemp7560;
+int nctemp7565=LibeIoinit();
+rval =nctemp7565;
+int nctemp7570=LibeMathinit();
+rval =nctemp7570;
+int nctemp7575= 1024;
+int nctemp7577=LibeSetnb(nctemp7575);
+rval =nctemp7577;
+int nctemp7582= 1024;
+int nctemp7584=LibeSetnt(nctemp7582);
+rval =nctemp7584;
+return rval;
+}
+int LibeExit ()
+{
+int nctemp7587=RunExit();
+return 1;
 }
 }

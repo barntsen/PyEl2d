@@ -1,19 +1,21 @@
-# Differentiator object.
+# Diff contains functions for performing differentiation.
 
 import libe
 
-#diff class
 class diff :
-  int  l;        # Differentiator length
-  int lmax;
-  float [*,*] coeffs; 
-  float [*]   w;# Differentiator weights 
+  int  l;             # Differentiator length
+  int lmax;           # Differentiator max length
+  float [*,*] coeffs; # Differentiator weigts
+                      # where row no l contains the
+                      # weights for a differentiator with
+                      # half-length l. 
+                      # the second index is 
+  float [*]   w;      # Differentiator weights 
 end
 
-#Methods
 struct diff DiffNew( int l) :
 
-  # DiffNew creates a new differentiator object.
+  # DiffNew creates a new differentiator class.
   #
   # Parameters:
   #   l: Length of differentiator l=1,7
@@ -240,8 +242,8 @@ int DiffDxplus(struct diff Diff, float [*,*] A, float [*,*] dA, float dx):
   #
   # Right border 
   #
-  parallel(i=nx-l:nx,j=0:ny)
-  :
+  parallel(i=nx-l:nx,j=0:ny):
+
     sum = 0.0;
     for(k=1; k<l+1; k=k+1):
       sum = -w[k-1]*A[i-(k-1),j] + sum;
@@ -253,6 +255,7 @@ int DiffDxplus(struct diff Diff, float [*,*] A, float [*,*] dA, float dx):
     dA[i,j] = sum/dx;
   end
 end
+
 int DiffDyminus(struct diff Diff, float [*,*] A, float [*,*] dA, float dx):
 
   # Dyminus computes the backward derivative in the y-direction.
