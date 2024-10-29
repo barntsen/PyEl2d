@@ -121,9 +121,8 @@ else :
 
 
 # Create model
-m = model.model(pyel2d,vp,vs,rho,par.dx,par.dt,par.w0,par.nb,par.rheol,
-                Ql=ql,Qm=qm,Qp=qp)
-                      
+m = model.model(pyel2d,vp,vs,rho,par.dx,par.dt,par.w0,par.nb,
+                par.rheol,par.freesurface,Ql=ql,Qm=qm,Qp=qp)
 print("model time  (secs):", time.perf_counter()-t0, flush=True)
 
 # Create fd solver

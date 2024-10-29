@@ -14,7 +14,8 @@ class model :
 
   '''
 
-  def __init__(self,pyac2d,Vp,Vs,Rho,dx,dt,w0,nb=35,rheol=2,**kwargs):
+  def __init__(self,pyac2d,Vp,Vs,Rho,dx,dt,w0,nb=35,rheol=2,
+               Freesurface=1,**kwargs):
     ''' Constructor for the model object.
 
     Arguments: 
@@ -35,7 +36,7 @@ class model :
     All arrays are 2D with the first dimension in the x-direction.
 
     '''
- 
+
     #Convert vp array to eps
     vp=pyeps.Store2df(pyac2d,Vp);
 
@@ -79,20 +80,20 @@ class model :
       Qp[:,:] = 100000.0
 
     #Smooth the Ql model
-    Qlx,Qly=q.sls(Ql,nb,dx,dt,w0)
+    Qlx,Qly=q.sls(Ql,nb,dx,dt,w0,Freesurface)
 
     #Convert Q arrays to eps
     qlx=pyeps.Store2df(pyac2d,Qlx);
     qly=pyeps.Store2df(pyac2d,Qly);
 
     #Smooth the Qm model
-    Qmx,Qmy=q.sls(Qm,nb,dx,dt,w0)
+    Qmx,Qmy=q.sls(Qm,nb,dx,dt,w0,Freesurface)
     #Convert Q arrays to eps
     qmx=pyeps.Store2df(pyac2d,Qmx);
     qmy=pyeps.Store2df(pyac2d,Qmy);
 
     #Smooth the Qp model
-    Qpx,Qpy=q.sls(Qp,nb,dx,dt,w0)
+    Qpx,Qpy=q.sls(Qp,nb,dx,dt,w0,Freesurface)
     #Convert Q arrays to eps
     qpx=pyeps.Store2df(pyac2d,Qpx);
     qpy=pyeps.Store2df(pyac2d,Qpy);
@@ -108,4 +109,5 @@ class model :
     #Create a pointer to the model eps object.
     self.model=pyac2d.ModelNew (vp,vs,rho,qlx,qly,qmx,qmy,qpx,
                                 qpy,c_float(dx),c_float(dt),
-                                c_float(w0),c_int(nb),c_int(rheol))
+                                c_float(w0),c_int(nb),c_int(rheol),
+                                c_int(Freesurface))

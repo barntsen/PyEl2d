@@ -42,10 +42,6 @@ float [*,*] Eta1x;
 float [*,*] Eta1y;
 float [*,*] Eta2x;
 float [*,*] Eta2y;
-#float [*,*] Nu1x;
-#float [*,*] Nu1y;
-#float [*,*] Nu2x;
-#float [*,*] Nu2y;
 float [*] dx;
 float [*] dy;
 float [*] dx1;
@@ -54,6 +50,7 @@ float [*] dx2;
 float [*] dy2;
 float Dx;
 float Dt;
+int   Freesurface;
 end
 
 # Constants
@@ -89,6 +86,35 @@ int Modeld(float [*] d, float dx, int nb):
       d[i] = d[i]*((cast(float,i)*dx)/(cast(float,nb)*dx)
                  *(cast(float,i)*dx)/(cast(float,nb)*dx));
   end
+  # taper right border
+  for(i=n-1-nb; i<n;i=i+1):
+      d[i] = d[i]*((cast(float,n-1-i)*dx)/(cast(float,nb)*dx)
+                 *(cast(float,n-1-i)*dx)/(cast(float,nb)*dx));
+  end
+  return(OK);
+end
+
+int Modele(float [*] d, float dx, int nb):
+
+  # Modele creates a 1D quadratic profile function tapering the 
+  # right border.
+  #
+  # Parameters:
+  #   d  : Input 1D float array
+  #   dx : Grid spacing
+  #   nb : Width of boarder zone
+  #
+  #  Return: 
+  #    OK if no error, ERR in all other cases.
+
+  int i,n;
+
+  n = len(d,0);
+
+  for(i=0; i<n; i=i+1):
+    d[i]=1.0;
+  end
+
   # taper right border
   for(i=n-1-nb; i<n;i=i+1):
       d[i] = d[i]*((cast(float,n-1-i)*dx)/(cast(float,nb)*dx)
@@ -220,7 +246,7 @@ int Modelslscoeffs(float [*,*] Qx,      float [*,*] Qy, float [*,* ] modx,
   float tau0; # Relaxation time corresponding to absorption top
   float tauex,tauey; # Relaxation times in y-direction
   float tausx,tausy; # Relaxation times in x-direction
-  float [*] d1;      # Linear profile functions
+  float [*] d1;      # Quadratic profile function
   float [*] d2;      # Quadratic profile function
   float argx,argy;   # Temp variables
   int i,j;           # Iteration indices
@@ -230,8 +256,15 @@ int Modelslscoeffs(float [*,*] Qx,      float [*,*] Qy, float [*,* ] modx,
 
   d1 = new(float[Nx]);
   d2 = new(float[Ny]);
+
+  if(Model.Freesurface == 1):
+    Modele(d2,Model.Dx,Model.Nb);
+  end
+  else :
+    Modeld(d2,Model.Dx,Model.Nb);
+  end
+
   Modeld(d1,Model.Dx,Model.Nb);
-  Modeld(d2,Model.Dx,Model.Nb);
   Model.dx = d1;
   Model.dy = d2;
 
@@ -277,7 +310,8 @@ end
 struct model Modelsls(float [*,*] vp,  float [*,*] vs, float [*,*] rho, 
              float [*,*] Qlx, float [*,*] Qly,float [*,*] Qmx, float [*,*] Qmy,
              float [*,*] Qpx, float [*,*] Qpy, 
-             float Dx,        float Dt,       float W0,        int Nb):
+             float Dx,        float Dt,       float W0,        
+             int Nb,          int Freesurface) :
 
   # Modelsls creates a new model with Standard Linear Solid Q
  
@@ -302,6 +336,7 @@ struct model Modelsls(float [*,*] vp,  float [*,*] vs, float [*,*] rho,
   float [*,*] wrk, wrk2;
 
   Model= new(struct model);
+  Model.Freesurface = Freesurface;
   Model.Dx = Dx;
   Model.Dt = Dt;
   Model.Nx = len(vp,0);
@@ -316,8 +351,6 @@ struct model Modelsls(float [*,*] vp,  float [*,*] vs, float [*,*] rho,
   Model.Qmy     =  Qmy ; # Mu     Q-values
   Model.Qpx      = Qpx ; # Rho p  Q-values
   Model.Qpy      = Qpy ; # Rho p  Q-values
-#  Model.Qsx      = Qsx ; # Rho s  Q-values 
-#  Model.Qsy      = Qsy ; # Rho s  Q-values 
   Model.Rho     =  new(float [Nx,Ny]) ; # Unrelaxed Lame mu 
   Model.Rhox     =  new(float [Nx,Ny]) ; # Unrelaxed Lame mu 
   Model.Rhoy     =  new(float [Nx,Ny]) ; # Unrelaxed Lame mu 
@@ -467,7 +500,8 @@ end
 struct model ModelNew(float [*,*] vp,  float [*,*] vs, float [*,*] rho, 
             float [*,*] Qlx, float [*,*] Qly,float [*,*] Qmx, float [*,*] Qmy,
             float [*,*] Qpx, float [*,*] Qpy,
-            float Dx,        float Dt,       float W0,       int Nb, int Rheol):
+            float Dx,        float Dt,       float W0,       
+            int Nb,          int Rheol,      int Freesurface):
 
   # ModelNew creates a new model.
   #
@@ -495,7 +529,7 @@ struct model ModelNew(float [*,*] vp,  float [*,*] vs, float [*,*] rho,
 
   if(Rheol == SLS):
     m= Modelsls(vp,vs,rho,Qlx,Qly,Qmx,Qmy,Qpx,Qpy,
-                Dx, Dt, W0, Nb);
+                Dx, Dt, W0, Nb, Freesurface);
   end
   else :
     LibePuts(stderr, "Unknown Q-model\n"); 

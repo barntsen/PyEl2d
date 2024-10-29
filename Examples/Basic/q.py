@@ -60,6 +60,29 @@ def q(taue,taus,w0) :
 
   return(Q)
 
+def e3(d, dx, nb):
+  ''' 
+
+  Arguments :
+    - d  : 1D array
+    - dx : Sampling distance in meters
+    - nb : Length of tapering zone
+
+  e3 creates a 1D quadratic profile function tapering the
+  end of the vector d.
+
+  '''
+  
+  n = len(d)
+  for i in range(0,n): 
+    d[i]=1.0;
+
+  # Right border
+  for i in range(n-1-nb,n) :
+      d[i] = (((n-1-i)*dx)/((nb)*dx))**2
+
+  return (d)
+
 def e2(d, dx, nb):
   ''' 
 
@@ -102,6 +125,7 @@ def e1(d, dx, nb):
 
   for i in range(0,n): 
     d[i]=1.0;
+
   # Left border
   for i in range(0,nb+1) :
     d[i] = ((i*dx)/((nb)*dx))
@@ -112,7 +136,8 @@ def e1(d, dx, nb):
 
   return d
 
-def sls(Q,nb, dx, dt,w0) :
+
+def sls(Q,nb, dx, dt,w0,freesurface=1) :
   ''' Compute tapered Q models for standard linear solid 
 
   Sls will taper the input Q-model in both x- and y-directions. The resulting
@@ -126,12 +151,15 @@ def sls(Q,nb, dx, dt,w0) :
     - dx : Spatial sampling interval
     - dt : Time sampling interval
     - w0 : Peak angular frequency
+    - freesurface : =1 for free surface =0 non-free surface.
 
   Returns :
     - Qx : 2D array with tapered Q-values in the x-direction
     - Qy : 2D array with tapered Q-values in the y-direction
 
   '''
+
+  print("freesurface q: ", freesurface)
 
   #Preliminary we just set a high and
   #Low Q-value within the border (taper) zone.
@@ -147,13 +175,15 @@ def sls(Q,nb, dx, dt,w0) :
   tauey = np.zeros(Ny)
   tausx = np.zeros(Nx)
   tausy = np.zeros(Ny)
-  d1    = np.zeros(Nx)
   d2x   = np.zeros(Nx)
-  d2    = np.zeros(Ny)
+  d2y   = np.zeros(Ny)
 
-  d1 = e2(d1, dx, nb)
+  if(freesurface ==1):
+    d2y = e3(d2y, dx, nb)
+  else :
+    d2y = e2(d2y, dx, nb)
+
   d2x = e2(d2x, dx, nb)
-  d2 = e2(d2, dx, nb)
   tau0 = 1.0/w0         # Relaxation time corresponding to absorption top
 
   #Compute relaxation times corresponding to Qmin
@@ -177,9 +207,9 @@ def sls(Q,nb, dx, dt,w0) :
 
   for i in range(0,Ny):
     # Quadratic interpolation of taue and taus in y-dir
-    tauey[i] = tauemin + (tauemax-tauemin)*d2[i];
+    tauey[i] = tauemin + (tauemax-tauemin)*d2y[i];
     tauey[i] = 1.0/tauey[i]
-    tausy[i] = tausmin + (tausmax-tausmin)*d2[i];
+    tausy[i] = tausmin + (tausmax-tausmin)*d2y[i];
     tausy[i] = 1.0/tausy[i]
 
   Qx = np.zeros((Nx,Ny))
@@ -200,11 +230,6 @@ def main() :
   nb=5
   dx=10
   d=np.zeros(Nx)
-  e1(d,dx,nb)
-  print("e1 : ",d)
-  e2(d,dx,nb)
-  print("e2 : ",d)
-  
   Nx = 251
   Ny = 251 
   nb=35
@@ -213,7 +238,8 @@ def main() :
   w0=25.0*2.0*3.14159
   dt = 0.001
   Q  = np.zeros((Nx,Ny))
-  Qx,Qy=sls(Q,nb, dx,dt, w0)
+  freesurface=1
+  Qx,Qy=sls(Q,nb, dx,dt, w0,freesurface)
 
 # Plot results
   pl.figure()

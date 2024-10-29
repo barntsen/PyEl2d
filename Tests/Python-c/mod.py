@@ -23,6 +23,7 @@ resamp  = 1          #Resampling factor (relative to no of timesteps) for data
 sresamp = 10         #Resampling factor (relative to timesteps)for snapshots
 nb      = 35         #No of PML boundary points
 l       = 6          #Length of differentiator
+freesurface = 0      # =1: Use freesurface =0: No free surface
 fvp     = "vp.bin"   #Vp file name
 fvs     = "vs.bin"   #Vp file name
 frho    = "rho.bin"  #Rho file name

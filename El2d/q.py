@@ -137,7 +137,7 @@ def e1(d, dx, nb):
   return d
 
 
-def sls(Q,nb, dx, dt,w0,freesurface) :
+def sls(Q,nb, dx, dt,w0,freesurface=1) :
   ''' Compute tapered Q models for standard linear solid 
 
   Sls will taper the input Q-model in both x- and y-directions. The resulting
@@ -177,11 +177,11 @@ def sls(Q,nb, dx, dt,w0,freesurface) :
   d2y   = np.zeros(Ny)
 
   if(freesurface ==1):
-    d2x = e3(d2x, dx, nb)
+    d2y = e3(d2y, dx, nb)
   else :
-    d2x = e2(d2x, dx, nb)
+    d2y = e2(d2y, dx, nb)
 
-  d2y = e2(d2y, dx, nb)
+  d2x = e2(d2x, dx, nb)
   tau0 = 1.0/w0         # Relaxation time corresponding to absorption top
 
   #Compute relaxation times corresponding to Qmin
