@@ -11,7 +11,7 @@ transp n1=174 < marmousi_II_marine.rho >rho.bin
 
 #Create wavelet
 nt=4001 #No of samples
-ricker -nt $nt -f0 10.0 -t0 0.200 -dt 0.0010 src.bin 
+ricker -nt $nt -f0 15.0 -t0 0.200 -dt 0.0010 src.bin 
 graph -noshow -o src.pdf -n1 4001 src.bin
 
 n1=500

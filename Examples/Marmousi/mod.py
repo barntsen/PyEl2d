@@ -23,6 +23,7 @@ resamp  = 1          #Resampling factor (relative to no of timesteps) for data
 sresamp = 10         #Resampling factor (relative to timesteps)for snapshots
 nb      = 35         #No of PML boundary points
 l       = 6          #Length of differentiator
+freesurface = 1
 fvp     = "vp.bin"   #Vp file name
 fvs     = "vs.bin"   #Vp file name
 frho    = "rho.bin"  #Rho file name
@@ -42,7 +43,7 @@ fqm      = ""        # Qm file name (default Qm=100000)
 sx       = np.zeros(1) #Source x-position
 sy       = np.zeros(1) #Source y-position
 sx[0]    = nx/2 
-sy[0]    = 2 
+sy[0]    = 1 
 
 #Source flags 
 srcflags = np.zeros(4)
@@ -57,7 +58,7 @@ rx=np.zeros((nr))
 ry=np.zeros((nr))
 for i in range(0,nr):
   rx[i] = i
-  ry[i] = nb+5
+  ry[i] = 2
 
 #Snapshost (0=flag not set, 1=flag set)
 snpflags = np.zeros(4)

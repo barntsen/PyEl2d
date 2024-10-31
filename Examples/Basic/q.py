@@ -159,8 +159,6 @@ def sls(Q,nb, dx, dt,w0,freesurface=1) :
 
   '''
 
-  print("freesurface q: ", freesurface)
-
   #Preliminary we just set a high and
   #Low Q-value within the border (taper) zone.
   

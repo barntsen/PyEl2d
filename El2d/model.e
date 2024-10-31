@@ -8,49 +8,45 @@ class model :
   float W0;
   float [*,*] Qlx;
   float [*,*] Qly;
-float [*,*] Qmx;
-float [*,*] Qmy;
-float [*,*] Qpx;
-float [*,*] Qpy;
-#float [*,*] Qsx;
-#float [*,*] Qsy;
-float [*,*] Lambda;
-float [*,*] Mu;
-float [*,*] Muxy;
-float [*,*] Dmuxyx;
-float [*,*] Dmuxyy;
-float [*,*] Dlambdax;
-float [*,*] Dlambday;
-float [*,*] Dmux;
-float [*,*] Dmuy;
-float [*,*] Drhopx;
-float [*,*] Drhopy;
-#float [*,*] Drhosx;
-#float [*,*] Drhosy;
-float [*,*] Rho;
-float [*,*] Rhox;
-float [*,*] Rhoy;
-float [*,*] Alpha1x;
-float [*,*] Alpha1y;
-float [*,*] Alpha2x;
-float [*,*] Alpha2y;
-float [*,*] Beta1x;
-float [*,*] Beta2x;
-float [*,*] Beta1y;
-float [*,*] Beta2y;
-float [*,*] Eta1x;
-float [*,*] Eta1y;
-float [*,*] Eta2x;
-float [*,*] Eta2y;
-float [*] dx;
-float [*] dy;
-float [*] dx1;
-float [*] dy1;
-float [*] dx2;
-float [*] dy2;
-float Dx;
-float Dt;
-int   Freesurface;
+  float [*,*] Qmx;
+  float [*,*] Qmy;
+  float [*,*] Qpx;
+  float [*,*] Qpy;
+  float [*,*] Lambda;
+  float [*,*] Mu;
+  float [*,*] Muxy;
+  float [*,*] Dmuxyx;
+  float [*,*] Dmuxyy;
+  float [*,*] Dlambdax;
+  float [*,*] Dlambday;
+  float [*,*] Dmux;
+  float [*,*] Dmuy;
+  float [*,*] Drhopx;
+  float [*,*] Drhopy;
+  float [*,*] Rho;
+  float [*,*] Rhox;
+  float [*,*] Rhoy;
+  float [*,*] Alpha1x;
+  float [*,*] Alpha1y;
+  float [*,*] Alpha2x;
+  float [*,*] Alpha2y;
+  float [*,*] Beta1x;
+  float [*,*] Beta2x;
+  float [*,*] Beta1y;
+  float [*,*] Beta2y;
+  float [*,*] Eta1x;
+  float [*,*] Eta1y;
+  float [*,*] Eta2x;
+  float [*,*] Eta2y;
+  float [*] dx;
+  float [*] dy;
+  float [*] dx1;
+  float [*] dy1;
+  float [*] dx2;
+  float [*] dy2;
+  float Dx;
+  float Dt;
+  int   Freesurface;
 end
 
 # Constants
@@ -386,17 +382,20 @@ struct model Modelsls(float [*,*] vp,  float [*,*] vs, float [*,*] rho,
   Model.Eta1y   =  new(float [Nx,Ny]);
   Model.Eta2x   =  new(float [Nx,Ny]);
   Model.Eta2y   =  new(float [Nx,Ny]);
-#  Model.Nu1x   =  new(float [Nx,Ny]);
-#  Model.Nu1y   =  new(float [Nx,Ny]);
-#  Model.Nu2x   =  new(float [Nx,Ny]);
-#  Model.Nu2y   =  new(float [Nx,Ny]);
 
   # Compute Lame parameters and inverse density
   for(j=0; j<Ny;j=j+1):
     for(i=0; i<Nx;i=i+1):
       Model.Rho[i,j]   = 1.0/rho[i,j];
       Model.Mu[i,j]       = rho[i,j]*vs[i,j]*vs[i,j]; 
+      if(Freesurface == 1 && j==0):
+        Model.Mu[i,j]       = 0.5*rho[i,j]*vs[i,j]*vs[i,j]; 
+      end
       Model.Lambda[i,j]   = rho[i,j]*(vp[i,j]*vp[i,j]-2.0*vs[i,j]*vs[i,j]);
+      if(Freesurface == 1 && j==0) :
+        Model.Lambda[i,j]   = 0.0;
+      end
+
       Model.Alpha1x[i,j]  = 0.0;
       Model.Alpha1y[i,j]  = 0.0;
       Model.Alpha2x[i,j]  = 0.0;
@@ -430,9 +429,6 @@ struct model Modelsls(float [*,*] vp,  float [*,*] vs, float [*,*] rho,
                  Model.Beta2x, Model.Beta2y, Model);
   Modelslscoeffs(Model.Qpx,  Model.Qpy,Model.Drhopx,Model.Drhopy,
                  Model.Eta1x,Model.Eta1y, Model.Eta2x, Model.Eta2y, Model);
-#  Modelslscoeffs(Model.Qsx, Model.Qsy,Model.Drhosx,Model.Drhosy,
-#                Model.Nu1x, Model.Nu1y, 
-#                Model.Nu2x, Model.Nu2y, Model);
 
 # Stagger the density
   Modelstaggerx(Model.Rho, Model.Rhox);
