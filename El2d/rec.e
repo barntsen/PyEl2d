@@ -43,8 +43,6 @@ struct rec RecNew(int [*] rx, int [*] ry, int nt,
   Rec.ry = ry;
   Rec.nt = nt;
   Rec.p = new(float [Rec.nr,Rec.nt]);
-  Rec.sxx = new(float [Rec.nr,Rec.nt]);
-  Rec.syy = new(float [Rec.nr,Rec.nt]);
   Rec.vx = new(float [Rec.nr,Rec.nt]);
   Rec.vy = new(float [Rec.nr,Rec.nt]);
   Rec.resamp = resamp;
@@ -53,8 +51,9 @@ struct rec RecNew(int [*] rx, int [*] ry, int nt,
   return(Rec);
 end  
 
-int RecReceiver(struct rec Rec,int it, float [*,*] sxx, float [*,*]syy,
-                                       float [*,*] vx,  float [*,*] vy) :
+int RecReceiver(struct rec Rec,int it, float [*,*]p, float [*,*] vx,
+                                       float [*,*] vy) :
+                                       
   # RecReciver records data at the receiver
   #
   # Arguments: 
@@ -76,8 +75,7 @@ int RecReceiver(struct rec Rec,int it, float [*,*] sxx, float [*,*]syy,
     for (pos=0;pos<Rec.nr; pos=pos+1):  
       ixr=Rec.rx[pos];
       iyr=Rec.ry[pos];
-      Rec.sxx[pos,Rec.pit] = sxx[ixr,iyr];
-      Rec.syy[pos,Rec.pit] = syy[ixr,iyr];
+      Rec.p[pos,Rec.pit] =  p[ixr,iyr];
       Rec.vx[pos,Rec.pit] = vx[ixr,iyr];
       Rec.vy[pos,Rec.pit] = vy[ixr,iyr];
     end 
@@ -92,23 +90,19 @@ float [*,*] RecGetrec(struct rec Rec, int data):
   #
   # Arguments: 
   #  Rec:    : Receiver object
-  #  data    : =0 for sigmaxx stress xx comp.
-  #  data    : =1 for sigmayy stress yy comp.
+  #  data    : =0 for  p
   #  data    : =2 for vx velocity particle velocity x-comp.
   #  data    : =3 for vy velocity particle velocity y-comp.
   #
   # Returns  : 2D data array
  
   if(data == 0):
-    return(Rec.sxx);
+    return(Rec.p);
   end
   else if(data == 1):
-    return(Rec.syy);
-  end
-  else if(data == 2):
     return(Rec.vx);
   end
-  else if(data == 3):
+  else if(data == 2):
     return(Rec.vy);
   end
 end

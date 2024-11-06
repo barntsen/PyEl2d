@@ -82,11 +82,9 @@ if (par.srcflags[3] == 1) :
 # Create sources 
 src=src.src(pyel2d,par.sx,par.sy,par.nt,par.dt,
             sfx=sfx,sfy=sfy,sqxx=sqxx,sqyy=sqyy)
-print("Sources!")
 
 # Create receivers 
 rec=rec.rec(pyel2d,par.rx,par.ry,par.nt,par.resamp)
-print("Receivers!")
 
 #Read the vp model
 fd=ba.bin(par.fvp,'r')
@@ -123,7 +121,6 @@ else :
 
 
 # Create model
-print("Model?")
 m = model.model(pyel2d,vp,vs,rho,par.dx,par.dt,par.w0,par.nb,
                 par.rheol,par.freesurface,Ql=ql,Qm=qm,Qp=qp)
 print("model time  (secs):", time.perf_counter()-t0, flush=True)

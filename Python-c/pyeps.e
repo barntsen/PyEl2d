@@ -2,8 +2,7 @@
 import libe                 # Library interface
 
 #Empty main program (Necessary for linking)
-int Main(struct MainArg [*] MainArgs)
-:
+int Main(struct MainArg [*] MainArgs) :
   return(1);
 end
 
@@ -37,19 +36,24 @@ int PyepsDel1ds(char [*] arr):
 
 end
 
-int PyepsSet1ds(char [*] arr, int i, char val):
+int PyepsCopy1ds(char [*] arr, char [*] out):
 
-  # PepsSet1ds copies string into buffer
+  # PepsCopy1ds makes a copy of a 1d char array
   #
   # Parameter:
-  #  char [*] arr : String buffer
-  #  int i        : Index of string character
-  #  char val     : String character
-  #
-  # Returns: integer equal to 1
-     
-  arr[i] = val;
+  #   arr : Input array
+  #   out : Output array
+  # Returns: 
+  #  integer equal to 1
+  int nx;
+  int i;
+
+  nx=len(out,0);
+  for(i=0; i< nx; i=i+1):
+   out[i] = arr[i];
+  end
   return(1);
+     
 end
 
 int [*] PyepsCre1di(int Nx):
@@ -80,18 +84,25 @@ int PyepsDel1di(int [*] arr):
    return(1);
 end
 
-# PepsSet1di copies integer into array
-int PyepsSet1di(int [*] arr, int i, int val):
+int PyepsCopy1di(int [*] arr, int [*] out):
    
+  # PepsCopy1di makes a copy of a 1D array
   # Parameter:
-  #  int [*] arr  : Integer array
-  #  int i        : Index of integer in arr
-  #  val val      : Integer value 
+  #   arr : Input array
+  #   out : Output array
   #
-  # Returns: integer equal to 1
-     
-  arr[i] = val;
+  # Returns: 
+  #   integer equal to 1
+  int nx;
+  int i;
+
+  nx=len(out,0);
+  for(i=0; i< nx; i=i+1):
+   out[i] = arr[i];
+  end
+  
   return(1);
+     
 end
 
 float [*] PyepsCre1df(int Nx):
@@ -121,24 +132,29 @@ int PyepsDel1df(float [*] arr):
    return(1);
 end
 
-int PyepsSet1df(float [*] arr, int i, float val):
+int PyepsCopy1df(float [*] arr, float [*] out):
 
-  # PepsSet1df copies float into array
+  # PepsCopy1df makes a copy of a 1D float array
   #
   # Parameter:
-  #  float [*] arr: Float array
-  #  int i        : Index of integer in arr
-  #  val val      : Integer value 
-  #
-  # Returns: integer equal to 1
-     
-  arr[i] = val;
+  #   arr: Input array
+  #   out: Output array
+  # Returns
+  #   integer equal to 1 on success
+  int nx;
+  int i;
+
+  nx=len(out,0);
+  for(i=0; i< nx; i=i+1):
+   out[i] = arr[i];
+  end
+  
   return(1);
 end
 
 float [*,*] PyepsCre2df(int Nx, int Ny):
 
-  # PepsCre1di creates float 2D array
+  # PepsCre2df creates float 2D array
   #
   # Parameter:
   #  int Nx      : No of floats in array 1st dim
@@ -164,32 +180,28 @@ int PyepsDel2df(float [*,*] arr):
    return(1);
 end
 
-int PyepsSet2df(float [*,*] arr, int i, int j, float val):
+int PyepsCopy2df(float [*,*] arr, float [*,*] out):
 
-  # PepsSet2df copies float into array
+  # PepsCopy2df makes a copy of a 2D float array
   #
   # Parameter:
-  #  float [*,*] arr: Float array
-  #  int i        : Index of integer in arr 1st dim
-  #  int j        : Index of integer in arr 2nd dim
-  #  val val      : Integer value 
+  #  arr: Input array
+  #  out: Output array 
   #
-  # Returns: integer equal to 1
+  # Returns: 
+  # integer equal to 1 on success
      
-  arr[i,j] = val;
+  int nx,ny;
+  int i,j;
+
+  nx=len(out,0);
+  ny=len(out,1);
+  for(j=0; j< ny; j=j+1):
+    for(i=0; i< nx; i=i+1):
+      out[i,j] = arr[i,j];
+    end
+  end
+  
   return(1);
 end
 
-float PyepsGet2df(float [*,*] arr, int i, int j):
-
-# PepsGet2df copies float from array
-   
-  # Parameter:
-  #  float [*,*] arr: Float array
-  #  int i        : Index of integer in arr 1st dim
-  #  int j        : Index of integer in arr 2nd dim
-  #
-  # Returns: arr[i,j]
-     
-  return(arr[i,j]);
-end

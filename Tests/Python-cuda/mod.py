@@ -27,6 +27,7 @@ fvp     = "vp.bin"   #Vp file name
 fvs     = "vs.bin"   #Vp file name
 frho    = "rho.bin"  #Rho file name
 fsrc    = "src.bin"  # Wavelet file name
+freesurface = 0
 
 #Q-models
 MAXWELL = 1          #Not implemented

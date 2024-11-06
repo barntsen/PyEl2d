@@ -297,7 +297,7 @@ nctemp47=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
 nctemp47->d[0]=Rec->nr;
 nctemp47->d[1]=Rec->nt;
 nctemp47->a=(float *)RunMalloc(sizeof(float)*nctemp48);
-Rec->sxx=nctemp47;
+Rec->vx=nctemp47;
 int nctemp59=Rec->nr;
 nctemp59=nctemp59*Rec->nt;
 nctempfloat2 *nctemp58;
@@ -305,108 +305,80 @@ nctemp58=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
 nctemp58->d[0]=Rec->nr;
 nctemp58->d[1]=Rec->nt;
 nctemp58->a=(float *)RunMalloc(sizeof(float)*nctemp59);
-Rec->syy=nctemp58;
-int nctemp70=Rec->nr;
-nctemp70=nctemp70*Rec->nt;
-nctempfloat2 *nctemp69;
-nctemp69=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp69->d[0]=Rec->nr;
-nctemp69->d[1]=Rec->nt;
-nctemp69->a=(float *)RunMalloc(sizeof(float)*nctemp70);
-Rec->vx=nctemp69;
-int nctemp81=Rec->nr;
-nctemp81=nctemp81*Rec->nt;
-nctempfloat2 *nctemp80;
-nctemp80=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp80->d[0]=Rec->nr;
-nctemp80->d[1]=Rec->nt;
-nctemp80->a=(float *)RunMalloc(sizeof(float)*nctemp81);
-Rec->vy=nctemp80;
+Rec->vy=nctemp58;
 Rec->resamp =resamp;
 Rec->pit =0;
 return Rec;
 }
-int RecReceiver (struct rec* Rec,int it,nctempfloat2 *sxx,nctempfloat2 *syy,nctempfloat2 *vx,nctempfloat2 *vy)
+int RecReceiver (struct rec* Rec,int it,nctempfloat2 *p,nctempfloat2 *vx,nctempfloat2 *vy)
 {
 int pos;
 int ixr;
 int iyr;
-int nctemp103 = Rec->nt - 1;
-int nctemp95 = (Rec->pit > nctemp103);
-if(nctemp95)
+int nctemp81 = Rec->nt - 1;
+int nctemp73 = (Rec->pit > nctemp81);
+if(nctemp73)
 {
 return 0;
 }
-int nctemp108= it;
-int nctemp110= Rec->resamp;
-int nctemp112=LibeMod(nctemp108,nctemp110);
-int nctemp105 = (nctemp112 ==0);
-if(nctemp105)
+int nctemp86= it;
+int nctemp88= Rec->resamp;
+int nctemp90=LibeMod(nctemp86,nctemp88);
+int nctemp83 = (nctemp90 ==0);
+if(nctemp83)
 {
 pos =0;
-int nctemp118 = (pos < Rec->nr);
-while(nctemp118){
+int nctemp96 = (pos < Rec->nr);
+while(nctemp96){
 {
-int nctemp126=pos;
-ixr =Rec->rx->a[nctemp126];
-int nctemp132=pos;
-iyr =Rec->ry->a[nctemp132];
-int nctemp137=pos;
-nctemp137=Rec->pit*Rec->sxx->d[0]+nctemp137;
-int nctemp141=ixr;
-nctemp141=iyr*sxx->d[0]+nctemp141;
-Rec->sxx->a[nctemp137] =sxx->a[nctemp141];
-int nctemp147=pos;
-nctemp147=Rec->pit*Rec->syy->d[0]+nctemp147;
-int nctemp151=ixr;
-nctemp151=iyr*syy->d[0]+nctemp151;
-Rec->syy->a[nctemp147] =syy->a[nctemp151];
-int nctemp157=pos;
-nctemp157=Rec->pit*Rec->vx->d[0]+nctemp157;
-int nctemp161=ixr;
-nctemp161=iyr*vx->d[0]+nctemp161;
-Rec->vx->a[nctemp157] =vx->a[nctemp161];
-int nctemp167=pos;
-nctemp167=Rec->pit*Rec->vy->d[0]+nctemp167;
-int nctemp171=ixr;
-nctemp171=iyr*vy->d[0]+nctemp171;
-Rec->vy->a[nctemp167] =vy->a[nctemp171];
+int nctemp104=pos;
+ixr =Rec->rx->a[nctemp104];
+int nctemp110=pos;
+iyr =Rec->ry->a[nctemp110];
+int nctemp115=pos;
+nctemp115=Rec->pit*Rec->p->d[0]+nctemp115;
+int nctemp119=ixr;
+nctemp119=iyr*p->d[0]+nctemp119;
+Rec->p->a[nctemp115] =p->a[nctemp119];
+int nctemp125=pos;
+nctemp125=Rec->pit*Rec->vx->d[0]+nctemp125;
+int nctemp129=ixr;
+nctemp129=iyr*vx->d[0]+nctemp129;
+Rec->vx->a[nctemp125] =vx->a[nctemp129];
+int nctemp135=pos;
+nctemp135=Rec->pit*Rec->vy->d[0]+nctemp135;
+int nctemp139=ixr;
+nctemp139=iyr*vy->d[0]+nctemp139;
+Rec->vy->a[nctemp135] =vy->a[nctemp139];
 }
-int nctemp182 = pos + 1;
-pos =nctemp182;
-int nctemp183 = (pos < Rec->nr);
-nctemp118=nctemp183;
+int nctemp150 = pos + 1;
+pos =nctemp150;
+int nctemp151 = (pos < Rec->nr);
+nctemp96=nctemp151;
 }
-int nctemp195 = Rec->pit + 1;
-Rec->pit =nctemp195;
+int nctemp163 = Rec->pit + 1;
+Rec->pit =nctemp163;
 }
 return 1;
 }
 nctempfloat2 * RecGetrec (struct rec* Rec,int data)
 {
-int nctemp197 = (data ==0);
-if(nctemp197)
+int nctemp165 = (data ==0);
+if(nctemp165)
 {
-return Rec->sxx;
+return Rec->p;
 }
 else{
-int nctemp203 = (data ==1);
-if(nctemp203)
-{
-return Rec->syy;
-}
-else{
-int nctemp209 = (data ==2);
-if(nctemp209)
+int nctemp171 = (data ==1);
+if(nctemp171)
 {
 return Rec->vx;
 }
 else{
-int nctemp215 = (data ==3);
-if(nctemp215)
+int nctemp177 = (data ==2);
+if(nctemp177)
 {
 return Rec->vy;
-}
 }
 }
 }

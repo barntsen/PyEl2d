@@ -61,8 +61,9 @@ for i in range(0,nr):
   ry[i] = nb+5
 
 #Snapshost (0=flag not set, 1=flag set)
-snpflags = np.zeros(4)
-#snpflags[0] = 1 #Store sigmaxx on file "snp-sxx.bin"
-#snpflags[1] = 1 #Store sigmayy on file "snp-syy.bin"
-snpflags[2] = 1 #Store vx      on file "snp-vx.bin"
-#snpflags[3] = 1 #Store vy      on file "snp-vy.bin"
+snpflags = np.zeros(5)
+#snpflags[0] = 1 #Store p on file "snp-p.bin"
+#snpflags[1] =  1 #Store vx     on file "snp-vx.bin"
+#snpflags[2] = 1 #Store vy      on file "snp-vy.bin"
+snpflags[3] = 1 #Store e       on file "snp-e.bin"
+snpflags[4] = 1 #Store exy     on file "snp-exy.bin"
