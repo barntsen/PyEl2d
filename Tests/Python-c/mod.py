@@ -40,13 +40,13 @@ fql      = ""        # Ql file name (default Ql=100000)
 fqm      = ""        # Qm file name (default Qm=100000)
 
 #Source position
-sx       = np.zeros(1) #Source x-position
-sy       = np.zeros(1) #Source y-position
+sx       = np.zeros(1, dtype=np.int32) #Source x-position
+sy       = np.zeros(1, dtype=np.int32) #Source y-position
 sx[0]    = nx/2 
 sy[0]    = ny/2
 
 #Source flags 
-srcflags = np.zeros(4)
+srcflags = np.zeros(4, dtype=np.int32)
 #srcflags[0] = 1   #Set diagonal stress source
 #srcflags[1] = 1   #Set diagonal stress source
 srcflags[2] = 1    #Set horisontal force source
@@ -54,16 +54,16 @@ srcflags[2] = 1    #Set horisontal force source
 
 #Receiver positions
 nr = nx
-rx=np.zeros((nr))
-ry=np.zeros((nr))
+rx=np.zeros((nr), dtype=np.int32)
+ry=np.zeros((nr), dtype=np.int32)
 for i in range(0,nr):
   rx[i] = i
   ry[i] = nb+5
-
+ 
 #Snapshost (0=flag not set, 1=flag set)
-snpflags = np.zeros(5)
-#snpflags[0] = 1 #Store p on file "snp-p.bin"
+snpflags = np.zeros(5, dtype=np.int32)
+snpflags[0] = 1 #Store p on file "snp-p.bin"
 #snpflags[1] =  1 #Store vx     on file "snp-vx.bin"
 #snpflags[2] = 1 #Store vy      on file "snp-vy.bin"
-snpflags[3] = 1 #Store e       on file "snp-e.bin"
-snpflags[4] = 1 #Store exy     on file "snp-exy.bin"
+#snpflags[3] = 1 #Store e       on file "snp-e.bin"
+#snpflags[4] = 1 #Store exy     on file "snp-exy.bin"

@@ -49,6 +49,7 @@ class el2d El2dNew(struct model Model, int sresamp, int [*] snpflags):
   #               snpflags[1]=1 # Record vx snapshots.
   #               snpflags[2]=1 # Record vy snapshots.
   #               snpflags[3]=1 # Record e snapshots.
+  #               snpflags[4]=1 # Record exy snapshots.
   #               A value of 0 means corresponding snapshot
   #               is NOT recorded.
   #
@@ -109,19 +110,23 @@ class el2d El2dNew(struct model Model, int sresamp, int [*] snpflags):
   end
 
   # Open snapshot files
+  LibePs("snap 0: "); LibePi(El2d.snpflags[0]); LibePs("\n");
   if(El2d.snpflags[0] == 1):
     El2d.fdp = LibeOpen("snp-p.bin","w");
   end
+  LibePs("snap 1: "); LibePi(El2d.snpflags[1]); LibePs("\n");
   if(El2d.snpflags[1] == 1):
     El2d.fdvx = LibeOpen("snp-vx.bin","w");
   end
+  LibePs("snap 2: "); LibePi(El2d.snpflags[2]); LibePs("\n");
   if(El2d.snpflags[2] == 1):
     El2d.fdvy = LibeOpen("snp-vy.bin","w");
   end
+  LibePs("snap 3: "); LibePi(El2d.snpflags[3]); LibePs("\n");
   if(El2d.snpflags[3] == 1):
     El2d.fde = LibeOpen("snp-e.bin","w");
   end
-
+  LibePs("snap 4: "); LibePi(El2d.snpflags[4]); LibePs("\n");
   if(El2d.snpflags[4] == 1):
     El2d.fdexy = LibeOpen("snp-exy.bin","w");
   end

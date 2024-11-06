@@ -35,8 +35,8 @@ def taues (tau0,Q) :
   Nx = Q.shape[0]
   Ny = Q.shape[1]
 
-  taue=np.zeros((Nx,Ny))
-  taus=np.zeros((Nx,Ny))
+  taue=np.zeros((Nx,Ny), dtype=np.float32)
+  taus=np.zeros((Nx,Ny), dtype=np.float32)
   taue = (tau0/Q)*(np.sqrt(Q*Q+1.0)+1.0);
   taus = (tau0/Q)*(np.sqrt(Q*Q+1.0)-1.0);
 
@@ -167,14 +167,14 @@ def sls(Q,nb, dx, dt,w0,freesurface=1) :
 
   Nx = Q.shape[0]
   Ny = Q.shape[1]
-  Qx = np.zeros((Nx,Ny))
-  Qy = np.zeros((Nx,Ny))
-  tauex = np.zeros(Nx)
-  tauey = np.zeros(Ny)
-  tausx = np.zeros(Nx)
-  tausy = np.zeros(Ny)
-  d2x   = np.zeros(Nx)
-  d2y   = np.zeros(Ny)
+  Qx = np.zeros((Nx,Ny), dtype=np.float32)
+  Qy = np.zeros((Nx,Ny), dtype=np.float32)
+  tauex = np.zeros(Nx, dtype=np.float32)
+  tauey = np.zeros(Ny, dtype=np.float32)
+  tausx = np.zeros(Nx, dtype=np.float32)
+  tausy = np.zeros(Ny, dtype=np.float32)
+  d2x   = np.zeros(Nx, dtype=np.float32)
+  d2y   = np.zeros(Ny, dtype=np.float32)
 
   if(freesurface ==1):
     d2y = e3(d2y, dx, nb)
@@ -210,8 +210,8 @@ def sls(Q,nb, dx, dt,w0,freesurface=1) :
     tausy[i] = tausmin + (tausmax-tausmin)*d2y[i];
     tausy[i] = 1.0/tausy[i]
 
-  Qx = np.zeros((Nx,Ny))
-  Qy = np.zeros((Nx,Ny))
+  Qx = np.zeros((Nx,Ny), dtype=np.float32)
+  Qy = np.zeros((Nx,Ny), dtype=np.float32)
 
   for j in range(0,Ny):
     for i in range(0,Nx) :
@@ -227,7 +227,7 @@ def main() :
   Nx=20
   nb=5
   dx=10
-  d=np.zeros(Nx)
+  d=np.zeros(Nx, dtype=np.float32)
   Nx = 251
   Ny = 251 
   nb=35
@@ -235,7 +235,7 @@ def main() :
   
   w0=25.0*2.0*3.14159
   dt = 0.001
-  Q  = np.zeros((Nx,Ny))
+  Q  = np.zeros((Nx,Ny), dtype=np.float32)
   freesurface=1
   Qx,Qy=sls(Q,nb, dx,dt, w0,freesurface)
 

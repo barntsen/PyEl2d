@@ -41,7 +41,7 @@ def Store2df(pyeps,arr):
 
   # Set the argument and return type of the memory allocator
   pyeps.PyepsCre2df.argtypes=[c_int,c_int]
-  pyeps.PyepsCre2df.restype=POINTER(epsarray)
+  pyeps.PyepsCre2df.restype=c_void_p
   nx = arr.shape[0]
   ny = arr.shape[1]
 
@@ -57,7 +57,7 @@ def Store2df(pyeps,arr):
   epsarrp = pointer(epsarr)
 
   # Set the argument types of Copy2df
-  pyeps.PyepsCopy2df.argtypes=[POINTER(epsarray),POINTER(epsarray)]
+  pyeps.PyepsCopy2df.argtypes=[POINTER(epsarray),c_void_p]
   pyeps.PyepsCopy2df.restype=c_int
 
   # Copy the numpy array into the eps array
@@ -90,7 +90,7 @@ def Get2df(pyeps,arr,out):
   epsarrp = pointer(epsarr)
 
   # Set the argument types of Copy2df
-  pyeps.PyepsCopy2df.argtypes=[POINTER(epsarray),POINTER(epsarray)]
+  pyeps.PyepsCopy2df.argtypes=[c_void_p,POINTER(epsarray)]
   pyeps.PyepsCopy2df.restype=c_int
 
   # Copy eps array into numpy array
@@ -109,7 +109,7 @@ def Store1df(pyeps,arr):
 
   # Set the argument and return type of the memory allocator
   pyeps.PyepsCre1df.argtypes=[c_int]
-  pyeps.PyepsCre1df.restype=POINTER(epsarray)
+  pyeps.PyepsCre1df.restype=c_void_p
   nx = arr.shape[0]
 
   # Allocate memory for the eps array
@@ -123,7 +123,7 @@ def Store1df(pyeps,arr):
   epsarrp = pointer(epsarr)
 
   # Set the argument types of Copy1df
-  pyeps.PyepsCopy1df.argtypes=[POINTER(epsarray),POINTER(epsarray)]
+  pyeps.PyepsCopy1df.argtypes=[POINTER(epsarray),c_void_p]
   pyeps.PyepsCopy1df.restype=c_int
 
   # Copy the numpy array into the eps array
@@ -154,7 +154,7 @@ def Get1df(pyeps,arr,out):
   epsarrp = pointer(epsarr)
 
   # Set the argument types of Copy1df
-  pyeps.PyepsCopy1df.argtypes=[POINTER(epsarray),POINTER(epsarray)]
+  pyeps.PyepsCopy1df.argtypes=[c_void_p,POINTER(epsarray)]
   pyeps.PyepsCopy1df.restype=c_int
 
   # Copy eps array into numpy array
@@ -173,7 +173,7 @@ def Store1di(pyeps,arr):
   
   # Set the argument and return type of the memory allocator
   pyeps.PyepsCre1di.argtypes=[c_int]
-  pyeps.PyepsCre1di.restype=POINTER(epsarrayi)
+  pyeps.PyepsCre1di.restype=c_void_p
   nx = arr.shape[0]
 
   # Allocate memory for the eps array
@@ -187,7 +187,7 @@ def Store1di(pyeps,arr):
   epsarrp = pointer(epsarr)
 
   # Set the argument types of Copy1di
-  pyeps.PyepsCopy1di.argtypes=[POINTER(epsarrayi),POINTER(epsarrayi)]
+  pyeps.PyepsCopy1di.argtypes=[POINTER(epsarrayi),c_void_p]
   pyeps.PyepsCopy1di.restype=c_int
 
   # Copy the numpy array into the eps array
@@ -218,7 +218,7 @@ def Get1di(pyeps,arr,out):
   epsarrp = pointer(epsarr)
 
   # Set the argument types of Copy1di
-  pyeps.PyepsCopy1di.argtypes=[POINTER(epsarrayi),POINTER(epsarrayi)]
+  pyeps.PyepsCopy1di.argtypes=[c_void_p,POINTER(epsarrayi)]
   pyeps.PyepsCopy1di.restype=c_int
 
   # Copy eps array into numpy array
@@ -233,12 +233,12 @@ def Store1ds(pyeps,arr):
   
       Parameters:
         pyeps   : Shared library containg c-functions
-        arr     : 1D char array
+        arr     : python string
   '''
 
   # Set the argument and return type of the memory allocator
   pyeps.PyepsCre1ds.argtypes=[c_int]
-  pyeps.PyepsCre1ds.restype=POINTER(epsarrays)
+  pyeps.PyepsCre1ds.restype=c_void_p
   nx = len(arr)
 
   # Allocate memory for the eps array
@@ -252,7 +252,7 @@ def Store1ds(pyeps,arr):
   epsarrp = pointer(epsarr)
 
   # Set the argument types of Copy1ds
-  pyeps.PyepsCopy1ds.argtypes=[POINTER(epsarrays),POINTER(epsarrays)]
+  pyeps.PyepsCopy1ds.argtypes=[POINTER(epsarrays),c_void_p]
   pyeps.PyepsCopy1ds.restype=c_int
 
   # Copy the numpy array into the eps array
@@ -274,9 +274,9 @@ def Get1ds(pyeps,arr):
 
   # Fill in the eps array descriptor with
   # dimensions and data
-
   
-  ns = (arr.contents).d[0]
+  narr = cast(arr,POINTER(epsarrays))
+  ns = (narr.contents).d[0]
   epsarr = epsarrays()
   out=bytearray([0]*ns)
   epsarr.a = c_char_p(bytes(out))
@@ -284,7 +284,7 @@ def Get1ds(pyeps,arr):
   epsarrp = pointer(epsarr)
 
   # Set the argument types of Copy1ds
-  pyeps.PyepsCopy1ds.argtypes=[POINTER(epsarrays),POINTER(epsarrays)]
+  pyeps.PyepsCopy1ds.argtypes=[c_void_p,POINTER(epsarrays)]
   pyeps.PyepsCopy1ds.restype=c_int
 
   # Copy eps array into string

@@ -20,7 +20,7 @@ def ricker(nt,f0,t0,dt) :
 
   '''       
     
-  wavelet = np.zeros(nt)
+  wavelet = np.zeros(nt,dtype=np.float32)
   w0 = 2.0*3.14159*f0;
 
   for i in range(0,nt) :
@@ -75,25 +75,25 @@ class src :
       sfx = kwargs['sfx']
       nosource = False
     else :
-      sfx = np.zeros((nt,1))
+      sfx = np.zeros((nt,1), dtype=np.float32)
 
     if 'sfy' in kwargs :
       sfy = kwargs['sfy'] 
       nosource = False
     else :
-      sfy = np.zeros((nt,1))
+      sfy = np.zeros((nt,1), dtype=np.float32)
 
     if 'sqxx' in kwargs :
       sqxx = kwargs['sqxx'] 
       nosource = False
     else :
-      sqxx = np.zeros((nt,1))
+      sqxx = np.zeros((nt,1), dtype=np.float32)
 
     if 'sqyy' in kwargs :
       sqyy = kwargs['sqyy'] 
       nosource = False
     else :
-      sqyy = np.zeros((nt,1))
+      sqyy = np.zeros((nt,1), dtype=np.float32)
     
     if(nosource == True) :
       sqxx[:,0] = ricker(nt,f0,t0,dt)
