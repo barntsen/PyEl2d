@@ -177,11 +177,11 @@ def sls(Q,nb, dx, dt,w0,freesurface=1) :
   d2y   = np.zeros(Ny, dtype=np.float32,order='F')
 
   if(freesurface ==1):
-    d2x = e3(d2x, dx, nb)
+    d2y = e3(d2y, dx, nb)
   else :
-    d2x = e2(d2x, dx, nb)
+    d2y = e2(d2y, dx, nb)
 
-  d2y = e2(d2y, dx, nb)
+  d2x = e2(d2x, dx, nb)
   tau0 = 1.0/w0         # Relaxation time corresponding to absorption top
 
   #Compute relaxation times corresponding to Qmin

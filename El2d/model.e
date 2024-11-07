@@ -332,6 +332,8 @@ struct model Modelsls(float [*,*] vp,  float [*,*] vs, float [*,*] rho,
   int i,j;            # Loop indices
   float [*,*] wrk, wrk2;
 
+  int fd,nb;
+
   Model= new(struct model);
   Model.Freesurface = Freesurface;
   Model.Dx = Dx;
