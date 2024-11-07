@@ -5,7 +5,7 @@ transp n1=174 < marmousi_II_marine.vp >vp.bin
 transp n1=174 < marmousi_II_marine.vs >vs.bin
 transp n1=174 < marmousi_II_marine.rho >rho.bin
 
-#image -noshow -o vp.pdf -n1 500 -n2 174 -colormap crust vp.bin
+image -noshow -o vp.pdf -n1 500 -n2 174 -colormap crust vp.bin
 #./clean.sh
 
 

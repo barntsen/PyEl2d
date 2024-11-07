@@ -52,31 +52,31 @@ class model :
     if 'Ql' in  kwargs :
       Ql = kwargs['Ql']
     else :
-      Ql=np.ones((nx,ny))
+      Ql=np.ones((nx,ny), dtype=np.float32,order='F')
       Ql[:,:]=100000.0
 
     if 'Qm' in kwargs == None :
       Qm = kwargs['Ql']
     else :
-      Qm=np.ones((nx,ny))
+      Qm=np.ones((nx,ny), dtype=np.float32,order='F')
       Qm[:,:]=100000.0
 
     if 'Qp' in kwargs :
       Qp = kwargs['Ql']
     else :
-      Qp=np.ones((nx,ny))
+      Qp=np.ones((nx,ny), dtype=np.float32,order='F')
       Qp[:,:] = 100000.0
 
     if Ql is None :
-      Ql=np.ones((nx,ny))
+      Ql=np.ones((nx,ny), dtype=np.float32,order='F')
       Ql[:,:] = 100000.0
 
     if Qm is None :
-      Qm=np.ones((nx,ny))
+      Qm=np.ones((nx,ny), dtype=np.float32,order='F')
       Qm[:,:] = 100000.0
 
     if Qp is None :
-      Qp=np.ones((nx,ny))
+      Qp=np.ones((nx,ny), dtype=np.float32,order='F')
       Qp[:,:] = 100000.0
 
     #Smooth the Ql model
@@ -97,7 +97,6 @@ class model :
     #Convert Q arrays to eps
     qpx=pyeps.Store2df(pyac2d,Qpx);
     qpy=pyeps.Store2df(pyac2d,Qpy);
-
 
     #Create a new model
     # Set argument and return types

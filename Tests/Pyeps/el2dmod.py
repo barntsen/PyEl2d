@@ -63,19 +63,19 @@ t0=time.perf_counter()   #Start measure wall clock time
 fd = ba.bin(par.fsrc,'r')
 Src=fd.read((par.nt,))
 
-sqxx = np.zeros((par.nt,1), dtype=np.float32, order='F')
+sqxx = np.zeros((par.nt,1))
 if (par.srcflags[0] == 1) :
   sqxx[:,0]=Src[:]
 
-sqyy = np.zeros((par.nt,1), dtype=np.float32, order='F')
+sqyy = np.zeros((par.nt,1))
 if (par.srcflags[1] == 1) :
   sqyy[:,0]=Src[:]
 
-sfx = np.zeros((par.nt,1), dtype=np.float32, order='F')
+sfx = np.zeros((par.nt,1))
 if (par.srcflags[2] == 1) :
   sfx[:,0]=Src[:]
 
-sfy = np.zeros((par.nt,1), dtype=np.float32, order='F')
+sfy = np.zeros((par.nt,1))
 if (par.srcflags[3] == 1) :
   sfy[:,0]=Src[:]
 

@@ -19,6 +19,7 @@ class el2d :
   float [*,*] eyy;         # time derivative of strain y-component
   float [*,*] exy;         # time derivative of strain y-component
   float [*,*] eyx;         # time derivative of strain y-component
+  float [*,*] e;
   float [*,*] gammaxx;     # Memory variable for sigmaxx
   float [*,*] gammayy;     # Memory variable for sigmayy   
   float [*,*] gammaxy;     # Memory variable for sigmaxy
@@ -28,10 +29,11 @@ class el2d :
   float [*,*] thetaxyx;
   float [*,*] thetayxy;
   int ts;                 # Timestep no
-  int fdsxx;              # Snapshot file descriptor
-  int fdsyy;              # Snapshot file descriptor
+  int fdp;                # Snapshot file descriptor
   int fdvx;               # Snapshot file descriptor
   int fdvy;               # Snapshot file descriptor
+  int fde;                # Snapshot file descriptor
+  int fdexy;              # Snapshot file descriptor
   int sresamp;            # Snapshot resampling factor
   int [*] snpflags;       # Flags for types of snapshots
 end
@@ -43,10 +45,11 @@ class el2d El2dNew(struct model Model, int sresamp, int [*] snpflags):
   # Parameters:
   #     Model   : Model object
   #     sresamp : resampling factor relative to timestep.
-  #     snpflags: snpflags[0]=1 # Record vx snapshots.
-  #               snpflags[1]=1 # Record vy snapshots.
-  #               snpflags[2]=1 # Record sigmaxx snapshots.
-  #               snpflags[3]=1 # Record sigmayy snapshots.
+  #     snpflags: snpflags[0]=1 # Record p snapshots.
+  #               snpflags[1]=1 # Record vx snapshots.
+  #               snpflags[2]=1 # Record vy snapshots.
+  #               snpflags[3]=1 # Record e snapshots.
+  #               snpflags[4]=1 # Record exy snapshots.
   #               A value of 0 means corresponding snapshot
   #               is NOT recorded.
   #
@@ -61,6 +64,7 @@ class el2d El2dNew(struct model Model, int sresamp, int [*] snpflags):
   El2d.p=new(float [Model.Nx,Model.Ny]); 
   El2d.sigmaxx=new(float [Model.Nx,Model.Ny]); 
   El2d.sigmayy=new(float [Model.Nx,Model.Ny]); 
+  El2d.p=new(float [Model.Nx,Model.Ny]); 
   El2d.sigmaxy=new(float [Model.Nx,Model.Ny]); 
   El2d.sigmayx=new(float [Model.Nx,Model.Ny]); 
   El2d.vx=new(float [Model.Nx,Model.Ny]);
@@ -69,6 +73,7 @@ class el2d El2dNew(struct model Model, int sresamp, int [*] snpflags):
   El2d.eyy=new(float [Model.Nx,Model.Ny]);
   El2d.exy=new(float [Model.Nx,Model.Ny]);
   El2d.eyx=new(float [Model.Nx,Model.Ny]);
+  El2d.e=new(float [Model.Nx,Model.Ny]);
   El2d.gammaxx=new(float [Model.Nx,Model.Ny]);
   El2d.gammayy=new(float [Model.Nx,Model.Ny]);
   El2d.gammaxy=new(float [Model.Nx,Model.Ny]);
@@ -91,6 +96,7 @@ class el2d El2dNew(struct model Model, int sresamp, int [*] snpflags):
       El2d.eyy[i,j]     = 0.0;
       El2d.exy[i,j]     = 0.0;
       El2d.eyx[i,j]     = 0.0;
+      El2d.e[i,j]       = 0.0;
       El2d.gammaxx[i,j]  = 0.0;
       El2d.gammayy[i,j]  = 0.0;
       El2d.gammaxy[i,j]  = 0.0;
@@ -104,17 +110,25 @@ class el2d El2dNew(struct model Model, int sresamp, int [*] snpflags):
   end
 
   # Open snapshot files
+  LibePs("snap 0: "); LibePi(El2d.snpflags[0]); LibePs("\n");
   if(El2d.snpflags[0] == 1):
-    El2d.fdsxx = LibeOpen("snp-sxx.bin","w");
+    El2d.fdp = LibeOpen("snp-p.bin","w");
   end
+  LibePs("snap 1: "); LibePi(El2d.snpflags[1]); LibePs("\n");
   if(El2d.snpflags[1] == 1):
-    El2d.fdsyy = LibeOpen("snp-syy.bin","w");
-  end
-  if(El2d.snpflags[2] == 1):
     El2d.fdvx = LibeOpen("snp-vx.bin","w");
   end
-  if(El2d.snpflags[3] == 1):
+  LibePs("snap 2: "); LibePi(El2d.snpflags[2]); LibePs("\n");
+  if(El2d.snpflags[2] == 1):
     El2d.fdvy = LibeOpen("snp-vy.bin","w");
+  end
+  LibePs("snap 3: "); LibePi(El2d.snpflags[3]); LibePs("\n");
+  if(El2d.snpflags[3] == 1):
+    El2d.fde = LibeOpen("snp-e.bin","w");
+  end
+  LibePs("snap 4: "); LibePi(El2d.snpflags[4]); LibePs("\n");
+  if(El2d.snpflags[4] == 1):
+    El2d.fdexy = LibeOpen("snp-exy.bin","w");
   end
 
   return(El2d);
@@ -187,6 +201,25 @@ int El2dvy(struct el2d El2d, struct model Model) :
   end
 end
 
+int El2de(struct el2d El2d, struct model Model):
+
+  # El2de computes the sum of exx and eyy
+  #
+  # Parameters:
+  #   El2d : Solver object 
+  #   Model: Model object
+
+  int nx,ny;
+  int i,j;
+
+  nx = Model.Nx;
+  ny = Model.Ny;
+
+  parallel(i=0:nx,j=0:ny):
+    El2d.e[i,j] = El2d.exx[i,j]+El2d.eyy[i,j];
+  end
+end
+
 int El2dexy(struct el2d El2d, struct model Model, float [*,*] tmp1, 
             float [*,*] tmp2) :
 
@@ -195,6 +228,8 @@ int El2dexy(struct el2d El2d, struct model Model, float [*,*] tmp1,
   # Parameters:
   #   El2d : Solver object 
   #   Model: Model object
+  #   tmp1 : dvx/dy
+  #   tmp2 : dvy/dx
 
   int nx,ny;
   int i,j;
@@ -208,14 +243,16 @@ int El2dexy(struct el2d El2d, struct model Model, float [*,*] tmp1,
 end
 
 int El2deyx(struct el2d El2d, struct model Model, float [*,*] tmp1, 
-            float [*,*] tmp2)
+            float [*,*] tmp2):
 
   # El2deyx computes the deyx/dt strain.
   #
   # Parameters:
   #   El2d : Solver object 
   #   Model: Model object
-:
+  #   tmp1 : dvx/dy
+  #   tmp2 : dvy/dx
+
   int nx,ny;
   int i,j;
 
@@ -259,6 +296,8 @@ int El2dstress(struct el2d El2d, struct model Model):
                      + 2.0*Model.Dt*El2d.gammayy[i,j]*Model.Dmuy[i,j]
                      + El2d.sigmayy[i,j];
 
+   El2d.p[i,j]       = 0.5*(El2d.sigmaxx[i,j] + El2d.sigmayy[i,j]);
+
    El2d.sigmaxy[i,j] = 2.0*Model.Dt*Model.Muxy[i,j]*El2d.exy[i,j]
                      + 2.0*Model.Dt*El2d.gammaxy[i,j]*Model.Dmuxyy[i,j]
                      + El2d.sigmaxy[i,j];
@@ -299,20 +338,24 @@ int El2dSnap(struct el2d El2d,int it) :
   n = Nx*Ny;
   if(LibeMod(it,El2d.sresamp) == 0):
     if(El2d.snpflags[0] == 1):
-      tmp = cast(char [4*n],El2d.sigmaxx);
-      LibeWrite(El2d.fdsxx,4*n,tmp);
+      tmp = cast(char [4*n],El2d.p);
+      LibeWrite(El2d.fdp,4*n,tmp);
     end
     if(El2d.snpflags[1] == 1):
-      tmp = cast(char [4*n],El2d.sigmayy);
-      LibeWrite(El2d.fdsyy,4*n,tmp);
-    end
-    if(El2d.snpflags[2] == 1):
       tmp = cast(char [4*n],El2d.vx);
       LibeWrite(El2d.fdvx,4*n,tmp);
     end
-    if(El2d.snpflags[3] == 1):
+    if(El2d.snpflags[2] == 1):
       tmp = cast(char [4*n],El2d.vy);
       LibeWrite(El2d.fdvy,4*n,tmp);
+    end
+    if(El2d.snpflags[3] == 1):
+      tmp = cast(char [4*n],El2d.e);
+      LibeWrite(El2d.fde,4*n,tmp);
+    end
+    if(El2d.snpflags[4] == 1):
+      tmp = cast(char [4*n],El2d.exy);
+      LibeWrite(El2d.fdexy,4*n,tmp);
     end
   end
   return(OK);
@@ -391,6 +434,7 @@ int El2dSolve(struct el2d El2d, struct model Model, struct src Src,
     DiffDyplus(Diff,El2d.vx,tmp2,Model.Dx);    
     El2dexy(El2d,Model,tmp1,tmp2);
     El2deyx(El2d,Model,tmp1,tmp2);
+    El2de(El2d,Model);
 
     # Update stress
      El2dstress(El2d,Model);  
@@ -422,11 +466,15 @@ int El2dSolve(struct el2d El2d, struct model Model, struct src Src,
    end
 
     #Record wavefield
-    RecReceiver(Rec,i,El2d.sigmaxx,El2d.sigmayy,El2d.vx,El2d.vy); 
+    RecReceiver(Rec,i,El2d.p,El2d.vx,El2d.vy); 
 
     # Record Snapshots
     El2dSnap(El2d,i);
   end
+
+  # Update the time variable
+  El2d.ts = El2d.ts+ne;
+
   return(1);
 end
 

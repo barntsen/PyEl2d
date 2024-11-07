@@ -53,10 +53,12 @@ class el2d :
       model    : Model object
       sresamp  : Resampling factor relative to the
                  timestep used in modeling
-      snpflags : 1D array snpflgs[0] = 1 store snapshot for sigmaxx
-                   snpflgs[1] = 1 store snapshot for sigmaxx
-                   snpflgs[2] = 1 store snapshot for vx 
-                   snpflgs[3] = 1 store snapshot for vy 
+      snpflags : 1D array 
+                   snpflgs[0] = 1 store snapshot for p
+                   snpflgs[1] = 1 store snapshot for vx
+                   snpflgs[2] = 1 store snapshot for vy 
+                   snpflgs[3] = 1 store snapshot for e 
+                   snpflgs[4] = 1 store snapshot for exy 
 
       Returns   : el2d object.
   '''

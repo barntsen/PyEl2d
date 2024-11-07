@@ -12,18 +12,18 @@
 import numpy as np
 
 pi      = 3.14159  #Constant pi
-nx      = 251      #No of grdipoints in x-direction
-ny      = 251      #No of gridpoints in y-direction
+nx      = 500      #No of grdipoints in x-direction
+ny      = 174      #No of gridpoints in y-direction
 dx      = 5.0      #Grid interval
 dt      = 0.0005    #Time sampling interval
-nt      = 2001      #No of time steps
+nt      = 4001      #No of time steps
 f0      = 25.0        #Q-model peak frequency
 w0      = 2.0*pi*f0  #Q-model peak angular frequency
 resamp  = 1          #Resampling factor (relative to no of timesteps) for data
 sresamp = 10         #Resampling factor (relative to timesteps)for snapshots
 nb      = 35         #No of PML boundary points
 l       = 6          #Length of differentiator
-freesurface = 0      # =1: Use freesurface =0: No free surface
+freesurface = 1      # =1: Use freesurface =0: No free surface
 fvp     = "vp.bin"   #Vp file name
 fvs     = "vs.bin"   #Vp file name
 frho    = "rho.bin"  #Rho file name
@@ -40,13 +40,13 @@ fql      = ""        # Ql file name (default Ql=100000)
 fqm      = ""        # Qm file name (default Qm=100000)
 
 #Source position
-sx       = np.zeros(1) #Source x-position
-sy       = np.zeros(1) #Source y-position
+sx       = np.zeros(1, dtype=np.int32) #Source x-position
+sy       = np.zeros(1, dtype=np.int32) #Source y-position
 sx[0]    = nx/2 
 sy[0]    = ny/2
 
 #Source flags 
-srcflags = np.zeros(4)
+srcflags = np.zeros(4, dtype=np.int32)
 #srcflags[0] = 1   #Set diagonal stress source
 #srcflags[1] = 1   #Set diagonal stress source
 srcflags[2] = 1    #Set horisontal force source
@@ -54,15 +54,16 @@ srcflags[2] = 1    #Set horisontal force source
 
 #Receiver positions
 nr = nx
-rx=np.zeros((nr))
-ry=np.zeros((nr))
+rx=np.zeros((nr), dtype=np.int32)
+ry=np.zeros((nr), dtype=np.int32)
 for i in range(0,nr):
   rx[i] = i
   ry[i] = nb+5
-
+ 
 #Snapshost (0=flag not set, 1=flag set)
-snpflags = np.zeros(4)
-snpflags[0] = 1 #Store sigmaxx on file "snp-sxx.bin"
-#snpflags[1] = 1 #Store sigmayy on file "snp-syy.bin"
-#snpflags[2] = 1 #Store vx      on file "snp-vx.bin"
-#snpflags[3] = 1 #Store vy      on file "snp-vy.bin"
+snpflags = np.zeros(5, dtype=np.int32)
+snpflags[0] = 1 #Store p on file "snp-p.bin"
+#snpflags[1] =  1 #Store vx     on file "snp-vx.bin"
+#snpflags[2] = 1 #Store vy      on file "snp-vy.bin"
+#snpflags[3] = 1 #Store e       on file "snp-e.bin"
+#snpflags[4] = 1 #Store exy     on file "snp-exy.bin"
