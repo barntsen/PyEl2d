@@ -56,6 +56,6 @@ class rec :
     pyel2d.RecGetrec.argtypes  =[c_void_p,c_int]
     pyel2d.RecGetrec.restype=c_void_p
     rval=pyel2d.RecGetrec(self.rec,dtype)
-    rarr = np.zeros((self.nr,self.nt), dtype=np.float32)
+    rarr = np.zeros((self.nr,self.nt), dtype=np.float32, order='F')
     pyeps.Get2df(pyel2d,rval,rarr)
     return rarr

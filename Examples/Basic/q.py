@@ -35,8 +35,8 @@ def taues (tau0,Q) :
   Nx = Q.shape[0]
   Ny = Q.shape[1]
 
-  taue=np.zeros((Nx,Ny), dtype=np.float32)
-  taus=np.zeros((Nx,Ny), dtype=np.float32)
+  taue=np.zeros((Nx,Ny), dtype=np.float32,order='F')
+  taus=np.zeros((Nx,Ny), dtype=np.float32,order='F')
   taue = (tau0/Q)*(np.sqrt(Q*Q+1.0)+1.0);
   taus = (tau0/Q)*(np.sqrt(Q*Q+1.0)-1.0);
 
@@ -167,21 +167,21 @@ def sls(Q,nb, dx, dt,w0,freesurface=1) :
 
   Nx = Q.shape[0]
   Ny = Q.shape[1]
-  Qx = np.zeros((Nx,Ny), dtype=np.float32)
-  Qy = np.zeros((Nx,Ny), dtype=np.float32)
-  tauex = np.zeros(Nx, dtype=np.float32)
-  tauey = np.zeros(Ny, dtype=np.float32)
-  tausx = np.zeros(Nx, dtype=np.float32)
-  tausy = np.zeros(Ny, dtype=np.float32)
-  d2x   = np.zeros(Nx, dtype=np.float32)
-  d2y   = np.zeros(Ny, dtype=np.float32)
+  Qx = np.zeros((Nx,Ny), dtype=np.float32,order='F')
+  Qy = np.zeros((Nx,Ny), dtype=np.float32,order='F')
+  tauex = np.zeros(Nx, dtype=np.float32,order='F')
+  tauey = np.zeros(Ny, dtype=np.float32,order='F')
+  tausx = np.zeros(Nx, dtype=np.float32,order='F')
+  tausy = np.zeros(Ny, dtype=np.float32,order='F')
+  d2x   = np.zeros(Nx, dtype=np.float32,order='F')
+  d2y   = np.zeros(Ny, dtype=np.float32,order='F')
 
   if(freesurface ==1):
-    d2y = e3(d2y, dx, nb)
+    d2x = e3(d2x, dx, nb)
   else :
-    d2y = e2(d2y, dx, nb)
+    d2x = e2(d2x, dx, nb)
 
-  d2x = e2(d2x, dx, nb)
+  d2y = e2(d2y, dx, nb)
   tau0 = 1.0/w0         # Relaxation time corresponding to absorption top
 
   #Compute relaxation times corresponding to Qmin
@@ -210,8 +210,8 @@ def sls(Q,nb, dx, dt,w0,freesurface=1) :
     tausy[i] = tausmin + (tausmax-tausmin)*d2y[i];
     tausy[i] = 1.0/tausy[i]
 
-  Qx = np.zeros((Nx,Ny), dtype=np.float32)
-  Qy = np.zeros((Nx,Ny), dtype=np.float32)
+  Qx = np.zeros((Nx,Ny), dtype=np.float32,order='F')
+  Qy = np.zeros((Nx,Ny), dtype=np.float32,order='F')
 
   for j in range(0,Ny):
     for i in range(0,Nx) :
@@ -227,17 +227,20 @@ def main() :
   Nx=20
   nb=5
   dx=10
-  d=np.zeros(Nx, dtype=np.float32)
-  Nx = 251
-  Ny = 251 
+  d=np.zeros(Nx, dtype=np.float32,order='F')
+  Nx = 500
+  Ny = 174 
   nb=35
   dx = 5 
   
   w0=25.0*2.0*3.14159
   dt = 0.001
-  Q  = np.zeros((Nx,Ny), dtype=np.float32)
+  Q  = np.zeros((Nx,Ny), dtype=np.float32,order='F')
   freesurface=1
   Qx,Qy=sls(Q,nb, dx,dt, w0,freesurface)
+
+  print(Qx.shape)
+  print(Qy.shape)
 
 # Plot results
   pl.figure()

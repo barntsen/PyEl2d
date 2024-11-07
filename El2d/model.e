@@ -82,6 +82,7 @@ int Modeld(float [*] d, float dx, int nb):
       d[i] = d[i]*((cast(float,i)*dx)/(cast(float,nb)*dx)
                  *(cast(float,i)*dx)/(cast(float,nb)*dx));
   end
+
   # taper right border
   for(i=n-1-nb; i<n;i=i+1):
       d[i] = d[i]*((cast(float,n-1-i)*dx)/(cast(float,nb)*dx)
@@ -414,8 +415,6 @@ struct model Modelsls(float [*,*] vp,  float [*,*] vs, float [*,*] rho,
       Model.Dmuy[i,j] = Model.Mu[i,j];
       Model.Drhopx[i,j] = Model.Rho[i,j];
       Model.Drhopy[i,j] = Model.Rho[i,j];
-      #Model.Drhosx[i,j] = Model.Rho[i,j];
-      #Model.Drhosy[i,j] = Model.Rho[i,j];
     end
   end
 
