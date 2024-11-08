@@ -12,11 +12,11 @@
 import numpy as np
 
 pi      = 3.14159  #Constant pi
-nx      = 500      #No of grdipoints in x-direction
-ny      = 174      #No of gridpoints in y-direction
+nx      = 251      #No of grdipoints in x-direction
+ny      = 251      #No of gridpoints in y-direction
 dx      = 5.0      #Grid interval
 dt      = 0.0005    #Time sampling interval
-nt      = 4001      #No of time steps
+nt      = 2001      #No of time steps
 f0      = 25.0        #Q-model peak frequency
 w0      = 2.0*pi*f0  #Q-model peak angular frequency
 resamp  = 1          #Resampling factor (relative to no of timesteps) for data

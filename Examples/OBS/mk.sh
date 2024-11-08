@@ -7,7 +7,6 @@ cp $GO3D/vp_ws_1001.su .
 cp $GO3D/vs_ws_1001.su .
 cp $GO3D/rho_ws_1001.su .
 
-exit
 
 cp $GO3D/vp_ws_1001.su xaa.su
 cp $GO3D/vs_ws_1001.su xab.su
