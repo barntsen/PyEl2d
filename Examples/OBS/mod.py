@@ -19,7 +19,7 @@ dt      = 0.001    #Time sampling interval
 nt      = 30001      #No of time steps
 f0      = 1.5        #Q-model peak frequency
 w0      = 2.0*pi*f0  #Q-model peak angular frequency
-resamp  = 10          #Resampling factor (relative to no of timesteps) for data
+resamp  = 1          #Resampling factor (relative to no of timesteps) for data
 sresamp = 30         #Resampling factor (relative to timesteps)for snapshots
 nb      = 35         #No of PML boundary points
 l       = 6          #Length of differentiator
@@ -49,8 +49,8 @@ sy[0]    = 95
 srcflags = np.zeros(4, dtype=np.int32)
 #srcflags[0] = 1   #Set diagonal stress source
 #srcflags[1] = 1   #Set diagonal stress source
-#srcflags[2] = 1    #Set horisontal force source
-srcflags[3] = 1   #Set vertical force source
+srcflags[2] = 1    #Set horisontal force source
+#srcflags[3] = 1   #Set vertical force source
 
 #Receiver positions
 nr = nx

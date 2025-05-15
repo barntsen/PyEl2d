@@ -4,7 +4,7 @@
           Store2df allocates memory and copies 2D numpy array into memory 
           Store1df allocates memory and copies 1D numpy array into memory
           Store1di allocates memory and copies 1D integer array into memory
-          Store1ds allocates memory and copies 1D integer char array into memory
+          Store1ds allocates memory and copies 1D char array into memory
           Get2df   Copies 2d array and deletes allocated memory
  
 '''
