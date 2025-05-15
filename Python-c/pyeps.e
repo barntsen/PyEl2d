@@ -4,7 +4,7 @@ import libe                 # Library interface
 #Empty main program (Necessary for linking)
 int Main(struct MainArg [*] MainArgs) :
   return(1);
-end
+
 
 char [*] PyepsCre1ds(int Nx):
 
@@ -20,7 +20,7 @@ char [*] PyepsCre1ds(int Nx):
   str = new(char [Nx+1]);
   str[Nx] = cast(char,0);
   return(str);
-end
+
 
 int PyepsDel1ds(char [*] arr):
 
@@ -34,7 +34,7 @@ int PyepsDel1ds(char [*] arr):
    delete(arr);
    return(1);
 
-end
+
 
 int PyepsCopy1ds(char [*] arr, char [*] out):
 
@@ -51,11 +51,9 @@ int PyepsCopy1ds(char [*] arr, char [*] out):
   nx=len(out,0);
   for(i=0; i< nx; i=i+1):
    out[i] = arr[i];
-  end
+  
   return(1);
      
-end
-
 int [*] PyepsCre1di(int Nx):
 
   # PepsCre1di creates integer 1D array
@@ -69,7 +67,6 @@ int [*] PyepsCre1di(int Nx):
   int [*] tmp;
   tmp = new(int [Nx]);
   return(tmp);
-end
 
 int PyepsDel1di(int [*] arr):
 
@@ -82,7 +79,6 @@ int PyepsDel1di(int [*] arr):
      
    delete(arr);
    return(1);
-end
 
 int PyepsCopy1di(int [*] arr, int [*] out):
    
@@ -99,12 +95,9 @@ int PyepsCopy1di(int [*] arr, int [*] out):
   nx=len(out,0);
   for(i=0; i< nx; i=i+1):
    out[i] = arr[i];
-  end
   
   return(1);
      
-end
-
 float [*] PyepsCre1df(int Nx):
 
   # PepsCre1di creates float 1D array
@@ -118,7 +111,7 @@ float [*] PyepsCre1df(int Nx):
   float [*] tmp;
   tmp=new(float [Nx]);
   return(tmp);
-end
+
 
 # PepsDel1df deletes 1D float array
 int PyepsDel1df(float [*] arr):
@@ -130,7 +123,7 @@ int PyepsDel1df(float [*] arr):
      
    delete(arr);
    return(1);
-end
+
 
 int PyepsCopy1df(float [*] arr, float [*] out):
 
@@ -147,10 +140,8 @@ int PyepsCopy1df(float [*] arr, float [*] out):
   nx=len(out,0);
   for(i=0; i< nx; i=i+1):
    out[i] = arr[i];
-  end
   
   return(1);
-end
 
 float [*,*] PyepsCre2df(int Nx, int Ny):
 
@@ -165,7 +156,7 @@ float [*,*] PyepsCre2df(int Nx, int Ny):
   #
 
   return(new(float [Nx,Ny]));
-end
+
 
 int PyepsDel2df(float [*,*] arr):
 
@@ -178,7 +169,7 @@ int PyepsDel2df(float [*,*] arr):
   #  
    delete(arr);
    return(1);
-end
+
 
 int PyepsCopy2df(float [*,*] arr, float [*,*] out):
 
@@ -199,9 +190,7 @@ int PyepsCopy2df(float [*,*] arr, float [*,*] out):
   for(j=0; j< ny; j=j+1):
     for(i=0; i< nx; i=i+1):
       out[i,j] = arr[i,j];
-    end
-  end
   
   return(1);
-end
+
 

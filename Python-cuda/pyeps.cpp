@@ -20,6 +20,7 @@ typedef struct nctempcomplex4 { int d[4]; complex *a;} nctempcomplex4;
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <assert.h>
 
 void *GpuNew(int n);
 void *GpuDelete(void *f);

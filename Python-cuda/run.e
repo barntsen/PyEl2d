@@ -13,35 +13,26 @@
 #
 # RunCreate -- create a file
 int RunCreate(char [*] name):
-int a;
-a=0;
-end 
+  pass
  
 #
 # RunClock-- measure elapsed time
 float RunClock():
-int a;
-a=0;
-
-end 
+  pass
  
 #
 # RunOpen -- open a fileend 
  
-int RunOpen(char [*] name, char [*] mode):end 
+int RunOpen(char [*] name, char [*] mode):
+  pass
  
 #
 # RunClose -- close a file
 int RunClose(int fd):
-int a;
-a=0;
-end 
-#
+  pass
  
 int RunRead(int fd, int lbuff, char [*] buffer):
-int a;
-a=0;
-end 
+  pass
  
 #RunRead reads in  lbuff characters into the
 #buffer array from a file with descriptor  fd.
@@ -49,21 +40,14 @@ end
 #If an error has occured ERR will be returned.
 #
 int RunWrite(int fd, int lbuff, char [*] buffer):
-int a;
-a=0;
-end 
- 
+  pass
 #
 #RunWrite writes lbuff from the buffer array.
 #The return value is the number of characters actually written.
 # ERR is returned whenever an error has occured.
  
 int RunSeek(int fd, int pos, int flag):
-int a;
-a=0;
-
-end 
- 
+  pass
 #
 # RunSeek sets the file position to pos bytes
 # relative to the start of the file (flag=0), to the current position
@@ -72,59 +56,36 @@ end
 # Otherwise is the file position returned.
 #
 char [*] RunGetenv(char [*] name):
-int a;
-
-a=0;
-
-end 
- 
+ pass
 # RunGetenv returns the value of the environment
 # variable contained in the string name.
 
 # RunGetnt gets the number of threads from the
 # environment variable NTHREADS.
 int RunGetnt():
-int a;
-a=0;
-
-end 
+  pass
 
 # RunGetnb gets the number of threads from the
 # environment variable NTHREADS.
 int RunGetnb():
-int a;
-a=0;
-
-end 
+  pass
  
 #
 # RunStrcmp -- compare strings
 int RunStrcmp(char [*] s, char [*] t):
-int a;
-a=0;
-
-end 
+  pass
  
 #
 # RunStrlen -- string length
 int RunStrlen(char [*] s):
-int a;
-a=0;
+  pass
 
-end 
- 
 #
 # RunExit cleans up and exits.
 int RunExit():
-int a;
-a=0;
-
-end 
- 
+  pass
  
 # RunSystem
-int RunSystem(char [*] cmd):
-int a;
-a=0;
-end 
+int RunSystem(char[*] cmd):
+  pass
  

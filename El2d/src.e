@@ -10,11 +10,11 @@ class src :
   float  [*,*] Sfx;
   float  [*,*] Sfy;
   int Ns;
-end
 
 
-class src SrcNew(int [*] sx, int [*] sy,
-                  float [*,*] sqxx, float [*,*] sqyy,
+
+def class src SrcNew(int [*] sx, int [*] sy,              \
+                  float [*,*] sqxx, float [*,*] sqyy, \
                   float [*,*] sfx,  float [*,*] sfy) :
 
   # SrcNew creates a new source object.
@@ -52,9 +52,9 @@ class src SrcNew(int [*] sx, int [*] sy,
   Src.Ns = len(sx,0);
 
   return(Src);
-end
 
-int SrcDel(struct src Src) :
+
+def int SrcDel(struct src Src) :
 
   # SrcDel deletes a source object
   #
@@ -64,10 +64,10 @@ int SrcDel(struct src Src) :
 
   delete(Src); 
   return(OK);
-end
+
 
 # Ricker pulse
-int Srcricker(float [*] source, float t0, float f0, int nt, float dt) :
+def int Srcricker(float [*] source, float t0, float f0, int nt, float dt) :
   float t;
   float w0;
   float arg;
@@ -78,6 +78,6 @@ int Srcricker(float [*] source, float t0, float f0, int nt, float dt) :
     w0 = 2.0*3.14159*f0;
     arg = w0*t; 
     source[i] = (1.0-0.5*arg*arg)*LibeExp(-0.25*arg*arg);
-  end
+  
   return(OK);
-end
+

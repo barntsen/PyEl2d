@@ -47,15 +47,15 @@ class model :
   float Dx;
   float Dt;
   int   Freesurface;
-end
+
 
 # Constants
-const MAXWELL = 1;
-const SLS     = 2;
-const MAXWELLR = 3;
-const CPML = 4;
+const MAXWELL = 1
+const SLS     = 2
+const MAXWELLR = 3
+const CPML = 4
 
-int Modeld(float [*] d, float dx, int nb):
+def int Modeld(float [*] d, float dx, int nb):
 
   # Modeld creates a 1D quadratic profile function tapering the left
   # and right borders.
@@ -74,24 +74,24 @@ int Modeld(float [*] d, float dx, int nb):
 
   for(i=0; i<n; i=i+1):
     d[i]=1.0;
-  end
+  
 
 
   # Taper left border
   for(i=0; i<nb;i=i+1):
-      d[i] = d[i]*((cast(float,i)*dx)/(cast(float,nb)*dx)
+      d[i] = d[i]*((cast(float,i)*dx)/(cast(float,nb)*dx)    \
                  *(cast(float,i)*dx)/(cast(float,nb)*dx));
-  end
+  
 
   # taper right border
   for(i=n-1-nb; i<n;i=i+1):
-      d[i] = d[i]*((cast(float,n-1-i)*dx)/(cast(float,nb)*dx)
+      d[i] = d[i]*((cast(float,n-1-i)*dx)/(cast(float,nb)*dx) \
                  *(cast(float,n-1-i)*dx)/(cast(float,nb)*dx));
-  end
+  
   return(OK);
-end
 
-int Modele(float [*] d, float dx, int nb):
+
+def int Modele(float [*] d, float dx, int nb):
 
   # Modele creates a 1D quadratic profile function tapering the 
   # right border.
@@ -110,17 +110,17 @@ int Modele(float [*] d, float dx, int nb):
 
   for(i=0; i<n; i=i+1):
     d[i]=1.0;
-  end
+  
 
   # taper right border
   for(i=n-1-nb; i<n;i=i+1):
-      d[i] = d[i]*((cast(float,n-1-i)*dx)/(cast(float,nb)*dx)
+      d[i] = d[i]*((cast(float,n-1-i)*dx)/(cast(float,nb)*dx)  \
                  *(cast(float,n-1-i)*dx)/(cast(float,nb)*dx));
-  end
+  
   return(OK);
-end
 
-float [*,*] Modelcopy(float [*,*] a):
+
+def float [*,*] Modelcopy(float [*,*] a):
 
   # Modelcopy returns a copy of a 2D arry.
   #
@@ -141,13 +141,13 @@ float [*,*] Modelcopy(float [*,*] a):
   for (j=0; j<ny; j=j+1):
     for (i=0; i<nx; i=i+1):
       b[i,j] = a[i,j];
-    end
-  end
+    
+  
 
   return(b);
-end
 
-int Modelstaggerx(float [*,*] a, float [*,*] astagg):
+
+def int Modelstaggerx(float [*,*] a, float [*,*] astagg):
 
   # Modelstaggerx staggers a 2D array in the x-direction 
   #
@@ -170,18 +170,18 @@ int Modelstaggerx(float [*,*] a, float [*,*] astagg):
   for (j=0; j<ny; j=j+1):
     for (i=0; i<nx; i=i+1):
       astagg[i,j] = a[i,j];
-    end
-  end
+    
+  
 
   for (j=0; j<ny; j=j+1):
     for (i=0; i<nx-1; i=i+1):
       astagg[i,j] = 0.5*(a[i,j] + a[i+1,j]);
-    end
-  end
+    
+  
   return(OK);
-end
 
-int Modelstaggery(float [*,*] a, float [*,*] astagg):
+
+def int Modelstaggery(float [*,*] a, float [*,*] astagg):
 
   # Modelstaggery staggers a 2D array in the y-direction 
   #
@@ -203,20 +203,20 @@ int Modelstaggery(float [*,*] a, float [*,*] astagg):
   for (j=0; j<ny; j=j+1):
     for (i=0; i<nx; i=i+1):
       astagg[i,j] = a[i,j];
-    end
-  end
+    
+  
 
   for (j=0; j<ny-1; j=j+1):
     for (i=0; i<nx; i=i+1):
       astagg[i,j] = 0.5*(a[i,j] + a[i,j+1]);
-    end
-  end
+    
+  
   return(OK);
-end
 
-int Modelslscoeffs(float [*,*] Qx,      float [*,*] Qy, float [*,* ] modx, 
-                   float [*,*] mody,    float [*,*]  coeff1x , 
-                   float [*,*] coeff1y, float [*,*]  coeff2x , 
+
+def int Modelslscoeffs(float [*,*] Qx,      float [*,*] Qy, float [*,* ] modx, \
+                   float [*,*] mody,    float [*,*]  coeff1x ,             \
+                   float [*,*] coeff1y, float [*,*]  coeff2x ,             \
                    float [*,*] coeff2y, struct model Model):
 
   # Modelslscoeff computes the standard linear solid  coefficients
@@ -256,10 +256,10 @@ int Modelslscoeffs(float [*,*] Qx,      float [*,*] Qy, float [*,* ] modx,
 
   if(Model.Freesurface == 1):
     Modele(d2,Model.Dx,Model.Nb);
-  end
+  
   else :
     Modeld(d2,Model.Dx,Model.Nb);
-  end
+  
 
   Modeld(d1,Model.Dx,Model.Nb);
   Model.dx = d1;
@@ -296,19 +296,19 @@ int Modelslscoeffs(float [*,*] Qx,      float [*,*] Qy, float [*,* ] modx,
       # of  the modulus
       modx[i,j]   = LibeExp(-argx)*modx[i,j]*(1.0-tausx/tauex);
       mody[i,j]   = LibeExp(-argy)*mody[i,j]*(1.0-tausy/tauey);
-    end
-  end
+    
+  
   delete(d1);
   delete(d2);
 
   return(OK);
-end
 
-struct model Modelsls(float [*,*] vp,  float [*,*] vs, float [*,*] rho, 
-             float [*,*] Qlx, float [*,*] Qly,float [*,*] Qmx, float [*,*] Qmy,
-             float [*,*] Qpx, float [*,*] Qpy, 
-             float Dx,        float Dt,       float W0,        
-             int Nb,          int Freesurface) :
+
+def struct model Modelsls(float [*,*] vp,  float [*,*] vs, float [*,*] rho,       \
+           float [*,*] Qlx, float [*,*] Qly,float [*,*] Qmx, float [*,*] Qmy, \
+           float [*,*] Qpx, float [*,*] Qpy,                                  \
+           float Dx,        float Dt,       float W0,                         \
+           int Nb,          int Freesurface) :
 
   # Modelsls creates a new model with Standard Linear Solid Q
  
@@ -393,12 +393,9 @@ struct model Modelsls(float [*,*] vp,  float [*,*] vs, float [*,*] rho,
       Model.Mu[i,j]       = rho[i,j]*vs[i,j]*vs[i,j]; 
       if(Freesurface == 1 && j==0):
         Model.Mu[i,j]       = 0.5*rho[i,j]*vs[i,j]*vs[i,j]; 
-      end
       Model.Lambda[i,j]   = rho[i,j]*(vp[i,j]*vp[i,j]-2.0*vs[i,j]*vs[i,j]);
       if(Freesurface == 1 && j==0) :
         Model.Lambda[i,j]   = 0.0;
-      end
-
       Model.Alpha1x[i,j]  = 0.0;
       Model.Alpha1y[i,j]  = 0.0;
       Model.Alpha2x[i,j]  = 0.0;
@@ -417,18 +414,16 @@ struct model Modelsls(float [*,*] vp,  float [*,*] vs, float [*,*] rho,
       Model.Dmuy[i,j] = Model.Mu[i,j];
       Model.Drhopx[i,j] = Model.Rho[i,j];
       Model.Drhopy[i,j] = Model.Rho[i,j];
-    end
-  end
 
   # Compute sls coefficients
 
-  Modelslscoeffs(Model.Qlx, Model.Qly,Model.Dlambdax,Model.Dlambday,
-                 Model.Alpha1x, Model.Alpha1y, 
+  Modelslscoeffs(Model.Qlx, Model.Qly,Model.Dlambdax,Model.Dlambday,   \
+                 Model.Alpha1x, Model.Alpha1y,                         \
                  Model.Alpha2x, Model.Alpha2y, Model);
-  Modelslscoeffs(Model.Qmx, Model.Qmy,Model.Dmux,Model.Dmuy,
-                 Model.Beta1x, Model.Beta1y, 
+  Modelslscoeffs(Model.Qmx, Model.Qmy,Model.Dmux,Model.Dmuy,           \
+                 Model.Beta1x, Model.Beta1y,                           \
                  Model.Beta2x, Model.Beta2y, Model);
-  Modelslscoeffs(Model.Qpx,  Model.Qpy,Model.Drhopx,Model.Drhopy,
+  Modelslscoeffs(Model.Qpx,  Model.Qpy,Model.Drhopx,Model.Drhopy,      \
                  Model.Eta1x,Model.Eta1y, Model.Eta2x, Model.Eta2y, Model);
 
 # Stagger the density
@@ -492,13 +487,13 @@ struct model Modelsls(float [*,*] vp,  float [*,*] vs, float [*,*] rho,
   Modelstaggery(wrk,Model.Eta2y);
   delete(wrk);
   return(Model);
-end
 
-struct model ModelNew(float [*,*] vp,  float [*,*] vs, float [*,*] rho, 
-            float [*,*] Qlx, float [*,*] Qly,float [*,*] Qmx, float [*,*] Qmy,
-            float [*,*] Qpx, float [*,*] Qpy,
-            float Dx,        float Dt,       float W0,       
-            int Nb,          int Rheol,      int Freesurface):
+
+def struct model ModelNew(float [*,*] vp,  float [*,*] vs, float [*,*] rho,     \
+          float [*,*] Qlx, float [*,*] Qly,float [*,*] Qmx, float [*,*] Qmy,\
+          float [*,*] Qpx, float [*,*] Qpy,                                 \
+          float Dx,        float Dt,       float W0,                        \
+          int Nb,          int Rheol,      int Freesurface):
 
   # ModelNew creates a new model.
   #
@@ -525,19 +520,16 @@ struct model ModelNew(float [*,*] vp,  float [*,*] vs, float [*,*] rho,
   struct model m;
 
   if(Rheol == SLS):
-    m= Modelsls(vp,vs,rho,Qlx,Qly,Qmx,Qmy,Qpx,Qpy,
-                Dx, Dt, W0, Nb, Freesurface);
-  end
+    m= Modelsls(vp,vs,rho,Qlx,Qly,Qmx,Qmy,Qpx,Qpy,Dx, Dt, W0, Nb, Freesurface);
   else :
     LibePuts(stderr, "Unknown Q-model\n"); 
     LibeFlush(stderr);
     # Bailing out
     LibeExit();
-  end 
+   
   return(m);
-end
 
-float ModelStability(struct model Model):
+def float ModelStability(struct model Model):
 
   # Modelstability checks velocity model for stability.
   # 
@@ -572,9 +564,9 @@ float ModelStability(struct model Model):
         LibePutf(stderr,Model.Dx,"g");
         LibePuts(stderr,"\n");
         LibeFlush(stderr);
-      end
-    end
-  end
+      
+    
+  
 
   return(stab);
-end
+

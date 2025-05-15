@@ -16,7 +16,7 @@ nx      = 251      #No of grdipoints in x-direction
 ny      = 251      #No of gridpoints in y-direction
 dx      = 5.0      #Grid interval
 dt      = 0.0005    #Time sampling interval
-nt      = 2001      #No of time steps
+nt      = 6001      #No of time steps
 f0      = 25.0        #Q-model peak frequency
 w0      = 2.0*pi*f0  #Q-model peak angular frequency
 resamp  = 1          #Resampling factor (relative to no of timesteps) for data
@@ -62,8 +62,8 @@ for i in range(0,nr):
  
 #Snapshost (0=flag not set, 1=flag set)
 snpflags = np.zeros(5, dtype=np.int32)
-snpflags[0] = 1 #Store p on file "snp-p.bin"
-#snpflags[1] =  1 #Store vx     on file "snp-vx.bin"
+#snpflags[0] = 1 #Store p on file "snp-p.bin"
+snpflags[1] =  1 #Store vx     on file "snp-vx.bin"
 #snpflags[2] = 1 #Store vy      on file "snp-vy.bin"
 #snpflags[3] = 1 #Store e       on file "snp-e.bin"
 #snpflags[4] = 1 #Store exy     on file "snp-exy.bin"

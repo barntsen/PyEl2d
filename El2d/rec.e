@@ -18,10 +18,10 @@ class rec :
   float [*,*] wrk; # Work array
   int   resamp;  # Resample factor for receivers
   int pit;       # Next time sample to be recorded
-end
 
-struct rec RecNew(int [*] rx, int [*] ry, int nt,  
-                  int resamp) :
+
+def struct rec RecNew(int [*] rx, int [*] ry, int nt, int resamp) :                
+                  
 
   # RecNew is the constructor for receiver objects.
   #
@@ -49,9 +49,9 @@ struct rec RecNew(int [*] rx, int [*] ry, int nt,
   Rec.pit = 0;
   
   return(Rec);
-end  
+  
 
-int RecReceiver(struct rec Rec,int it, float [*,*]p, float [*,*] vx,
+def int RecReceiver(struct rec Rec,int it, float [*,*]p, float [*,*] vx, \
                                        float [*,*] vy) :
                                        
   # RecReciver records data at the receiver
@@ -69,7 +69,8 @@ int RecReceiver(struct rec Rec,int it, float [*,*]p, float [*,*] vx,
   int pos;
   int ixr,iyr;
 
-  if(Rec.pit > Rec.nt-1):return(ERR);end
+  if(Rec.pit > Rec.nt-1):
+    return(ERR);
 
   if(LibeMod(it,Rec.resamp) == 0):
     for (pos=0;pos<Rec.nr; pos=pos+1):  
@@ -78,13 +79,13 @@ int RecReceiver(struct rec Rec,int it, float [*,*]p, float [*,*] vx,
       Rec.p[pos,Rec.pit] =  p[ixr,iyr];
       Rec.vx[pos,Rec.pit] = vx[ixr,iyr];
       Rec.vy[pos,Rec.pit] = vy[ixr,iyr];
-    end 
+     
     Rec.pit = Rec.pit+1;
-  end
+  
   return(OK);
-end
 
-float [*,*] RecGetrec(struct rec Rec, int data):
+
+def float [*,*] RecGetrec(struct rec Rec, int data):
 
   # RecGetrec retrieves the recorded data
   #
@@ -98,11 +99,11 @@ float [*,*] RecGetrec(struct rec Rec, int data):
  
   if(data == 0):
     return(Rec.p);
-  end
+  
   else if(data == 1):
     return(Rec.vx);
-  end
+  
   else if(data == 2):
     return(Rec.vy);
-  end
-end
+  
+

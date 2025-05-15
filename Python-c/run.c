@@ -22,69 +22,30 @@ typedef struct nctempcomplex4 { int d[4]; complex *a;} nctempcomplex4;
 void *RunMalloc(int n); 
 int RunFree(void *n); 
 int RunCreate (nctempchar1 *name)
-{
-int a;
-a =0;
-}
+;
 float RunClock ()
-{
-int a;
-a =0;
-}
+;
 int RunOpen (nctempchar1 *name,nctempchar1 *mode)
 ;
 int RunClose (int fd)
-{
-int a;
-a =0;
-}
+;
 int RunRead (int fd,int lbuff,nctempchar1 *buffer)
-{
-int a;
-a =0;
-}
+;
 int RunWrite (int fd,int lbuff,nctempchar1 *buffer)
-{
-int a;
-a =0;
-}
+;
 int RunSeek (int fd,int pos,int flag)
-{
-int a;
-a =0;
-}
+;
 nctempchar1 * RunGetenv (nctempchar1 *name)
-{
-int a;
-a =0;
-}
+;
 int RunGetnt ()
-{
-int a;
-a =0;
-}
+;
 int RunGetnb ()
-{
-int a;
-a =0;
-}
+;
 int RunStrcmp (nctempchar1 *s,nctempchar1 *t)
-{
-int a;
-a =0;
-}
+;
 int RunStrlen (nctempchar1 *s)
-{
-int a;
-a =0;
-}
+;
 int RunExit ()
-{
-int a;
-a =0;
-}
+;
 int RunSystem (nctempchar1 *cmd)
-{
-int a;
-a =0;
-}
+;
