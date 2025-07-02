@@ -1,0 +1,14 @@
+\contentsline {section}{\numberline {1}Introduction}{2}{}%
+\contentsline {section}{\numberline {2}The Viscoelastic equations of motion}{2}{}%
+\contentsline {subsection}{\numberline {2.1}The three dimensional case}{2}{}%
+\contentsline {subsubsection}{\numberline {2.1.1}Memory functions}{3}{}%
+\contentsline {subsubsection}{\numberline {2.1.2}Integration of memory functions}{5}{}%
+\contentsline {subsection}{\numberline {2.2}The two dimensional case}{7}{}%
+\contentsline {section}{\numberline {3}Numerical grids}{8}{}%
+\contentsline {subsection}{\numberline {3.1}Two dimensional case}{9}{}%
+\contentsline {section}{\numberline {4}Finite-Difference Solution algorithms}{10}{}%
+\contentsline {subsection}{\numberline {4.1}The two dimensional case}{11}{}%
+\contentsline {subsection}{\numberline {4.2}The two dimensional Acoustic case}{14}{}%
+\contentsline {section}{\numberline {5}Coefficients for Viscoelastic models}{15}{}%
+\contentsline {subsection}{\numberline {5.1}Standard linear solid}{15}{}%
+\contentsline {section}{\numberline {6}The PyAc2d python library}{17}{}%
