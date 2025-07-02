@@ -15,6 +15,16 @@ This makes it possible to maintain a single source code version for cpu and gpu.
 
 ## Installation
 Clone the repo to a local directory.
+
+### Ubuntu 24
+Binary versions for all needed libraries are provided for
+```Ubuntu 24.04.2 LTS```. No additional installation is needed.
+To check the installation run the tests found in
+```Tests/Python-c```, ```Tests-Python-cuda``` or
+```Tests/Python-omp```.
+
+### Non Ubuntu systems
+If the precompiled libraries does not work, then installation is required.
 The install.sh script in the top directory will compile the c/cuda code and
 install a simple script (el2dmod) for running simulations.
 gcc and nvcc are used for the compilation and must be installed.
@@ -29,6 +39,11 @@ To install the Cuda gpu version type
 To install the Open MP multicore cpu version type
 
      ./install.sh omp
+
+## Installation from original (.e) source files
+If you have installed the epsilon compiler (see <git@github.com:barntsen/Eps.git>)
+the ```mk.sh``` script will compile and install all libraries and python code. 
+Follow the instructions above, just replace ```install.sh``` with ```mk.sh```.
 
 ## Getting started
 The Examples/Basic directory contain a basic example for how to use
