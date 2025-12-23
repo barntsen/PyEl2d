@@ -31,6 +31,7 @@ class bin :
     def write(self,data) :
         """Write binary data"""
         tmp = data.astype(np.float32,order='F')
+        tmp = np.transpose(tmp)
         tmp.tofile(self.file)
         self.file.close()
 

@@ -3,6 +3,8 @@
     in the inline comments. All units are si (m/s,kg/m^3 etc..)
     File formats are pure binary, where the x-axis is the fastest index.
     (i.e. Models are stored as x-vectors.)
+    Data (vx,vy,sigmaxx,sigmayy) are dumped on files vx.bin,vy.bin,sxx.bin
+    and syy.bin
     The y-axis points downwards.
 
 '''
@@ -45,10 +47,10 @@ sy[0]    = ny/2
 
 #Source flags 
 srcflags = np.zeros(4, dtype=np.int32)
-#srcflags[0] = 1   #Set diagonal stress source
-#srcflags[1] = 1   #Set diagonal stress source
-srcflags[2] = 1    #Set horisontal force source
-#srcflags[3] = 1   #Set vertical force source
+srcflags[0] = 1   #Set diagonal stress source
+srcflags[1] = 1   #Set diagonal stress source
+#srcflags[2] = 1  #Set horisontal force source
+#srcflags[3] = 1  #Set vertical force source
 
 #Receiver positions
 nr = nx
@@ -60,8 +62,11 @@ for i in range(0,nr):
  
 #Snapshost (0=flag not set, 1=flag set)
 snpflags = np.zeros(5, dtype=np.int32)
-#snpflags[0] = 1 #Store p on file "snp-p.bin"
-snpflags[1] =  1 #Store vx     on file "snp-vx.bin"
+snpflags[0] = 1 #Store p on file "snp-p.bin"
+#snpflags[1] =  1 #Store vx     on file "snp-vx.bin"
 #snpflags[2] = 1 #Store vy      on file "snp-vy.bin"
 #snpflags[3] = 1 #Store e       on file "snp-e.bin"
 #snpflags[4] = 1 #Store exy     on file "snp-exy.bin"
+Qmin=1.1
+
+path="/home/barn/Dropbox/Src/PyEl2d/Bin"

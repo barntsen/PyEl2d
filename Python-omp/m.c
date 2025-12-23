@@ -1,5 +1,7 @@
-//  Translated by epsc  version December 2021  
-extern "C" {
+//  Translated by epsc  version today  
+#include <stddef.h>
+#include <stdio.h>
+#include <assert.h>
 typedef struct { float r; float i;} complex; 
 typedef struct nctempfloat1 { int d[1]; float *a;} nctempfloat1; 
 typedef struct nctempint1 { int d[1]; int *a;} nctempint1; 
@@ -17,45 +19,7 @@ typedef struct nctempfloat4 { int d[4]; float *a;} nctempfloat4;
 typedef struct nctempint4 { int d[4]; int *a;} nctempint4; 
 typedef struct nctempchar4 { int d[4]; char *a;} nctempchar4; 
 typedef struct nctempcomplex4 { int d[4]; complex *a;} nctempcomplex4; 
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <assert.h>
-
-void *GpuNew(int n);
-void *GpuDelete(void *f);
-void *GpuError();
-void *RunMalloc(int n);
-int RunFree(void * );
-int RunSync();
-int RunGetnt();
-int RunGetnb();
-int RunCreate (nctempchar1 *name)
-;
-float RunClock ()
-;
-int RunOpen (nctempchar1 *name,nctempchar1 *mode)
-;
-int RunClose (int fd)
-;
-int RunRead (int fd,int lbuff,nctempchar1 *buffer)
-;
-int RunWrite (int fd,int lbuff,nctempchar1 *buffer)
-;
-int RunSeek (int fd,int pos,int flag)
-;
-nctempchar1 * RunGetenv (nctempchar1 *name)
-;
-int RunGetnt ()
-;
-int RunGetnb ()
-;
-int RunStrcmp (nctempchar1 *s,nctempchar1 *t)
-;
-int RunStrlen (nctempchar1 *s)
-;
-int RunExit ()
-;
-int RunSystem (nctempchar1 *cmd)
-;
-}
+void *RunMalloc(int n); 
+int RunFree(void *n); 

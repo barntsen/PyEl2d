@@ -418,6 +418,25 @@ The final form of the visco-elastic equations in two dimensions is then
 \end{eqnarray}
 
 \begin{eqnarray}
+\theta^l_{xxx}(t)  & = &\eta^l_1 \theta^l_{xxx}(t-\Delta t) 
+            + \eta^l_2\p_x\sigma_{xx}(t-\Delta t),  \nonumber \\
+\theta^l_{yyy}(t)  & = &\eta^l_1 \theta^l_{yyy}(t-\Delta t) 
+            + \eta^l_2\p_y\sigma_{yy}(t-\Delta t),  \nonumber \\
+\theta^l_{yxy}(t)  & = &\eta^l_1 \theta^l_{yxy}(t-\Delta t) 
+            + \eta^l_2\p_y\sigma_{xy}(t-\Delta t),  \nonumber \\
+\theta^l_{xyx}(t)  & = &\nu^l_1 \theta^l_{xyx}(t-\Delta t) 
+            + \eta^l_2\p_x\sigma_{yx}(t-\Delta t),  \nonumber \\
+\end{eqnarray}
+
+\begin{eqnarray}
+\eta^l_1  & = &\exp(-\frac{\Delta t}{\tau^{p}_{\sigma l}}) , \nonumber \\
+\eta^l_2  & = &\frac{\Delta t}{\tau^{p}_{\sigma l}\sum_{l=1}^N
+                                 \frac{\tau^{p}_{\epsilon l}}
+                                  {\tau^{p}_{\sigma l}}}, \nonumber \\
+\end{eqnarray}
+
+
+\begin{eqnarray}
     \dot{e_{xx}} & = & \p_x v_x, \nonumber\\
     \dot{e_{yy}} & = & \p_y v_y, \nonumber\\
     \dot{e_{zz}} & = & \p_z v_z, \nonumber\\

@@ -42,9 +42,9 @@ def struct rec RecNew(int [*] rx, int [*] ry, int nt, int resamp) :
   Rec.rx = rx;
   Rec.ry = ry;
   Rec.nt = nt;
-  Rec.p = new(float [Rec.nr,Rec.nt]);
-  Rec.vx = new(float [Rec.nr,Rec.nt]);
-  Rec.vy = new(float [Rec.nr,Rec.nt]);
+  Rec.p = new(float [Rec.nt,Rec.nr]);
+  Rec.vx = new(float [Rec.nt,Rec.nr]);
+  Rec.vy = new(float [Rec.nt,Rec.nr]);
   Rec.resamp = resamp;
   Rec.pit = 0;
   
@@ -76,9 +76,9 @@ def int RecReceiver(struct rec Rec,int it, float [*,*]p, float [*,*] vx, \
     for (pos=0;pos<Rec.nr; pos=pos+1):  
       ixr=Rec.rx[pos];
       iyr=Rec.ry[pos];
-      Rec.p[pos,Rec.pit] =  p[ixr,iyr];
-      Rec.vx[pos,Rec.pit] = vx[ixr,iyr];
-      Rec.vy[pos,Rec.pit] = vy[ixr,iyr];
+      Rec.p[Rec.pit,pos] =  p[ixr,iyr];
+      Rec.vx[Rec.pit,pos] = vx[ixr,iyr];
+      Rec.vy[Rec.pit,pos] = vy[ixr,iyr];
 
     Rec.pit = Rec.pit+1;
   

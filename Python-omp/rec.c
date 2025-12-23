@@ -23,75 +23,17 @@ typedef struct nctempcomplex4 { int d[4]; complex *a;} nctempcomplex4;
 #include <string.h>
 void *RunMalloc(int n); 
 int RunFree(void *n); 
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
 struct MainArg {nctempchar1 *arg;
 };
 typedef struct nctempMainArg1 {int d[1]; struct MainArg *a; } nctempMainArg1;
 struct nctempMainArg2 {int d[2]; struct MainArg *a; } ;
 struct nctempMainArg3 {int d[3]; struct MainArg *a; } ;
 struct nctempMainArg4 {int d[4]; struct MainArg *a; } ;
-int LibeErrno;
-nctempchar1 *LibeErrstr;
 int LibeErrinit ();
 int LibeGeterrno ();
 int LibeClearerr ();
 nctempchar1 * LibeGeterrstr ();
 nctempchar1 * LibeGetenv (nctempchar1 *name);
-;
-;
-;
-;
-;
 float LibeMach (int flag);
 float LibeFabs (float x);
 float LibeFscale2 (float x,int n);
@@ -103,17 +45,6 @@ float LibeGetffman (float f);
 int LibeGetmaxdig (float f);
 int LibeGetfexp (float f);
 float LibeClock ();
-;
-;
-;
-;
-;
-;
-;
-float LibeSincosmax;
-float LibeSincoslim;
-float LibeLnmax;
-float LibeLnmin;
 int LibeMod (int n,int r);
 float LibeSqrt (float x);
 float LibeLn (float x);
@@ -160,10 +91,6 @@ typedef struct nctempLibeFdescr1 {int d[1]; struct LibeFdescr *a; } nctempLibeFd
 struct nctempLibeFdescr2 {int d[2]; struct LibeFdescr *a; } ;
 struct nctempLibeFdescr3 {int d[3]; struct LibeFdescr *a; } ;
 struct nctempLibeFdescr4 {int d[4]; struct LibeFdescr *a; } ;
-;
-struct nctempLibeFdescr1 *LibeFarr;
-;
-nctempchar1 *LibeTmpstr;
 int LibeIoinit ();
 int LibeFlushbuff (int fp);
 int LibeFillbuff (int fp);
@@ -184,8 +111,6 @@ int LibeRead (int fp,int n,nctempchar1 *buffer);
 int LibeWrite (int fp,int n,nctempchar1 *buffer);
 int LibeSeek (int fp,int pos,int flag);
 int LibeIodelete ();
-int NBLOCKS;
-int NTHREADS;
 int LibeSetnb (int nb);
 int LibeSetnt (int nt);
 int LibeGetnb ();
@@ -244,10 +169,6 @@ typedef struct nctempmodel1 {int d[1]; struct model *a; } nctempmodel1;
 struct nctempmodel2 {int d[2]; struct model *a; } ;
 struct nctempmodel3 {int d[3]; struct model *a; } ;
 struct nctempmodel4 {int d[4]; struct model *a; } ;
-;
-;
-;
-;
 int Modeld (nctempfloat1 *d,float dx,int nb);
 int Modele (nctempfloat1 *d,float dx,int nb);
 nctempfloat2 * Modelcopy (nctempfloat2 *a);
@@ -255,8 +176,8 @@ int Modelstaggerx (nctempfloat2 *a,nctempfloat2 *astagg);
 int Modelstaggery (nctempfloat2 *a,nctempfloat2 *astagg);
 int Modelslscoeffs (nctempfloat2 *Qx,nctempfloat2 *Qy,nctempfloat2 *modx,nctempfloat2 *mody,nctempfloat2 *coeff1x,nctempfloat2 *coeff1y,nctempfloat2 *coeff2x,nctempfloat2 *coeff2y,struct model* Model);
 struct model* Modelsls (nctempfloat2 *vp,nctempfloat2 *vs,nctempfloat2 *rho,nctempfloat2 *Qlx,nctempfloat2 *Qly,nctempfloat2 *Qmx,nctempfloat2 *Qmy,nctempfloat2 *Qpx,nctempfloat2 *Qpy,float Dx,float Dt,float W0,int Nb,int Freesurface);
-struct model* ModelNew (nctempfloat2 *vp,nctempfloat2 *vs,nctempfloat2 *rho,nctempfloat2 *Qlx,nctempfloat2 *Qly,nctempfloat2 *Qmx,nctempfloat2 *Qmy,nctempfloat2 *Qpx,nctempfloat2 *Qpy,float Dx,float Dt,float W0,int Nb,int Rheol,int Freesurface);
 float ModelStability (struct model* Model);
+struct model* ModelNew (nctempfloat2 *vp,nctempfloat2 *vs,nctempfloat2 *rho,nctempfloat2 *Qlx,nctempfloat2 *Qly,nctempfloat2 *Qmx,nctempfloat2 *Qmy,nctempfloat2 *Qpx,nctempfloat2 *Qpy,float Dx,float Dt,float W0,int Nb,int Rheol,int Freesurface);
 struct rec {int nr;
 nctempint1 *rx;
 nctempint1 *ry;
@@ -281,35 +202,35 @@ struct rec* Rec;
 struct rec *nctemp5=(struct rec*)RunMalloc(sizeof(struct rec));
 Rec =nctemp5;
 int nctemp11=rx->d[0];Rec->nr =nctemp11;
-Rec->rx=rx;
-Rec->ry=ry;
-Rec->nt =nt;
-int nctemp37=Rec->nr;
-nctemp37=nctemp37*Rec->nt;
-nctempfloat2 *nctemp36;
-nctemp36=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp36->d[0]=Rec->nr;
-nctemp36->d[1]=Rec->nt;
-nctemp36->a=(float *)RunMalloc(sizeof(float)*nctemp37);
-Rec->p=nctemp36;
-int nctemp48=Rec->nr;
-nctemp48=nctemp48*Rec->nt;
-nctempfloat2 *nctemp47;
-nctemp47=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp47->d[0]=Rec->nr;
-nctemp47->d[1]=Rec->nt;
-nctemp47->a=(float *)RunMalloc(sizeof(float)*nctemp48);
-Rec->vx=nctemp47;
-int nctemp59=Rec->nr;
-nctemp59=nctemp59*Rec->nt;
-nctempfloat2 *nctemp58;
-nctemp58=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp58->d[0]=Rec->nr;
-nctemp58->d[1]=Rec->nt;
-nctemp58->a=(float *)RunMalloc(sizeof(float)*nctemp59);
-Rec->vy=nctemp58;
-Rec->resamp =resamp;
-Rec->pit =0;
+Rec->rx = rx;
+Rec->ry = ry;
+Rec->nt = nt;
+int nctemp21=Rec->nt;
+nctemp21=nctemp21*Rec->nr;
+nctempfloat2 *nctemp20;
+nctemp20=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp20->d[0]=Rec->nt;
+nctemp20->d[1]=Rec->nr;
+nctemp20->a=(float *)RunMalloc(sizeof(float)*nctemp21);
+Rec->p=nctemp20;
+int nctemp32=Rec->nt;
+nctemp32=nctemp32*Rec->nr;
+nctempfloat2 *nctemp31;
+nctemp31=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp31->d[0]=Rec->nt;
+nctemp31->d[1]=Rec->nr;
+nctemp31->a=(float *)RunMalloc(sizeof(float)*nctemp32);
+Rec->vx=nctemp31;
+int nctemp43=Rec->nt;
+nctemp43=nctemp43*Rec->nr;
+nctempfloat2 *nctemp42;
+nctemp42=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp42->d[0]=Rec->nt;
+nctemp42->d[1]=Rec->nr;
+nctemp42->a=(float *)RunMalloc(sizeof(float)*nctemp43);
+Rec->vy=nctemp42;
+Rec->resamp = resamp;
+Rec->pit = 0;
 return Rec;
 }
 int RecReceiver (struct rec* Rec,int it,nctempfloat2 *p,nctempfloat2 *vx,nctempfloat2 *vy)
@@ -317,68 +238,45 @@ int RecReceiver (struct rec* Rec,int it,nctempfloat2 *p,nctempfloat2 *vx,nctempf
 int pos;
 int ixr;
 int iyr;
-int nctemp81 = Rec->nt - 1;
-int nctemp73 = (Rec->pit > nctemp81);
-if(nctemp73)
+int nctemp57 = Rec->nt - 1;
+int nctemp49 = (Rec->pit > nctemp57);
+if(nctemp49)
 {
 return 0;
 }
-int nctemp86= it;
-int nctemp88= Rec->resamp;
-int nctemp90=LibeMod(nctemp86,nctemp88);
-int nctemp83 = (nctemp90 ==0);
-if(nctemp83)
+int nctemp62= it;
+int nctemp64= Rec->resamp;
+int nctemp66=LibeMod(nctemp62,nctemp64);
+int nctemp59 = (nctemp66 ==0);
+if(nctemp59)
 {
-pos =0;
-int nctemp96 = (pos < Rec->nr);
-while(nctemp96){
-{
-int nctemp104=pos;
-ixr =Rec->rx->a[nctemp104];
-int nctemp110=pos;
-iyr =Rec->ry->a[nctemp110];
-int nctemp115=pos;
-nctemp115=Rec->pit*Rec->p->d[0]+nctemp115;
-int nctemp119=ixr;
-nctemp119=iyr*p->d[0]+nctemp119;
-Rec->p->a[nctemp115] =p->a[nctemp119];
-int nctemp125=pos;
-nctemp125=Rec->pit*Rec->vx->d[0]+nctemp125;
-int nctemp129=ixr;
-nctemp129=iyr*vx->d[0]+nctemp129;
-Rec->vx->a[nctemp125] =vx->a[nctemp129];
-int nctemp135=pos;
-nctemp135=Rec->pit*Rec->vy->d[0]+nctemp135;
-int nctemp139=ixr;
-nctemp139=iyr*vy->d[0]+nctemp139;
-Rec->vy->a[nctemp135] =vy->a[nctemp139];
+for(pos = 0;pos < Rec->nr;pos = (pos + 1)){
+ixr = Rec->rx->a[pos];
+iyr = Rec->ry->a[pos];
+Rec->p->a[Rec->pit+Rec->p->d[0]*(pos)] = p->a[ixr+p->d[0]*(iyr)];
+Rec->vx->a[Rec->pit+Rec->vx->d[0]*(pos)] = vx->a[ixr+vx->d[0]*(iyr)];
+Rec->vy->a[Rec->pit+Rec->vy->d[0]*(pos)] = vy->a[ixr+vy->d[0]*(iyr)];
 }
-int nctemp150 = pos + 1;
-pos =nctemp150;
-int nctemp151 = (pos < Rec->nr);
-nctemp96=nctemp151;
-}
-int nctemp163 = Rec->pit + 1;
-Rec->pit =nctemp163;
+Rec->pit = (Rec->pit + 1);
 }
 return 1;
 }
 nctempfloat2 * RecGetrec (struct rec* Rec,int data)
 {
-int nctemp165 = (data ==0);
-if(nctemp165)
+int nctemp69 = (data ==0);
+if(nctemp69)
 {
 return Rec->p;
 }
 else{
-int nctemp171 = (data ==1);
-if(nctemp171)
+int nctemp75 = (data ==1);
+if(nctemp75)
 {
 return Rec->vx;
 }
 else{
-int nctemp177 = (data ==2);
-if(nctemp177)
+int nctemp81 = (data ==2);
+if(nctemp81)
 {
 return Rec->vy;
 }

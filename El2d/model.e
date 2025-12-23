@@ -250,7 +250,6 @@ def int Modelslscoeffs(float [*,*] Qx,      float [*,*] Qy, float [*,* ] modx, \
 
   if(Model.Freesurface == 1):
     Modele(d2,Model.Dx,Model.Nb);
-  
   else :
     Modeld(d2,Model.Dx,Model.Nb);
   

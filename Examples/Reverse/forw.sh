@@ -2,7 +2,7 @@
 # run.sh is a test script for PyEl2d
 
 # Path to Bin directory
-B=../../Bin
+B=$HOME/Dropbox/Src/PyEl2d/Bin
 
 ./clean.sh
 
@@ -27,6 +27,6 @@ $B/spike -n1 $n1 -n2 $n2 -val 1000.0 rho.bin
 export NTHREADS=1024
 export NBLOCKS=1024
 
-$B/el2dmod -m cuda mod.py 
+$B/forw -m cuda params.py 
 #./snp.sh
 

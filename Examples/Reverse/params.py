@@ -11,19 +11,19 @@
 
 import numpy as np
 
-pi      = 3.14159  #Constant pi
-nx      = 256      #No of grdipoints in x-direction
-ny      = 256      #No of gridpoints in y-direction
-dx      = 5.0      #Grid interval
-dt      = 0.0005    #Time sampling interval
-nt      = 1501      #No of time steps
-f0      = 25.0        #Q-model peak frequency
+pi      = 3.14159    #Constant pi
+nx      = 256        #No of grdipoints in x-direction
+ny      = 256        #No of gridpoints in y-direction
+dx      = 5.0        #Grid interval
+dt      = 0.0005     #Time sampling interval
+nt      = 1501       #No of time steps
+f0      = 25.0       #Q-model peak frequency
 w0      = 2.0*pi*f0  #Q-model peak angular frequency
 resamp  = 1          #Resampling factor (relative to no of timesteps) for data
-sresamp = 10         #Resampling factor (relative to timesteps)for snapshots
+sresamp = 10          #Resampling factor (relative to timesteps)for snapshots
 nb      = 35         #No of PML boundary points
 l       = 6          #Length of differentiator
-freesurface = 1      # =1: Use freesurface =0: No free surface
+freesurface = 0      # =1: Use freesurface =0: No free surface
 fvp     = "vp.bin"   #Vp file name
 fvs     = "vs.bin"   #Vp file name
 frho    = "rho.bin"  #Rho file name
@@ -53,20 +53,37 @@ srcflags[1] = 1   #Set diagonal stress source
 #srcflags[3] = 1  #Set vertical force source
 
 #Receiver positions
-nr = nx
-rx=np.zeros((nr), dtype=np.int32)
-ry=np.zeros((nr), dtype=np.int32)
+nr = nx-2*nb
+rx=np.zeros((4*nr), dtype=np.int32)
+ry=np.zeros((4*nr), dtype=np.int32)
+
+#Upper horizontal receivers
 for i in range(0,nr):
-  rx[i] = i
-  ry[i] = nb+5
+  rx[i] = i+nb
+  ry[i] = nb
+
+#Lower horizontal receivers
+for i in range(0,nr):
+  rx[i+nr] = i+nb
+  ry[i+nr] = ny-nb
  
-#Snapshost (0=flag not set, 1=flag set)
+#Vertical receivers (left)
+for i in range(1,nr-1):
+  rx[i+2*nr] = nb 
+  ry[i+2*nr] = i+nb 
+ 
+#Vertical receivers (right)
+for i in range(1,nr-1):
+  rx[i+3*nr] = nx-nb 
+  ry[i+3*nr] = i+nb 
+ 
+#Snapshots (0=flag not set, 1=flag set)
 snpflags = np.zeros(5, dtype=np.int32)
 snpflags[0] = 1 #Store p on file "snp-p.bin"
-#snpflags[1] =  1 #Store vx     on file "snp-vx.bin"
+#snpflags[1] = 1 #Store vx     on file "snp-vx.bin"
 #snpflags[2] = 1 #Store vy      on file "snp-vy.bin"
 #snpflags[3] = 1 #Store e       on file "snp-e.bin"
 #snpflags[4] = 1 #Store exy     on file "snp-exy.bin"
-Qmin=0.5
+Qmin=1.1
 
 path="/home/barn/Dropbox/Src/PyEl2d/Bin"

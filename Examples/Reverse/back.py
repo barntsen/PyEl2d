@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-''' el2dmod is a script for 2D elastic modeling
+''' el2drev is a script for 2D elastic modeling
 
   Arguments:
     fname : Input configuration file
@@ -7,6 +7,8 @@
 '''
 
 import time
+import matplotlib.pyplot as pl
+
 from datetime import datetime
 import importlib
 import numpy as np
@@ -24,16 +26,13 @@ import pyeps
 
 #Get configuration file name
 parser = argparse.ArgumentParser(description='el2dmod - 2D elastic modeling')
-parser.add_argument('fname',help='Configuartion file name')
+parser.add_argument('fname',help='Configuration file name')
 parser.add_argument("-m",dest="m",default='cuda', 
                     help="either of cpu,cuda or omp ")
 args = parser.parse_args()
 
 print("** el2dmod ", args.m, "version **",flush=True)
 
-# Get PyEl2d library
-path = el2d.libpath()
-pyel2d = el2d.setup(path,args.m)
 
 #Get configuration file 
 if args.fname is not None :
@@ -42,6 +41,9 @@ if args.fname is not None :
   par=importlib.import_module(module, package=None)
 else :
   sys.exit("No cfg file name")
+
+# Get PyEl2d library 
+pyel2d = el2d.setup(par.path,args.m)
 
 t0=time.perf_counter()   #Start measure wall clock time
 
@@ -68,11 +70,12 @@ if (par.srcflags[3] == 1) :
   sfy[:,0]=Src[:]
 
 # Create sources 
-src=src.src(pyel2d,par.sx,par.sy,par.nt,par.dt,
+xsrc=src.src(pyel2d,par.sx,par.sy,par.nt,par.dt,
             sfx=sfx,sfy=sfy,sqxx=sqxx,sqyy=sqyy)
 
 # Create receivers 
 nrt=int(par.nt/par.resamp)
+print("nt: ", par.nt)
 print("record lenghth: ",nrt)
 rec=rec.rec(pyel2d,par.rx,par.ry,nrt,par.resamp)
 
@@ -116,28 +119,41 @@ m = model.model(pyel2d,vp,vs,rho,par.dx,par.dt,par.w0,par.nb,
 print("model time  (secs):", time.perf_counter()-t0, flush=True)
 
 # Create fd solver
-el2d = el2d.el2d(pyel2d,m,par.sresamp,par.snpflags)
+xel2d = el2d.el2d(pyel2d,m,par.sresamp,par.snpflags)
 
 # Run solver
 t1=time.perf_counter()
-el2d.solve(pyel2d,m,src,par.nt,rec,par.l)
+xel2d.solve(pyel2d,m,xsrc,par.nt,rec,par.l)
 tsolve = time.perf_counter()-t1
 
 # Get data
 dtype=0
 data = rec.getrec(pyel2d,dtype)
+print("data dimensions: ", data.shape)
 fd=ba.bin("p.bin",'w')
 fd.write(data)
 
-dtype=1
-data = rec.getrec(pyel2d,dtype)
-fd=ba.bin("vx.bin",'w')
-fd.write(data)
+#Copy data to boundary sources
+par.sx=par.rx
+par.sy=par.ry
+sqxxr = np.zeros((par.nt,len(par.rx)), dtype=np.float32, order='F')
+sqyyr = np.zeros((par.nt,len(par.rx)), dtype=np.float32, order='F')
+sfx=np.zeros((par.nt,len(par.rx)), dtype=np.float32, order='F')
+sfy=np.zeros((par.nt,len(par.rx)), dtype=np.float32, order='F')
 
-dtype=2
-data = rec.getrec(pyel2d,dtype)
-fd=ba.bin("vy.bin",'w')
-fd.write(data)
+for i in range(0,len(par.rx)):
+  sqxxr[:,i]=np.flip(data[:,i])
+  sqyyr[:,i]=np.flip(data[:,i])
+
+# Create sources 
+print(type(src))
+src=src.src(pyel2d,par.sx,par.sy,par.nt,par.dt,sfx=sfx,sfy=sfy,sqxx=sqxxr,sqyy=sqyyr)
+            
+# Create fd solver
+rec = None
+par.resamp=10
+el2d = el2d.el2d(pyel2d,m,par.sresamp,par.snpflags)
+el2d.solve(pyel2d,m,src,par.nt,rec,par.l)
 
 # Log wall clock time and date
 now = datetime.now()

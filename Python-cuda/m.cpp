@@ -30,4 +30,4 @@ int RunFree(void * );
 int RunSync();
 int RunGetnt();
 int RunGetnb();
-}
+};

@@ -1,69 +1,84 @@
 #!/bin/sh
 # mk is a script for compiling the py2acd el2d code
+#and copy output c/c++ code to the python-c, python-cuda or
+#python-omp directories.
+
+# Get the architecture (cpu,cuda or omp)
 cc=$1
 
 # Compile nividia cuda version and copy the c++ code to ../Python-cuda
-opt=" -C "
 if  test $cc = cuda ; then
+  opt="-x cuda "
   path=../Python-cuda
-  ecc  -c     model.e
-  cp          model.cpp $path
-  ecc  -c     src.e
-  cp          src.cpp   $path
-  ecc  -c     rec.e
-  cp          rec.cpp   $path
-  ecc  -c     diff.e
-  cp          diff.cpp  $path
-  ecc  -c     el2d.e
-  cp          el2d.cpp  $path
-  ecc  -c     model.e
-  cp          model.cpp $path
+  ec  $opt -c  model.e
+  cp           model.cpp $path
+  ec  $opt -c  src.e
+  cp           src.cpp   $path
+  ec  $opt -c  rec.e
+  cp           rec.cpp   $path
+  ec  $opt -c  diff.e
+  cp           diff.cpp  $path
+  ec  $opt -c  el2d.e
+  cp           el2d.cpp  $path
+  ec  $opt -c  model.e
+  cp           model.cpp $path
+  ec  $opt -c  pyeps.e
+  cp           pyeps.cpp $path
+  ec  $opt -c  m.e
+  cp           m.cpp    $path
+  ec  $opt -c  run.e
+  ec  $opt -c  libe.e
+  cp           libe.cpp $path
+  cp           runcuda.e $path/runcuda.cpp
 fi
-rm *.cpp
-
-# Compile amd hip version
-#if  test $cc = hip ; then
-#  ech  -O diff.e
-#  ech  -O model.e
-#  ech  -O src.e
-#  ech  -O rec.e
-#  ech  -O el2d.e
-#  ar rcs libel2dhip.o el2d.o diff.o model.o src.o rec.o
-#fi
 
 # Compile c code
 if  test $cc = c ; then
+  opt="-x cpu "
   path=../Python-c
-  ec    -c   model.e
+  ec  $opt -c   model.e
   cp         model.c $path
-  ec    -c   src.e
+  ec  $opt -c   src.e
   cp         src.c   $path
-  ec    -c   rec.e
+  ec  $opt -c   rec.e
   cp         rec.c   $path
-  ec    -c   diff.e
+  ec  $opt  -c   diff.e
   cp         diff.c  $path
-  ec    -c   el2d.e
+  ec  $opt  -c   el2d.e
   cp         el2d.c  $path
-  ec    -c   model.e
+  ec  $opt  -c   model.e
   cp         model.c $path
+  ec  $opt  -c   pyeps.e
+  cp         pyeps.c $path
+  ec  $opt  -c   m.e
+  cp         m.c    $path
+  ec  $opt  -c   libe.e
+  cp         libe.c $path
+  cp         runcpu.e $path/runcpu.c
 fi
-rm *.c
 
-# Compile open mp code
+# Compile omp code
 if  test $cc = c ; then
+  opt="-x cpu -f "
   path=../Python-omp
-  ec    -c   model.e
+  ec  $opt -c   model.e
   cp         model.c $path
-  ec    -c   src.e
+  ec  $opt -c   src.e
   cp         src.c   $path
-  ec    -c   rec.e
+  ec  $opt -c   rec.e
   cp         rec.c   $path
-  ec    -c   diff.e
+  ec  $opt  -c   diff.e
   cp         diff.c  $path
-  ec    -c   el2d.e
+  ec  $opt  -c   el2d.e
   cp         el2d.c  $path
-  ec    -c   model.e
+  ec  $opt  -c   model.e
   cp         model.c $path
+  ec  $opt  -c   pyeps.e
+  cp         pyeps.c $path
+  ec  $opt  -c   m.e
+  cp         m.c    $path
+  ec  $opt  -c   libe.e
+  cp         libe.c $path
+  cp         runcpu.e $path/runcpu.c
 fi
-rm *.c
 

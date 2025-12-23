@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as pl
 import q
 import pyeps
-import babin as ba
+#import babin as ba
 
 class model :
 

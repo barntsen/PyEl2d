@@ -30,75 +30,17 @@ int RunFree(void * );
 int RunSync();
 int RunGetnt();
 int RunGetnb();
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
-;
 struct MainArg {nctempchar1 *arg;
 };
 typedef struct nctempMainArg1 {int d[1]; struct MainArg *a; } nctempMainArg1;
 struct nctempMainArg2 {int d[2]; struct MainArg *a; } ;
 struct nctempMainArg3 {int d[3]; struct MainArg *a; } ;
 struct nctempMainArg4 {int d[4]; struct MainArg *a; } ;
-int LibeErrno;
-nctempchar1 *LibeErrstr;
 int LibeErrinit ();
 int LibeGeterrno ();
 int LibeClearerr ();
 nctempchar1 * LibeGeterrstr ();
 nctempchar1 * LibeGetenv (nctempchar1 *name);
-;
-;
-;
-;
-;
 float LibeMach (int flag);
 float LibeFabs (float x);
 float LibeFscale2 (float x,int n);
@@ -110,17 +52,6 @@ float LibeGetffman (float f);
 int LibeGetmaxdig (float f);
 int LibeGetfexp (float f);
 float LibeClock ();
-;
-;
-;
-;
-;
-;
-;
-float LibeSincosmax;
-float LibeSincoslim;
-float LibeLnmax;
-float LibeLnmin;
 int LibeMod (int n,int r);
 float LibeSqrt (float x);
 float LibeLn (float x);
@@ -167,10 +98,6 @@ typedef struct nctempLibeFdescr1 {int d[1]; struct LibeFdescr *a; } nctempLibeFd
 struct nctempLibeFdescr2 {int d[2]; struct LibeFdescr *a; } ;
 struct nctempLibeFdescr3 {int d[3]; struct LibeFdescr *a; } ;
 struct nctempLibeFdescr4 {int d[4]; struct LibeFdescr *a; } ;
-;
-struct nctempLibeFdescr1 *LibeFarr;
-;
-nctempchar1 *LibeTmpstr;
 int LibeIoinit ();
 int LibeFlushbuff (int fp);
 int LibeFillbuff (int fp);
@@ -191,8 +118,6 @@ int LibeRead (int fp,int n,nctempchar1 *buffer);
 int LibeWrite (int fp,int n,nctempchar1 *buffer);
 int LibeSeek (int fp,int pos,int flag);
 int LibeIodelete ();
-int NBLOCKS;
-int NTHREADS;
 int LibeSetnb (int nb);
 int LibeSetnt (int nt);
 int LibeGetnb ();
@@ -232,30 +157,20 @@ int PyepsCopy1ds (nctempchar1 *arr,nctempchar1 *out)
 int nx;
 int i;
 int nctemp38=out->d[0];nx =nctemp38;
-i =0;
-int nctemp46 = (i < nx);
-while(nctemp46){
-{
-int nctemp53=i;
-int nctemp56=i;
-out->a[nctemp53] =arr->a[nctemp56];
-}
-int nctemp66 = i + 1;
-i =nctemp66;
-int nctemp67 = (i < nx);
-nctemp46=nctemp67;
+for(i = 0;i < nx;i = (i + 1)){
+out->a[i] = arr->a[i];
 }
 return 1;
 }
 nctempint1 * PyepsCre1di (int Nx)
 {
 nctempint1 *tmp;
-int nctemp78=Nx;
-nctempint1 *nctemp77;
-nctemp77=(nctempint1*)RunMalloc(sizeof(nctempint1));
-nctemp77->d[0]=Nx;
-nctemp77->a=(int *)RunMalloc(sizeof(int)*nctemp78);
-tmp=nctemp77;
+int nctemp49=Nx;
+nctempint1 *nctemp48;
+nctemp48=(nctempint1*)RunMalloc(sizeof(nctempint1));
+nctemp48->d[0]=Nx;
+nctemp48->a=(int *)RunMalloc(sizeof(int)*nctemp49);
+tmp=nctemp48;
 return tmp;
 }
 int PyepsDel1di (nctempint1 *arr)
@@ -268,31 +183,21 @@ int PyepsCopy1di (nctempint1 *arr,nctempint1 *out)
 {
 int nx;
 int i;
-int nctemp91=out->d[0];nx =nctemp91;
-i =0;
-int nctemp99 = (i < nx);
-while(nctemp99){
-{
-int nctemp106=i;
-int nctemp109=i;
-out->a[nctemp106] =arr->a[nctemp109];
-}
-int nctemp119 = i + 1;
-i =nctemp119;
-int nctemp120 = (i < nx);
-nctemp99=nctemp120;
+int nctemp62=out->d[0];nx =nctemp62;
+for(i = 0;i < nx;i = (i + 1)){
+out->a[i] = arr->a[i];
 }
 return 1;
 }
 nctempfloat1 * PyepsCre1df (int Nx)
 {
 nctempfloat1 *tmp;
-int nctemp131=Nx;
-nctempfloat1 *nctemp130;
-nctemp130=(nctempfloat1*)RunMalloc(sizeof(nctempfloat1));
-nctemp130->d[0]=Nx;
-nctemp130->a=(float *)RunMalloc(sizeof(float)*nctemp131);
-tmp=nctemp130;
+int nctemp73=Nx;
+nctempfloat1 *nctemp72;
+nctemp72=(nctempfloat1*)RunMalloc(sizeof(nctempfloat1));
+nctemp72->d[0]=Nx;
+nctemp72->a=(float *)RunMalloc(sizeof(float)*nctemp73);
+tmp=nctemp72;
 return tmp;
 }
 int PyepsDel1df (nctempfloat1 *arr)
@@ -305,32 +210,22 @@ int PyepsCopy1df (nctempfloat1 *arr,nctempfloat1 *out)
 {
 int nx;
 int i;
-int nctemp144=out->d[0];nx =nctemp144;
-i =0;
-int nctemp152 = (i < nx);
-while(nctemp152){
-{
-int nctemp159=i;
-int nctemp162=i;
-out->a[nctemp159] =arr->a[nctemp162];
-}
-int nctemp172 = i + 1;
-i =nctemp172;
-int nctemp173 = (i < nx);
-nctemp152=nctemp173;
+int nctemp86=out->d[0];nx =nctemp86;
+for(i = 0;i < nx;i = (i + 1)){
+out->a[i] = arr->a[i];
 }
 return 1;
 }
 nctempfloat2 * PyepsCre2df (int Nx,int Ny)
 {
-int nctemp180=Nx;
-nctemp180=nctemp180*Ny;
-nctempfloat2 *nctemp179;
-nctemp179=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp179->d[0]=Nx;
-nctemp179->d[1]=Ny;
-nctemp179->a=(float *)RunMalloc(sizeof(float)*nctemp180);
-return nctemp179;
+int nctemp93=Nx;
+nctemp93=nctemp93*Ny;
+nctempfloat2 *nctemp92;
+nctemp92=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp92->d[0]=Nx;
+nctemp92->d[1]=Ny;
+nctemp92->a=(float *)RunMalloc(sizeof(float)*nctemp93);
+return nctemp92;
 }
 int PyepsDel2df (nctempfloat2 *arr)
 {
@@ -344,33 +239,13 @@ int nx;
 int ny;
 int i;
 int j;
-int nctemp193=out->d[0];nx =nctemp193;
-int nctemp201=out->d[1];ny =nctemp201;
-j =0;
-int nctemp209 = (j < ny);
-while(nctemp209){
-{
-i =0;
-int nctemp217 = (i < nx);
-while(nctemp217){
-{
-int nctemp224=i;
-nctemp224=j*out->d[0]+nctemp224;
-int nctemp228=i;
-nctemp228=j*arr->d[0]+nctemp228;
-out->a[nctemp224] =arr->a[nctemp228];
+int nctemp106=out->d[0];nx =nctemp106;
+int nctemp114=out->d[1];ny =nctemp114;
+for(j = 0;j < ny;j = (j + 1)){
+for(i = 0;i < nx;i = (i + 1)){
+out->a[i+out->d[0]*(j)] = arr->a[i+arr->d[0]*(j)];
 }
-int nctemp239 = i + 1;
-i =nctemp239;
-int nctemp240 = (i < nx);
-nctemp217=nctemp240;
-}
-}
-int nctemp252 = j + 1;
-j =nctemp252;
-int nctemp253 = (j < ny);
-nctemp209=nctemp253;
 }
 return 1;
 }
-}
+};

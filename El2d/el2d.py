@@ -47,8 +47,8 @@ def setup(path,version) :
   elif version == 'omp':
     module1 = 'pyel2domp.so'
     os.environ['OMP_NUM_THREADS']=str(6)
+  libpath=path+"/"+module1
 
-  libpath=path+module1
   cdll.LoadLibrary(libpath)
   pyel2d = CDLL(libpath)
 
@@ -71,8 +71,9 @@ class el2d :
                    snpflgs[0] = 1 store snapshot for p
                    snpflgs[1] = 1 store snapshot for vx
                    snpflgs[2] = 1 store snapshot for vy 
-                   snpflgs[3] = 1 store snapshot for e 
-                   snpflgs[4] = 1 store snapshot for exy 
+                   snpflgs[3] = 1 store snapshot for exx 
+                   snpflgs[4] = 1 store snapshot for eyy 
+                   snpflgs[5] = 1 store snapshot for exy 
 
       Returns   : el2d object.
   '''
