@@ -132,6 +132,31 @@ data = rec.getrec(pyel2d,dtype)
 print("data dimensions: ", data.shape)
 fd=ba.bin("p.bin",'w')
 fd.write(data)
+dtype=1
+data = rec.getrec(pyel2d,dtype)
+print("data dimensions: ", data.shape)
+fd=ba.bin("vx.bin",'w')
+fd.write(data)
+dtype=2
+data = rec.getrec(pyel2d,dtype)
+print("data dimensions: ", data.shape)
+fd=ba.bin("vy.bin",'w')
+fd.write(data)
+dtype=3
+data = rec.getrec(pyel2d,dtype)
+print("data dimensions: ", data.shape)
+fd=ba.bin("sxx.bin",'w')
+fd.write(data)
+dtype=4
+data = rec.getrec(pyel2d,dtype)
+print("data dimensions: ", data.shape)
+fd=ba.bin("syy.bin",'w')
+fd.write(data)
+dtype=5
+data = rec.getrec(pyel2d,dtype)
+print("data dimensions: ", data.shape)
+fd=ba.bin("sxy.bin",'w')
+fd.write(data)
 
 # Log wall clock time and date
 now = datetime.now()

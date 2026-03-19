@@ -1,4 +1,5 @@
-//  Translated by epsc  version today  
+//  Translated by epsc  version: Thu Mar 19 21:52:43 2026
+
 #include <stddef.h>
 #include <stdio.h>
 #include <assert.h>
@@ -37,42 +38,6 @@ int DiffDxminus (struct diff* Diff,nctempfloat2 *A,nctempfloat2 *dA,float dx);
 int DiffDxplus (struct diff* Diff,nctempfloat2 *A,nctempfloat2 *dA,float dx);
 int DiffDyminus (struct diff* Diff,nctempfloat2 *A,nctempfloat2 *dA,float dx);
 int DiffDyplus (struct diff* Diff,nctempfloat2 *A,nctempfloat2 *dA,float dx);
-struct rec {int nr;
-nctempint1 *rx;
-nctempint1 *ry;
-int fd;
-int nt;
-nctempfloat2 *p;
-nctempfloat2 *sxx;
-nctempfloat2 *syy;
-nctempfloat2 *vx;
-nctempfloat2 *vy;
-nctempfloat2 *wrk;
-int resamp;
-int pit;
-};
-typedef struct nctemprec1 {int d[1]; struct rec *a; } nctemprec1;
-struct nctemprec2 {int d[2]; struct rec *a; } ;
-struct nctemprec3 {int d[3]; struct rec *a; } ;
-struct nctemprec4 {int d[4]; struct rec *a; } ;
-struct rec* RecNew (nctempint1 *rx,nctempint1 *ry,int nt,int resamp);
-int RecReceiver (struct rec* Rec,int it,nctempfloat2 *p,nctempfloat2 *vx,nctempfloat2 *vy);
-nctempfloat2 * RecGetrec (struct rec* Rec,int data);
-struct src {nctempint1 *Sx;
-nctempint1 *Sy;
-nctempfloat2 *Sqyy;
-nctempfloat2 *Sqxx;
-nctempfloat2 *Sfx;
-nctempfloat2 *Sfy;
-int Ns;
-};
-typedef struct nctempsrc1 {int d[1]; struct src *a; } nctempsrc1;
-struct nctempsrc2 {int d[2]; struct src *a; } ;
-struct nctempsrc3 {int d[3]; struct src *a; } ;
-struct nctempsrc4 {int d[4]; struct src *a; } ;
-struct src* SrcNew (nctempint1 *sx,nctempint1 *sy,nctempfloat2 *sqxx,nctempfloat2 *sqyy,nctempfloat2 *sfx,nctempfloat2 *sfy);
-int SrcDel (struct src* Src);
-int Srcricker (nctempfloat1 *source,float t0,float f0,int nt,float dt);
 struct model {int Nx;
 int Ny;
 int Nb;
@@ -252,8 +217,9 @@ int ts;
 int fdp;
 int fdvx;
 int fdvy;
-int fde;
-int fdexy;
+int fdsxx;
+int fdsyy;
+int fdsxy;
 int sresamp;
 nctempint1 *snpflags;
 };
@@ -261,6 +227,44 @@ typedef struct nctempel2d1 {int d[1]; struct el2d *a; } nctempel2d1;
 struct nctempel2d2 {int d[2]; struct el2d *a; } ;
 struct nctempel2d3 {int d[3]; struct el2d *a; } ;
 struct nctempel2d4 {int d[4]; struct el2d *a; } ;
+struct rec {int nr;
+nctempint1 *rx;
+nctempint1 *ry;
+int fd;
+int nt;
+nctempfloat2 *p;
+nctempfloat2 *sxx;
+nctempfloat2 *syy;
+nctempfloat2 *sxy;
+nctempfloat2 *vx;
+nctempfloat2 *vy;
+nctempfloat2 *wrk;
+int resamp;
+int pit;
+};
+typedef struct nctemprec1 {int d[1]; struct rec *a; } nctemprec1;
+struct nctemprec2 {int d[2]; struct rec *a; } ;
+struct nctemprec3 {int d[3]; struct rec *a; } ;
+struct nctemprec4 {int d[4]; struct rec *a; } ;
+struct rec* RecNew (nctempint1 *rx,nctempint1 *ry,int nt,int resamp);
+int RecReceiver (struct rec* Rec,int it,nctempfloat2 *field,int dtype);
+nctempfloat2 * RecGetrec (struct rec* Rec,int data);
+struct src {nctempint1 *Sx;
+nctempint1 *Sy;
+nctempfloat2 *Sqyy;
+nctempfloat2 *Sqxx;
+nctempfloat2 *Sqxy;
+nctempfloat2 *Sfx;
+nctempfloat2 *Sfy;
+int Ns;
+};
+typedef struct nctempsrc1 {int d[1]; struct src *a; } nctempsrc1;
+struct nctempsrc2 {int d[2]; struct src *a; } ;
+struct nctempsrc3 {int d[3]; struct src *a; } ;
+struct nctempsrc4 {int d[4]; struct src *a; } ;
+struct src* SrcNew (nctempint1 *sx,nctempint1 *sy,nctempfloat2 *sqxx,nctempfloat2 *sqyy,nctempfloat2 *sqxy,nctempfloat2 *sfx,nctempfloat2 *sfy);
+int SrcDel (struct src* Src);
+int Srcricker (nctempfloat1 *source,float t0,float f0,int nt,float dt);
 struct el2d* El2dNew (struct model* Model,int sresamp,nctempint1 *snpflags)
 {
 struct el2d* El2d;
@@ -513,7 +517,7 @@ int nctemp295 = (El2d->snpflags->a[nctemp298] ==1);
 if(nctemp295)
 {
 struct nctempchar1 *nctemp307;
-static struct nctempchar1 nctemp308 = {{ 10}, (char*)"snp-e.bin\0"};
+static struct nctempchar1 nctemp308 = {{ 12}, (char*)"snp-sxx.bin\0"};
 nctemp307=&nctemp308;
 nctempchar1* nctemp305= nctemp307;
 struct nctempchar1 *nctemp311;
@@ -521,14 +525,14 @@ static struct nctempchar1 nctemp312 = {{ 2}, (char*)"w\0"};
 nctemp311=&nctemp312;
 nctempchar1* nctemp309= nctemp311;
 int nctemp313=LibeOpen(nctemp305,nctemp309);
-El2d->fde =nctemp313;
+El2d->fdsxx =nctemp313;
 }
 int nctemp317=4;
 int nctemp314 = (El2d->snpflags->a[nctemp317] ==1);
 if(nctemp314)
 {
 struct nctempchar1 *nctemp326;
-static struct nctempchar1 nctemp327 = {{ 12}, (char*)"snp-exy.bin\0"};
+static struct nctempchar1 nctemp327 = {{ 12}, (char*)"snp-syy.bin\0"};
 nctemp326=&nctemp327;
 nctempchar1* nctemp324= nctemp326;
 struct nctempchar1 *nctemp330;
@@ -536,7 +540,22 @@ static struct nctempchar1 nctemp331 = {{ 2}, (char*)"w\0"};
 nctemp330=&nctemp331;
 nctempchar1* nctemp328= nctemp330;
 int nctemp332=LibeOpen(nctemp324,nctemp328);
-El2d->fdexy =nctemp332;
+El2d->fdsyy =nctemp332;
+}
+int nctemp336=5;
+int nctemp333 = (El2d->snpflags->a[nctemp336] ==1);
+if(nctemp333)
+{
+struct nctempchar1 *nctemp345;
+static struct nctempchar1 nctemp346 = {{ 12}, (char*)"snp-sxy.bin\0"};
+nctemp345=&nctemp346;
+nctempchar1* nctemp343= nctemp345;
+struct nctempchar1 *nctemp349;
+static struct nctempchar1 nctemp350 = {{ 2}, (char*)"w\0"};
+nctemp349=&nctemp350;
+nctempchar1* nctemp347= nctemp349;
+int nctemp351=LibeOpen(nctemp343,nctemp347);
+El2d->fdsxy =nctemp351;
 }
 return El2d;
 }
@@ -638,272 +657,321 @@ El2d->gammayx->a[i+El2d->gammayx->d[0]*(j)] = ((Model->Beta1x->a[i+Model->Beta1x
 }}}
 int El2dSnap (struct el2d* El2d,int it)
 {
-int n;
 int Nx;
 int Ny;
+int n;
 nctempchar1 *tmp;
-int nctemp358 = (El2d->sresamp <= 0);
-if(nctemp358)
+int nctemp377 = (El2d->sresamp <= 0);
+if(nctemp377)
 {
 return 1;
 }
-int nctemp367=El2d->sigmaxx->d[0];Nx =nctemp367;
-int nctemp375=El2d->sigmaxx->d[1];Ny =nctemp375;
+int nctemp386=El2d->sigmaxx->d[0];Nx =nctemp386;
+int nctemp394=El2d->sigmaxx->d[1];Ny =nctemp394;
 n = (Nx * Ny);
-int nctemp382= it;
-int nctemp384= El2d->sresamp;
-int nctemp386=LibeMod(nctemp382,nctemp384);
-int nctemp379 = (nctemp386 ==0);
-if(nctemp379)
+int nctemp401= it;
+int nctemp403= El2d->sresamp;
+int nctemp405=LibeMod(nctemp401,nctemp403);
+int nctemp398 = (nctemp405 ==0);
+if(nctemp398)
 {
-int nctemp391=0;
-int nctemp388 = (El2d->snpflags->a[nctemp391] ==1);
-if(nctemp388)
+int nctemp410=0;
+int nctemp407 = (El2d->snpflags->a[nctemp410] ==1);
+if(nctemp407)
 {
-nctempchar1 nctemp400;
-nctempchar1 *nctemp399;
-nctemp400=*(nctempchar1*)(El2d->p);
-int nctemp407 = 4 * n;
-nctemp400.d[0]=nctemp407;
-nctemp399=&nctemp400;
-tmp=nctemp399;
-int nctemp409= El2d->fdp;
-int nctemp416 = 4 * n;
-int nctemp411= nctemp416;
-nctempchar1* nctemp417= tmp;
-int nctemp420=LibeWrite(nctemp409,nctemp411,nctemp417);
+nctempchar1 nctemp419;
+nctempchar1 *nctemp418;
+nctemp419=*(nctempchar1*)(El2d->p);
+int nctemp426 = 4 * n;
+nctemp419.d[0]=nctemp426;
+nctemp418=&nctemp419;
+tmp=nctemp418;
+int nctemp428= El2d->fdp;
+int nctemp435 = 4 * n;
+int nctemp430= nctemp435;
+nctempchar1* nctemp436= tmp;
+int nctemp439=LibeWrite(nctemp428,nctemp430,nctemp436);
 }
-int nctemp424=1;
-int nctemp421 = (El2d->snpflags->a[nctemp424] ==1);
-if(nctemp421)
+int nctemp443=1;
+int nctemp440 = (El2d->snpflags->a[nctemp443] ==1);
+if(nctemp440)
 {
-nctempchar1 nctemp433;
-nctempchar1 *nctemp432;
-nctemp433=*(nctempchar1*)(El2d->vx);
-int nctemp440 = 4 * n;
-nctemp433.d[0]=nctemp440;
-nctemp432=&nctemp433;
-tmp=nctemp432;
-int nctemp442= El2d->fdvx;
-int nctemp449 = 4 * n;
-int nctemp444= nctemp449;
-nctempchar1* nctemp450= tmp;
-int nctemp453=LibeWrite(nctemp442,nctemp444,nctemp450);
+nctempchar1 nctemp452;
+nctempchar1 *nctemp451;
+nctemp452=*(nctempchar1*)(El2d->vx);
+int nctemp459 = 4 * n;
+nctemp452.d[0]=nctemp459;
+nctemp451=&nctemp452;
+tmp=nctemp451;
+int nctemp461= El2d->fdvx;
+int nctemp468 = 4 * n;
+int nctemp463= nctemp468;
+nctempchar1* nctemp469= tmp;
+int nctemp472=LibeWrite(nctemp461,nctemp463,nctemp469);
 }
-int nctemp457=2;
-int nctemp454 = (El2d->snpflags->a[nctemp457] ==1);
-if(nctemp454)
+int nctemp476=2;
+int nctemp473 = (El2d->snpflags->a[nctemp476] ==1);
+if(nctemp473)
 {
-nctempchar1 nctemp466;
-nctempchar1 *nctemp465;
-nctemp466=*(nctempchar1*)(El2d->vy);
-int nctemp473 = 4 * n;
-nctemp466.d[0]=nctemp473;
-nctemp465=&nctemp466;
-tmp=nctemp465;
-int nctemp475= El2d->fdvy;
-int nctemp482 = 4 * n;
-int nctemp477= nctemp482;
-nctempchar1* nctemp483= tmp;
-int nctemp486=LibeWrite(nctemp475,nctemp477,nctemp483);
+nctempchar1 nctemp485;
+nctempchar1 *nctemp484;
+nctemp485=*(nctempchar1*)(El2d->vy);
+int nctemp492 = 4 * n;
+nctemp485.d[0]=nctemp492;
+nctemp484=&nctemp485;
+tmp=nctemp484;
+int nctemp494= El2d->fdvy;
+int nctemp501 = 4 * n;
+int nctemp496= nctemp501;
+nctempchar1* nctemp502= tmp;
+int nctemp505=LibeWrite(nctemp494,nctemp496,nctemp502);
 }
-int nctemp490=3;
-int nctemp487 = (El2d->snpflags->a[nctemp490] ==1);
-if(nctemp487)
+int nctemp509=3;
+int nctemp506 = (El2d->snpflags->a[nctemp509] ==1);
+if(nctemp506)
 {
-nctempchar1 nctemp499;
-nctempchar1 *nctemp498;
-nctemp499=*(nctempchar1*)(El2d->e);
-int nctemp506 = 4 * n;
-nctemp499.d[0]=nctemp506;
-nctemp498=&nctemp499;
-tmp=nctemp498;
-int nctemp508= El2d->fde;
-int nctemp515 = 4 * n;
-int nctemp510= nctemp515;
-nctempchar1* nctemp516= tmp;
-int nctemp519=LibeWrite(nctemp508,nctemp510,nctemp516);
+nctempchar1 nctemp518;
+nctempchar1 *nctemp517;
+nctemp518=*(nctempchar1*)(El2d->sigmaxx);
+int nctemp525 = 4 * n;
+nctemp518.d[0]=nctemp525;
+nctemp517=&nctemp518;
+tmp=nctemp517;
+int nctemp527= El2d->fdsxx;
+int nctemp534 = 4 * n;
+int nctemp529= nctemp534;
+nctempchar1* nctemp535= tmp;
+int nctemp538=LibeWrite(nctemp527,nctemp529,nctemp535);
 }
-int nctemp523=4;
-int nctemp520 = (El2d->snpflags->a[nctemp523] ==1);
-if(nctemp520)
+int nctemp542=4;
+int nctemp539 = (El2d->snpflags->a[nctemp542] ==1);
+if(nctemp539)
 {
-nctempchar1 nctemp532;
-nctempchar1 *nctemp531;
-nctemp532=*(nctempchar1*)(El2d->exy);
-int nctemp539 = 4 * n;
-nctemp532.d[0]=nctemp539;
-nctemp531=&nctemp532;
-tmp=nctemp531;
-int nctemp541= El2d->fdexy;
-int nctemp548 = 4 * n;
-int nctemp543= nctemp548;
-nctempchar1* nctemp549= tmp;
-int nctemp552=LibeWrite(nctemp541,nctemp543,nctemp549);
+nctempchar1 nctemp551;
+nctempchar1 *nctemp550;
+nctemp551=*(nctempchar1*)(El2d->sigmayy);
+int nctemp558 = 4 * n;
+nctemp551.d[0]=nctemp558;
+nctemp550=&nctemp551;
+tmp=nctemp550;
+int nctemp560= El2d->fdsyy;
+int nctemp567 = 4 * n;
+int nctemp562= nctemp567;
+nctempchar1* nctemp568= tmp;
+int nctemp571=LibeWrite(nctemp560,nctemp562,nctemp568);
+}
+int nctemp575=5;
+int nctemp572 = (El2d->snpflags->a[nctemp575] ==1);
+if(nctemp572)
+{
+nctempchar1 nctemp584;
+nctempchar1 *nctemp583;
+nctemp584=*(nctempchar1*)(El2d->sigmaxy);
+int nctemp591 = 4 * n;
+nctemp584.d[0]=nctemp591;
+nctemp583=&nctemp584;
+tmp=nctemp583;
+int nctemp593= El2d->fdsxy;
+int nctemp600 = 4 * n;
+int nctemp595= nctemp600;
+nctempchar1* nctemp601= tmp;
+int nctemp604=LibeWrite(nctemp593,nctemp595,nctemp601);
 }
 }
 return 1;
 }
 int El2dSolve (struct el2d* El2d,struct model* Model,struct src* Src,struct rec* Rec,int nt,int l)
 {
-int sx;
-int sy;
 struct diff* Diff;
-int ns;
-int ne;
 nctempfloat2 *tmp1;
 nctempfloat2 *tmp2;
+float oldperc;
+int ns;
+int ne;
 int i;
 int k;
+int sx;
+int sy;
 float perc;
-float oldperc;
 int iperc;
-int nctemp558= l;
-struct diff* nctemp560=DiffNew(nctemp558);
-Diff =nctemp560;
-int nctemp567=Model->Nx;
-nctemp567=nctemp567*Model->Ny;
-nctempfloat2 *nctemp566;
-nctemp566=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp566->d[0]=Model->Nx;
-nctemp566->d[1]=Model->Ny;
-nctemp566->a=(float *)RunMalloc(sizeof(float)*nctemp567);
-tmp1=nctemp566;
-int nctemp578=Model->Nx;
-nctemp578=nctemp578*Model->Ny;
-nctempfloat2 *nctemp577;
-nctemp577=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp577->d[0]=Model->Nx;
-nctemp577->d[1]=Model->Ny;
-nctemp577->a=(float *)RunMalloc(sizeof(float)*nctemp578);
-tmp2=nctemp577;
+int dtype;
+int nctemp610= l;
+struct diff* nctemp612=DiffNew(nctemp610);
+Diff =nctemp612;
+int nctemp619=Model->Nx;
+nctemp619=nctemp619*Model->Ny;
+nctempfloat2 *nctemp618;
+nctemp618=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp618->d[0]=Model->Nx;
+nctemp618->d[1]=Model->Ny;
+nctemp618->a=(float *)RunMalloc(sizeof(float)*nctemp619);
+tmp1=nctemp618;
+int nctemp630=Model->Nx;
+nctemp630=nctemp630*Model->Ny;
+nctempfloat2 *nctemp629;
+nctemp629=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp629->d[0]=Model->Nx;
+nctemp629->d[1]=Model->Ny;
+nctemp629->a=(float *)RunMalloc(sizeof(float)*nctemp630);
+tmp2=nctemp629;
 oldperc = 0.0;
 ns = El2d->ts;
 ne = (ns + nt);
 for(i = ns;i < ne;i = (i + 1)){
-struct diff* nctemp584= Diff;
-nctempfloat2* nctemp586= El2d->sigmaxx;
-nctempfloat2* nctemp589= El2d->exx;
-float nctemp592= Model->Dx;
-int nctemp594=DiffDxplus(nctemp584,nctemp586,nctemp589,nctemp592);
-struct diff* nctemp596= Diff;
-nctempfloat2* nctemp598= El2d->sigmaxy;
-nctempfloat2* nctemp601= El2d->exy;
-float nctemp604= Model->Dx;
-int nctemp606=DiffDyminus(nctemp596,nctemp598,nctemp601,nctemp604);
-struct el2d* nctemp608= El2d;
-struct model* nctemp610= Model;
-int nctemp612=El2dvx(nctemp608,nctemp610);
-struct diff* nctemp614= Diff;
-nctempfloat2* nctemp616= El2d->sigmayy;
-nctempfloat2* nctemp619= El2d->eyy;
-float nctemp622= Model->Dx;
-int nctemp624=DiffDyplus(nctemp614,nctemp616,nctemp619,nctemp622);
-struct diff* nctemp626= Diff;
-nctempfloat2* nctemp628= El2d->sigmaxy;
-nctempfloat2* nctemp631= El2d->eyx;
-float nctemp634= Model->Dx;
-int nctemp636=DiffDxminus(nctemp626,nctemp628,nctemp631,nctemp634);
-struct el2d* nctemp638= El2d;
-struct model* nctemp640= Model;
-int nctemp642=El2dvy(nctemp638,nctemp640);
-struct diff* nctemp644= Diff;
-nctempfloat2* nctemp646= El2d->vx;
-nctempfloat2* nctemp649= El2d->exx;
-float nctemp652= Model->Dx;
-int nctemp654=DiffDxminus(nctemp644,nctemp646,nctemp649,nctemp652);
-struct diff* nctemp656= Diff;
-nctempfloat2* nctemp658= El2d->vy;
-nctempfloat2* nctemp661= El2d->eyy;
-float nctemp664= Model->Dx;
-int nctemp666=DiffDyminus(nctemp656,nctemp658,nctemp661,nctemp664);
-struct diff* nctemp668= Diff;
-nctempfloat2* nctemp670= El2d->vy;
-nctempfloat2* nctemp673= tmp1;
-float nctemp676= Model->Dx;
-int nctemp678=DiffDxplus(nctemp668,nctemp670,nctemp673,nctemp676);
-struct diff* nctemp680= Diff;
-nctempfloat2* nctemp682= El2d->vx;
-nctempfloat2* nctemp685= tmp2;
-float nctemp688= Model->Dx;
-int nctemp690=DiffDyplus(nctemp680,nctemp682,nctemp685,nctemp688);
-struct el2d* nctemp692= El2d;
-struct model* nctemp694= Model;
-nctempfloat2* nctemp696= tmp1;
-nctempfloat2* nctemp699= tmp2;
-int nctemp702=El2dexy(nctemp692,nctemp694,nctemp696,nctemp699);
-struct el2d* nctemp704= El2d;
-struct model* nctemp706= Model;
-nctempfloat2* nctemp708= tmp1;
-nctempfloat2* nctemp711= tmp2;
-int nctemp714=El2deyx(nctemp704,nctemp706,nctemp708,nctemp711);
-struct el2d* nctemp716= El2d;
-struct model* nctemp718= Model;
-int nctemp720=El2de(nctemp716,nctemp718);
-struct el2d* nctemp722= El2d;
-struct model* nctemp724= Model;
-int nctemp726=El2dstress(nctemp722,nctemp724);
+struct diff* nctemp636= Diff;
+nctempfloat2* nctemp638= El2d->sigmaxx;
+nctempfloat2* nctemp641= El2d->exx;
+float nctemp644= Model->Dx;
+int nctemp646=DiffDxplus(nctemp636,nctemp638,nctemp641,nctemp644);
+struct diff* nctemp648= Diff;
+nctempfloat2* nctemp650= El2d->sigmaxy;
+nctempfloat2* nctemp653= El2d->exy;
+float nctemp656= Model->Dx;
+int nctemp658=DiffDyminus(nctemp648,nctemp650,nctemp653,nctemp656);
+struct el2d* nctemp660= El2d;
+struct model* nctemp662= Model;
+int nctemp664=El2dvx(nctemp660,nctemp662);
+struct diff* nctemp666= Diff;
+nctempfloat2* nctemp668= El2d->sigmayy;
+nctempfloat2* nctemp671= El2d->eyy;
+float nctemp674= Model->Dx;
+int nctemp676=DiffDyplus(nctemp666,nctemp668,nctemp671,nctemp674);
+struct diff* nctemp678= Diff;
+nctempfloat2* nctemp680= El2d->sigmaxy;
+nctempfloat2* nctemp683= El2d->eyx;
+float nctemp686= Model->Dx;
+int nctemp688=DiffDxminus(nctemp678,nctemp680,nctemp683,nctemp686);
+struct el2d* nctemp690= El2d;
+struct model* nctemp692= Model;
+int nctemp694=El2dvy(nctemp690,nctemp692);
+struct diff* nctemp696= Diff;
+nctempfloat2* nctemp698= El2d->vx;
+nctempfloat2* nctemp701= El2d->exx;
+float nctemp704= Model->Dx;
+int nctemp706=DiffDxminus(nctemp696,nctemp698,nctemp701,nctemp704);
+struct diff* nctemp708= Diff;
+nctempfloat2* nctemp710= El2d->vy;
+nctempfloat2* nctemp713= El2d->eyy;
+float nctemp716= Model->Dx;
+int nctemp718=DiffDyminus(nctemp708,nctemp710,nctemp713,nctemp716);
+struct diff* nctemp720= Diff;
+nctempfloat2* nctemp722= El2d->vy;
+nctempfloat2* nctemp725= tmp1;
+float nctemp728= Model->Dx;
+int nctemp730=DiffDxplus(nctemp720,nctemp722,nctemp725,nctemp728);
+struct diff* nctemp732= Diff;
+nctempfloat2* nctemp734= El2d->vx;
+nctempfloat2* nctemp737= tmp2;
+float nctemp740= Model->Dx;
+int nctemp742=DiffDyplus(nctemp732,nctemp734,nctemp737,nctemp740);
+struct el2d* nctemp744= El2d;
+struct model* nctemp746= Model;
+nctempfloat2* nctemp748= tmp1;
+nctempfloat2* nctemp751= tmp2;
+int nctemp754=El2dexy(nctemp744,nctemp746,nctemp748,nctemp751);
+struct el2d* nctemp756= El2d;
+struct model* nctemp758= Model;
+nctempfloat2* nctemp760= tmp1;
+nctempfloat2* nctemp763= tmp2;
+int nctemp766=El2deyx(nctemp756,nctemp758,nctemp760,nctemp763);
+struct el2d* nctemp768= El2d;
+struct model* nctemp770= Model;
+int nctemp772=El2de(nctemp768,nctemp770);
+struct el2d* nctemp774= El2d;
+struct model* nctemp776= Model;
+int nctemp778=El2dstress(nctemp774,nctemp776);
 for(k = 0;k < Src->Ns;k = (k + 1)){
 sx = Src->Sx->a[k];
 sy = Src->Sy->a[k];
 El2d->sigmaxx->a[sx+El2d->sigmaxx->d[0]*(sy)] = (El2d->sigmaxx->a[sx+El2d->sigmaxx->d[0]*(sy)] + (Model->Dt * (Src->Sqxx->a[i+Src->Sqxx->d[0]*(k)] / (Model->Dx * Model->Dx))));
 El2d->sigmayy->a[sx+El2d->sigmayy->d[0]*(sy)] = (El2d->sigmayy->a[sx+El2d->sigmayy->d[0]*(sy)] + (Model->Dt * (Src->Sqyy->a[i+Src->Sqyy->d[0]*(k)] / (Model->Dx * Model->Dx))));
+El2d->sigmayy->a[sx+El2d->sigmayy->d[0]*(sy)] = (El2d->sigmaxy->a[sx+El2d->sigmaxy->d[0]*(sy)] + (Model->Dt * (Src->Sqxy->a[i+Src->Sqxy->d[0]*(k)] / (Model->Dx * Model->Dx))));
 El2d->vx->a[sx+El2d->vx->d[0]*(sy)] = (El2d->vx->a[sx+El2d->vx->d[0]*(sy)] + (Model->Dt * (Src->Sfx->a[i+Src->Sfx->d[0]*(k)] / (Model->Dx * Model->Dx))));
 El2d->vy->a[sx+El2d->vy->d[0]*(sy)] = (El2d->vy->a[sx+El2d->vy->d[0]*(sy)] + (Model->Dt * (Src->Sfy->a[i+Src->Sfy->d[0]*(k)] / (Model->Dx * Model->Dx))));
 }
-float nctemp738=(float)(i);
-int nctemp751 = ne - ns;
-int nctemp753 = nctemp751 - 1;
-float nctemp742=(float)(nctemp753);
-float nctemp754 = nctemp738 / nctemp742;
-float nctemp755 = 1000.0 * nctemp754;
-perc =nctemp755;
-float nctemp763 = perc - oldperc;
-int nctemp756 = (nctemp763 >= 10.0);
-if(nctemp756)
+float nctemp790=(float)(i);
+int nctemp803 = ne - ns;
+int nctemp805 = nctemp803 - 1;
+float nctemp794=(float)(nctemp805);
+float nctemp806 = nctemp790 / nctemp794;
+float nctemp807 = 1000.0 * nctemp806;
+perc =nctemp807;
+float nctemp815 = perc - oldperc;
+int nctemp808 = (nctemp815 >= 10.0);
+if(nctemp808)
 {
-int nctemp772=(int)(perc);
-int nctemp776 = nctemp772 / 10;
-iperc =nctemp776;
-int nctemp780= iperc;
-int nctemp782= 10;
-int nctemp784=LibeMod(nctemp780,nctemp782);
-int nctemp777 = (nctemp784 ==0);
-if(nctemp777)
+int nctemp824=(int)(perc);
+int nctemp828 = nctemp824 / 10;
+iperc =nctemp828;
+int nctemp832= iperc;
+int nctemp834= 10;
+int nctemp836=LibeMod(nctemp832,nctemp834);
+int nctemp829 = (nctemp836 ==0);
+if(nctemp829)
 {
-int nctemp787= 4;
-struct nctempchar1 *nctemp791;
-static struct nctempchar1 nctemp792 = {{ 20}, (char*)"percent completed: \0"};
-nctemp791=&nctemp792;
-nctempchar1* nctemp789= nctemp791;
-int nctemp793=LibePuts(nctemp787,nctemp789);
-int nctemp795= 4;
-int nctemp797= iperc;
-int nctemp799=LibePuti(nctemp795,nctemp797);
-int nctemp801= 4;
-struct nctempchar1 *nctemp805;
-static struct nctempchar1 nctemp806 = {{ 3}, (char*)"\n\0"};
-nctemp805=&nctemp806;
-nctempchar1* nctemp803= nctemp805;
-int nctemp807=LibePuts(nctemp801,nctemp803);
-int nctemp809= 4;
-int nctemp811=LibeFlush(nctemp809);
+int nctemp839= 4;
+struct nctempchar1 *nctemp843;
+static struct nctempchar1 nctemp844 = {{ 20}, (char*)"percent completed: \0"};
+nctemp843=&nctemp844;
+nctempchar1* nctemp841= nctemp843;
+int nctemp845=LibePuts(nctemp839,nctemp841);
+int nctemp847= 4;
+int nctemp849= iperc;
+int nctemp851=LibePuti(nctemp847,nctemp849);
+int nctemp853= 4;
+struct nctempchar1 *nctemp857;
+static struct nctempchar1 nctemp858 = {{ 3}, (char*)"\n\0"};
+nctemp857=&nctemp858;
+nctempchar1* nctemp855= nctemp857;
+int nctemp859=LibePuts(nctemp853,nctemp855);
+int nctemp861= 4;
+int nctemp863=LibeFlush(nctemp861);
 }
 oldperc = perc;
 }
-int nctemp812 = (Rec !=0);
-if(nctemp812)
+int nctemp864 = (Rec !=0);
+if(nctemp864)
 {
-struct rec* nctemp817= Rec;
-int nctemp819= i;
-nctempfloat2* nctemp821= El2d->p;
-nctempfloat2* nctemp824= El2d->vx;
-nctempfloat2* nctemp827= El2d->vy;
-int nctemp830=RecReceiver(nctemp817,nctemp819,nctemp821,nctemp824,nctemp827);
+struct rec* nctemp869= Rec;
+int nctemp871= i;
+nctempfloat2* nctemp873= El2d->p;
+dtype =1;
+int nctemp876= dtype;
+int nctemp881=RecReceiver(nctemp869,nctemp871,nctemp873,nctemp876);
+struct rec* nctemp883= Rec;
+int nctemp885= i;
+nctempfloat2* nctemp887= El2d->vx;
+dtype =2;
+int nctemp890= dtype;
+int nctemp895=RecReceiver(nctemp883,nctemp885,nctemp887,nctemp890);
+struct rec* nctemp897= Rec;
+int nctemp899= i;
+nctempfloat2* nctemp901= El2d->vy;
+dtype =3;
+int nctemp904= dtype;
+int nctemp909=RecReceiver(nctemp897,nctemp899,nctemp901,nctemp904);
+struct rec* nctemp911= Rec;
+int nctemp913= i;
+nctempfloat2* nctemp915= El2d->sigmaxx;
+dtype =4;
+int nctemp918= dtype;
+int nctemp923=RecReceiver(nctemp911,nctemp913,nctemp915,nctemp918);
+struct rec* nctemp925= Rec;
+int nctemp927= i;
+nctempfloat2* nctemp929= El2d->sigmayy;
+dtype =5;
+int nctemp932= dtype;
+int nctemp937=RecReceiver(nctemp925,nctemp927,nctemp929,nctemp932);
+struct rec* nctemp939= Rec;
+int nctemp941= i;
+nctempfloat2* nctemp943= El2d->sigmaxy;
+dtype =6;
+int nctemp946= dtype;
+int nctemp951=RecReceiver(nctemp939,nctemp941,nctemp943,nctemp946);
 }
-struct el2d* nctemp832= El2d;
-int nctemp834= i;
-int nctemp836=El2dSnap(nctemp832,nctemp834);
+struct el2d* nctemp953= El2d;
+int nctemp955= i;
+int nctemp957=El2dSnap(nctemp953,nctemp955);
 }
 El2d->ts = (El2d->ts + ne);
 return 1;

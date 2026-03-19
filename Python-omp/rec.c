@@ -1,4 +1,5 @@
-//  Translated by epsc  version today  
+//  Translated by epsc  version: Thu Mar 19 21:52:43 2026
+
 #include <stddef.h>
 #include <stdio.h>
 #include <assert.h>
@@ -23,6 +24,65 @@ typedef struct nctempcomplex4 { int d[4]; complex *a;} nctempcomplex4;
 #include <string.h>
 void *RunMalloc(int n); 
 int RunFree(void *n); 
+struct model {int Nx;
+int Ny;
+int Nb;
+float W0;
+nctempfloat2 *Qlx;
+nctempfloat2 *Qly;
+nctempfloat2 *Qmx;
+nctempfloat2 *Qmy;
+nctempfloat2 *Qpx;
+nctempfloat2 *Qpy;
+nctempfloat2 *Lambda;
+nctempfloat2 *Mu;
+nctempfloat2 *Muxy;
+nctempfloat2 *Dmuxyx;
+nctempfloat2 *Dmuxyy;
+nctempfloat2 *Dlambdax;
+nctempfloat2 *Dlambday;
+nctempfloat2 *Dmux;
+nctempfloat2 *Dmuy;
+nctempfloat2 *Drhopx;
+nctempfloat2 *Drhopy;
+nctempfloat2 *Rho;
+nctempfloat2 *Rhox;
+nctempfloat2 *Rhoy;
+nctempfloat2 *Alpha1x;
+nctempfloat2 *Alpha1y;
+nctempfloat2 *Alpha2x;
+nctempfloat2 *Alpha2y;
+nctempfloat2 *Beta1x;
+nctempfloat2 *Beta2x;
+nctempfloat2 *Beta1y;
+nctempfloat2 *Beta2y;
+nctempfloat2 *Eta1x;
+nctempfloat2 *Eta1y;
+nctempfloat2 *Eta2x;
+nctempfloat2 *Eta2y;
+nctempfloat1 *dx;
+nctempfloat1 *dy;
+nctempfloat1 *dx1;
+nctempfloat1 *dy1;
+nctempfloat1 *dx2;
+nctempfloat1 *dy2;
+float Dx;
+float Dt;
+int Freesurface;
+};
+typedef struct nctempmodel1 {int d[1]; struct model *a; } nctempmodel1;
+struct nctempmodel2 {int d[2]; struct model *a; } ;
+struct nctempmodel3 {int d[3]; struct model *a; } ;
+struct nctempmodel4 {int d[4]; struct model *a; } ;
+int Modeld (nctempfloat1 *d,float dx,int nb);
+int Modele (nctempfloat1 *d,float dx,int nb);
+nctempfloat2 * Modelcopy (nctempfloat2 *a);
+int Modelstaggerx (nctempfloat2 *a,nctempfloat2 *astagg);
+int Modelstaggery (nctempfloat2 *a,nctempfloat2 *astagg);
+int Modelslscoeffs (nctempfloat2 *Qx,nctempfloat2 *Qy,nctempfloat2 *modx,nctempfloat2 *mody,nctempfloat2 *coeff1x,nctempfloat2 *coeff1y,nctempfloat2 *coeff2x,nctempfloat2 *coeff2y,struct model* Model);
+struct model* Modelsls (nctempfloat2 *vp,nctempfloat2 *vs,nctempfloat2 *rho,nctempfloat2 *Qlx,nctempfloat2 *Qly,nctempfloat2 *Qmx,nctempfloat2 *Qmy,nctempfloat2 *Qpx,nctempfloat2 *Qpy,float Dx,float Dt,float W0,int Nb,int Freesurface);
+float ModelStability (struct model* Model);
+struct model* ModelNew (nctempfloat2 *vp,nctempfloat2 *vs,nctempfloat2 *rho,nctempfloat2 *Qlx,nctempfloat2 *Qly,nctempfloat2 *Qmx,nctempfloat2 *Qmy,nctempfloat2 *Qpx,nctempfloat2 *Qpy,float Dx,float Dt,float W0,int Nb,int Rheol,int Freesurface);
 struct MainArg {nctempchar1 *arg;
 };
 typedef struct nctempMainArg1 {int d[1]; struct MainArg *a; } nctempMainArg1;
@@ -119,65 +179,6 @@ int LibeArrayex (int line,nctempchar1 *name,int ival,int index,int bound);
 int LibeSystem (nctempchar1 *cmd);
 int LibeInit ();
 int LibeExit ();
-struct model {int Nx;
-int Ny;
-int Nb;
-float W0;
-nctempfloat2 *Qlx;
-nctempfloat2 *Qly;
-nctempfloat2 *Qmx;
-nctempfloat2 *Qmy;
-nctempfloat2 *Qpx;
-nctempfloat2 *Qpy;
-nctempfloat2 *Lambda;
-nctempfloat2 *Mu;
-nctempfloat2 *Muxy;
-nctempfloat2 *Dmuxyx;
-nctempfloat2 *Dmuxyy;
-nctempfloat2 *Dlambdax;
-nctempfloat2 *Dlambday;
-nctempfloat2 *Dmux;
-nctempfloat2 *Dmuy;
-nctempfloat2 *Drhopx;
-nctempfloat2 *Drhopy;
-nctempfloat2 *Rho;
-nctempfloat2 *Rhox;
-nctempfloat2 *Rhoy;
-nctempfloat2 *Alpha1x;
-nctempfloat2 *Alpha1y;
-nctempfloat2 *Alpha2x;
-nctempfloat2 *Alpha2y;
-nctempfloat2 *Beta1x;
-nctempfloat2 *Beta2x;
-nctempfloat2 *Beta1y;
-nctempfloat2 *Beta2y;
-nctempfloat2 *Eta1x;
-nctempfloat2 *Eta1y;
-nctempfloat2 *Eta2x;
-nctempfloat2 *Eta2y;
-nctempfloat1 *dx;
-nctempfloat1 *dy;
-nctempfloat1 *dx1;
-nctempfloat1 *dy1;
-nctempfloat1 *dx2;
-nctempfloat1 *dy2;
-float Dx;
-float Dt;
-int Freesurface;
-};
-typedef struct nctempmodel1 {int d[1]; struct model *a; } nctempmodel1;
-struct nctempmodel2 {int d[2]; struct model *a; } ;
-struct nctempmodel3 {int d[3]; struct model *a; } ;
-struct nctempmodel4 {int d[4]; struct model *a; } ;
-int Modeld (nctempfloat1 *d,float dx,int nb);
-int Modele (nctempfloat1 *d,float dx,int nb);
-nctempfloat2 * Modelcopy (nctempfloat2 *a);
-int Modelstaggerx (nctempfloat2 *a,nctempfloat2 *astagg);
-int Modelstaggery (nctempfloat2 *a,nctempfloat2 *astagg);
-int Modelslscoeffs (nctempfloat2 *Qx,nctempfloat2 *Qy,nctempfloat2 *modx,nctempfloat2 *mody,nctempfloat2 *coeff1x,nctempfloat2 *coeff1y,nctempfloat2 *coeff2x,nctempfloat2 *coeff2y,struct model* Model);
-struct model* Modelsls (nctempfloat2 *vp,nctempfloat2 *vs,nctempfloat2 *rho,nctempfloat2 *Qlx,nctempfloat2 *Qly,nctempfloat2 *Qmx,nctempfloat2 *Qmy,nctempfloat2 *Qpx,nctempfloat2 *Qpy,float Dx,float Dt,float W0,int Nb,int Freesurface);
-float ModelStability (struct model* Model);
-struct model* ModelNew (nctempfloat2 *vp,nctempfloat2 *vs,nctempfloat2 *rho,nctempfloat2 *Qlx,nctempfloat2 *Qly,nctempfloat2 *Qmx,nctempfloat2 *Qmy,nctempfloat2 *Qpx,nctempfloat2 *Qpy,float Dx,float Dt,float W0,int Nb,int Rheol,int Freesurface);
 struct rec {int nr;
 nctempint1 *rx;
 nctempint1 *ry;
@@ -186,6 +187,7 @@ int nt;
 nctempfloat2 *p;
 nctempfloat2 *sxx;
 nctempfloat2 *syy;
+nctempfloat2 *sxy;
 nctempfloat2 *vx;
 nctempfloat2 *vy;
 nctempfloat2 *wrk;
@@ -229,33 +231,97 @@ nctemp42->d[0]=Rec->nt;
 nctemp42->d[1]=Rec->nr;
 nctemp42->a=(float *)RunMalloc(sizeof(float)*nctemp43);
 Rec->vy=nctemp42;
+int nctemp54=Rec->nt;
+nctemp54=nctemp54*Rec->nr;
+nctempfloat2 *nctemp53;
+nctemp53=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp53->d[0]=Rec->nt;
+nctemp53->d[1]=Rec->nr;
+nctemp53->a=(float *)RunMalloc(sizeof(float)*nctemp54);
+Rec->sxx=nctemp53;
+int nctemp65=Rec->nt;
+nctemp65=nctemp65*Rec->nr;
+nctempfloat2 *nctemp64;
+nctemp64=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp64->d[0]=Rec->nt;
+nctemp64->d[1]=Rec->nr;
+nctemp64->a=(float *)RunMalloc(sizeof(float)*nctemp65);
+Rec->syy=nctemp64;
+int nctemp76=Rec->nt;
+nctemp76=nctemp76*Rec->nr;
+nctempfloat2 *nctemp75;
+nctemp75=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp75->d[0]=Rec->nt;
+nctemp75->d[1]=Rec->nr;
+nctemp75->a=(float *)RunMalloc(sizeof(float)*nctemp76);
+Rec->sxy=nctemp75;
 Rec->resamp = resamp;
 Rec->pit = 0;
 return Rec;
 }
-int RecReceiver (struct rec* Rec,int it,nctempfloat2 *p,nctempfloat2 *vx,nctempfloat2 *vy)
+int RecReceiver (struct rec* Rec,int it,nctempfloat2 *field,int dtype)
 {
 int pos;
 int ixr;
 int iyr;
-int nctemp57 = Rec->nt - 1;
-int nctemp49 = (Rec->pit > nctemp57);
-if(nctemp49)
+int nctemp90 = Rec->nt - 1;
+int nctemp82 = (Rec->pit > nctemp90);
+if(nctemp82)
 {
 return 0;
 }
-int nctemp62= it;
-int nctemp64= Rec->resamp;
-int nctemp66=LibeMod(nctemp62,nctemp64);
-int nctemp59 = (nctemp66 ==0);
-if(nctemp59)
+int nctemp95= it;
+int nctemp97= Rec->resamp;
+int nctemp99=LibeMod(nctemp95,nctemp97);
+int nctemp92 = (nctemp99 ==0);
+if(nctemp92)
 {
 for(pos = 0;pos < Rec->nr;pos = (pos + 1)){
 ixr = Rec->rx->a[pos];
 iyr = Rec->ry->a[pos];
-Rec->p->a[Rec->pit+Rec->p->d[0]*(pos)] = p->a[ixr+p->d[0]*(iyr)];
-Rec->vx->a[Rec->pit+Rec->vx->d[0]*(pos)] = vx->a[ixr+vx->d[0]*(iyr)];
-Rec->vy->a[Rec->pit+Rec->vy->d[0]*(pos)] = vy->a[ixr+vy->d[0]*(iyr)];
+int nctemp101 = (dtype ==1);
+if(nctemp101)
+{
+Rec->p->a[Rec->pit+Rec->p->d[0]*(pos)] = field->a[ixr+field->d[0]*(iyr)];
+}
+else{
+int nctemp105 = (dtype ==2);
+if(nctemp105)
+{
+Rec->vx->a[Rec->pit+Rec->vx->d[0]*(pos)] = field->a[ixr+field->d[0]*(iyr)];
+}
+else{
+int nctemp109 = (dtype ==3);
+if(nctemp109)
+{
+Rec->vy->a[Rec->pit+Rec->vy->d[0]*(pos)] = field->a[ixr+field->d[0]*(iyr)];
+}
+else{
+int nctemp113 = (dtype ==4);
+if(nctemp113)
+{
+Rec->sxx->a[Rec->pit+Rec->sxx->d[0]*(pos)] = field->a[ixr+field->d[0]*(iyr)];
+}
+else{
+int nctemp117 = (dtype ==5);
+if(nctemp117)
+{
+Rec->syy->a[Rec->pit+Rec->syy->d[0]*(pos)] = field->a[ixr+field->d[0]*(iyr)];
+}
+else{
+int nctemp121 = (dtype ==6);
+if(nctemp121)
+{
+Rec->sxy->a[Rec->pit+Rec->sxy->d[0]*(pos)] = field->a[ixr+field->d[0]*(iyr)];
+}
+else{
+return 0;
+}
+}
+}
+}
+}
+}
 }
 Rec->pit = (Rec->pit + 1);
 }
@@ -263,25 +329,46 @@ return 1;
 }
 nctempfloat2 * RecGetrec (struct rec* Rec,int data)
 {
-int nctemp69 = (data ==0);
-if(nctemp69)
+int nctemp127 = (data ==0);
+if(nctemp127)
 {
 return Rec->p;
 }
 else{
-int nctemp75 = (data ==1);
-if(nctemp75)
+int nctemp133 = (data ==1);
+if(nctemp133)
 {
 return Rec->vx;
 }
 else{
-int nctemp81 = (data ==2);
-if(nctemp81)
+int nctemp139 = (data ==2);
+if(nctemp139)
 {
 return Rec->vy;
 }
 else{
+int nctemp145 = (data ==3);
+if(nctemp145)
+{
+return Rec->sxx;
+}
+else{
+int nctemp151 = (data ==4);
+if(nctemp151)
+{
+return Rec->syy;
+}
+else{
+int nctemp157 = (data ==5);
+if(nctemp157)
+{
+return Rec->sxy;
+}
+else{
 return Rec->p;
+}
+}
+}
 }
 }
 }

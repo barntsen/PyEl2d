@@ -56,15 +56,20 @@ class src :
               fy[i,j] contains time sample no i for source no j
               at position (sx[j],sy[j]). 
       sqxx  : (Optional) 2D array of sxx (xx component of stress) of 
-              explosive source.
+              source.
               sqxx[i,j] contains time sample no i for source no j
               at position (sx[j],sy[j]). 
       sqyy :  (Optional) 2D array of syy (yy component of stress) of 
-              explosive source.
+              source.
               sqyy[i,j] contains time sample no i for source no j
               at position (sx[j],sy[j]). Default value is a zero array.
 
-      If all arrays sfx,sfy,sqxx and sqyy are missing the sqxx and sqyy is
+      sqxy :  (Optional) 2D array of sxy (xy component of stress) of 
+              source.
+              sqxy[i,j] contains time sample no i for source no j
+              at position (sx[j],sy[j]). Default value is a zero array.
+
+      If all arrays sfx,sfy,sqxx, sqyy and sqxy are missing the sqxx and sqyy is
       set with the time function equal to a ricker pulse with 
       parameters f0 and t0.
 
@@ -97,6 +102,12 @@ class src :
       nosource = False
     else :
       sqyy = np.zeros((nt,1), dtype=np.float32)
+
+    if 'sqxy' in kwargs :
+      sqxy = kwargs['sqxy'] 
+      nosource = False
+    else :
+      sqxy = np.zeros((nt,1), dtype=np.float32)
     
     if(nosource == True) :
       sqxx[:,0] = ricker(nt,f0,t0,dt)
@@ -108,6 +119,7 @@ class src :
     syp = pyeps.Store1di(pyac2d,sy)
     sqxxp = pyeps.Store2df(pyac2d,sqxx)
     sqyyp = pyeps.Store2df(pyac2d,sqyy)
+    sqxyp = pyeps.Store2df(pyac2d,sqxy)
     sfxp = pyeps.Store2df(pyac2d,sfx)
     sfyp = pyeps.Store2df(pyac2d,sfy)
 
@@ -115,9 +127,9 @@ class src :
 
     # Set argument types
     pyac2d.SrcNew.argtypes=[c_void_p,c_void_p,c_void_p,
-                            c_void_p,c_void_p,c_void_p]
+                            c_void_p,c_void_p,c_void_p, c_void_p]
     # Set return type 
     pyac2d.SrcNew.restype=c_void_p
     # Do the call
-    self.src=pyac2d.SrcNew(sxp,syp,sqxxp,sqyyp,sfxp,sfyp) 
+    self.src=pyac2d.SrcNew(sxp,syp,sqxxp,sqyyp,sqxyp,sfxp,sfyp) 
 

@@ -10,6 +10,7 @@
 '''
 
 import numpy as np
+import matplotlib.pyplot as plt
 
 pi      = 3.14159    #Constant pi
 nx      = 256        #No of grdipoints in x-direction
@@ -20,7 +21,7 @@ nt      = 1501       #No of time steps
 f0      = 25.0       #Q-model peak frequency
 w0      = 2.0*pi*f0  #Q-model peak angular frequency
 resamp  = 1          #Resampling factor (relative to no of timesteps) for data
-sresamp = 10          #Resampling factor (relative to timesteps)for snapshots
+sresamp = 10         #Resampling factor (relative to timesteps)for snapshots
 nb      = 35         #No of PML boundary points
 l       = 6          #Length of differentiator
 freesurface = 0      # =1: Use freesurface =0: No free surface
@@ -46,44 +47,66 @@ sx[0]    = nx/2
 sy[0]    = ny/2
 
 #Source flags 
-srcflags = np.zeros(4, dtype=np.int32)
+srcflags = np.zeros(5, dtype=np.int32)
 srcflags[0] = 1   #Set diagonal stress source
 srcflags[1] = 1   #Set diagonal stress source
 #srcflags[2] = 1  #Set horisontal force source
 #srcflags[3] = 1  #Set vertical force source
 
-#Receiver positions
+
+#Receivers are positioned in a border with width 2*l+1
+#Outside the PML area
+
 nr = nx-2*nb
-rx=np.zeros((4*nr), dtype=np.int32)
-ry=np.zeros((4*nr), dtype=np.int32)
+nl=2*l+1
+nrsize=2*(nx-2*nb) + 2*(nx-2*nb) -2 -2
+nrsize=nrsize*nl
+rx=np.zeros((nrsize), dtype=np.int32)
+ry=np.zeros((nrsize), dtype=np.int32)
+print("Memory size: ", nr*nl)
 
 #Upper horizontal receivers
+l=0
 for i in range(0,nr):
-  rx[i] = i+nb
-  ry[i] = nb
+  for j in range(0,nl):
+    rx[l] = i+nb
+    ry[l] = nb+j
+    l=l+1
 
 #Lower horizontal receivers
 for i in range(0,nr):
-  rx[i+nr] = i+nb
-  ry[i+nr] = ny-nb
- 
+  for j in range(0,nl):
+    rx[l] = i+nb
+    ry[l] = ny-nb-j
+    l=l+1
+
 #Vertical receivers (left)
+#Skip first and last receiver to avoid double counting
 for i in range(1,nr-1):
-  rx[i+2*nr] = nb 
-  ry[i+2*nr] = i+nb 
+  for j in range(0,nl):
+    rx[l] = nb+j 
+    ry[l] = i+nb 
+    l=l+1
  
 #Vertical receivers (right)
+#Skip first and last receiver to avoid double counting
 for i in range(1,nr-1):
-  rx[i+3*nr] = nx-nb 
-  ry[i+3*nr] = i+nb 
+  for j in range(0,nl):
+    rx[l] = nx-nb-j 
+    ry[l] = i+nb 
+    l=l+1
  
+#plt.scatter(rx,ry)
+#plt.show()
+
 #Snapshots (0=flag not set, 1=flag set)
-snpflags = np.zeros(5, dtype=np.int32)
-snpflags[0] = 1 #Store p on file "snp-p.bin"
+snpflags = np.zeros(6, dtype=np.int32)
+#snpflags[0] = 1 #Store p on file "snp-p.bin"
 #snpflags[1] = 1 #Store vx     on file "snp-vx.bin"
-#snpflags[2] = 1 #Store vy      on file "snp-vy.bin"
-#snpflags[3] = 1 #Store e       on file "snp-e.bin"
-#snpflags[4] = 1 #Store exy     on file "snp-exy.bin"
+#snpflags[2] = 1 #Store vy     on file "snp-vy.bin"
+#snpflags[3] = 1 #Store sxx    on file "snp-sxx.bin"
+#snpflags[4] = 1 #Store syy    on file "snp-syy.bin"
+#snpflags[5] = 1 #Store sxy    on file "snp-sxy.bin"
 Qmin=1.1
 
 path="/home/barn/Dropbox/Src/PyEl2d/Bin"

@@ -4,6 +4,7 @@ n1=6801
 n2=501
 
 #Create rho
+B=../../Bin
 $B/spike -n1 $n1 -n2 $n2 -val 1000.0 rho.bin
 
 #Run modelling

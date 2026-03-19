@@ -1,4 +1,5 @@
-//  Translated by epsc  version today  
+//  Translated by epsc  version: Thu Mar 19 21:52:43 2026
+
 #include <stddef.h>
 #include <stdio.h>
 #include <assert.h>
@@ -123,6 +124,7 @@ struct src {nctempint1 *Sx;
 nctempint1 *Sy;
 nctempfloat2 *Sqyy;
 nctempfloat2 *Sqxx;
+nctempfloat2 *Sqxy;
 nctempfloat2 *Sfx;
 nctempfloat2 *Sfy;
 int Ns;
@@ -131,7 +133,7 @@ typedef struct nctempsrc1 {int d[1]; struct src *a; } nctempsrc1;
 struct nctempsrc2 {int d[2]; struct src *a; } ;
 struct nctempsrc3 {int d[3]; struct src *a; } ;
 struct nctempsrc4 {int d[4]; struct src *a; } ;
-struct src* SrcNew (nctempint1 *sx,nctempint1 *sy,nctempfloat2 *sqxx,nctempfloat2 *sqyy,nctempfloat2 *sfx,nctempfloat2 *sfy)
+struct src* SrcNew (nctempint1 *sx,nctempint1 *sy,nctempfloat2 *sqxx,nctempfloat2 *sqyy,nctempfloat2 *sqxy,nctempfloat2 *sfx,nctempfloat2 *sfy)
 {
 struct src* Src;
 struct src *nctemp5=(struct src*)RunMalloc(sizeof(struct src));
@@ -142,6 +144,7 @@ Src->Sfx = sfx;
 Src->Sfy = sfy;
 Src->Sqxx = sqxx;
 Src->Sqyy = sqyy;
+Src->Sqxy = sqxy;
 int nctemp11=sx->d[0];Src->Ns =nctemp11;
 return Src;
 }
@@ -151,10 +154,10 @@ return 1;
 }
 int Srcricker (nctempfloat1 *source,float t0,float f0,int nt,float dt)
 {
+int i;
 float t;
 float w0;
 float arg;
-int i;
 for(i = 0;i < nt;i = (i + 1)){
 float nctemp29=(float)(i);
 float nctemp33 = nctemp29 * dt;

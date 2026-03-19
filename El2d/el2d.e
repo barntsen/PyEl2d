@@ -1,6 +1,4 @@
 import diff
-import rec
-import src 
 import model
 import libe             
 
@@ -29,11 +27,14 @@ struct el2d :
   int fdp;                # Snapshot file descriptor
   int fdvx;               # Snapshot file descriptor
   int fdvy;               # Snapshot file descriptor
-  int fde;                # Snapshot file descriptor
-  int fdexy;              # Snapshot file descriptor
+  int fdsxx;              # Snapshot file descriptor
+  int fdsyy;              # Snapshot file descriptor
+  int fdsxy;              # Snapshot file descriptor
   int sresamp;            # Snapshot resampling factor
   int [*] snpflags;       # Flags for types of snapshots
 
+import rec
+import src 
 
 def struct el2d El2dNew(struct model Model, int sresamp, int [*] snpflags):
 
@@ -45,16 +46,16 @@ def struct el2d El2dNew(struct model Model, int sresamp, int [*] snpflags):
   #     snpflags: snpflags[0]=1 # Record p snapshots.
   #               snpflags[1]=1 # Record vx snapshots.
   #               snpflags[2]=1 # Record vy snapshots.
-  #               snpflags[3]=1 # Record sxx snapshots.
-  #               snpflags[4]=1 # Record syy snapshots.
-  #               snpflags[5]=1 # Record sxy snapshots.
+  #               snpflags[3]=1 # Record sigmaxx snapshots.
+  #               snpflags[4]=1 # Record sigmayy snapshots.
+  #               snpflags[5]=1 # Record sigmaxy snapshots.
   #               A value of 0 means corresponding snapshot
   #               is NOT recorded.
   #
   # Return    :El2d object  
 
-  struct el2d El2d;
-  int i,j;
+  #struct el2d El2d;
+  #int i,j;
 
   El2d = new(struct el2d);
   El2d.sresamp = sresamp;
@@ -116,13 +117,13 @@ def struct el2d El2dNew(struct model Model, int sresamp, int [*] snpflags):
     El2d.fdvy = LibeOpen("snp-vy.bin","w");
   
   if(El2d.snpflags[3] == 1):
-    El2d.fde = LibeOpen("snp-sxx.bin","w");
+    El2d.fdsxx = LibeOpen("snp-sxx.bin","w");
   
   if(El2d.snpflags[4] == 1):
-    El2d.fdexy = LibeOpen("snp-syy.bin","w");
+    El2d.fdsyy = LibeOpen("snp-syy.bin","w");
 
   if(El2d.snpflags[5] == 1):
-    El2d.fdexy = LibeOpen("snp-sxy.bin","w");
+    El2d.fdsxy = LibeOpen("snp-sxy.bin","w");
 
   return(El2d);
 
@@ -137,8 +138,8 @@ def int El2dvx(struct el2d El2d, struct model Model) :
   # Returns:
   # The El2d.vx particle velocity is computed
 
-  int nx,ny;
-  int i,j;
+  #int nx,ny;
+  #int i,j;
 
   nx = Model.Nx;
   ny = Model.Ny;
@@ -170,8 +171,8 @@ def int El2dvy(struct el2d El2d, struct model Model) :
   # Returns
   # The El2d.vy particle velocity is computed.
 
-  int nx,ny;
-  int i,j;
+  #int nx,ny;
+  #int i,j;
 
   nx = Model.Nx;
   ny = Model.Ny;
@@ -199,8 +200,8 @@ def int El2de(struct el2d El2d, struct model Model):
   #   El2d : Solver object 
   #   Model: Model object
 
-  int nx,ny;
-  int i,j;
+  #int nx,ny;
+  #int i,j;
 
   nx = Model.Nx;
   ny = Model.Ny;
@@ -220,8 +221,8 @@ def int El2dexy(struct el2d El2d, struct model Model, float [*,*] tmp1,  \
   #   tmp1 : dvx/dy
   #   tmp2 : dvy/dx
 
-  int nx,ny;
-  int i,j;
+  #int nx,ny;
+  #int i,j;
 
   nx = Model.Nx;
   ny = Model.Ny;
@@ -240,8 +241,8 @@ def int El2deyx(struct el2d El2d, struct model Model, float [*,*] tmp1,  \
   #   tmp1 : dvx/dy
   #   tmp2 : dvy/dx
 
-  int nx,ny;
-  int i,j;
+  #int nx,ny;
+  #int i,j;
 
   nx = Model.Nx;
   ny = Model.Ny;
@@ -257,8 +258,8 @@ def int El2dstress(struct el2d El2d, struct model Model):
   #   El2d : Solver object 
   #   Model: Model object
 
-  int nx, ny;
-  int i,j;
+  #int nx, ny;
+  #int i,j;
 
   nx = Model.Nx;
   ny = Model.Ny;
@@ -308,9 +309,9 @@ def int El2dSnap(struct el2d El2d,int it) :
   #  it      : Current time step       
   # Returns  : Integer (OK or ERR)
 
-  int n;
-  int Nx, Ny;
-  char [*] tmp;
+  #int n;
+  #int Nx, Ny;
+  #char [*] tmp;
   
   if (El2d.sresamp <= 0):
     return(OK);
@@ -332,12 +333,16 @@ def int El2dSnap(struct el2d El2d,int it) :
       LibeWrite(El2d.fdvy,4*n,tmp);
     
     if(El2d.snpflags[3] == 1):
-      tmp = cast(char [4*n],El2d.e);
-      LibeWrite(El2d.fde,4*n,tmp);
+      tmp = cast(char [4*n],El2d.sigmaxx);
+      LibeWrite(El2d.fdsxx,4*n,tmp);
     
     if(El2d.snpflags[4] == 1):
-      tmp = cast(char [4*n],El2d.exy);
-      LibeWrite(El2d.fdexy,4*n,tmp);
+      tmp = cast(char [4*n],El2d.sigmayy);
+      LibeWrite(El2d.fdsyy,4*n,tmp);
+  
+    if(El2d.snpflags[5] == 1):
+      tmp = cast(char [4*n],El2d.sigmaxy);
+      LibeWrite(El2d.fdsxy,4*n,tmp);
   
   return(OK);
 
@@ -377,14 +382,14 @@ def int El2dSolve(struct el2d El2d, struct model Model, struct src Src, \
   #
   #  
 
-  int sx,sy;         # Pressure Source x,y-coordinates 
-  struct diff Diff;  # Differentiator object
-  int ns,ne;         # Start stop timesteps
-  float [*,*] tmp1,tmp2;
-  int i,k;
+  #int sx,sy;         # Pressure Source x,y-coordinates 
+  #struct diff Diff;  # Differentiator object
+  #int ns,ne;         # Start stop timesteps
+  #float [*,*] tmp1,tmp2;
+  #int i,k;
 
-  float perc,oldperc; # Percentage finished current and old
-  int iperc;          # Percentage finished
+  #float perc,oldperc; # Percentage finished current and old
+  #int iperc;          # Percentage finished
 
   Diff = DiffNew(l);  # Create differentiator object
   tmp1 = new(float[Model.Nx, Model.Ny]);
@@ -427,6 +432,8 @@ def int El2dSolve(struct el2d El2d, struct model Model, struct src Src, \
         + Model.Dt*(Src.Sqxx[i,k]/(Model.Dx*Model.Dx)) ;   
       El2d.sigmayy[sx,sy] = El2d.sigmayy[sx,sy]                      \
         + Model.Dt*(Src.Sqyy[i,k]/(Model.Dx*Model.Dx)) ; 
+      El2d.sigmayy[sx,sy] = El2d.sigmaxy[sx,sy]                      \
+        + Model.Dt*(Src.Sqxy[i,k]/(Model.Dx*Model.Dx)) ; 
       El2d.vx[sx,sy] = El2d.vx[sx,sy]                                \
         + Model.Dt*(Src.Sfx[i,k]/(Model.Dx*Model.Dx)) ; 
       El2d.vy[sx,sy] = El2d.vy[sx,sy]                                \
@@ -446,7 +453,12 @@ def int El2dSolve(struct el2d El2d, struct model Model, struct src Src, \
 
     #Record wavefield
     if(Rec != NULL) :
-      RecReceiver(Rec,i,El2d.p,El2d.vx,El2d.vy); 
+      RecReceiver(Rec,i,El2d.p,dtype=1); 
+      RecReceiver(Rec,i,El2d.vx,dtype=2); 
+      RecReceiver(Rec,i,El2d.vy,dtype=3); 
+      RecReceiver(Rec,i,El2d.sigmaxx,dtype=4); 
+      RecReceiver(Rec,i,El2d.sigmayy,dtype=5); 
+      RecReceiver(Rec,i,El2d.sigmaxy,dtype=6); 
 
     # Record Snapshots
     El2dSnap(El2d,i);

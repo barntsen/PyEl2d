@@ -68,7 +68,7 @@ def int Modeld(float [*] d, float dx, int nb):
   #  Return: 
   #    OK if no error, ERR in all other cases.
 
-  int i,n;
+  #int i,n;
 
   n = len(d,0);
 
@@ -104,7 +104,7 @@ def int Modele(float [*] d, float dx, int nb):
   #  Return: 
   #    OK if no error, ERR in all other cases.
 
-  int i,n;
+  #int i,n;
 
   n = len(d,0);
 
@@ -130,9 +130,9 @@ def float [*,*] Modelcopy(float [*,*] a):
   # Return:
   #   2D array with copy of a.
   
-  int nx,ny;
-  int i,j;
-  float [*,*] b;
+  #int nx,ny;
+  #int i,j;
+  #float [*,*] b;
 
   nx=len(a,0);
   ny=len(a,1);
@@ -161,8 +161,8 @@ def int Modelstaggerx(float [*,*] a, float [*,*] astagg):
   # astagg[nx-1,ny-1] = a[nx-1,ny-1].
   # where nx=len(a,0) and ny=len(a,1)
 
-  int nx,ny;
-  int i,j;
+  #int nx,ny;
+  #int i,j;
 
   nx=len(a,0);
   ny=len(a,1);
@@ -191,8 +191,8 @@ def int Modelstaggery(float [*,*] a, float [*,*] astagg):
   # astagg[i,j] = 0,5*(a[i,j]+a[i,j+1])
   # astagg[nx-1,ny-1] = a[nx-1,ny-1].
   # where nx=len(a,0) and ny=len(a,1)
-  int nx,ny;
-  int i,j;
+  #int nx,ny;
+  #int i,j;
 
   nx=len(a,0);
   ny=len(a,1);
@@ -233,14 +233,14 @@ def int Modelslscoeffs(float [*,*] Qx,      float [*,*] Qy, float [*,* ] modx, \
   # definition of coefficients and formulas used.
   # 
 
-  int Nx,Ny;  # Model dimensions
-  float tau0; # Relaxation time corresponding to absorption top
-  float tauex,tauey; # Relaxation times in y-direction
-  float tausx,tausy; # Relaxation times in x-direction
-  float [*] d1;      # Quadratic profile function
-  float [*] d2;      # Quadratic profile function
-  float argx,argy;   # Temp variables
-  int i,j;           # Iteration indices
+  #int Nx,Ny;  # Model dimensions
+  #float tau0; # Relaxation time corresponding to absorption top
+  #float tauex,tauey; # Relaxation times in y-direction
+  #float tausx,tausy; # Relaxation times in x-direction
+  #float [*] d1;      # Quadratic profile function
+  #float [*] d2;      # Quadratic profile function
+  #float argx,argy;   # Temp variables
+  #int i,j;           # Iteration indices
 
   Nx = Model.Nx;
   Ny = Model.Ny;
@@ -321,9 +321,9 @@ def struct model Modelsls(float [*,*] vp,  float [*,*] vs, float [*,*] rho,  \
 
   struct model Model; # Object to instantiate
 
-  int Nx,Ny;          # Model dimensions in x- and y-directions
-  int i,j;            # Loop indices
-  float [*,*] wrk, wrk2;
+  #int Nx,Ny;          # Model dimensions in x- and y-directions
+  #int i,j;            # Loop indices
+  #float [*,*] wrk, wrk2;
 
   Model= new(struct model);
   Model.Freesurface = Freesurface;
@@ -490,9 +490,9 @@ def float ModelStability(struct model Model):
   # Return  : 
   #   Stability index
 
-  int nx,ny;
-  int i,j;
-  float vp,stab;
+  #int nx,ny;
+  #int i,j;
+  #float vp,stab;
 
   nx = Model.Nx;
   ny = Model.Ny;
@@ -518,12 +518,7 @@ def float ModelStability(struct model Model):
         LibePuts(stderr,"\n");
         LibeFlush(stderr);
         LibeExit()
-      
-    
-  
-
   return(stab);
-
 
 def struct model ModelNew(float [*,*] vp,  float [*,*] vs, float [*,*] rho,     \
           float [*,*] Qlx, float [*,*] Qly,float [*,*] Qmx, float [*,*] Qmy,\
@@ -553,7 +548,7 @@ def struct model ModelNew(float [*,*] vp,  float [*,*] vs, float [*,*] rho,     
   #   For the details of the SLS type models
   #   see the comments in Modelsls.
 
-  struct model m;
+  #struct model m;
 
   if(Rheol == SLS):
     m= Modelsls(vp,vs,rho,Qlx,Qly,Qmx,Qmy,Qpx,Qpy,Dx, Dt, W0, Nb, Freesurface);

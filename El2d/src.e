@@ -7,14 +7,15 @@ class src :
   int [*] Sy;
   float  [*,*] Sqyy;
   float [*,*]  Sqxx;
+  float [*,*]  Sqxy;
   float  [*,*] Sfx;
   float  [*,*] Sfy;
   int Ns;
 
 
 
-def class src SrcNew(int [*] sx, int [*] sy,              \
-                  float [*,*] sqxx, float [*,*] sqyy, \
+def class src SrcNew(int [*] sx, int [*] sy,                            \
+                  float [*,*] sqxx, float [*,*] sqyy, float [*,*] sqxy,  \
                   float [*,*] sfx,  float [*,*] sfy) :
 
   # SrcNew creates a new source object.
@@ -28,6 +29,9 @@ def class src SrcNew(int [*] sx, int [*] sy,              \
   #   sqyy : 2D array of syy (yy component of stress) of explosive source.
   #          sqyy[i,j] contains time sample no i for source no j
   #          at position (sx[j],sy[j]). 
+  #   sqxy : 2D array of syy (xy component of stress) of explosive source.
+  #          sqyy[i,j] contains time sample no i for source no j
+  #          at position (sx[j],sy[j]). 
   #   sfx  : 2D array of fx (x component of force) of force source.
   #          fx[i,j] contains time sample no i for source no j
   #          at position (sx[j],sy[j]). 
@@ -35,11 +39,11 @@ def class src SrcNew(int [*] sx, int [*] sy,              \
   #          fy[i,j] contains time sample no i for source no j
   #          at position (sx[j],sy[j]). 
   #    
-  #    The source functions sqxx,sqyy,sfx and sfy are all added as
+  #    The source functions sqxx,sqyy,sqxy,sfx and sfy are all added as
   #    sources, if one or more is not needed the arrays must
   #    contain zeros. 
   #          
-  struct src Src;
+  #struct src Src;
 
   Src = new(struct src);
 
@@ -49,6 +53,7 @@ def class src SrcNew(int [*] sx, int [*] sy,              \
   Src.Sfy = sfy;
   Src.Sqxx =  sqxx;
   Src.Sqyy = sqyy;
+  Src.Sqxy = sqxy;
   Src.Ns = len(sx,0);
 
   return(Src);
@@ -68,10 +73,10 @@ def int SrcDel(struct src Src) :
 
 # Ricker pulse
 def int Srcricker(float [*] source, float t0, float f0, int nt, float dt) :
-  float t;
-  float w0;
-  float arg;
-  int i;
+# float t;
+# float w0;
+# float arg;
+# int i;
 
   for(i=0; i<nt; i=i+1):
     t = cast(float,i)*dt-t0;

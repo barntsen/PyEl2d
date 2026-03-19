@@ -46,11 +46,12 @@ sx[0]    = nx/2
 sy[0]    = ny/2
 
 #Source flags 
-srcflags = np.zeros(4, dtype=np.int32)
+srcflags = np.zeros(5, dtype=np.int32)
 #srcflags[0] = 1   #Set diagonal stress source
 #srcflags[1] = 1   #Set diagonal stress source
-srcflags[2] = 1    #Set horisontal force source
-#srcflags[3] = 1   #Set vertical force source
+#srcflags[2] = 1   #Set non-diagonal stress source
+srcflags[3] = 1   #Set horizontal force source
+#srcflags[4] = 1    #Set vertical   force source
 
 #Receiver positions
 nr = nx

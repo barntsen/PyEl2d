@@ -61,17 +61,21 @@ sqyy = np.zeros((par.nt,1), dtype=np.float32, order='F')
 if (par.srcflags[1] == 1) :
   sqyy[:,0]=Src[:]
 
-sfx = np.zeros((par.nt,1), dtype=np.float32, order='F')
+sqxy = np.zeros((par.nt,1), dtype=np.float32, order='F')
 if (par.srcflags[2] == 1) :
+  sqxy[:,0]=Src[:]
+
+sfx = np.zeros((par.nt,1), dtype=np.float32, order='F')
+if (par.srcflags[3] == 1) :
   sfx[:,0]=Src[:]
 
 sfy = np.zeros((par.nt,1), dtype=np.float32, order='F')
-if (par.srcflags[3] == 1) :
+if (par.srcflags[4] == 1) :
   sfy[:,0]=Src[:]
 
 # Create sources 
 src=src.src(pyel2d,par.sx,par.sy,par.nt,par.dt,
-            sfx=sfx,sfy=sfy,sqxx=sqxx,sqyy=sqyy)
+            sfx=sfx,sfy=sfy,sqxx=sqxx,sqyy=sqyy,sqxy=sqxy)
 
 # Create receivers 
 nrt=int(par.nt/par.resamp)

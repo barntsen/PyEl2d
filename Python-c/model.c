@@ -1,4 +1,5 @@
-//  Translated by epsc  version today  
+//  Translated by epsc  version: Thu Mar 19 21:52:43 2026
+
 #include <stddef.h>
 #include <stdio.h>
 #include <assert.h>
@@ -171,8 +172,8 @@ struct nctempmodel3 {int d[3]; struct model *a; } ;
 struct nctempmodel4 {int d[4]; struct model *a; } ;
 int Modeld (nctempfloat1 *d,float dx,int nb)
 {
-int i;
 int n;
+int i;
 int nctemp5=d->d[0];n =nctemp5;
 for(i = 0;i < n;i = (i + 1)){
 d->a[i] = 1.0;
@@ -219,8 +220,8 @@ return 1;
 }
 int Modele (nctempfloat1 *d,float dx,int nb)
 {
-int i;
 int n;
+int i;
 int nctemp152=d->d[0];n =nctemp152;
 for(i = 0;i < n;i = (i + 1)){
 d->a[i] = 1.0;
@@ -252,9 +253,9 @@ nctempfloat2 * Modelcopy (nctempfloat2 *a)
 {
 int nx;
 int ny;
-int i;
-int j;
 nctempfloat2 *b;
+int j;
+int i;
 int nctemp239=a->d[0];nx =nctemp239;
 int nctemp247=a->d[1];ny =nctemp247;
 int nctemp257=nx;
@@ -276,8 +277,8 @@ int Modelstaggerx (nctempfloat2 *a,nctempfloat2 *astagg)
 {
 int nx;
 int ny;
-int i;
 int j;
+int i;
 int nctemp268=a->d[0];nx =nctemp268;
 int nctemp276=a->d[1];ny =nctemp276;
 for(j = 0;j < ny;j = (j + 1)){
@@ -296,8 +297,8 @@ int Modelstaggery (nctempfloat2 *a,nctempfloat2 *astagg)
 {
 int nx;
 int ny;
-int i;
 int j;
+int i;
 int nctemp285=a->d[0];nx =nctemp285;
 int nctemp293=a->d[1];ny =nctemp293;
 for(j = 0;j < ny;j = (j + 1)){
@@ -316,17 +317,17 @@ int Modelslscoeffs (nctempfloat2 *Qx,nctempfloat2 *Qy,nctempfloat2 *modx,nctempf
 {
 int Nx;
 int Ny;
-float tau0;
-float tauex;
-float tauey;
-float tausx;
-float tausy;
 nctempfloat1 *d1;
 nctempfloat1 *d2;
+int j;
+int i;
+float tau0;
+float tauex;
+float tausx;
+float tauey;
+float tausy;
 float argx;
 float argy;
-int i;
-int j;
 Nx = Model->Nx;
 Ny = Model->Ny;
 int nctemp304=Nx;
@@ -487,8 +488,8 @@ struct model* Modelsls (nctempfloat2 *vp,nctempfloat2 *vs,nctempfloat2 *rho,ncte
 struct model* Model;
 int Nx;
 int Ny;
-int i;
 int j;
+int i;
 nctempfloat2 *wrk;
 nctempfloat2 *wrk2;
 struct model *nctemp628=(struct model*)RunMalloc(sizeof(struct model));
@@ -943,8 +944,8 @@ float ModelStability (struct model* Model)
 {
 int nx;
 int ny;
-int i;
 int j;
+int i;
 float vp;
 float stab;
 nx = Model->Nx;
