@@ -1,4 +1,4 @@
-//  Translated by epsc  version December 2021  
+//  Translated by eps
 extern "C" {
 typedef struct { float r; float i;} complex; 
 typedef struct nctempfloat1 { int d[1]; float *a;} nctempfloat1; 
@@ -126,6 +126,7 @@ int LibeArrayex (int line,nctempchar1 *name,int ival,int index,int bound);
 int LibeSystem (nctempchar1 *cmd);
 int LibeInit ();
 int LibeExit ();
+nctempchar1 * LibeDate ();
 struct diff {int l;
 int lmax;
 nctempfloat2 *coeffs;
@@ -141,18 +142,23 @@ struct diff* Diff;
 int i;
 int j;
 int k;
+{
 struct diff *nctemp5=(struct diff*)RunMalloc(sizeof(struct diff));
 Diff =nctemp5;
 Diff->lmax = 8;
 int nctemp7 = (l < 1);
 if(nctemp7)
 {
+{
 l = 1;
+}
 }
 int nctemp11 = (l > Diff->lmax);
 if(nctemp11)
 {
+{
 l = Diff->lmax;
+}
 }
 Diff->l = l;
 int nctemp21=Diff->lmax;
@@ -170,8 +176,12 @@ nctemp31->d[0]=l;
 nctemp31->a=(float *)RunMalloc(sizeof(float)*nctemp32);
 Diff->w=nctemp31;
 for(i = 0;i < Diff->lmax;i = (i + 1)){
+{
 for(j = 0;j < Diff->lmax;j = (j + 1)){
+{
 Diff->coeffs->a[i+Diff->coeffs->d[0]*(j)] = 0.0;
+}
+}
 }
 }
 Diff->coeffs->a[0+Diff->coeffs->d[0]*(0)] = 1.0021;
@@ -211,9 +221,12 @@ Diff->coeffs->a[7+Diff->coeffs->d[0]*(5)] =  -0.0034;
 Diff->coeffs->a[7+Diff->coeffs->d[0]*(6)] = 0.0014;
 Diff->coeffs->a[7+Diff->coeffs->d[0]*(7)] =  -0.0005;
 for(k = 0;k < l;k = (k + 1)){
+{
 Diff->w->a[k] = Diff->coeffs->a[l - 1+Diff->coeffs->d[0]*(k)];
 }
+}
 return Diff;
+}
 }
 __global__ void kernel_DiffDxminus (struct diff* Diff,nctempfloat2 *A,nctempfloat2 *dA,float dx)
 {
@@ -225,6 +238,7 @@ int k;
 float sum;
 int l;
 nctempfloat1 *w;
+{
 int nctemp40=A->d[0];nx =nctemp40;
 int nctemp48=A->d[1];ny =nctemp48;
 l = Diff->l;
@@ -241,14 +255,20 @@ for(nctempno=blockIdx.x*blockDim.x + threadIdx.x; nctempno<nctemp66;nctempno+=bl
 i=(nctempno/(1))%nctemp52+nctemp58;
 j=(nctempno/(1*nctemp52))+nctemp65;
 {
+{
 sum = 0.0;
 for(k = 1;k < (i + 1);k = (k + 1)){
+{
 sum = (( -w->a[k - 1] * A->a[i - k+A->d[0]*(j)]) + sum);
 }
+}
 for(k = 1;k < (l + 1);k = (k + 1)){
+{
 sum = ((w->a[k - 1] * A->a[i + (k - 1)+A->d[0]*(j)]) + sum);
 }
+}
 dA->a[i+dA->d[0]*(j)] = (sum / dx);
+}
 }
 }
 }
@@ -265,11 +285,15 @@ for(nctempno=blockIdx.x*blockDim.x + threadIdx.x; nctempno<nctemp85;nctempno+=bl
 i=(nctempno/(1))%nctemp67+nctemp77;
 j=(nctempno/(1*nctemp67))+nctemp84;
 {
+{
 sum = 0.0;
 for(k = 1;k < (l + 1);k = (k + 1)){
+{
 sum = ((w->a[k - 1] * ( -A->a[i - k+A->d[0]*(j)] + A->a[i + (k - 1)+A->d[0]*(j)])) + sum);
 }
+}
 dA->a[i+dA->d[0]*(j)] = (sum / dx);
+}
 }
 }
 }
@@ -286,14 +310,21 @@ for(nctempno=blockIdx.x*blockDim.x + threadIdx.x; nctempno<nctemp105;nctempno+=b
 i=(nctempno/(1))%nctemp86+nctemp97;
 j=(nctempno/(1*nctemp86))+nctemp104;
 {
+{
 sum = 0.0;
 for(k = 1;k < (l + 1);k = (k + 1)){
+{
 sum = (( -w->a[k - 1] * A->a[i - k+A->d[0]*(j)]) + sum);
 }
+}
 for(k = 1;k < ((nx - i) + 1);k = (k + 1)){
+{
 sum = ((w->a[k - 1] * A->a[i + (k - 1)+A->d[0]*(j)]) + sum);
 }
+}
 dA->a[i+dA->d[0]*(j)] = (sum / dx);
+}
+}
 }
 }
 }
@@ -314,6 +345,7 @@ int k;
 float sum;
 int l;
 nctempfloat1 *w;
+{
 int nctemp110=A->d[0];nx =nctemp110;
 int nctemp118=A->d[1];ny =nctemp118;
 l = Diff->l;
@@ -330,14 +362,20 @@ for(nctempno=blockIdx.x*blockDim.x + threadIdx.x; nctempno<nctemp136;nctempno+=b
 i=(nctempno/(1))%nctemp122+nctemp128;
 j=(nctempno/(1*nctemp122))+nctemp135;
 {
+{
 sum = 0.0;
 for(k = 1;k < (i + 2);k = (k + 1)){
+{
 sum = (( -w->a[k - 1] * A->a[i - (k - 1)+A->d[0]*(j)]) + sum);
 }
+}
 for(k = 1;k < (l + 1);k = (k + 1)){
+{
 sum = ((w->a[k - 1] * A->a[i + k+A->d[0]*(j)]) + sum);
 }
+}
 dA->a[i+dA->d[0]*(j)] = (sum / dx);
+}
 }
 }
 }
@@ -354,11 +392,15 @@ for(nctempno=blockIdx.x*blockDim.x + threadIdx.x; nctempno<nctemp155;nctempno+=b
 i=(nctempno/(1))%nctemp137+nctemp147;
 j=(nctempno/(1*nctemp137))+nctemp154;
 {
+{
 sum = 0.0;
 for(k = 1;k < (l + 1);k = (k + 1)){
+{
 sum = ((w->a[k - 1] * ( -A->a[i - (k - 1)+A->d[0]*(j)] + A->a[i + k+A->d[0]*(j)])) + sum);
 }
+}
 dA->a[i+dA->d[0]*(j)] = (sum / dx);
+}
 }
 }
 }
@@ -375,14 +417,21 @@ for(nctempno=blockIdx.x*blockDim.x + threadIdx.x; nctempno<nctemp175;nctempno+=b
 i=(nctempno/(1))%nctemp156+nctemp167;
 j=(nctempno/(1*nctemp156))+nctemp174;
 {
+{
 sum = 0.0;
 for(k = 1;k < (l + 1);k = (k + 1)){
+{
 sum = (( -w->a[k - 1] * A->a[i - (k - 1)+A->d[0]*(j)]) + sum);
 }
+}
 for(k = 1;k < (nx - i);k = (k + 1)){
+{
 sum = ((w->a[k - 1] * A->a[i + k+A->d[0]*(j)]) + sum);
 }
+}
 dA->a[i+dA->d[0]*(j)] = (sum / dx);
+}
+}
 }
 }
 }
@@ -403,6 +452,7 @@ int k;
 float sum;
 int l;
 nctempfloat1 *w;
+{
 int nctemp180=A->d[0];nx =nctemp180;
 int nctemp188=A->d[1];ny =nctemp188;
 l = Diff->l;
@@ -419,14 +469,20 @@ for(nctempno=blockIdx.x*blockDim.x + threadIdx.x; nctempno<nctemp206;nctempno+=b
 i=(nctempno/(1))%nctemp192+nctemp198;
 j=(nctempno/(1*nctemp192))+nctemp205;
 {
+{
 sum = 0.0;
 for(k = 1;k < (j + 1);k = (k + 1)){
+{
 sum = (( -w->a[k - 1] * A->a[i+A->d[0]*(j - k)]) + sum);
 }
+}
 for(k = 1;k < (l + 1);k = (k + 1)){
+{
 sum = ((w->a[k - 1] * A->a[i+A->d[0]*(j + (k - 1))]) + sum);
 }
+}
 dA->a[i+dA->d[0]*(j)] = (sum / dx);
+}
 }
 }
 }
@@ -443,11 +499,15 @@ for(nctempno=blockIdx.x*blockDim.x + threadIdx.x; nctempno<nctemp225;nctempno+=b
 i=(nctempno/(1))%nctemp207+nctemp213;
 j=(nctempno/(1*nctemp207))+nctemp224;
 {
+{
 sum = 0.0;
 for(k = 1;k < (l + 1);k = (k + 1)){
+{
 sum = ((w->a[k - 1] * ( -A->a[i+A->d[0]*(j - k)] + A->a[i+A->d[0]*(j + (k - 1))])) + sum);
 }
+}
 dA->a[i+dA->d[0]*(j)] = (sum / dx);
+}
 }
 }
 }
@@ -464,14 +524,21 @@ for(nctempno=blockIdx.x*blockDim.x + threadIdx.x; nctempno<nctemp245;nctempno+=b
 i=(nctempno/(1))%nctemp226+nctemp232;
 j=(nctempno/(1*nctemp226))+nctemp244;
 {
+{
 sum = 0.0;
 for(k = 1;k < (l + 1);k = (k + 1)){
+{
 sum = (( -w->a[k - 1] * A->a[i+A->d[0]*(j - k)]) + sum);
 }
+}
 for(k = 1;k < ((ny - j) + 1);k = (k + 1)){
+{
 sum = ((w->a[k - 1] * A->a[i+A->d[0]*(j + (k - 1))]) + sum);
 }
+}
 dA->a[i+dA->d[0]*(j)] = (sum / dx);
+}
+}
 }
 }
 }
@@ -492,6 +559,7 @@ int k;
 float sum;
 int l;
 nctempfloat1 *w;
+{
 int nctemp250=A->d[0];nx =nctemp250;
 int nctemp258=A->d[1];ny =nctemp258;
 l = Diff->l;
@@ -508,14 +576,20 @@ for(nctempno=blockIdx.x*blockDim.x + threadIdx.x; nctempno<nctemp276;nctempno+=b
 i=(nctempno/(1))%nctemp262+nctemp268;
 j=(nctempno/(1*nctemp262))+nctemp275;
 {
+{
 sum = 0.0;
 for(k = 1;k < (j + 2);k = (k + 1)){
+{
 sum = (( -w->a[k - 1] * A->a[i+A->d[0]*(j - (k - 1))]) + sum);
 }
+}
 for(k = 1;k < (l + 1);k = (k + 1)){
+{
 sum = ((w->a[k - 1] * A->a[i+A->d[0]*(j + k)]) + sum);
 }
+}
 dA->a[i+dA->d[0]*(j)] = (sum / dx);
+}
 }
 }
 }
@@ -532,11 +606,15 @@ for(nctempno=blockIdx.x*blockDim.x + threadIdx.x; nctempno<nctemp295;nctempno+=b
 i=(nctempno/(1))%nctemp277+nctemp283;
 j=(nctempno/(1*nctemp277))+nctemp294;
 {
+{
 sum = 0.0;
 for(k = 1;k < (l + 1);k = (k + 1)){
+{
 sum = ((w->a[k - 1] * ( -A->a[i+A->d[0]*(j - (k - 1))] + A->a[i+A->d[0]*(j + k)])) + sum);
 }
+}
 dA->a[i+dA->d[0]*(j)] = (sum / dx);
+}
 }
 }
 }
@@ -553,14 +631,21 @@ for(nctempno=blockIdx.x*blockDim.x + threadIdx.x; nctempno<nctemp315;nctempno+=b
 i=(nctempno/(1))%nctemp296+nctemp302;
 j=(nctempno/(1*nctemp296))+nctemp314;
 {
+{
 sum = 0.0;
 for(k = 1;k < (l + 1);k = (k + 1)){
+{
 sum = (( -w->a[k - 1] * A->a[i+A->d[0]*(j - (k - 1))]) + sum);
 }
+}
 for(k = 1;k < (ny - j);k = (k + 1)){
+{
 sum = ((w->a[k - 1] * A->a[i+A->d[0]*(j + k)]) + sum);
 }
+}
 dA->a[i+dA->d[0]*(j)] = (sum / dx);
+}
+}
 }
 }
 }

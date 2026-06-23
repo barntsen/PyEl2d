@@ -131,20 +131,25 @@ el2d.solve(pyel2d,m,src,par.nt,rec,par.l)
 tsolve = time.perf_counter()-t1
 
 # Get data
-dtype=0
+dtype=1
 data = rec.getrec(pyel2d,dtype)
 print("data dimensions: ", data.shape)
 fd=ba.bin("p.bin",'w')
 fd.write(data)
 
-dtype=1
+dtype=2
 data = rec.getrec(pyel2d,dtype)
 fd=ba.bin("vx.bin",'w')
 fd.write(data)
 
-dtype=2
+dtype=3
 data = rec.getrec(pyel2d,dtype)
 fd=ba.bin("vy.bin",'w')
+fd.write(data)
+
+dtype=7
+data = rec.getrec(pyel2d,dtype)
+fd=ba.bin("exx.bin",'w')
 fd.write(data)
 
 # Log wall clock time and date

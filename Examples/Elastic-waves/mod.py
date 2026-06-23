@@ -12,20 +12,20 @@
 import numpy as np
 
 pi      = 3.14159  #Constant pi
-nx      = 601      #No of grdipoints in x-direction
-ny      = 101      #No of gridpoints in y-direction
-dx      = 5.0      #Grid interval
+nx      = 500      #No of grdipoints in x-direction
+ny      = 100      #No of gridpoints in y-direction
+dx      = 10.0      #Grid interval
 dt      = 0.0005    #Time sampling interval
-nt      = 4001      #No of time steps
-f0      = 10.0        #Q-model peak frequency
+nt      = 5001      #No of time steps
+f0      = 25.0        #Q-model peak frequency
 w0      = 2.0*pi*f0  #Q-model peak angular frequency
 resamp  = 1          #Resampling factor (relative to no of timesteps) for data
 sresamp = 10         #Resampling factor (relative to timesteps)for snapshots
-nb      = 35         #No of PML boundary points
-l       = 8          #Length of differentiator
+nb      = 25         #No of PML boundary points
+l       = 6          #Length of differentiator
 freesurface = 1      # =1: Use freesurface =0: No free surface
-fvp     = "vp.bin"   #Vp file name
-fvs     = "vs.bin"   #Vp file name
+fvp     = "cp.bin"   #Vp file name
+fvs     = "cs.bin"   #Vp file name
 frho    = "rho.bin"  #Rho file name
 fsrc    = "src.bin"  # Wavelet file name
 
@@ -42,8 +42,8 @@ fqm      = ""        # Qm file name (default Qm=100000)
 #Source position
 sx       = np.zeros(1, dtype=np.int32) #Source x-position
 sy       = np.zeros(1, dtype=np.int32) #Source y-position
-sx[0]    = 101
-sy[0]    = 3 
+sx[0]    = nx/2 
+sy[0]    = 2
 
 #Source flags 
 srcflags = np.zeros(5, dtype=np.int32)
@@ -60,19 +60,17 @@ rx=np.zeros((nr), dtype=np.int32)
 ry=np.zeros((nr), dtype=np.int32)
 for i in range(0,nr):
   rx[i] = i
-  ry[i] = 5
+  ry[i] = 3
  
 #Snapshost (0=flag not set, 1=flag set)
-snpflags = np.zeros(7, dtype=np.int32)
+snpflags = np.zeros(6, dtype=np.int32)
 
-#snpflags[0] = 1 #Store p on file "snp-p.bin"
+snpflags[0] = 1 #Store p on file "snp-p.bin"
 #snpflags[1] = 1 #Store vx     on file "snp-vx.bin"
 #snpflags[2] = 1 #Store vy      on file "snp-vy.bin"
 #snpflags[3] = 1 #Store sxx     on file "snp-sxx.bin"
 #snpflags[4] = 1 #Store syy     on file "snp-syy.bin"
 #snpflags[5] = 1 #Store sxy     on file "snp-sxy.bin"
-snpflags[6] = 1 #Store exx     on file "snp-exx.bin"
-Qmin=1.1
+Qmin=0.5
 
-# Path to shared cuda library
 path="/home/barn/Dropbox/Src/PyEl2d/Bin"

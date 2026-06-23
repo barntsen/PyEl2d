@@ -1,4 +1,4 @@
-//  Translated by epsc  version: Thu Mar 19 21:52:43 2026
+//  Translated by epsc  version: Tue Jun 23 16:01:28 2026
 
 #include <stddef.h>
 #include <stdio.h>
@@ -120,6 +120,7 @@ int LibeArrayex (int line,nctempchar1 *name,int ival,int index,int bound);
 int LibeSystem (nctempchar1 *cmd);
 int LibeInit ();
 int LibeExit ();
+nctempchar1 * LibeDate ();
 struct src {nctempint1 *Sx;
 nctempint1 *Sy;
 nctempfloat2 *Sqyy;
@@ -136,6 +137,7 @@ struct nctempsrc4 {int d[4]; struct src *a; } ;
 struct src* SrcNew (nctempint1 *sx,nctempint1 *sy,nctempfloat2 *sqxx,nctempfloat2 *sqyy,nctempfloat2 *sqxy,nctempfloat2 *sfx,nctempfloat2 *sfy)
 {
 struct src* Src;
+{
 struct src *nctemp5=(struct src*)RunMalloc(sizeof(struct src));
 Src =nctemp5;
 Src->Sx = sx;
@@ -148,9 +150,12 @@ Src->Sqxy = sqxy;
 int nctemp11=sx->d[0];Src->Ns =nctemp11;
 return Src;
 }
+}
 int SrcDel (struct src* Src)
 {
+{
 return 1;
+}
 }
 int Srcricker (nctempfloat1 *source,float t0,float f0,int nt,float dt)
 {
@@ -158,7 +163,9 @@ int i;
 float t;
 float w0;
 float arg;
+{
 for(i = 0;i < nt;i = (i + 1)){
+{
 float nctemp29=(float)(i);
 float nctemp33 = nctemp29 * dt;
 float nctemp35 = nctemp33 - t0;
@@ -177,5 +184,7 @@ float nctemp72=LibeExp(nctemp61);
 float nctemp73 = nctemp59 * nctemp72;
 source->a[nctemp39] =nctemp73;
 }
+}
 return 1;
+}
 }

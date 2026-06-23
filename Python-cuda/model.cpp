@@ -1,4 +1,4 @@
-//  Translated by epsc  version December 2021  
+//  Translated by eps
 extern "C" {
 typedef struct { float r; float i;} complex; 
 typedef struct nctempfloat1 { int d[1]; float *a;} nctempfloat1; 
@@ -126,6 +126,7 @@ int LibeArrayex (int line,nctempchar1 *name,int ival,int index,int bound);
 int LibeSystem (nctempchar1 *cmd);
 int LibeInit ();
 int LibeExit ();
+nctempchar1 * LibeDate ();
 struct model {int Nx;
 int Ny;
 int Nb;
@@ -180,11 +181,15 @@ int Modeld (nctempfloat1 *d,float dx,int nb)
 {
 int n;
 int i;
+{
 int nctemp5=d->d[0];n =nctemp5;
 for(i = 0;i < n;i = (i + 1)){
+{
 d->a[i] = 1.0;
 }
+}
 for(i = 0;i < nb;i = (i + 1)){
+{
 int nctemp12=i;
 int nctemp18=i;
 float nctemp33=(float)(i);
@@ -201,7 +206,9 @@ float nctemp67 = nctemp57 / nctemp66;
 float nctemp68 = d->a[nctemp18] * nctemp67;
 d->a[nctemp12] =nctemp68;
 }
+}
 for(i = ((n - 1) - nb);i < n;i = (i + 1)){
+{
 int nctemp72=i;
 int nctemp78=i;
 int nctemp102 = n - 1;
@@ -222,17 +229,23 @@ float nctemp145 = nctemp135 / nctemp144;
 float nctemp146 = d->a[nctemp78] * nctemp145;
 d->a[nctemp72] =nctemp146;
 }
+}
 return 1;
+}
 }
 int Modele (nctempfloat1 *d,float dx,int nb)
 {
 int n;
 int i;
+{
 int nctemp152=d->d[0];n =nctemp152;
 for(i = 0;i < n;i = (i + 1)){
+{
 d->a[i] = 1.0;
 }
+}
 for(i = ((n - 1) - nb);i < n;i = (i + 1)){
+{
 int nctemp159=i;
 int nctemp165=i;
 int nctemp189 = n - 1;
@@ -253,7 +266,9 @@ float nctemp232 = nctemp222 / nctemp231;
 float nctemp233 = d->a[nctemp165] * nctemp232;
 d->a[nctemp159] =nctemp233;
 }
+}
 return 1;
+}
 }
 nctempfloat2 * Modelcopy (nctempfloat2 *a)
 {
@@ -262,6 +277,7 @@ int ny;
 nctempfloat2 *b;
 int j;
 int i;
+{
 int nctemp239=a->d[0];nx =nctemp239;
 int nctemp247=a->d[1];ny =nctemp247;
 int nctemp257=nx;
@@ -273,11 +289,16 @@ nctemp256->d[1]=ny;
 nctemp256->a=(float *)RunMalloc(sizeof(float)*nctemp257);
 b=nctemp256;
 for(j = 0;j < ny;j = (j + 1)){
+{
 for(i = 0;i < nx;i = (i + 1)){
+{
 b->a[i+b->d[0]*(j)] = a->a[i+a->d[0]*(j)];
 }
 }
+}
+}
 return b;
+}
 }
 int Modelstaggerx (nctempfloat2 *a,nctempfloat2 *astagg)
 {
@@ -285,19 +306,29 @@ int nx;
 int ny;
 int j;
 int i;
+{
 int nctemp268=a->d[0];nx =nctemp268;
 int nctemp276=a->d[1];ny =nctemp276;
 for(j = 0;j < ny;j = (j + 1)){
+{
 for(i = 0;i < nx;i = (i + 1)){
+{
 astagg->a[i+astagg->d[0]*(j)] = a->a[i+a->d[0]*(j)];
 }
 }
+}
+}
 for(j = 0;j < ny;j = (j + 1)){
+{
 for(i = 0;i < (nx - 1);i = (i + 1)){
+{
 astagg->a[i+astagg->d[0]*(j)] = (0.5 * (a->a[i+a->d[0]*(j)] + a->a[i + 1+a->d[0]*(j)]));
 }
 }
+}
+}
 return 1;
+}
 }
 int Modelstaggery (nctempfloat2 *a,nctempfloat2 *astagg)
 {
@@ -305,19 +336,29 @@ int nx;
 int ny;
 int j;
 int i;
+{
 int nctemp285=a->d[0];nx =nctemp285;
 int nctemp293=a->d[1];ny =nctemp293;
 for(j = 0;j < ny;j = (j + 1)){
+{
 for(i = 0;i < nx;i = (i + 1)){
+{
 astagg->a[i+astagg->d[0]*(j)] = a->a[i+a->d[0]*(j)];
 }
 }
+}
+}
 for(j = 0;j < (ny - 1);j = (j + 1)){
+{
 for(i = 0;i < nx;i = (i + 1)){
+{
 astagg->a[i+astagg->d[0]*(j)] = (0.5 * (a->a[i+a->d[0]*(j)] + a->a[i+a->d[0]*(j + 1)]));
 }
 }
+}
+}
 return 1;
+}
 }
 int Modelslscoeffs (nctempfloat2 *Qx,nctempfloat2 *Qy,nctempfloat2 *modx,nctempfloat2 *mody,nctempfloat2 *coeff1x,nctempfloat2 *coeff1y,nctempfloat2 *coeff2x,nctempfloat2 *coeff2y,struct model* Model)
 {
@@ -334,6 +375,7 @@ float tauey;
 float tausy;
 float argx;
 float argy;
+{
 Nx = Model->Nx;
 Ny = Model->Ny;
 int nctemp304=Nx;
@@ -351,16 +393,20 @@ d2=nctemp312;
 int nctemp316 = (Model->Freesurface ==1);
 if(nctemp316)
 {
+{
 nctempfloat1* nctemp321= d2;
 float nctemp324= Model->Dx;
 int nctemp326= Model->Nb;
 int nctemp328=Modele(nctemp321,nctemp324,nctemp326);
 }
+}
 else{
+{
 nctempfloat1* nctemp330= d2;
 float nctemp333= Model->Dx;
 int nctemp335= Model->Nb;
 int nctemp337=Modeld(nctemp330,nctemp333,nctemp335);
+}
 }
 nctempfloat1* nctemp339= d1;
 float nctemp342= Model->Dx;
@@ -369,7 +415,9 @@ int nctemp346=Modeld(nctemp339,nctemp342,nctemp344);
 Model->dx = d1;
 Model->dy = d2;
 for(j = 0;j < Ny;j = (j + 1)){
+{
 for(i = 0;i < Nx;i = (i + 1)){
+{
 tau0 = (1.0 / Model->W0);
 int nctemp358=i;
 nctemp358=j*Qx->d[0]+nctemp358;
@@ -483,11 +531,14 @@ float nctemp616 = nctemp604 * nctemp615;
 mody->a[nctemp587] =nctemp616;
 }
 }
+}
+}
 RunFree(d1->a);
 RunFree(d1);
 RunFree(d2->a);
 RunFree(d2);
 return 1;
+}
 }
 struct model* Modelsls (nctempfloat2 *vp,nctempfloat2 *vs,nctempfloat2 *rho,nctempfloat2 *Qlx,nctempfloat2 *Qly,nctempfloat2 *Qmx,nctempfloat2 *Qmy,nctempfloat2 *Qpx,nctempfloat2 *Qpy,float Dx,float Dt,float W0,int Nb,int Freesurface)
 {
@@ -498,6 +549,7 @@ int j;
 int i;
 nctempfloat2 *wrk;
 nctempfloat2 *wrk2;
+{
 struct model *nctemp628=(struct model*)RunMalloc(sizeof(struct model));
 Model =nctemp628;
 Model->Freesurface = Freesurface;
@@ -724,7 +776,9 @@ nctemp926->d[1]=Ny;
 nctemp926->a=(float *)RunMalloc(sizeof(float)*nctemp927);
 Model->Eta2y=nctemp926;
 for(j = 0;j < Ny;j = (j + 1)){
+{
 for(i = 0;i < Nx;i = (i + 1)){
+{
 Model->Rho->a[i+Model->Rho->d[0]*(j)] = (1.0 / rho->a[i+rho->d[0]*(j)]);
 Model->Mu->a[i+Model->Mu->d[0]*(j)] = ((rho->a[i+rho->d[0]*(j)] * vs->a[i+vs->d[0]*(j)]) * vs->a[i+vs->d[0]*(j)]);
 int nctemp938 = (Freesurface ==1);
@@ -732,7 +786,9 @@ int nctemp935 = (nctemp938 && j);
 int nctemp932 = (nctemp935 ==0);
 if(nctemp932)
 {
+{
 Model->Mu->a[i+Model->Mu->d[0]*(j)] = (((0.5 * rho->a[i+rho->d[0]*(j)]) * vs->a[i+vs->d[0]*(j)]) * vs->a[i+vs->d[0]*(j)]);
+}
 }
 Model->Lambda->a[i+Model->Lambda->d[0]*(j)] = (rho->a[i+rho->d[0]*(j)] * ((vp->a[i+vp->d[0]*(j)] * vp->a[i+vp->d[0]*(j)]) - ((2.0 * vs->a[i+vs->d[0]*(j)]) * vs->a[i+vs->d[0]*(j)])));
 int nctemp950 = (Freesurface ==1);
@@ -740,7 +796,9 @@ int nctemp947 = (nctemp950 && j);
 int nctemp944 = (nctemp947 ==0);
 if(nctemp944)
 {
+{
 Model->Lambda->a[i+Model->Lambda->d[0]*(j)] = 0.0;
+}
 }
 Model->Alpha1x->a[i+Model->Alpha1x->d[0]*(j)] = 0.0;
 Model->Alpha1y->a[i+Model->Alpha1y->d[0]*(j)] = 0.0;
@@ -760,6 +818,8 @@ Model->Dmux->a[i+Model->Dmux->d[0]*(j)] = Model->Mu->a[i+Model->Mu->d[0]*(j)];
 Model->Dmuy->a[i+Model->Dmuy->d[0]*(j)] = Model->Mu->a[i+Model->Mu->d[0]*(j)];
 Model->Drhopx->a[i+Model->Drhopx->d[0]*(j)] = Model->Rho->a[i+Model->Rho->d[0]*(j)];
 Model->Drhopy->a[i+Model->Drhopy->d[0]*(j)] = Model->Rho->a[i+Model->Rho->d[0]*(j)];
+}
+}
 }
 }
 nctempfloat2* nctemp957= Model->Qlx;
@@ -946,6 +1006,7 @@ RunFree(wrk->a);
 RunFree(wrk);
 return Model;
 }
+}
 float ModelStability (struct model* Model)
 {
 int nx;
@@ -954,10 +1015,13 @@ int j;
 int i;
 float vp;
 float stab;
+{
 nx = Model->Nx;
 ny = Model->Ny;
 for(j = 0;j < ny;j = (j + 1)){
+{
 for(i = 0;i < nx;i = (i + 1)){
+{
 int nctemp1398=i;
 nctemp1398=j*Model->Lambda->d[0]+nctemp1398;
 int nctemp1406=i;
@@ -976,6 +1040,7 @@ float nctemp1427=LibeSqrt(nctemp1425);
 float nctemp1428 = 1.0 / nctemp1427;
 int nctemp1417 = (stab > nctemp1428);
 if(nctemp1417)
+{
 {
 int nctemp1430= 4;
 struct nctempchar1 *nctemp1434;
@@ -1080,13 +1145,19 @@ int nctemp1567=LibeExit();
 }
 }
 }
+}
+}
+}
 return stab;
+}
 }
 struct model* ModelNew (nctempfloat2 *vp,nctempfloat2 *vs,nctempfloat2 *rho,nctempfloat2 *Qlx,nctempfloat2 *Qly,nctempfloat2 *Qmx,nctempfloat2 *Qmy,nctempfloat2 *Qpx,nctempfloat2 *Qpy,float Dx,float Dt,float W0,int Nb,int Rheol,int Freesurface)
 {
 struct model* m;
+{
 int nctemp1569 = (Rheol ==2);
 if(nctemp1569)
+{
 {
 nctempfloat2* nctemp1577= vp;
 nctempfloat2* nctemp1580= vs;
@@ -1105,7 +1176,9 @@ int nctemp1612= Freesurface;
 struct model* nctemp1614=Modelsls(nctemp1577,nctemp1580,nctemp1583,nctemp1586,nctemp1589,nctemp1592,nctemp1595,nctemp1598,nctemp1601,nctemp1604,nctemp1606,nctemp1608,nctemp1610,nctemp1612);
 m =nctemp1614;
 }
+}
 else{
+{
 int nctemp1616= 4;
 struct nctempchar1 *nctemp1620;
 static struct nctempchar1 nctemp1621 = {{ 18}, (char*)"Unknown Q-model\n\0"};
@@ -1116,8 +1189,10 @@ int nctemp1624= 4;
 int nctemp1626=LibeFlush(nctemp1624);
 int nctemp1628=LibeExit();
 }
+}
 struct model* nctemp1630= m;
 float nctemp1632=ModelStability(nctemp1630);
 return m;
+}
 }
 };

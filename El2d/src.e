@@ -3,16 +3,14 @@
 import libe
 
 class src :
-  int [*] Sx;
-  int [*] Sy;
-  float  [*,*] Sqyy;
-  float [*,*]  Sqxx;
-  float [*,*]  Sqxy;
-  float  [*,*] Sfx;
-  float  [*,*] Sfy;
-  int Ns;
-
-
+  int [*] Sx 
+  int [*] Sy 
+  float  [*,*] Sqyy 
+  float [*,*]  Sqxx 
+  float [*,*]  Sqxy 
+  float  [*,*] Sfx 
+  float  [*,*] Sfy 
+  int Ns 
 
 def class src SrcNew(int [*] sx, int [*] sy,                            \
                   float [*,*] sqxx, float [*,*] sqyy, float [*,*] sqxy,  \
@@ -43,20 +41,20 @@ def class src SrcNew(int [*] sx, int [*] sy,                            \
   #    sources, if one or more is not needed the arrays must
   #    contain zeros. 
   #          
-  #struct src Src;
+  #struct src Src 
 
-  Src = new(struct src);
+  Src = new(struct src) 
 
-  Src.Sx = sx;
-  Src.Sy = sy;
-  Src.Sfx = sfx;
-  Src.Sfy = sfy;
-  Src.Sqxx =  sqxx;
-  Src.Sqyy = sqyy;
-  Src.Sqxy = sqxy;
-  Src.Ns = len(sx,0);
+  Src.Sx = sx 
+  Src.Sy = sy 
+  Src.Sfx = sfx 
+  Src.Sfy = sfy 
+  Src.Sqxx =  sqxx 
+  Src.Sqyy = sqyy 
+  Src.Sqxy = sqxy 
+  Src.Ns = len(sx,0) 
 
-  return(Src);
+  return(Src) 
 
 
 def int SrcDel(struct src Src) :
@@ -67,22 +65,22 @@ def int SrcDel(struct src Src) :
   #   Src:    Source structure
   #
 
-  delete(Src); 
-  return(OK);
+  delete(Src)  
+  return(OK) 
 
 
 # Ricker pulse
 def int Srcricker(float [*] source, float t0, float f0, int nt, float dt) :
-# float t;
-# float w0;
-# float arg;
-# int i;
+# float t 
+# float w0 
+# float arg 
+# int i 
 
-  for(i=0; i<nt; i=i+1):
-    t = cast(float,i)*dt-t0;
-    w0 = 2.0*3.14159*f0;
-    arg = w0*t; 
-    source[i] = (1.0-0.5*arg*arg)*LibeExp(-0.25*arg*arg);
+  for i in range(0,nt):
+    t = cast(float,i)*dt-t0 
+    w0 = 2.0*3.14159*f0 
+    arg = w0*t  
+    source[i] = (1.0-0.5*arg*arg)*LibeExp(-0.25*arg*arg) 
   
-  return(OK);
+  return(OK) 
 

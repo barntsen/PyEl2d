@@ -3,7 +3,7 @@ import libe                 # Library interface
 
 #Empty main program (Necessary for linking)
 def int Main(struct MainArg [*] MainArgs) :
-  return(1);
+  return(1) 
 
 
 def char [*] PyepsCre1ds(int Nx):
@@ -16,10 +16,10 @@ def char [*] PyepsCre1ds(int Nx):
   # Returns:
   #  str     : String buffer
 
-  char [*] str;
-  str = new(char [Nx+1]);
-  str[Nx] = cast(char,0);
-  return(str);
+  char [*] str 
+  str = new(char [Nx+1]) 
+  str[Nx] = cast(char,0) 
+  return(str) 
 
 
 def int PyepsDel1ds(char [*] arr):
@@ -31,8 +31,8 @@ def int PyepsDel1ds(char [*] arr):
   #
   # Returns: integer equal to 1
 
-   delete(arr);
-   return(1);
+   delete(arr) 
+   return(1) 
 
 
 
@@ -45,14 +45,14 @@ def int PyepsCopy1ds(char [*] arr, char [*] out):
   #   out : Output array
   # Returns: 
   #  integer equal to 1
-  int nx;
-  int i;
+  int nx 
+  int i 
 
-  nx=len(out,0);
-  for(i=0; i< nx; i=i+1):
-   out[i] = arr[i];
+  nx=len(out,0) 
+  for i in range(0,nx):
+   out[i] = arr[i] 
   
-  return(1);
+  return(1) 
      
 def int [*] PyepsCre1di(int Nx):
 
@@ -64,9 +64,9 @@ def int [*] PyepsCre1di(int Nx):
   # Returns:
   #  int [*] arr     : Integer array
 
-  int [*] tmp;
-  tmp = new(int [Nx]);
-  return(tmp);
+  int [*] tmp 
+  tmp = new(int [Nx]) 
+  return(tmp) 
 
 def int PyepsDel1di(int [*] arr):
 
@@ -77,8 +77,8 @@ def int PyepsDel1di(int [*] arr):
   #
   # Returns: integer equal to 1
      
-   delete(arr);
-   return(1);
+   delete(arr) 
+   return(1) 
 
 def int PyepsCopy1di(int [*] arr, int [*] out):
    
@@ -89,14 +89,14 @@ def int PyepsCopy1di(int [*] arr, int [*] out):
   #
   # Returns: 
   #   integer equal to 1
-  int nx;
-  int i;
+  int nx 
+  int i 
 
-  nx=len(out,0);
-  for(i=0; i< nx; i=i+1):
-   out[i] = arr[i];
+  nx=len(out,0) 
+  for i in range(0,nx):
+   out[i] = arr[i] 
   
-  return(1);
+  return(1) 
      
 def float [*] PyepsCre1df(int Nx):
 
@@ -108,9 +108,9 @@ def float [*] PyepsCre1df(int Nx):
   # Returns:
   #  float [*] arr     : Float array
    
-  float [*] tmp;
-  tmp=new(float [Nx]);
-  return(tmp);
+  float [*] tmp 
+  tmp=new(float [Nx]) 
+  return(tmp) 
 
 
 # PepsDel1df deletes 1D float array
@@ -121,8 +121,8 @@ def int PyepsDel1df(float [*] arr):
   #
   # Returns: integer equal to 1
      
-   delete(arr);
-   return(1);
+   delete(arr) 
+   return(1) 
 
 
 def int PyepsCopy1df(float [*] arr, float [*] out):
@@ -134,14 +134,14 @@ def int PyepsCopy1df(float [*] arr, float [*] out):
   #   out: Output array
   # Returns
   #   integer equal to 1 on success
-  int nx;
-  int i;
+  int nx 
+  int i 
 
-  nx=len(out,0);
-  for(i=0; i< nx; i=i+1):
-   out[i] = arr[i];
+  nx=len(out,0) 
+  for i in range(0,nx):
+   out[i] = arr[i] 
   
-  return(1);
+  return(1) 
 
 def float [*,*] PyepsCre2df(int Nx, int Ny):
 
@@ -155,7 +155,7 @@ def float [*,*] PyepsCre2df(int Nx, int Ny):
   #  float [*,*] arr     : Float array
   #
 
-  return(new(float [Nx,Ny]));
+  return(new(float [Nx,Ny])) 
 
 
 def int PyepsDel2df(float [*,*] arr):
@@ -167,8 +167,8 @@ def int PyepsDel2df(float [*,*] arr):
   #
   # Returns: integer equal to 1
   #  
-   delete(arr);
-   return(1);
+   delete(arr) 
+   return(1) 
 
 
 def int PyepsCopy2df(float [*,*] arr, float [*,*] out):
@@ -182,15 +182,13 @@ def int PyepsCopy2df(float [*,*] arr, float [*,*] out):
   # Returns: 
   # integer equal to 1 on success
      
-  int nx,ny;
-  int i,j;
+  int nx,ny 
+  int i,j 
 
-  nx=len(out,0);
-  ny=len(out,1);
-  for(j=0; j< ny; j=j+1):
-    for(i=0; i< nx; i=i+1):
-      out[i,j] = arr[i,j];
+  nx=len(out,0) 
+  ny=len(out,1) 
+  for j in range(0,ny):
+    for i in range(0,nx):
+      out[i,j] = arr[i,j] 
   
-  return(1);
-
-
+  return(1) 

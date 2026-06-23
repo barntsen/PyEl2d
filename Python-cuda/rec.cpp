@@ -1,4 +1,4 @@
-//  Translated by epsc  version December 2021  
+//  Translated by eps
 extern "C" {
 typedef struct { float r; float i;} complex; 
 typedef struct nctempfloat1 { int d[1]; float *a;} nctempfloat1; 
@@ -185,6 +185,7 @@ int LibeArrayex (int line,nctempchar1 *name,int ival,int index,int bound);
 int LibeSystem (nctempchar1 *cmd);
 int LibeInit ();
 int LibeExit ();
+nctempchar1 * LibeDate ();
 struct rec {int nr;
 nctempint1 *rx;
 nctempint1 *ry;
@@ -194,6 +195,7 @@ nctempfloat2 *p;
 nctempfloat2 *sxx;
 nctempfloat2 *syy;
 nctempfloat2 *sxy;
+nctempfloat2 *exx;
 nctempfloat2 *vx;
 nctempfloat2 *vy;
 nctempfloat2 *wrk;
@@ -207,6 +209,7 @@ struct nctemprec4 {int d[4]; struct rec *a; } ;
 struct rec* RecNew (nctempint1 *rx,nctempint1 *ry,int nt,int resamp)
 {
 struct rec* Rec;
+{
 struct rec *nctemp5=(struct rec*)RunMalloc(sizeof(struct rec));
 Rec =nctemp5;
 int nctemp11=rx->d[0];Rec->nr =nctemp11;
@@ -244,7 +247,7 @@ nctemp53=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
 nctemp53->d[0]=Rec->nt;
 nctemp53->d[1]=Rec->nr;
 nctemp53->a=(float *)RunMalloc(sizeof(float)*nctemp54);
-Rec->sxx=nctemp53;
+Rec->exx=nctemp53;
 int nctemp65=Rec->nt;
 nctemp65=nctemp65*Rec->nr;
 nctempfloat2 *nctemp64;
@@ -252,7 +255,7 @@ nctemp64=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
 nctemp64->d[0]=Rec->nt;
 nctemp64->d[1]=Rec->nr;
 nctemp64->a=(float *)RunMalloc(sizeof(float)*nctemp65);
-Rec->syy=nctemp64;
+Rec->sxx=nctemp64;
 int nctemp76=Rec->nt;
 nctemp76=nctemp76*Rec->nr;
 nctempfloat2 *nctemp75;
@@ -260,67 +263,118 @@ nctemp75=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
 nctemp75->d[0]=Rec->nt;
 nctemp75->d[1]=Rec->nr;
 nctemp75->a=(float *)RunMalloc(sizeof(float)*nctemp76);
-Rec->sxy=nctemp75;
+Rec->syy=nctemp75;
+int nctemp87=Rec->nt;
+nctemp87=nctemp87*Rec->nr;
+nctempfloat2 *nctemp86;
+nctemp86=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp86->d[0]=Rec->nt;
+nctemp86->d[1]=Rec->nr;
+nctemp86->a=(float *)RunMalloc(sizeof(float)*nctemp87);
+Rec->sxy=nctemp86;
 Rec->resamp = resamp;
 Rec->pit = 0;
 return Rec;
+}
 }
 int RecReceiver (struct rec* Rec,int it,nctempfloat2 *field,int dtype)
 {
 int pos;
 int ixr;
 int iyr;
-int nctemp90 = Rec->nt - 1;
-int nctemp82 = (Rec->pit > nctemp90);
-if(nctemp82)
+{
+int nctemp101 = Rec->nt - 1;
+int nctemp93 = (Rec->pit > nctemp101);
+if(nctemp93)
+{
 {
 return 0;
 }
-int nctemp95= it;
-int nctemp97= Rec->resamp;
-int nctemp99=LibeMod(nctemp95,nctemp97);
-int nctemp92 = (nctemp99 ==0);
-if(nctemp92)
+}
+int nctemp106= it;
+int nctemp108= Rec->resamp;
+int nctemp110=LibeMod(nctemp106,nctemp108);
+int nctemp103 = (nctemp110 ==0);
+if(nctemp103)
 {
+{
+int nctemp115= -1;
+int nctemp112 = (dtype ==nctemp115);
+if(nctemp112)
+{
+{
+Rec->pit = (Rec->pit + 1);
+return 1;
+}
+}
+pos = 0;
 for(pos = 0;pos < Rec->nr;pos = (pos + 1)){
+{
 ixr = Rec->rx->a[pos];
 iyr = Rec->ry->a[pos];
-int nctemp101 = (dtype ==1);
-if(nctemp101)
+int nctemp117 = (dtype ==1);
+if(nctemp117)
+{
 {
 Rec->p->a[Rec->pit+Rec->p->d[0]*(pos)] = field->a[ixr+field->d[0]*(iyr)];
 }
+}
 else{
-int nctemp105 = (dtype ==2);
-if(nctemp105)
+{
+int nctemp121 = (dtype ==2);
+if(nctemp121)
+{
 {
 Rec->vx->a[Rec->pit+Rec->vx->d[0]*(pos)] = field->a[ixr+field->d[0]*(iyr)];
 }
+}
 else{
-int nctemp109 = (dtype ==3);
-if(nctemp109)
+{
+int nctemp125 = (dtype ==3);
+if(nctemp125)
+{
 {
 Rec->vy->a[Rec->pit+Rec->vy->d[0]*(pos)] = field->a[ixr+field->d[0]*(iyr)];
 }
+}
 else{
-int nctemp113 = (dtype ==4);
-if(nctemp113)
+{
+int nctemp129 = (dtype ==4);
+if(nctemp129)
+{
 {
 Rec->sxx->a[Rec->pit+Rec->sxx->d[0]*(pos)] = field->a[ixr+field->d[0]*(iyr)];
 }
+}
 else{
-int nctemp117 = (dtype ==5);
-if(nctemp117)
+{
+int nctemp133 = (dtype ==5);
+if(nctemp133)
+{
 {
 Rec->syy->a[Rec->pit+Rec->syy->d[0]*(pos)] = field->a[ixr+field->d[0]*(iyr)];
 }
+}
 else{
-int nctemp121 = (dtype ==6);
-if(nctemp121)
+{
+int nctemp137 = (dtype ==6);
+if(nctemp137)
+{
 {
 Rec->sxy->a[Rec->pit+Rec->sxy->d[0]*(pos)] = field->a[ixr+field->d[0]*(iyr)];
 }
+}
 else{
+{
+int nctemp141 = (dtype ==7);
+if(nctemp141)
+{
+{
+Rec->exx->a[Rec->pit+Rec->exx->d[0]*(pos)] = field->a[ixr+field->d[0]*(iyr)];
+}
+}
+else{
+{
 return 0;
 }
 }
@@ -329,49 +383,96 @@ return 0;
 }
 }
 }
-Rec->pit = (Rec->pit + 1);
+}
+}
+}
+}
+}
+}
+}
+}
+}
+}
 }
 return 1;
 }
+}
 nctempfloat2 * RecGetrec (struct rec* Rec,int data)
 {
-int nctemp127 = (data ==0);
-if(nctemp127)
+{
+int nctemp147 = (data ==1);
+if(nctemp147)
+{
 {
 return Rec->p;
 }
+}
 else{
-int nctemp133 = (data ==1);
-if(nctemp133)
+{
+int nctemp153 = (data ==2);
+if(nctemp153)
+{
 {
 return Rec->vx;
 }
+}
 else{
-int nctemp139 = (data ==2);
-if(nctemp139)
+{
+int nctemp159 = (data ==3);
+if(nctemp159)
+{
 {
 return Rec->vy;
 }
+}
 else{
-int nctemp145 = (data ==3);
-if(nctemp145)
+{
+int nctemp165 = (data ==4);
+if(nctemp165)
+{
 {
 return Rec->sxx;
 }
+}
 else{
-int nctemp151 = (data ==4);
-if(nctemp151)
+{
+int nctemp171 = (data ==5);
+if(nctemp171)
+{
 {
 return Rec->syy;
 }
+}
 else{
-int nctemp157 = (data ==5);
-if(nctemp157)
+{
+int nctemp177 = (data ==6);
+if(nctemp177)
+{
 {
 return Rec->sxy;
 }
+}
 else{
+{
+int nctemp183 = (data ==7);
+if(nctemp183)
+{
+{
+return Rec->exx;
+}
+}
+else{
+{
 return Rec->p;
+}
+}
+}
+}
+}
+}
+}
+}
+}
 }
 }
 }

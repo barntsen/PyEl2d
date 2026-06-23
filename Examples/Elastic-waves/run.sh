@@ -2,25 +2,13 @@
 # run.sh is a test script for PyEl2d
 
 # Path to Bin directory
-B=../../Bin
+B=/home/barn/Dropbox/Src/PyEl2d/Bin
 
-./clean.sh
+#./clean.sh
 
 #Create wavelet
-nt=1501 #No of samples
+nt=10001 #No of samples
 $B/ricker -nt $nt -f0 25.0 -t0 0.100 -dt 0.0005 src.bin 
-
-n1=256
-n2=256
-#Create vp
-$B/spike -n1 $n1 -n2 $n2 -val 2000.0 vp.bin
-
-#Create vs
-$B/spike -n1 $n1 -n2 $n2 -val 1100.0 vs.bin
-
-#Create rho 
-$B/spike -n1 $n1 -n2 $n2 -val 1000.0 rho.bin
-
 
 #Run modelling
 

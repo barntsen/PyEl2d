@@ -1,4 +1,4 @@
-//  Translated by epsc  version: Thu Mar 19 21:52:43 2026
+//  Translated by epsc  version: Tue Jun 23 16:01:28 2026
 
 #include <stddef.h>
 #include <stdio.h>
@@ -120,6 +120,7 @@ int LibeArrayex (int line,nctempchar1 *name,int ival,int index,int bound);
 int LibeSystem (nctempchar1 *cmd);
 int LibeInit ();
 int LibeExit ();
+nctempchar1 * LibeDate ();
 struct diff {int l;
 int lmax;
 nctempfloat2 *coeffs;
@@ -135,18 +136,23 @@ struct diff* Diff;
 int i;
 int j;
 int k;
+{
 struct diff *nctemp5=(struct diff*)RunMalloc(sizeof(struct diff));
 Diff =nctemp5;
 Diff->lmax = 8;
 int nctemp7 = (l < 1);
 if(nctemp7)
 {
+{
 l = 1;
+}
 }
 int nctemp11 = (l > Diff->lmax);
 if(nctemp11)
 {
+{
 l = Diff->lmax;
+}
 }
 Diff->l = l;
 int nctemp21=Diff->lmax;
@@ -164,8 +170,12 @@ nctemp31->d[0]=l;
 nctemp31->a=(float *)RunMalloc(sizeof(float)*nctemp32);
 Diff->w=nctemp31;
 for(i = 0;i < Diff->lmax;i = (i + 1)){
+{
 for(j = 0;j < Diff->lmax;j = (j + 1)){
+{
 Diff->coeffs->a[i+Diff->coeffs->d[0]*(j)] = 0.0;
+}
+}
 }
 }
 Diff->coeffs->a[0+Diff->coeffs->d[0]*(0)] = 1.0021;
@@ -205,9 +215,12 @@ Diff->coeffs->a[7+Diff->coeffs->d[0]*(5)] =  -0.0034;
 Diff->coeffs->a[7+Diff->coeffs->d[0]*(6)] = 0.0014;
 Diff->coeffs->a[7+Diff->coeffs->d[0]*(7)] =  -0.0005;
 for(k = 0;k < l;k = (k + 1)){
+{
 Diff->w->a[k] = Diff->coeffs->a[l - 1+Diff->coeffs->d[0]*(k)];
 }
+}
 return Diff;
+}
 }
 int DiffDxminus (struct diff* Diff,nctempfloat2 *A,nctempfloat2 *dA,float dx)
 {
@@ -219,46 +232,64 @@ int k;
 float sum;
 int l;
 nctempfloat1 *w;
+{
 int nctemp40=A->d[0];nx =nctemp40;
 int nctemp48=A->d[1];ny =nctemp48;
 l = Diff->l;
 w = Diff->w;
 
  #pragma omp parallel for
-for(j=0;j<ny;j=j+1){for(i=0;i<l;i=i+1){{
+for(j=0;j<ny;j++){for(i=0;i<l;i++){{
+{
 sum = 0.0;
 for(k = 1;k < (i + 1);k = (k + 1)){
+{
 sum = (( -w->a[k - 1] * A->a[i - k+A->d[0]*(j)]) + sum);
 }
+}
 for(k = 1;k < (l + 1);k = (k + 1)){
+{
 sum = ((w->a[k - 1] * A->a[i + (k - 1)+A->d[0]*(j)]) + sum);
+}
 }
 dA->a[i+dA->d[0]*(j)] = (sum / dx);
 }
+}
 }}
  #pragma omp parallel for
-for(j=0;j<ny;j=j+1){int nctemp63 = nx - l;
-for(i=l;i<nctemp63;i=i+1){{
+for(j=0;j<ny;j++){int nctemp63 = nx - l;
+for(i=l;i<nctemp63;i++){{
+{
 sum = 0.0;
 for(k = 1;k < (l + 1);k = (k + 1)){
+{
 sum = ((w->a[k - 1] * ( -A->a[i - k+A->d[0]*(j)] + A->a[i + (k - 1)+A->d[0]*(j)])) + sum);
 }
+}
 dA->a[i+dA->d[0]*(j)] = (sum / dx);
+}
 }
 }}
  #pragma omp parallel for
-for(j=0;j<ny;j=j+1){int nctemp70 = nx - l;
-for(i=nctemp70;i<nx;i=i+1){{
+for(j=0;j<ny;j++){int nctemp70 = nx - l;
+for(i=nctemp70;i<nx;i++){{
+{
 sum = 0.0;
 for(k = 1;k < (l + 1);k = (k + 1)){
+{
 sum = (( -w->a[k - 1] * A->a[i - k+A->d[0]*(j)]) + sum);
 }
+}
 for(k = 1;k < ((nx - i) + 1);k = (k + 1)){
+{
 sum = ((w->a[k - 1] * A->a[i + (k - 1)+A->d[0]*(j)]) + sum);
+}
 }
 dA->a[i+dA->d[0]*(j)] = (sum / dx);
 }
+}
 }}}
+}
 int DiffDxplus (struct diff* Diff,nctempfloat2 *A,nctempfloat2 *dA,float dx)
 {
 int nx;
@@ -269,46 +300,64 @@ int k;
 float sum;
 int l;
 nctempfloat1 *w;
+{
 int nctemp76=A->d[0];nx =nctemp76;
 int nctemp84=A->d[1];ny =nctemp84;
 l = Diff->l;
 w = Diff->w;
 
  #pragma omp parallel for
-for(j=0;j<ny;j=j+1){for(i=0;i<l;i=i+1){{
+for(j=0;j<ny;j++){for(i=0;i<l;i++){{
+{
 sum = 0.0;
 for(k = 1;k < (i + 2);k = (k + 1)){
+{
 sum = (( -w->a[k - 1] * A->a[i - (k - 1)+A->d[0]*(j)]) + sum);
 }
+}
 for(k = 1;k < (l + 1);k = (k + 1)){
+{
 sum = ((w->a[k - 1] * A->a[i + k+A->d[0]*(j)]) + sum);
+}
 }
 dA->a[i+dA->d[0]*(j)] = (sum / dx);
 }
+}
 }}
  #pragma omp parallel for
-for(j=0;j<ny;j=j+1){int nctemp99 = nx - l;
-for(i=l;i<nctemp99;i=i+1){{
+for(j=0;j<ny;j++){int nctemp99 = nx - l;
+for(i=l;i<nctemp99;i++){{
+{
 sum = 0.0;
 for(k = 1;k < (l + 1);k = (k + 1)){
+{
 sum = ((w->a[k - 1] * ( -A->a[i - (k - 1)+A->d[0]*(j)] + A->a[i + k+A->d[0]*(j)])) + sum);
 }
+}
 dA->a[i+dA->d[0]*(j)] = (sum / dx);
+}
 }
 }}
  #pragma omp parallel for
-for(j=0;j<ny;j=j+1){int nctemp106 = nx - l;
-for(i=nctemp106;i<nx;i=i+1){{
+for(j=0;j<ny;j++){int nctemp106 = nx - l;
+for(i=nctemp106;i<nx;i++){{
+{
 sum = 0.0;
 for(k = 1;k < (l + 1);k = (k + 1)){
+{
 sum = (( -w->a[k - 1] * A->a[i - (k - 1)+A->d[0]*(j)]) + sum);
 }
+}
 for(k = 1;k < (nx - i);k = (k + 1)){
+{
 sum = ((w->a[k - 1] * A->a[i + k+A->d[0]*(j)]) + sum);
+}
 }
 dA->a[i+dA->d[0]*(j)] = (sum / dx);
 }
+}
 }}}
+}
 int DiffDyminus (struct diff* Diff,nctempfloat2 *A,nctempfloat2 *dA,float dx)
 {
 int nx;
@@ -319,46 +368,64 @@ int k;
 float sum;
 int l;
 nctempfloat1 *w;
+{
 int nctemp112=A->d[0];nx =nctemp112;
 int nctemp120=A->d[1];ny =nctemp120;
 l = Diff->l;
 w = Diff->w;
 
  #pragma omp parallel for
-for(j=0;j<l;j=j+1){for(i=0;i<nx;i=i+1){{
+for(j=0;j<l;j++){for(i=0;i<nx;i++){{
+{
 sum = 0.0;
 for(k = 1;k < (j + 1);k = (k + 1)){
+{
 sum = (( -w->a[k - 1] * A->a[i+A->d[0]*(j - k)]) + sum);
 }
+}
 for(k = 1;k < (l + 1);k = (k + 1)){
+{
 sum = ((w->a[k - 1] * A->a[i+A->d[0]*(j + (k - 1))]) + sum);
 }
+}
 dA->a[i+dA->d[0]*(j)] = (sum / dx);
+}
 }
 }}int nctemp133 = ny - l;
 
  #pragma omp parallel for
-for(j=l;j<nctemp133;j=j+1){for(i=0;i<nx;i=i+1){{
+for(j=l;j<nctemp133;j++){for(i=0;i<nx;i++){{
+{
 sum = 0.0;
 for(k = 1;k < (l + 1);k = (k + 1)){
+{
 sum = ((w->a[k - 1] * ( -A->a[i+A->d[0]*(j - k)] + A->a[i+A->d[0]*(j + (k - 1))])) + sum);
 }
+}
 dA->a[i+dA->d[0]*(j)] = (sum / dx);
+}
 }
 }}int nctemp140 = ny - l;
 
  #pragma omp parallel for
-for(j=nctemp140;j<ny;j=j+1){for(i=0;i<nx;i=i+1){{
+for(j=nctemp140;j<ny;j++){for(i=0;i<nx;i++){{
+{
 sum = 0.0;
 for(k = 1;k < (l + 1);k = (k + 1)){
+{
 sum = (( -w->a[k - 1] * A->a[i+A->d[0]*(j - k)]) + sum);
 }
+}
 for(k = 1;k < ((ny - j) + 1);k = (k + 1)){
+{
 sum = ((w->a[k - 1] * A->a[i+A->d[0]*(j + (k - 1))]) + sum);
+}
 }
 dA->a[i+dA->d[0]*(j)] = (sum / dx);
 }
+}
 }}}
+}
 int DiffDyplus (struct diff* Diff,nctempfloat2 *A,nctempfloat2 *dA,float dx)
 {
 int nx;
@@ -369,43 +436,61 @@ int k;
 float sum;
 int l;
 nctempfloat1 *w;
+{
 int nctemp148=A->d[0];nx =nctemp148;
 int nctemp156=A->d[1];ny =nctemp156;
 l = Diff->l;
 w = Diff->w;
 
  #pragma omp parallel for
-for(j=0;j<l;j=j+1){for(i=0;i<nx;i=i+1){{
+for(j=0;j<l;j++){for(i=0;i<nx;i++){{
+{
 sum = 0.0;
 for(k = 1;k < (j + 2);k = (k + 1)){
+{
 sum = (( -w->a[k - 1] * A->a[i+A->d[0]*(j - (k - 1))]) + sum);
 }
+}
 for(k = 1;k < (l + 1);k = (k + 1)){
+{
 sum = ((w->a[k - 1] * A->a[i+A->d[0]*(j + k)]) + sum);
 }
+}
 dA->a[i+dA->d[0]*(j)] = (sum / dx);
+}
 }
 }}int nctemp169 = ny - l;
 
  #pragma omp parallel for
-for(j=l;j<nctemp169;j=j+1){for(i=0;i<nx;i=i+1){{
+for(j=l;j<nctemp169;j++){for(i=0;i<nx;i++){{
+{
 sum = 0.0;
 for(k = 1;k < (l + 1);k = (k + 1)){
+{
 sum = ((w->a[k - 1] * ( -A->a[i+A->d[0]*(j - (k - 1))] + A->a[i+A->d[0]*(j + k)])) + sum);
 }
+}
 dA->a[i+dA->d[0]*(j)] = (sum / dx);
+}
 }
 }}int nctemp176 = ny - l;
 
  #pragma omp parallel for
-for(j=nctemp176;j<ny;j=j+1){for(i=0;i<nx;i=i+1){{
+for(j=nctemp176;j<ny;j++){for(i=0;i<nx;i++){{
+{
 sum = 0.0;
 for(k = 1;k < (l + 1);k = (k + 1)){
+{
 sum = (( -w->a[k - 1] * A->a[i+A->d[0]*(j - (k - 1))]) + sum);
 }
+}
 for(k = 1;k < (ny - j);k = (k + 1)){
+{
 sum = ((w->a[k - 1] * A->a[i+A->d[0]*(j + k)]) + sum);
+}
 }
 dA->a[i+dA->d[0]*(j)] = (sum / dx);
 }
+}
 }}}
+}
