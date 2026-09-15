@@ -88,8 +88,4 @@ def int RunExit():
 # RunSystem
 def int RunSystem(char[*] cmd):
   pass
-
-# RunDate
-def char [*] RunDate():
-  pass
  

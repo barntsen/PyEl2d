@@ -122,6 +122,8 @@ m = model.model(pyel2d,vp,vs,rho,par.dx,par.dt,par.w0,par.nb,
                 par.rheol,par.freesurface,par.Qmin,Ql=ql,Qm=qm,Qp=qp)
 print("model time  (secs):", time.perf_counter()-t0, flush=True)
 
+exit()
+
 # Create fd solver
 el2d = el2d.el2d(pyel2d,m,par.sresamp,par.snpflags)
 
@@ -131,25 +133,20 @@ el2d.solve(pyel2d,m,src,par.nt,rec,par.l)
 tsolve = time.perf_counter()-t1
 
 # Get data
-dtype=1
+dtype=0
 data = rec.getrec(pyel2d,dtype)
 print("data dimensions: ", data.shape)
 fd=ba.bin("p.bin",'w')
 fd.write(data)
 
-dtype=2
+dtype=1
 data = rec.getrec(pyel2d,dtype)
 fd=ba.bin("vx.bin",'w')
 fd.write(data)
 
-dtype=3
+dtype=2
 data = rec.getrec(pyel2d,dtype)
 fd=ba.bin("vy.bin",'w')
-fd.write(data)
-
-dtype=7
-data = rec.getrec(pyel2d,dtype)
-fd=ba.bin("exx.bin",'w')
 fd.write(data)
 
 # Log wall clock time and date

@@ -8,7 +8,7 @@ cc=$1
 
 # Compile nividia cuda version and copy the c++ code to ../Python-cuda
 if  test "$cc = cuda" ; then
-  opt=" -x cuda "
+  opt="-x cuda "
   path=../Python-cuda
   ec  $opt -c  model.e
   cp           model.cpp $path
@@ -34,7 +34,7 @@ fi
 
 # Compile c code
 if  test "$cc = c" ; then
-  opt="  -x cpu "
+  opt="-x cpu "
   path=../Python-c
   ec  $opt -c   model.e
   cp         model.c $path

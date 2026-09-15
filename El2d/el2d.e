@@ -49,7 +49,6 @@ def struct el2d El2dNew(struct model Model, int sresamp, int [*] snpflags):
   #               snpflags[3]=1 # Record sigmaxx snapshots.
   #               snpflags[4]=1 # Record sigmayy snapshots.
   #               snpflags[5]=1 # Record sigmaxy snapshots.
-  #               snpflags[6]=1 # Record exx  snapshots.
   #               A value of 0 means corresponding snapshot
   #               is NOT recorded.
   #
@@ -61,30 +60,30 @@ def struct el2d El2dNew(struct model Model, int sresamp, int [*] snpflags):
   El2d = new(struct el2d) 
   El2d.sresamp = sresamp 
   El2d.snpflags = snpflags 
-  El2d.p=new(float [Model.Nx,Model.Ny])  
-  El2d.sigmaxx=new(float [Model.Nx,Model.Ny])  
-  El2d.sigmayy=new(float [Model.Nx,Model.Ny])  
-  El2d.p=new(float [Model.Nx,Model.Ny])  
-  El2d.sigmaxy=new(float [Model.Nx,Model.Ny])  
-  El2d.sigmayx=new(float [Model.Nx,Model.Ny])  
-  El2d.vx=new(float [Model.Nx,Model.Ny]) 
-  El2d.vy=new(float [Model.Nx,Model.Ny]) 
-  El2d.exx=new(float [Model.Nx,Model.Ny]) 
-  El2d.eyy=new(float [Model.Nx,Model.Ny]) 
-  El2d.exy=new(float [Model.Nx,Model.Ny]) 
-  El2d.eyx=new(float [Model.Nx,Model.Ny]) 
-  El2d.e=new(float [Model.Nx,Model.Ny]) 
-  El2d.gammaxx=new(float [Model.Nx,Model.Ny]) 
-  El2d.gammayy=new(float [Model.Nx,Model.Ny]) 
-  El2d.gammaxy=new(float [Model.Nx,Model.Ny]) 
-  El2d.gammayx=new(float [Model.Nx,Model.Ny]) 
-  El2d.thetaxxx=new(float [Model.Nx,Model.Ny]) 
-  El2d.thetayyy=new(float [Model.Nx,Model.Ny]) 
-  El2d.thetayxy=new(float [Model.Nx,Model.Ny]) 
-  El2d.thetaxyx=new(float [Model.Nx,Model.Ny]) 
+  El2d.p=new(float [Model.nx,Model.ny])  
+  El2d.sigmaxx=new(float [Model.nx,Model.ny])  
+  El2d.sigmayy=new(float [Model.nx,Model.ny])  
+  El2d.p=new(float [Model.nx,Model.ny])  
+  El2d.sigmaxy=new(float [Model.nx,Model.ny])  
+  El2d.sigmayx=new(float [Model.nx,Model.ny])  
+  El2d.vx=new(float [Model.nx,Model.ny]) 
+  El2d.vy=new(float [Model.nx,Model.ny]) 
+  El2d.exx=new(float [Model.nx,Model.ny]) 
+  El2d.eyy=new(float [Model.nx,Model.ny]) 
+  El2d.exy=new(float [Model.nx,Model.ny]) 
+  El2d.eyx=new(float [Model.nx,Model.ny]) 
+  El2d.e=new(float [Model.nx,Model.ny]) 
+  El2d.gammaxx=new(float [Model.nx,Model.ny]) 
+  El2d.gammayy=new(float [Model.nx,Model.ny]) 
+  El2d.gammaxy=new(float [Model.nx,Model.ny]) 
+  El2d.gammayx=new(float [Model.nx,Model.ny]) 
+  El2d.thetaxxx=new(float [Model.nx,Model.ny]) 
+  El2d.thetayyy=new(float [Model.nx,Model.ny]) 
+  El2d.thetayxy=new(float [Model.nx,Model.ny]) 
+  El2d.thetaxyx=new(float [Model.nx,Model.ny]) 
   
-  for (i=0; i<Model.Nx;  i=i+1): 
-    for (j=0; j<Model.Ny; j=j+1): 
+  for (i=0; i<Model.nx; i=i+1): 
+    for (j=0; j<Model.ny; j=j+1): 
       El2d.p[i,j]       = 0.0 
       El2d.sigmaxx[i,j] = 0.0 
       El2d.sigmayy[i,j] = 0.0 
@@ -126,9 +125,6 @@ def struct el2d El2dNew(struct model Model, int sresamp, int [*] snpflags):
   if(El2d.snpflags[5] == 1):
     El2d.fdsxy = LibeOpen("snp-sxy.bin","w") 
 
-  if(El2d.snpflags[6] == 1):
-    El2d.fdsxy = LibeOpen("snp-exx.bin","w") 
-
   return(El2d) 
 
 def int El2dvx(struct el2d El2d, struct model Model) :
@@ -145,23 +141,25 @@ def int El2dvx(struct el2d El2d, struct model Model) :
   #int nx,ny 
   #int i,j 
 
-  nx = Model.Nx 
-  ny = Model.Ny 
+  nx = Model.nx 
+  ny = Model.ny 
+  dt = Model.dt
   
   # The derivative of stress in x and -directions are stored in exx
   # and exy.
   # Scale with inverse density and advance one time step
 
   parallel(i=0:nx,j=0:ny):
-    El2d.vx[i,j] = Model.Dt*Model.Rhox[i,j]*(El2d.exx[i,j] + El2d.exy[i,j]) \
-                 + Model.Dt*El2d.thetaxxx[i,j]*Model.Drhopx[i,j]            \
-                 + Model.Dt*El2d.thetayxy[i,j]*Model.Drhopy[i,j]            \
+    El2d.vx[i,j] = dt*Model.nu[i,j]*(El2d.exx[i,j] + El2d.exy[i,j]) \
+                 + dt*El2d.thetaxxx[i,j]*Model.nu[i,j]    \
+                 + dt*El2d.thetayxy[i,j]*Model.nu[i,j]    \
                  + El2d.vx[i,j] 
 
     El2d.thetaxxx[i,j] = Model.Eta1x[i,j]*El2d.thetaxxx[i,j]   \
-                     + Model.Eta2x[i,j]*El2d.exx[i,j]          
+                       + Model.Eta2x[i,j]*El2d.exx[i,j] 
+
     El2d.thetayxy[i,j] = Model.Eta1y[i,j]*El2d.thetayxy[i,j]   \
-                     + Model.Eta2y[i,j]*El2d.exy[i,j] 
+                       + Model.Eta2y[i,j]*El2d.exy[i,j] 
   
 
 
@@ -178,8 +176,8 @@ def int El2dvy(struct el2d El2d, struct model Model) :
   #int nx,ny 
   #int i,j 
 
-  nx = Model.Nx 
-  ny = Model.Ny 
+  nx = Model.nx 
+  ny = Model.ny 
 
   # The derivative of stress in y and x-direction are stored in eyy
   # and exy.
@@ -192,7 +190,7 @@ def int El2dvy(struct el2d El2d, struct model Model) :
                  + El2d.vy[i,j] 
     
     El2d.thetayyy[i,j] = Model.Eta1y[i,j]*El2d.thetayyy[i,j]                \
-                     + Model.Eta2y[i,j]*El2d.eyy[i,j]                       
+                     + Model.Eta2y[i,j]*El2d.eyy[i,j]                       \
     El2d.thetaxyx[i,j] = Model.Eta1x[i,j]*El2d.thetaxyx[i,j]                \
                      + Model.Eta2x[i,j]*El2d.eyx[i,j] 
 
@@ -207,8 +205,8 @@ def int El2de(struct el2d El2d, struct model Model):
   #int nx,ny 
   #int i,j 
 
-  nx = Model.Nx 
-  ny = Model.Ny 
+  nx = Model.nx 
+  ny = Model.ny 
 
   parallel(i=0:nx,j=0:ny):
     El2d.e[i,j] = El2d.exx[i,j]+El2d.eyy[i,j] 
@@ -228,8 +226,8 @@ def int El2dexy(struct el2d El2d, struct model Model, float [*,*] tmp1,  \
   #int nx,ny 
   #int i,j 
 
-  nx = Model.Nx 
-  ny = Model.Ny 
+  nx = Model.nx 
+  ny = Model.ny 
 
   parallel(i=0:nx,j=0:ny):
     El2d.exy[i,j] = 0.5*(tmp1[i,j]+tmp2[i,j]) 
@@ -248,8 +246,8 @@ def int El2deyx(struct el2d El2d, struct model Model, float [*,*] tmp1,  \
   #int nx,ny 
   #int i,j 
 
-  nx = Model.Nx 
-  ny = Model.Ny 
+  nx = Model.nx 
+  ny = Model.ny 
 
   parallel(i=0:nx,j=0:ny):
     El2d.eyx[i,j] = 0.5*(tmp1[i,j]+tmp2[i,j]) 
@@ -265,8 +263,8 @@ def int El2dstress(struct el2d El2d, struct model Model):
   #int nx, ny 
   #int i,j 
 
-  nx = Model.Nx 
-  ny = Model.Ny 
+  nx = Model.nx 
+  ny = Model.ny 
 
   parallel(i=0:nx,j=0:ny):
    El2d.sigmaxx[i,j] = Model.Dt*Model.Lambda[i,j]*(El2d.exx[i,j]          \
@@ -314,15 +312,15 @@ def int El2dSnap(struct el2d El2d,int it) :
   # Returns  : Integer (OK or ERR)
 
   #int n 
-  #int Nx, Ny 
+  #int nx, ny 
   #char [*] tmp 
   
   if (El2d.sresamp <= 0):
     return(OK) 
   
-  Nx = len(El2d.sigmaxx,0) 
-  Ny = len(El2d.sigmaxx,1) 
-  n = Nx*Ny 
+  nx = len(El2d.sigmaxx,0) 
+  ny = len(El2d.sigmaxx,1) 
+  n = nx*ny 
   if(LibeMod(it,El2d.sresamp) == 0):
     if(El2d.snpflags[0] == 1):
       tmp = cast(char [4*n],El2d.p) 
@@ -346,10 +344,6 @@ def int El2dSnap(struct el2d El2d,int it) :
   
     if(El2d.snpflags[5] == 1):
       tmp = cast(char [4*n],El2d.sigmaxy) 
-      LibeWrite(El2d.fdsxy,4*n,tmp) 
-
-    if(El2d.snpflags[6] == 1):
-      tmp = cast(char [4*n],El2d.exx) 
       LibeWrite(El2d.fdsxy,4*n,tmp) 
   
   return(OK) 
@@ -400,13 +394,13 @@ def int El2dSolve(struct el2d El2d, struct model Model, struct src Src, \
   #int iperc           # Percentage finished
 
   Diff = DiffNew(l)   # Create differentiator object
-  tmp1 = new(float[Model.Nx, Model.Ny]) 
-  tmp2 = new(float[Model.Nx, Model.Ny]) 
+  tmp1 = new(float[Model.nx, Model.ny]) 
+  tmp2 = new(float[Model.nx, Model.ny]) 
 
   oldperc=0.0 
   ns=El2d.ts          #Get current timestep 
   ne = ns+nt          
-  for(i=ns;  i<ne;  i=i+1):
+  for(i=ns  i<ne  i=i+1):
 
     # Compute spatial derivatives of stress
     # Use exx, exy and eyy as temp storage
@@ -433,7 +427,7 @@ def int El2dSolve(struct el2d El2d, struct model Model, struct src Src, \
     El2dstress(El2d,Model)   
    
     # Add source
-    for (k=0;  k<Src.Ns; k=k+1):
+    for (k=0  k<Src.Ns k=k+1):
       sx=Src.Sx[k] 
       sy=Src.Sy[k] 
       El2d.sigmaxx[sx,sy] = El2d.sigmaxx[sx,sy]                      \
@@ -453,8 +447,7 @@ def int El2dSolve(struct el2d El2d, struct model Model, struct src Src, \
     if(perc-oldperc >= 10.0):
       iperc=cast(int,perc)/10 
       if(LibeMod(iperc,10)==0):
-        LibePuts(stderr, "percent completed: ") 
-        LibePuti(stderr,iperc) 
+        LibePuts(stderr, "percent completed: ") LibePuti(stderr,iperc) 
         LibePuts(stderr,"\n") 
         LibeFlush(stderr) 
       
@@ -468,8 +461,6 @@ def int El2dSolve(struct el2d El2d, struct model Model, struct src Src, \
       RecReceiver(Rec,i,El2d.sigmaxx,dtype=4)  
       RecReceiver(Rec,i,El2d.sigmayy,dtype=5)  
       RecReceiver(Rec,i,El2d.sigmaxy,dtype=6)  
-      RecReceiver(Rec,i,El2d.exx,dtype=7)  
-      RecReceiver(Rec,i,El2d.exx,dtype=-1)  
 
     # Record Snapshots
     El2dSnap(El2d,i) 
