@@ -126,4 +126,100 @@ int LibeArrayex (int line,nctempchar1 *name,int ival,int index,int bound);
 int LibeSystem (nctempchar1 *cmd);
 int LibeInit ();
 int LibeExit ();
-nctempchar1 * LibeDate ();
+struct model {nctempfloat2 *tauelx;
+nctempfloat2 *tauely;
+nctempfloat2 *tauslx;
+nctempfloat2 *tausly;
+nctempfloat2 *tauemx;
+nctempfloat2 *tauemy;
+nctempfloat2 *tausmx;
+nctempfloat2 *tausmy;
+nctempfloat2 *tauenx;
+nctempfloat2 *taueny;
+nctempfloat2 *tausnx;
+nctempfloat2 *tausny;
+nctempfloat2 *lambda;
+nctempfloat2 *mu;
+nctempfloat2 *nu;
+float dt;
+float dx;
+float w0;
+int nb;
+int nx;
+int ny;
+int freesurface;
+};
+typedef struct nctempmodel1 {int d[1]; struct model *a; } nctempmodel1;
+struct nctempmodel2 {int d[2]; struct model *a; } ;
+struct nctempmodel3 {int d[3]; struct model *a; } ;
+struct nctempmodel4 {int d[4]; struct model *a; } ;
+struct model* ModelNew (nctempfloat2 *vp,nctempfloat2 *vs,nctempfloat2 *rho,float dx,float w0,float dt,int nb,int freesurface,nctempfloat2 *tauelx,nctempfloat2 *tauely,nctempfloat2 *tauemx,nctempfloat2 *tauemy,nctempfloat2 *tauslx,nctempfloat2 *tausly,nctempfloat2 *tausmx,nctempfloat2 *tausmy,nctempfloat2 *tauenx,nctempfloat2 *taueny,nctempfloat2 *tausnx,nctempfloat2 *tausny)
+{
+int nx;
+int ny;
+struct model* m;
+int j;
+int i;
+{
+int nctemp5=vp->d[0];nx =nctemp5;
+int nctemp13=vp->d[1];ny =nctemp13;
+struct model *nctemp21=(struct model*)RunMalloc(sizeof(struct model));
+m =nctemp21;
+int nctemp29=nx;
+nctemp29=nctemp29*ny;
+nctempfloat2 *nctemp28;
+nctemp28=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp28->d[0]=nx;
+nctemp28->d[1]=ny;
+nctemp28->a=(float *)RunMalloc(sizeof(float)*nctemp29);
+m->mu=nctemp28;
+int nctemp40=nx;
+nctemp40=nctemp40*ny;
+nctempfloat2 *nctemp39;
+nctemp39=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp39->d[0]=nx;
+nctemp39->d[1]=ny;
+nctemp39->a=(float *)RunMalloc(sizeof(float)*nctemp40);
+m->lambda=nctemp39;
+int nctemp51=nx;
+nctemp51=nctemp51*ny;
+nctempfloat2 *nctemp50;
+nctemp50=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp50->d[0]=nx;
+nctemp50->d[1]=ny;
+nctemp50->a=(float *)RunMalloc(sizeof(float)*nctemp51);
+m->nu=nctemp50;
+m->tauelx = tauelx;
+m->tauely = tauely;
+m->tauslx = tauslx;
+m->tausly = tausly;
+m->tauemx = tauemx;
+m->tauemy = tauemy;
+m->tausmx = tausmx;
+m->tausmy = tausmy;
+m->tauenx = tauemx;
+m->taueny = tauemy;
+m->tausnx = tausmx;
+m->tausny = tausmy;
+for(j = 0;j < ny;j = (j + 1)){
+{
+for(i = 0;i < nx;i = (i + 1)){
+{
+m->nu->a[i+m->nu->d[0]*(j)] = (1.0 / rho->a[i+rho->d[0]*(j)]);
+m->mu->a[i+m->mu->d[0]*(j)] = ((vs->a[i+vs->d[0]*(j)] * vs->a[i+vs->d[0]*(j)]) * rho->a[i+rho->d[0]*(j)]);
+m->lambda->a[i+m->lambda->d[0]*(j)] = (rho->a[i+rho->d[0]*(j)] * ((vp->a[i+vp->d[0]*(j)] * vp->a[i+vp->d[0]*(j)]) - ((2.0 * vs->a[i+vs->d[0]*(j)]) * vs->a[i+vs->d[0]*(j)])));
+}
+}
+}
+}
+m->dt = dt;
+m->w0 = w0;
+m->dx = dx;
+m->nb = nb;
+m->freesurface = freesurface;
+m->nx = nx;
+m->ny = ny;
+return m;
+}
+}
+};

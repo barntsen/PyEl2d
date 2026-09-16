@@ -1,4 +1,4 @@
-//  Translated by epsc  version: Fri Sep 11 11:03:39 2026
+//  Translated by epsc  version: Wed Sep 16 14:12:17 2026
 
 #include <stddef.h>
 #include <stdio.h>
@@ -120,4 +120,3 @@ int LibeArrayex (int line,nctempchar1 *name,int ival,int index,int bound);
 int LibeSystem (nctempchar1 *cmd);
 int LibeInit ();
 int LibeExit ();
-nctempchar1 * LibeDate ();

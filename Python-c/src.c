@@ -1,4 +1,4 @@
-//  Translated by epsc  version: Fri Sep 11 11:03:39 2026
+//  Translated by epsc  version: Wed Sep 16 14:12:17 2026
 
 #include <stddef.h>
 #include <stdio.h>
@@ -120,4 +120,70 @@ int LibeArrayex (int line,nctempchar1 *name,int ival,int index,int bound);
 int LibeSystem (nctempchar1 *cmd);
 int LibeInit ();
 int LibeExit ();
-nctempchar1 * LibeDate ();
+struct src {nctempint1 *Sx;
+nctempint1 *Sy;
+nctempfloat2 *Sqyy;
+nctempfloat2 *Sqxx;
+nctempfloat2 *Sqxy;
+nctempfloat2 *Sfx;
+nctempfloat2 *Sfy;
+int Ns;
+};
+typedef struct nctempsrc1 {int d[1]; struct src *a; } nctempsrc1;
+struct nctempsrc2 {int d[2]; struct src *a; } ;
+struct nctempsrc3 {int d[3]; struct src *a; } ;
+struct nctempsrc4 {int d[4]; struct src *a; } ;
+struct src* SrcNew (nctempint1 *sx,nctempint1 *sy,nctempfloat2 *sqxx,nctempfloat2 *sqyy,nctempfloat2 *sqxy,nctempfloat2 *sfx,nctempfloat2 *sfy)
+{
+struct src* Src;
+{
+struct src *nctemp5=(struct src*)RunMalloc(sizeof(struct src));
+Src =nctemp5;
+Src->Sx = sx;
+Src->Sy = sy;
+Src->Sfx = sfx;
+Src->Sfy = sfy;
+Src->Sqxx = sqxx;
+Src->Sqyy = sqyy;
+Src->Sqxy = sqxy;
+int nctemp11=sx->d[0];Src->Ns =nctemp11;
+return Src;
+}
+}
+int SrcDel (struct src* Src)
+{
+{
+return 1;
+}
+}
+int Srcricker (nctempfloat1 *source,float t0,float f0,int nt,float dt)
+{
+int i;
+float t;
+float w0;
+float arg;
+{
+for(i = 0;i < nt;i = (i + 1)){
+{
+float nctemp29=(float)(i);
+float nctemp33 = nctemp29 * dt;
+float nctemp35 = nctemp33 - t0;
+t =nctemp35;
+w0 = ((2.0 * 3.14159) * f0);
+arg = (w0 * t);
+int nctemp39=i;
+float nctemp56 = 0.5 * arg;
+float nctemp58 = nctemp56 * arg;
+float nctemp59 = 1.0 - nctemp58;
+float nctemp67= -0.25;
+float nctemp69 = nctemp67 * arg;
+float nctemp71 = nctemp69 * arg;
+float nctemp61= nctemp71;
+float nctemp72=LibeExp(nctemp61);
+float nctemp73 = nctemp59 * nctemp72;
+source->a[nctemp39] =nctemp73;
+}
+}
+return 1;
+}
+}
