@@ -51,13 +51,17 @@ mkdir -p Bin
 
 cp El2d/el2dmod.py          Bin/el2dmod 
 chmod +x                    Bin/el2dmod
-cp El2d/q.py                Bin
+cp El2d/tau.py              Bin
 cp El2d/src.py              Bin
+cp El2d/srcw.py             Bin
 cp El2d/rec.py              Bin
+cp El2d/recw.py             Bin
 cp El2d/model.py            Bin
+cp El2d/modelw.py           Bin
 cp El2d/el2d.py             Bin
-cp El2d/q.py                Bin
+cp El2d/el2dw.py            Bin
 cp El2d/pyeps.py            Bin
+cp El2d/config.py           Bin
 cp Scripts/spike.py         Bin/spike
 chmod +x                    Bin/spike
 cp Scripts/ricker.py        Bin/ricker
@@ -88,8 +92,3 @@ if test $cc = cuda ; then
   cp Python-cuda/pyel2dcuda.so  Bin
 fi
 
-echo "** Installing Examples"
-# Install examples
-cd Examples
-  ./mk.sh
-cd ..
