@@ -4,12 +4,12 @@
 import libe  
 
 class model :
-  float [*,*] tauelx, tauely
-  float [*,*] tauslx, tausly
-  float [*,*] tauemx, tauemy
-  float [*,*] tausmx, tausmy
-  float [*,*] tauenx, taueny
-  float [*,*] tausnx, tausny
+  float [*,*] tausx,tauex
+  float [*,*] tausy,tauey
+  float [*,*] chisx,chiex
+  float [*,*] chisy,chiey
+  float [*,*] etasx,etaex
+  float [*,*] etasy,etaey
   float [*,*] lambda,  mu, nu
   float dt,dx,w0
   int   nb
@@ -21,12 +21,12 @@ def struct model ModelNew(float [*,*] vp,     float [*,*] vs,          \
                           float [*,*] rho,    float dx,                \
                           float w0,           float dt,                \
                           int   nb,           int   freesurface,       \
-                          float [*,*] tauelx, float [*,*] tauely,      \
-                          float [*,*] tauemx, float [*,*] tauemy,      \
-                          float [*,*] tauslx, float [*,*] tausly,      \
-                          float [*,*] tausmx, float [*,*] tausmy,      \
-                          float [*,*] tauenx, float [*,*] taueny,      \
-                          float [*,*] tausnx, float [*,*] tausny):   
+                          float [*,*] tausx,  float [*,*] tausy,       \
+                          float [*,*] tauex,  float [*,*] tauey,       \
+                          float [*,*] chisx,  float [*,*] chisy,       \
+                          float [*,*] chiex,  float [*,*] chiey,       \
+                          float [*,*] etasx,  float [*,*] etasy,       \
+                          float [*,*] etaex,  float [*,*] etaey):
 
   # ModelNew creates a new model.
   #
@@ -40,8 +40,8 @@ def struct model ModelNew(float [*,*] vp,     float [*,*] vs,          \
   #   w0 :  Q-model peak angular frequency
   #   nb :  Width of border attenuation zone (in grid points)
   #   freesurface : =0 No free surface, =1 Free surface 
-  #   tauelx : Relaxation time for lambda stretched in x-direction
-  #   tauely : Relaxation time for lambda stretched in y-direction
+  #   tauex : Epsilon Relaxation time for lambda stretched in x-direction
+  #   tauey : Epsilon Relaxation time for lambda stretched in y-direction
   #   tauemx : Relaxation time for mu      stretched in x-direction
   #   tauemy : Relaxation time for mu      stretched in y-direction
   #   tauenx : Relaxation time for nu      stretched in x-direction
@@ -60,18 +60,18 @@ def struct model ModelNew(float [*,*] vp,     float [*,*] vs,          \
   m.lambda = new(float[nx,ny])
   m.nu     = new(float[nx,ny])
 
-  m.tauelx =tauelx
-  m.tauely =tauely
-  m.tauslx =tauslx
-  m.tausly =tausly
-  m.tauemx =tauemx
-  m.tauemy =tauemy
-  m.tausmx =tausmx
-  m.tausmy =tausmy
-  m.tauenx =tauemx
-  m.taueny =tauemy
-  m.tausnx =tausmx
-  m.tausny =tausmy
+  m.tausx =tausx
+  m.tausy =tausy
+  m.tauex =tauex
+  m.tauey =tauey
+  m.chisx =chisx
+  m.chisy =chisy
+  m.chiex =chiex
+  m.chiey =chiey
+  m.etasx =etasx
+  m.etasy =etasy
+  m.etaex =etaex
+  m.etaey =etaey
 
   for j in range(0,ny) :
     for i in range(0,nx) :

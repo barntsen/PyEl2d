@@ -1,4 +1,4 @@
-//  Translated by epsc  version: Wed Sep 16 14:12:17 2026
+//  Translated by epsc  version: Fri Sep 18 13:42:14 2026
 
 #include <stddef.h>
 #include <stdio.h>
@@ -120,3 +120,204 @@ int LibeArrayex (int line,nctempchar1 *name,int ival,int index,int bound);
 int LibeSystem (nctempchar1 *cmd);
 int LibeInit ();
 int LibeExit ();
+nctempchar1 * LibeDate ();
+int Main (struct nctempMainArg1 *MainArgs)
+{
+{
+return 1;
+}
+}
+nctempchar1 * PyepsCre1ds (int Nx)
+{
+nctempchar1 *str;
+{
+int nctemp13 = Nx + 1;
+int nctemp8=nctemp13;
+nctempchar1 *nctemp7;
+nctemp7=(nctempchar1*)RunMalloc(sizeof(nctempchar1));
+int nctemp18 = Nx + 1;
+nctemp7->d[0]=nctemp18;
+nctemp7->a=(char *)RunMalloc(sizeof(char)*nctemp8);
+str=nctemp7;
+int nctemp22=Nx;
+char nctemp25=(char)(0);
+str->a[nctemp22] =nctemp25;
+return str;
+}
+}
+int PyepsDel1ds (nctempchar1 *arr)
+{
+{
+RunFree(arr->a);
+RunFree(arr);
+return 1;
+}
+}
+int PyepsCopy1ds (nctempchar1 *arr,nctempchar1 *out)
+{
+int nx;
+int i;
+{
+int nctemp38=out->d[0];nx =nctemp38;
+for(i = 0;i < nx;i = (i + 1)){
+{
+out->a[i] = arr->a[i];
+}
+}
+return 1;
+}
+}
+nctempint1 * PyepsCre1di (int Nx)
+{
+nctempint1 *tmp;
+{
+int nctemp49=Nx;
+nctempint1 *nctemp48;
+nctemp48=(nctempint1*)RunMalloc(sizeof(nctempint1));
+nctemp48->d[0]=Nx;
+nctemp48->a=(int *)RunMalloc(sizeof(int)*nctemp49);
+tmp=nctemp48;
+return tmp;
+}
+}
+int PyepsDel1di (nctempint1 *arr)
+{
+{
+RunFree(arr->a);
+RunFree(arr);
+return 1;
+}
+}
+int PyepsCopy1di (nctempint1 *arr,nctempint1 *out)
+{
+int nx;
+int i;
+{
+int nctemp62=out->d[0];nx =nctemp62;
+for(i = 0;i < nx;i = (i + 1)){
+{
+out->a[i] = arr->a[i];
+}
+}
+return 1;
+}
+}
+nctempint2 * PyepsCre2di (int Nx,int Ny)
+{
+{
+int nctemp69=Nx;
+nctemp69=nctemp69*Ny;
+nctempint2 *nctemp68;
+nctemp68=(nctempint2*)RunMalloc(sizeof(nctempint2));
+nctemp68->d[0]=Nx;
+nctemp68->d[1]=Ny;
+nctemp68->a=(int *)RunMalloc(sizeof(int)*nctemp69);
+return nctemp68;
+}
+}
+int PyepsDel2di (nctempint2 *arr)
+{
+{
+RunFree(arr->a);
+RunFree(arr);
+return 1;
+}
+}
+int PyepsCopy2di (nctempint2 *arr,nctempint2 *out)
+{
+int nx;
+int ny;
+int i;
+int j;
+{
+int nctemp82=out->d[0];nx =nctemp82;
+int nctemp90=out->d[1];ny =nctemp90;
+for(j = 0;j < ny;j = (j + 1)){
+{
+for(i = 0;i < nx;i = (i + 1)){
+{
+out->a[i+out->d[0]*(j)] = arr->a[i+arr->d[0]*(j)];
+}
+}
+}
+}
+return 1;
+}
+}
+nctempfloat1 * PyepsCre1df (int Nx)
+{
+nctempfloat1 *tmp;
+{
+int nctemp101=Nx;
+nctempfloat1 *nctemp100;
+nctemp100=(nctempfloat1*)RunMalloc(sizeof(nctempfloat1));
+nctemp100->d[0]=Nx;
+nctemp100->a=(float *)RunMalloc(sizeof(float)*nctemp101);
+tmp=nctemp100;
+return tmp;
+}
+}
+int PyepsDel1df (nctempfloat1 *arr)
+{
+{
+RunFree(arr->a);
+RunFree(arr);
+return 1;
+}
+}
+int PyepsCopy1df (nctempfloat1 *arr,nctempfloat1 *out)
+{
+int nx;
+int i;
+{
+int nctemp114=out->d[0];nx =nctemp114;
+for(i = 0;i < nx;i = (i + 1)){
+{
+out->a[i] = arr->a[i];
+}
+}
+return 1;
+}
+}
+nctempfloat2 * PyepsCre2df (int Nx,int Ny)
+{
+{
+int nctemp121=Nx;
+nctemp121=nctemp121*Ny;
+nctempfloat2 *nctemp120;
+nctemp120=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp120->d[0]=Nx;
+nctemp120->d[1]=Ny;
+nctemp120->a=(float *)RunMalloc(sizeof(float)*nctemp121);
+return nctemp120;
+}
+}
+int PyepsDel2df (nctempfloat2 *arr)
+{
+{
+RunFree(arr->a);
+RunFree(arr);
+return 1;
+}
+}
+int PyepsCopy2df (nctempfloat2 *arr,nctempfloat2 *out)
+{
+int nx;
+int ny;
+int i;
+int j;
+{
+int nctemp134=out->d[0];nx =nctemp134;
+int nctemp142=out->d[1];ny =nctemp142;
+for(j = 0;j < ny;j = (j + 1)){
+{
+for(i = 0;i < nx;i = (i + 1)){
+{
+out->a[i+out->d[0]*(j)] = arr->a[i+arr->d[0]*(j)];
+}
+}
+}
+}
+return 1;
+}
+}

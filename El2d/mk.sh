@@ -7,21 +7,19 @@
 cc=$1
 
 # Compile nividia cuda version and copy the c++ code to ../Python-cuda
-if  test "$cc = cuda" ; then
+if  test $cc = cuda ; then
   opt="-x cuda "
   path=../Python-cuda
-  ec  $opt -c  model.e
-  cp           model.cpp $path
-  ec  $opt -c  src.e
-  cp           src.cpp   $path
-  ec  $opt -c  rec.e
+  ec  $opt -c -z model.e
+  cp             model.cpp $path
+  ec  $opt -c -z src.e
+  cp             src.cpp   $path
+  ec  $opt -c -z rec.e
   cp           rec.cpp   $path
   ec  $opt -c  diff.e
   cp           diff.cpp  $path
-  ec  $opt -c  el2d.e
+  ec  $opt -c -z el2d.e
   cp           el2d.cpp  $path
-  ec  $opt -c  model.e
-  cp           model.cpp $path
   ec  $opt -c  pyeps.e
   cp           pyeps.cpp $path
   ec  $opt -c  m.e
@@ -33,23 +31,25 @@ if  test "$cc = cuda" ; then
 fi
 
 # Compile c code
-if  test "$cc = c" ; then
-  opt="-x cpu "
+if  test $cc = c ; then
+  opt=" -C -x cpu "
   path=../Python-c
   ec  $opt -c   model.e
   cp         model.c $path
-  ec  $opt -c   src.e
+  ec  $opt -c -z src.e
   cp         src.c   $path
-  ec  $opt -c   rec.e
+  ec  $opt -c -z  rec.e
   cp         rec.c   $path
   ec  $opt  -c   diff.e
   cp         diff.c  $path
-  ec  $opt  -c   el2d.e
+  ec  $opt  -c -z   el2d.e
   cp         el2d.c  $path
-  ec  $opt  -c   model.e
+  ec  $opt  -c -z  model.e
   cp         model.c $path
   ec  $opt  -c   pyeps.e
   cp         pyeps.c $path
+  cp         pyepsc.e pyepsc.c
+  cp         pyepsc.c $path
   ec  $opt  -c   m.e
   cp         m.c    $path
   ec  $opt  -c   libe.e
@@ -58,7 +58,7 @@ if  test "$cc = c" ; then
 fi
 
 # Compile omp code
-if  test "$cc = omp" ; then
+if  test $cc = omp ; then
   opt="-x cpu -f "
   path=../Python-omp
   ec  $opt -c   model.e
