@@ -1,7 +1,6 @@
 from ctypes import *
 import numpy as np
 import pyeps
-import recw
 import babin as ba
 
 class rec :
@@ -9,7 +8,7 @@ class rec :
 
   '''
 
-  def __init__(self,rx,ry,nt,resamp=None):
+  def __init__(self,pyel2d,rx,ry,nt,resamp=None):
 
     ''' Create a new receiver object.
 
@@ -29,10 +28,17 @@ class rec :
       resamp =1 
     self.nt = nt
     self.nr = rx.shape[0]
+    pyel2d.RecNew.restype=c_void_p
+    # Convert from python variables to eps variables
+    rxx = pyeps.Store1di(pyel2d,rx)  
+    ryy = pyeps.Store1di(pyel2d,ry)  
 
-    self.re=recw.RecNew(rx,ry,nt,resamp)
+    # Create receiver eps object.
+    # Set argument types 
+    pyel2d.RecNew.argtypes=[c_void_p,c_void_p,c_int,c_int]
+    self.rec= pyel2d.RecNew(rxx,ryy,c_int(nt),c_int(resamp))
 
-  def getrec(self,rec,dtype):
+  def getrec(self,pyel2d,dtype):
     ''' Get data record
 
        Parameters: 
@@ -47,3 +53,10 @@ class rec :
 
     '''
 
+    # Set argument types
+    pyel2d.RecGetrec.argtypes  =[c_void_p,c_int]
+    pyel2d.RecGetrec.restype=c_void_p
+    rval=pyel2d.RecGetrec(self.rec,dtype)
+    rarr = np.zeros((self.nt,self.nr), dtype=np.float32, order='F')
+    pyeps.Get2df(pyel2d,rval,rarr)
+    return rarr

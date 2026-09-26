@@ -4,7 +4,6 @@ import importlib
 import pyeps
 import babin as ba
 import pyeps
-import el2dw
 
 def libpath() :
   
@@ -59,7 +58,7 @@ def setup(path,version) :
   return pyel2d
 
 class el2d :
-  def __init__(self,model,sresamp,snpflags):
+  def __init__(self,pyel2d,model,sresamp,snpflags):
     ''' el2d is a  class for solving the elastic
       wave equation.  
      
@@ -79,9 +78,19 @@ class el2d :
       Returns   : el2d object.
   '''
 
-    self.el = el2dw.El2dNew(model,sresamp,snpflags)
+    # convert snpflags to eps array
+    snpflags = pyeps.Store1di(pyel2d,snpflags)
+
+    #Create fd solver
+    m = model.model
+    # Set input type arguments
+    pyel2d.El2dNew.argtypes=[c_void_p,c_int,c_void_p]
+    # Set return type argument
+    pyel2d.El2dNew.restype=c_void_p
+    sresamp = int(sresamp)
+    self.el2d = pyel2d.El2dNew(m,sresamp,snpflags)
   
-  def solve(self,el,mod,sr,nt,rec=None,l=6) :
+  def solve(self, pyel2d,model,src,nt,rec=None,l=6) :
     ''' solve computes the solution for the elastic
         2D wave equation.
 
@@ -95,5 +104,15 @@ class el2d :
 
     '''
 
+    if(rec == None):
+      prec=c_void_p(0)
+    else :
+      prec = rec.rec
+
     # Run the pyel2d solver.
-    el2dw.El2dSolve(el,mod,sr,rec,nt,l=6)
+    m=model.model
+    # Set argument types
+    pyel2d.El2dSolve.argtypes=[c_void_p,c_void_p,c_void_p,c_void_p,c_int,c_int]
+
+    # Make call to solver
+    pyel2d.El2dSolve(self.el2d,m,src.src,prec,c_int(nt),c_int(l))

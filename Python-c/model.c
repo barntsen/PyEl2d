@@ -1,4 +1,4 @@
-//  Translated by epsc  version: Wed Sep 16 14:12:17 2026
+//  Translated by epsc  version: Fri Sep 25 17:44:05 2026
 
 #include <stddef.h>
 #include <stdio.h>
@@ -8,6 +8,8 @@ typedef struct nctempfloat1 { int d[1]; float *a;} nctempfloat1;
 typedef struct nctempint1 { int d[1]; int *a;} nctempint1; 
 typedef struct nctempchar1 { int d[1]; char *a;} nctempchar1; 
 typedef struct nctempcomplex1 { int d[1]; complex *a;} nctempcomplex1; 
+static struct nctempchar1 nctempstringx = {0, NULL};
+static struct nctempchar1 *nctempstring = &nctempstringx;
 typedef struct nctempfloat2 { int d[2]; float *a;} nctempfloat2; 
 typedef struct nctempint2 { int d[2]; int *a;} nctempint2; 
 typedef struct nctempchar2 { int d[2]; char *a;} nctempchar2; 
@@ -120,18 +122,19 @@ int LibeArrayex (int line,nctempchar1 *name,int ival,int index,int bound);
 int LibeSystem (nctempchar1 *cmd);
 int LibeInit ();
 int LibeExit ();
-struct model {nctempfloat2 *tauelx;
-nctempfloat2 *tauely;
-nctempfloat2 *tauslx;
-nctempfloat2 *tausly;
-nctempfloat2 *tauemx;
-nctempfloat2 *tauemy;
-nctempfloat2 *tausmx;
-nctempfloat2 *tausmy;
-nctempfloat2 *tauenx;
-nctempfloat2 *taueny;
-nctempfloat2 *tausnx;
-nctempfloat2 *tausny;
+nctempchar1 * LibeDate ();
+struct model {nctempfloat2 *tausx;
+nctempfloat2 *tauex;
+nctempfloat2 *tausy;
+nctempfloat2 *tauey;
+nctempfloat2 *chisx;
+nctempfloat2 *chiex;
+nctempfloat2 *chisy;
+nctempfloat2 *chiey;
+nctempfloat2 *etasx;
+nctempfloat2 *etaex;
+nctempfloat2 *etasy;
+nctempfloat2 *etaey;
 nctempfloat2 *lambda;
 nctempfloat2 *mu;
 nctempfloat2 *nu;
@@ -147,7 +150,7 @@ typedef struct nctempmodel1 {int d[1]; struct model *a; } nctempmodel1;
 struct nctempmodel2 {int d[2]; struct model *a; } ;
 struct nctempmodel3 {int d[3]; struct model *a; } ;
 struct nctempmodel4 {int d[4]; struct model *a; } ;
-struct model* ModelNew (nctempfloat2 *vp,nctempfloat2 *vs,nctempfloat2 *rho,float dx,float w0,float dt,int nb,int freesurface,nctempfloat2 *tauelx,nctempfloat2 *tauely,nctempfloat2 *tauemx,nctempfloat2 *tauemy,nctempfloat2 *tauslx,nctempfloat2 *tausly,nctempfloat2 *tausmx,nctempfloat2 *tausmy,nctempfloat2 *tauenx,nctempfloat2 *taueny,nctempfloat2 *tausnx,nctempfloat2 *tausny)
+struct model* ModelNew (nctempfloat2 *vp,nctempfloat2 *vs,nctempfloat2 *rho,float dx,float w0,float dt,int nb,int freesurface,nctempfloat2 *tausx,nctempfloat2 *tausy,nctempfloat2 *tauex,nctempfloat2 *tauey,nctempfloat2 *chisx,nctempfloat2 *chisy,nctempfloat2 *chiex,nctempfloat2 *chiey,nctempfloat2 *etasx,nctempfloat2 *etasy,nctempfloat2 *etaex,nctempfloat2 *etaey)
 {
 int nx;
 int ny;
@@ -183,36 +186,140 @@ nctemp50->d[0]=nx;
 nctemp50->d[1]=ny;
 nctemp50->a=(float *)RunMalloc(sizeof(float)*nctemp51);
 m->nu=nctemp50;
-m->tauelx = tauelx;
-m->tauely = tauely;
-m->tauslx = tauslx;
-m->tausly = tausly;
-m->tauemx = tauemx;
-m->tauemy = tauemy;
-m->tausmx = tausmx;
-m->tausmy = tausmy;
-m->tauenx = tauemx;
-m->taueny = tauemy;
-m->tausnx = tausmx;
-m->tausny = tausmy;
+m->tausx=tausx;
+m->tausy=tausy;
+m->tauex=tauex;
+m->tauey=tauey;
+m->chisx=chisx;
+m->chisy=chisy;
+m->chiex=chiex;
+m->chiey=chiey;
+m->etasx=etasx;
+m->etasy=etasy;
+m->etaex=etaex;
+m->etaey=etaey;
 for(j = 0;j < ny;j = (j + 1)){
 {
 for(i = 0;i < nx;i = (i + 1)){
 {
-m->nu->a[i+m->nu->d[0]*(j)] = (1.0 / rho->a[i+rho->d[0]*(j)]);
-m->mu->a[i+m->mu->d[0]*(j)] = ((vs->a[i+vs->d[0]*(j)] * vs->a[i+vs->d[0]*(j)]) * rho->a[i+rho->d[0]*(j)]);
-m->lambda->a[i+m->lambda->d[0]*(j)] = (rho->a[i+rho->d[0]*(j)] * ((vp->a[i+vp->d[0]*(j)] * vp->a[i+vp->d[0]*(j)]) - ((2.0 * vs->a[i+vs->d[0]*(j)]) * vs->a[i+vs->d[0]*(j)])));
+int nctemp131=i;
+if((0>i)||(i>=m->nu->d[0])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e m->nu %d %d %d %d \n " ,78,i,0,m->nu->d[0]-1);
+}
+nctemp131=j*m->nu->d[0]+nctemp131;
+if((0>j)||(j>=m->nu->d[1])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e m->nu %d %d %d %d \n " ,78,j,1,m->nu->d[1]-1);
+}
+int nctemp139=i;
+if((0>i)||(i>=rho->d[0])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e rho %d %d %d %d \n " ,78,i,0,rho->d[0]-1);
+}
+nctemp139=j*rho->d[0]+nctemp139;
+if((0>j)||(j>=rho->d[1])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e rho %d %d %d %d \n " ,78,j,1,rho->d[1]-1);
+}
+float nctemp142 = 1.0 / rho->a[nctemp139];
+m->nu->a[nctemp131] =nctemp142;
+int nctemp146=i;
+if((0>i)||(i>=m->mu->d[0])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e m->mu %d %d %d %d \n " ,79,i,0,m->mu->d[0]-1);
+}
+nctemp146=j*m->mu->d[0]+nctemp146;
+if((0>j)||(j>=m->mu->d[1])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e m->mu %d %d %d %d \n " ,79,j,1,m->mu->d[1]-1);
+}
+int nctemp156=i;
+if((0>i)||(i>=vs->d[0])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e vs %d %d %d %d \n " ,79,i,0,vs->d[0]-1);
+}
+nctemp156=j*vs->d[0]+nctemp156;
+if((0>j)||(j>=vs->d[1])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e vs %d %d %d %d \n " ,79,j,1,vs->d[1]-1);
+}
+int nctemp160=i;
+if((0>i)||(i>=vs->d[0])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e vs %d %d %d %d \n " ,79,i,0,vs->d[0]-1);
+}
+nctemp160=j*vs->d[0]+nctemp160;
+if((0>j)||(j>=vs->d[1])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e vs %d %d %d %d \n " ,79,j,1,vs->d[1]-1);
+}
+float nctemp163 = vs->a[nctemp156] * vs->a[nctemp160];
+int nctemp165=i;
+if((0>i)||(i>=rho->d[0])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e rho %d %d %d %d \n " ,79,i,0,rho->d[0]-1);
+}
+nctemp165=j*rho->d[0]+nctemp165;
+if((0>j)||(j>=rho->d[1])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e rho %d %d %d %d \n " ,79,j,1,rho->d[1]-1);
+}
+float nctemp168 = nctemp163 * rho->a[nctemp165];
+m->mu->a[nctemp146] =nctemp168;
+int nctemp172=i;
+if((0>i)||(i>=m->lambda->d[0])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e m->lambda %d %d %d %d \n " ,80,i,0,m->lambda->d[0]-1);
+}
+nctemp172=j*m->lambda->d[0]+nctemp172;
+if((0>j)||(j>=m->lambda->d[1])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e m->lambda %d %d %d %d \n " ,80,j,1,m->lambda->d[1]-1);
+}
+int nctemp179=i;
+if((0>i)||(i>=rho->d[0])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e rho %d %d %d %d \n " ,80,i,0,rho->d[0]-1);
+}
+nctemp179=j*rho->d[0]+nctemp179;
+if((0>j)||(j>=rho->d[1])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e rho %d %d %d %d \n " ,80,j,1,rho->d[1]-1);
+}
+int nctemp189=i;
+if((0>i)||(i>=vp->d[0])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e vp %d %d %d %d \n " ,80,i,0,vp->d[0]-1);
+}
+nctemp189=j*vp->d[0]+nctemp189;
+if((0>j)||(j>=vp->d[1])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e vp %d %d %d %d \n " ,80,j,1,vp->d[1]-1);
+}
+int nctemp193=i;
+if((0>i)||(i>=vp->d[0])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e vp %d %d %d %d \n " ,80,i,0,vp->d[0]-1);
+}
+nctemp193=j*vp->d[0]+nctemp193;
+if((0>j)||(j>=vp->d[1])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e vp %d %d %d %d \n " ,80,j,1,vp->d[1]-1);
+}
+float nctemp196 = vp->a[nctemp189] * vp->a[nctemp193];
+int nctemp205=i;
+if((0>i)||(i>=vs->d[0])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e vs %d %d %d %d \n " ,80,i,0,vs->d[0]-1);
+}
+nctemp205=j*vs->d[0]+nctemp205;
+if((0>j)||(j>=vs->d[1])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e vs %d %d %d %d \n " ,80,j,1,vs->d[1]-1);
+}
+float nctemp208 = 2.0 * vs->a[nctemp205];
+int nctemp210=i;
+if((0>i)||(i>=vs->d[0])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e vs %d %d %d %d \n " ,80,i,0,vs->d[0]-1);
+}
+nctemp210=j*vs->d[0]+nctemp210;
+if((0>j)||(j>=vs->d[1])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e vs %d %d %d %d \n " ,80,j,1,vs->d[1]-1);
+}
+float nctemp213 = nctemp208 * vs->a[nctemp210];
+float nctemp214 = nctemp196 - nctemp213;
+float nctemp215 = rho->a[nctemp179] * nctemp214;
+m->lambda->a[nctemp172] =nctemp215;
 }
 }
 }
 }
-m->dt = dt;
-m->w0 = w0;
-m->dx = dx;
-m->nb = nb;
-m->freesurface = freesurface;
-m->nx = nx;
-m->ny = ny;
+m->dt =dt;
+m->w0 =w0;
+m->dx =dx;
+m->nb =nb;
+m->freesurface =freesurface;
+m->nx =nx;
+m->ny =ny;
 return m;
 }
 }

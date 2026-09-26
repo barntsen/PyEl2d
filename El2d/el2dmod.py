@@ -7,7 +7,7 @@
 '''
 
 import time
-import matplotlib.pyplot as pl
+import matplotlib.pyplot as plt
 
 from datetime import datetime
 import importlib
@@ -26,6 +26,7 @@ import pyeps
 
 #Get configuration file name
 parser = argparse.ArgumentParser(description='el2dmod - 2D elastic modeling')
+parser.add_argument('-path',help='Library path')
 parser.add_argument('fname',help='Configuration file name')
 parser.add_argument("-m",dest="m",default='cuda', 
                     help="either of cpu,cuda or omp ")
@@ -33,6 +34,8 @@ args = parser.parse_args()
 
 print("** el2dmod ", args.m, "version **",flush=True)
 
+# Get PyEl2d library 
+pyel2d = pyeps.setup(args.path)
 
 #Get configuration file 
 if args.fname is not None :
@@ -42,112 +45,120 @@ if args.fname is not None :
 else :
   sys.exit("No cfg file name")
 
-# Get PyEl2d library 
-pyel2d = el2d.setup(par.path,args.m)
-
 t0=time.perf_counter()   #Start measure wall clock time
 
 # Read the source time function
 # and create 2D arrays to hold
 # Source time functions
 fd = ba.bin(par.fsrc,'r')
-Src=fd.read((par.nt,))
+Src=pyeps.Fzeros((par.nt,))
+tmp=fd.read((par.nt,))
+Src[:] = tmp[:]
 
-sqxx = np.zeros((par.nt,1), dtype=np.float32, order='F')
+sqxx = pyeps.Fzeros((par.nt,1))
 if (par.srcflags[0] == 1) :
   sqxx[:,0]=Src[:]
 
-sqyy = np.zeros((par.nt,1), dtype=np.float32, order='F')
+sqyy = pyeps.Fzeros((par.nt,1))
 if (par.srcflags[1] == 1) :
   sqyy[:,0]=Src[:]
 
-sqxy = np.zeros((par.nt,1), dtype=np.float32, order='F')
+sqxy = pyeps.Fzeros((par.nt,1))
 if (par.srcflags[2] == 1) :
   sqxy[:,0]=Src[:]
 
-sfx = np.zeros((par.nt,1), dtype=np.float32, order='F')
+sfx = pyeps.Fzeros((par.nt,1))
 if (par.srcflags[3] == 1) :
   sfx[:,0]=Src[:]
 
-sfy = np.zeros((par.nt,1), dtype=np.float32, order='F')
+sfy = pyeps.Fzeros((par.nt,1))
 if (par.srcflags[4] == 1) :
   sfy[:,0]=Src[:]
 
 # Create sources 
-src=src.src(pyel2d,par.sx,par.sy,par.nt,par.dt,
+
+src=src.src(par.sx,par.sy,par.nt,par.dt,
             sfx=sfx,sfy=sfy,sqxx=sqxx,sqyy=sqyy,sqxy=sqxy)
 
 # Create receivers 
 nrt=int(par.nt/par.resamp)
-print("nt: ", par.nt)
-print("record lenghth: ",nrt)
-rec=rec.rec(pyel2d,par.rx,par.ry,nrt,par.resamp)
+rec=rec.rec(par.rx,par.ry,nrt,par.resamp)
 
 #Read the vp model
 fd=ba.bin(par.fvp,'r')
-vp = fd.read((par.nx,par.ny))
+tmp = fd.read((par.nx,par.ny))
+vp=pyeps.Fzeros((par.nx,par.ny))
+vp[:,:]=tmp[:,:]
 
 #Read the vs model
 fd=ba.bin(par.fvs,'r')
-vs = fd.read((par.nx,par.ny))
+tmp = fd.read((par.nx,par.ny))
+vs=pyeps.Fzeros((par.nx,par.ny))
+vs[:,:]=tmp[:,:]
 
 #Read the rho model
 fd=ba.bin(par.frho,'r')
-rho = fd.read((par.nx,par.ny))
+tmp = fd.read((par.nx,par.ny))
+rho=pyeps.Fzeros((par.nx,par.ny))
+rho[:,:]=tmp[:,:]
 
 #Read the ql model
 if par.fql != "" :
   fd=ba.bin(par.fql,'r')
-  ql = fd.read((par.nx,par.ny))
+  tmp = fd.read((par.nx,par.ny))
+  ql=pyeps.Fzeros((par.nx,par.ny))
+  ql[:,:]=tmp[:,:]
 else :
   ql = None
 
 #Read the qm model
 if par.fqm != "" :
   fd=ba.bin(par.fqm,'r')
-  qm = fd.read((par.nx,par.ny))
+  tmp = fd.read((par.nx,par.ny))
+  qm=pyeps.Fzeros((par.nx,par.ny))
+  qm[:,:]=tmp[:,:]
 else :
   qm = None
 
 #Read the qp model
 if par.fqp != "" :
   fd=ba.bin(par.fqp,'r')
-  qp = fd.read((par.nx,par.ny))
+  tmp = fd.read((par.nx,par.ny))
+  qp=pyeps.Fzeros((par.nx,par.ny))
+  qp[:,:]=tmp[:,:]
 else :
   qp = None
 
-
 # Create model
-m = model.model(pyel2d,vp,vs,rho,par.dx,par.dt,par.w0,par.nb,
-                par.rheol,par.freesurface,par.Qmin,Ql=ql,Qm=qm,Qp=qp)
+m = model.model(vp,vs,rho,par.dx,par.dt,par.w0,par.nb,
+                par.rheol,par.freesurface,Ql=ql,Qm=qm,Qp=qp)
 print("model time  (secs):", time.perf_counter()-t0, flush=True)
 
-exit()
-
 # Create fd solver
-el2d = el2d.el2d(pyel2d,m,par.sresamp,par.snpflags)
+
+e=el2d.el2d(m.mod,par.sresamp,par.snpflags)
 
 # Run solver
 t1=time.perf_counter()
-el2d.solve(pyel2d,m,src,par.nt,rec,par.l)
+e.solve(e.el,m.mod,src.sr,par.nt,rec.re,par.l)
 tsolve = time.perf_counter()-t1
 
 # Get data
-dtype=0
-data = rec.getrec(pyel2d,dtype)
-print("data dimensions: ", data.shape)
-fd=ba.bin("p.bin",'w')
-fd.write(data)
+#dtype=0
+#data = rec.getrec(rec.re,dtype)
+#print("data dimensions: ", data.shape)
+#fd=ba.bin("p.bin",'w')
+#fd.write(data)
 
-dtype=1
-data = rec.getrec(pyel2d,dtype)
-fd=ba.bin("vx.bin",'w')
-fd.write(data)
+#dtype=1
+#data = rec.getrec(pyel2d,dtype)
+#fd=ba.bin("vx.bin",'w')
+#fd.write(data)
 
-dtype=2
-data = rec.getrec(pyel2d,dtype)
-fd=ba.bin("vy.bin",'w')
-fd.write(data)
+#dtype=2
+#data = rec.getrec(pyel2d,dtype)
+#fd=ba.bin("vy.bin",'w')
+#fd.write(data)
 
 # Log wall clock time and date
 now = datetime.now()

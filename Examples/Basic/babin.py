@@ -18,25 +18,27 @@ class bin :
         """Read binary data"""
         n=product(dim)
         data=np.fromfile(self.file, count=n ,dtype='float32')
-        data=data.reshape(dim,order='F')
+        data=data.reshape(dim)
         self.file.close()
-        return data
+        return data 
+
+    def readb(self) :
+        """Read binary data"""
+        data=np.fromfile(self.file, dtype='float32')
+        self.file.close()
+        return data 
 
     def write(self,data) :
         """Write binary data"""
-        tmp = data.astype(np.float32,order='F')
-        tmp = np.transpose(tmp)
+        tmp = data.astype(np.float32)
         tmp.tofile(self.file)
         self.file.close()
 
 def product(tuple1):
     """Calculates the product of a tuple"""
     prod = 1
-    if len(tuple1) == 1:
-      return(tuple1[0])
-    else :
-      for x in tuple1:
+    for x in tuple1:
         prod = prod * x
-      return prod
+    return prod
 
 

@@ -126,6 +126,7 @@ int LibeArrayex (int line,nctempchar1 *name,int ival,int index,int bound);
 int LibeSystem (nctempchar1 *cmd);
 int LibeInit ();
 int LibeExit ();
+nctempchar1 * LibeDate ();
 struct model {nctempfloat2 *tauelx;
 nctempfloat2 *tauely;
 nctempfloat2 *tauslx;
@@ -153,7 +154,7 @@ typedef struct nctempmodel1 {int d[1]; struct model *a; } nctempmodel1;
 struct nctempmodel2 {int d[2]; struct model *a; } ;
 struct nctempmodel3 {int d[3]; struct model *a; } ;
 struct nctempmodel4 {int d[4]; struct model *a; } ;
-struct model* ModelNew (nctempfloat2 *vp,nctempfloat2 *vs,nctempfloat2 *rho,float dx,float w0,float dt,int nb,int freesurface,nctempfloat2 *tauelx,nctempfloat2 *tauely,nctempfloat2 *tauemx,nctempfloat2 *tauemy,nctempfloat2 *tauslx,nctempfloat2 *tausly,nctempfloat2 *tausmx,nctempfloat2 *tausmy,nctempfloat2 *tauenx,nctempfloat2 *taueny,nctempfloat2 *tausnx,nctempfloat2 *tausny)
+struct model* ModelNew (nctempfloat2 *vp,nctempfloat2 *vs,nctempfloat2 *rho,float dx,float w0,float dt,int nb,int freesurface,nctempfloat2 *tauelx,nctempfloat2 *tauely,nctempfloat2 *tauslx,nctempfloat2 *tausly,nctempfloat2 *tauemx,nctempfloat2 *tauemy,nctempfloat2 *tausmx,nctempfloat2 *tausmy,nctempfloat2 *tauenx,nctempfloat2 *taueny,nctempfloat2 *tausnx,nctempfloat2 *tausny)
 {
 int nx;
 int ny;

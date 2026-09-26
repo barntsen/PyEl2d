@@ -4,19 +4,7 @@ from math import *
 import cmath
 import numpy as np
 import matplotlib.pyplot as plt
-
-def Fzeros(dims) :
-  ''' fzeros crates float  32 bit array
-
-      Parameters :
-        dims   :  List of dimensions
-
-      Returns:
-        float 32 bit array with dimensions dims.
-
-  '''
-
-  return(np.zeros(dims,dtype=np.float32,order='F'))
+import pyeps
 
 
 ''' Functions related to Viscoelastic models  
@@ -161,8 +149,8 @@ def alphad(f0,d0,n,dx,nb) :
 
   PI=3.14159
   alpha0=PI*f0
-  alpha=Fzeros(n)
-  d=Fzeros(n)
+  alpha=np.zeros((n,),dtype=np.float32, order='F')
+  d=np.zeros((n,),dtype=np.float32, order='F')
   d=d0*e2(d,dx,nb)
   alpha=alpha0*e1(alpha,dx,nb)
   return(alpha,d)

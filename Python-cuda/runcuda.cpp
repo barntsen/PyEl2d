@@ -1,8 +1,5 @@
 // run contains runtime functions for the ecc compiler
 
-//Note that this file is a c++ file, but
-//stored in a file with extension .e to prevent
-//accidental removal
 //The run time library is written in c
 //Most of the routines in the library
 //are wrappers to unix system calls and the cuda api.
@@ -16,7 +13,7 @@
 #include<stdlib.h>
 #include<string.h>
 #include<stdio.h>
-//#include<cuda_runtime.h> 
+#include<cstring>
 #define OK   1
 #define ERR  0
 #define EOF (-1)
@@ -31,7 +28,10 @@ struct nctempMainArg1 {int d[MAXRANK]; struct MainArg *a; };
 int Main (struct nctempMainArg1 *MainArgs);
 }
 // End Extern
+
+//
 // main is the startup code always called by the eps Main function.
+//
 int main(int argc, char ** argv)
 {
   struct nctempMainArg1 *cmlargs;
@@ -59,15 +59,22 @@ int main(int argc, char ** argv)
 extern "C" {
 
 // GpuNew allocates memory on cpu host and gpu device
+//
+// Parameters:
+//   n: No of bytes to allocate
+// 
+// Returns: Pointer to new memory block 
+//
 void * GpuNew(int n){
   void *f;
   cudaError_t cerr;
   cerr = cudaMallocManaged(&f, n);
+  void *m=std::memset(f,0,n);
   if(cerr != cudaSuccess){
     fprintf(stderr,"GpuNew:%s\n ", cudaGetErrorString(cerr)) ;
     exit(1);
   }
-  return(f);
+  return(m);
 }
 
 // GpuDelete deletes memory on cpu host and gpu device
@@ -293,4 +300,43 @@ int RunSystem (nctempchar1 *cmd)
   rval = system(cmd->a);
   return(rval);
 }
+
+// RunDate returns the current data
+//
+// Returns:
+//   The return value is a string of the type
+//   "Thu Sep 15 21:18:23 2016"
+//
+nctempchar1 *RunDate()
+{ 
+
+  time_t current_time;
+  char* c_time_string;
+
+  // Eps array descriptor
+  nctempchar1 *date;
+
+  // Allocate memeory for descriptor
+  date=(nctempchar1 *)malloc(sizeof(nctempchar1));
+  
+  // Obtain current time.
+  current_time = time(NULL);
+
+  if (current_time == ((time_t)-1)) {
+      return NULL;
+  }
+
+  // Convert to local time format. 
+  c_time_string = ctime(&current_time);
+
+  if (!c_time_string) {
+    return NULL;
+  }
+  date->d[0]=strlen(c_time_string)+1;
+  date->a=c_time_string;
+  
+  // Return eps array reference
+  return(date);
+}
+  
 } // End extern "C"

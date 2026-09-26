@@ -21,20 +21,21 @@ def ricker(nt,f0,t0,dt) :
 
   '''       
     
-  wavelet = pyeps.Fzeros((nt,))
+  wavelet = np.zeros(nt,dtype=np.float32)
   w0 = 2.0*3.14159*f0;
 
   for i in range(0,nt) :
     t = i*dt-t0;
     arg = w0*t;
     wavelet[i] = (1.0-0.5*arg*arg)*exp(-0.25*arg*arg);
+
   return wavelet
 
 class src :
 
   ''' src is a class for creating a source object '''
 
-  def __init__(self,sx,sy,nt,dt,f0=None,t0=None,**kwargs) :
+  def __init__(self,pyel2d,sx,sy,nt,dt,f0=None,t0=None,**kwargs) :
 
 
     ''' init__ creates a new source object.
@@ -83,40 +84,35 @@ class src :
       sfx = kwargs['sfx']
       nosource = False
     else :
-      sfx = pyeps.Fzeros((nt,1))
+      sfx = np.zeros((nt,1), dtype=np.float32)
 
     if 'sfy' in kwargs :
       sfy = kwargs['sfy'] 
       nosource = False
     else :
-      sfy = pyeps.Fzeros((nt,1))
+      sfy = np.zeros((nt,1), dtype=np.float32)
 
     if 'sqxx' in kwargs :
       sqxx = kwargs['sqxx'] 
       nosource = False
     else :
-      sqxx = pyeps.Fzeros((nt,1))
+      sqxx = np.zeros((nt,1), dtype=np.float32)
 
     if 'sqyy' in kwargs :
       sqyy = kwargs['sqyy'] 
       nosource = False
     else :
-      sqyy = pyeps.Fzeros((nt,1))
+      sqyy = np.zeros((nt,1), dtype=np.float32)
 
     if 'sqxy' in kwargs :
       sqxy = kwargs['sqxy'] 
       nosource = False
     else :
-      sqxy = pyeps.Fzeros((nt,1))
+      sqxy = np.zeros((nt,1), dtype=np.float32)
     
     if(nosource == True) :
-      f0=25.0
-      t0=0.05
-      sqxx = pyeps.Fzeros((nt,1))
-      sqyy = pyeps.Fzeros((nt,1))
-      tmp       = ricker(nt,f0,t0,dt)
-      sqxx[:,0] = tmp[:] 
-      sqyy[:,0] = tmp[:]
+      sqxx[:,0] = ricker(nt,f0,t0,dt)
+      sqyy[:,0] = ricker(nt,f0,t0,dt)
     
-    self.sr=srcw.SrcNew(sx,sy,sqxx,sqyy,sqxy,sfx,sfy)
+    self.src=srcw.SrcNew(sx,sy,sqxx,sqyy,sqxy,sfx,sfy)
 

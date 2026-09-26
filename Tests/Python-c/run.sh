@@ -21,9 +21,9 @@ $B/spike -n1 $n1 -n2 $n2 -val 1100.0 vs.bin
 #Create rho 
 $B/spike -n1 $n1 -n2 $n2 -val 1000.0 rho.bin
 
-
 #Run modelling
 
-$B/el2dmod -m c mod.py 
-./snp.sh
+lib="/home/barn/Dropbox/Src/PyEl2d/Bin/pyel2dcpu.so"
+$B/el2dmod -m c -path $lib mod.py 
+#./snp.sh
 

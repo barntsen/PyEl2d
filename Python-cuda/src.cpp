@@ -126,6 +126,7 @@ int LibeArrayex (int line,nctempchar1 *name,int ival,int index,int bound);
 int LibeSystem (nctempchar1 *cmd);
 int LibeInit ();
 int LibeExit ();
+nctempchar1 * LibeDate ();
 struct src {nctempint1 *Sx;
 nctempint1 *Sy;
 nctempfloat2 *Sqyy;

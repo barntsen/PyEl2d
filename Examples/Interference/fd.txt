@@ -1,0 +1,7 @@
+500 100 1           // nx,ny,nz
+10.0 10.0 10.0          // dx,dy,dz
+25                  // npml
+5000                // nt
+0.001               // dt
+0                   // free surface
+1                   // interpolation of source and receivers
