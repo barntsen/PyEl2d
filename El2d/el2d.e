@@ -14,7 +14,6 @@ struct el2d :
   float [*,*] eyy          # time derivative of strain y-component
   float [*,*] exy          # time derivative of strain y-component
   float [*,*] eyx          # time derivative of strain y-component
-  float [*,*] e 
   float [*,*] gammax      # Memory variable for sigmaxx
   float [*,*] gammay      # Memory variable for sigmayy   
   float [*,*] thetaxx     # Memory variable for particle velocity

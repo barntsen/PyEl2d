@@ -21,8 +21,8 @@ nt      = 1501      #No of time steps
 f0      = 25.0        #Q-model peak frequency
 w0      = 2.0*pi*f0  #Q-model peak angular frequency
 resamp  = 1          #Resampling factor (relative to no of timesteps) for data
-sresamp = 10         #Resampling factor (relative to timesteps)for snapshots
-nb      = 35         #No of PML boundary points
+sresamp = 0         #Resampling factor (relative to timesteps)for snapshots
+nb      = 15         #No of PML boundary points
 l       = 6          #Length of differentiator
 freesurface = 1      # =1: Use freesurface =0: No free surface
 fvp     = "vp.bin"   #Vp file name

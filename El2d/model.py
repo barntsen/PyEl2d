@@ -13,14 +13,20 @@ class model :
       solver.
 
   '''
-  def tauborder(self,taue,taus,nx,ny):
+  def tauborder(self,taue1dx,taue1dy,taus1dx,taus1dy,nx,ny):
 
     ''' tauborder computes taue and taus for top,bottom,right and 
         left border zone
 
     Parameters: 
-      taue: 1D array with taue relaxation times in the border  zone
-      taus: 1D array with taus relaxation times in the border zone
+      taue1dx: 1D array with taue relaxation times in the border  zone
+               x-direction
+      taus1dx: 1D array with taus relaxation times in the border zone
+               x-direction
+      taue1dy: 1D array with taue relaxation times in the border  zone
+               y-direction
+      taus1dy: 1D array with taus relaxation times in the border zone
+               y-direction
 
     Returns:
       tauex: 2D array with taue realaxation times for left and right
@@ -41,13 +47,13 @@ class model :
 
     for i in range(0,ny):
       for j in range(0,nx):
-        tauex[j,i] = taue[j]
-        tausx[j,i] = taus[j]
+        tauex[j,i] = taue1dx[j]
+        tausx[j,i] = taus1dx[j]
 
     for i in range(0,nx):
       for j in range(0,ny):
-        tauey[i,j] = taue[j]
-        tausy[i,j] = taus[j]
+        tauey[i,j] = taue1dy[j]
+        tausy[i,j] = taus1dy[j]
 
     return(tauex,tauey,tausx,tausy)
 
@@ -115,23 +121,23 @@ class model :
       Qr=np.ones((nx,ny), dtype=np.float32,order='F')
       Qr[:,:] = Q0
 
-    print("In model====")
     # Create alpha and d
     f0=w0/(2*np.pi)
     d0=349.1
-    alpha,d=tau.alphad(f0,d0,nx,dx,nb)
-    taue,taus=tau.taucpml(Q0,f0,dt,d,alpha)
+    alphax,ddx=tau.alphad(f0,d0,nx,dx,nb)
+    taue1dx,taus1dx=tau.taucpml(Q0,f0,dt,ddx,alphax)
+    alphay,ddy=tau.alphad(f0,d0,ny,dx,nb)
+    taue1dy,taus1dy=tau.taucpml(Q0,f0,dt,ddy,alphay)
 
     # Create 2D arrays with relaxation times 
-    tauex,tauey,tausx,tausy = self.tauborder(taue,taus,nx,ny) 
-    chiex,chiey,chisx,chisy = self.tauborder(taue,taus,nx,ny) 
-    etaex,etaey,etasx,etasy = self.tauborder(taue,taus,nx,ny) 
-
-    print("Python x:-------------")
-    print(chiex[0:10,0])
-    print("Python y:-------------")
-    print(chiey[0,0:10])
+    tauex,tauey,tausx,tausy = \
+                self.tauborder(taue1dx,taue1dy,taus1dx,taus1dy,nx,ny) 
+    chiex,chiey,chisx,chisy = \
+                self.tauborder(taue1dx,taue1dy,taus1dx,taus1dy,nx,ny) 
+    etaex,etaey,etasx,etasy = \
+                self.tauborder(taue1dx,taue1dy,taus1dx,taus1dy,nx,ny) 
     
+    # Create eps model object.
     model.mod=modelw.ModelNew(vp,vs,rho,dx,w0,dt,nb,
                          freesurface,tausx,tausy,tauex,tauey,
                          chisx,chisy,chiex,chiey,etasx,etasy,

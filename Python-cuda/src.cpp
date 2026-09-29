@@ -186,7 +186,7 @@ float nctemp67= -0.25;
 float nctemp69 = nctemp67 * arg;
 float nctemp71 = nctemp69 * arg;
 float nctemp61= nctemp71;
-float nctemp72=LibeExp(nctemp61);
+float nctemp72=exp(nctemp61);
 float nctemp73 = nctemp59 * nctemp72;
 source->a[nctemp39] =nctemp73;
 }

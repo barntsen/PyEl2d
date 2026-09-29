@@ -1,4 +1,4 @@
-//  Translated by epsc  version: Tue Sep 29 12:09:44 2026
+//  Translated by epsc  version: Tue Sep 29 12:51:09 2026
 
 #include <stddef.h>
 #include <stdio.h>
@@ -154,86 +154,38 @@ struct model* ModelNew (nctempfloat2 *vp,nctempfloat2 *vs,nctempfloat2 *rho,floa
 {
 int nx;
 int ny;
-int i;
 struct model* m;
 int j;
+int i;
 {
 int nctemp5=vp->d[0];nx =nctemp5;
 int nctemp13=vp->d[1];ny =nctemp13;
-for(i = 0;i < 10;i = (i + 1)){
-{
-struct nctempchar1 *nctemp20;
-static struct nctempchar1 nctemp21 = {{ 21}, (char*)"Eps x ============\n\0"};
-nctemp20=&nctemp21;
-nctempchar1* nctemp18= nctemp20;
-int nctemp22=LibePs(nctemp18);
-int nctemp26=i;
-if((0>i)||(i>=chiex->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:model.e chiex %d %d %d %d \n " ,61,i,0,chiex->d[0]-1);
-}
-nctemp26=0*chiex->d[0]+nctemp26;
-if((0>0)||(0>=chiex->d[1])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:model.e chiex %d %d %d %d \n " ,61,0,1,chiex->d[1]-1);
-}
-float nctemp24= chiex->a[nctemp26];
-int nctemp29=LibePf(nctemp24);
-struct nctempchar1 *nctemp33;
-static struct nctempchar1 nctemp34 = {{ 3}, (char*)"\n\0"};
-nctemp33=&nctemp34;
-nctempchar1* nctemp31= nctemp33;
-int nctemp35=LibePs(nctemp31);
-}
-}
-for(i = 0;i < 10;i = (i + 1)){
-{
-struct nctempchar1 *nctemp39;
-static struct nctempchar1 nctemp40 = {{ 21}, (char*)"Eps y ============\n\0"};
-nctemp39=&nctemp40;
-nctempchar1* nctemp37= nctemp39;
-int nctemp41=LibePs(nctemp37);
-int nctemp45=0;
-if((0>0)||(0>=chiey->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:model.e chiey %d %d %d %d \n " ,66,0,0,chiey->d[0]-1);
-}
-nctemp45=i*chiey->d[0]+nctemp45;
-if((0>i)||(i>=chiey->d[1])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:model.e chiey %d %d %d %d \n " ,66,i,1,chiey->d[1]-1);
-}
-float nctemp43= chiey->a[nctemp45];
-int nctemp48=LibePf(nctemp43);
-struct nctempchar1 *nctemp52;
-static struct nctempchar1 nctemp53 = {{ 3}, (char*)"\n\0"};
-nctemp52=&nctemp53;
-nctempchar1* nctemp50= nctemp52;
-int nctemp54=LibePs(nctemp50);
-}
-}
-struct model *nctemp59=(struct model*)RunMalloc(sizeof(struct model));
-m =nctemp59;
-int nctemp67=nx;
-nctemp67=nctemp67*ny;
-nctempfloat2 *nctemp66;
-nctemp66=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp66->d[0]=nx;
-nctemp66->d[1]=ny;
-nctemp66->a=(float *)RunMalloc(sizeof(float)*nctemp67);
-m->mu=nctemp66;
-int nctemp78=nx;
-nctemp78=nctemp78*ny;
-nctempfloat2 *nctemp77;
-nctemp77=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp77->d[0]=nx;
-nctemp77->d[1]=ny;
-nctemp77->a=(float *)RunMalloc(sizeof(float)*nctemp78);
-m->lambda=nctemp77;
-int nctemp89=nx;
-nctemp89=nctemp89*ny;
-nctempfloat2 *nctemp88;
-nctemp88=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp88->d[0]=nx;
-nctemp88->d[1]=ny;
-nctemp88->a=(float *)RunMalloc(sizeof(float)*nctemp89);
-m->nu=nctemp88;
+struct model *nctemp21=(struct model*)RunMalloc(sizeof(struct model));
+m =nctemp21;
+int nctemp29=nx;
+nctemp29=nctemp29*ny;
+nctempfloat2 *nctemp28;
+nctemp28=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp28->d[0]=nx;
+nctemp28->d[1]=ny;
+nctemp28->a=(float *)RunMalloc(sizeof(float)*nctemp29);
+m->mu=nctemp28;
+int nctemp40=nx;
+nctemp40=nctemp40*ny;
+nctempfloat2 *nctemp39;
+nctemp39=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp39->d[0]=nx;
+nctemp39->d[1]=ny;
+nctemp39->a=(float *)RunMalloc(sizeof(float)*nctemp40);
+m->lambda=nctemp39;
+int nctemp51=nx;
+nctemp51=nctemp51*ny;
+nctempfloat2 *nctemp50;
+nctemp50=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp50->d[0]=nx;
+nctemp50->d[1]=ny;
+nctemp50->a=(float *)RunMalloc(sizeof(float)*nctemp51);
+m->nu=nctemp50;
 m->tausx=tausx;
 m->tausy=tausy;
 m->tauex=tauex;
@@ -250,113 +202,113 @@ for(j = 0;j < ny;j = (j + 1)){
 {
 for(i = 0;i < nx;i = (i + 1)){
 {
-int nctemp169=i;
+int nctemp131=i;
 if((0>i)||(i>=m->nu->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:model.e m->nu %d %d %d %d \n " ,89,i,0,m->nu->d[0]-1);
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e m->nu %d %d %d %d \n " ,79,i,0,m->nu->d[0]-1);
 }
-nctemp169=j*m->nu->d[0]+nctemp169;
+nctemp131=j*m->nu->d[0]+nctemp131;
 if((0>j)||(j>=m->nu->d[1])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:model.e m->nu %d %d %d %d \n " ,89,j,1,m->nu->d[1]-1);
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e m->nu %d %d %d %d \n " ,79,j,1,m->nu->d[1]-1);
 }
-int nctemp177=i;
+int nctemp139=i;
 if((0>i)||(i>=rho->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:model.e rho %d %d %d %d \n " ,89,i,0,rho->d[0]-1);
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e rho %d %d %d %d \n " ,79,i,0,rho->d[0]-1);
 }
-nctemp177=j*rho->d[0]+nctemp177;
+nctemp139=j*rho->d[0]+nctemp139;
 if((0>j)||(j>=rho->d[1])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:model.e rho %d %d %d %d \n " ,89,j,1,rho->d[1]-1);
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e rho %d %d %d %d \n " ,79,j,1,rho->d[1]-1);
 }
-float nctemp180 = 1.0 / rho->a[nctemp177];
-m->nu->a[nctemp169] =nctemp180;
-int nctemp184=i;
+float nctemp142 = 1.0 / rho->a[nctemp139];
+m->nu->a[nctemp131] =nctemp142;
+int nctemp146=i;
 if((0>i)||(i>=m->mu->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:model.e m->mu %d %d %d %d \n " ,90,i,0,m->mu->d[0]-1);
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e m->mu %d %d %d %d \n " ,80,i,0,m->mu->d[0]-1);
 }
-nctemp184=j*m->mu->d[0]+nctemp184;
+nctemp146=j*m->mu->d[0]+nctemp146;
 if((0>j)||(j>=m->mu->d[1])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:model.e m->mu %d %d %d %d \n " ,90,j,1,m->mu->d[1]-1);
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e m->mu %d %d %d %d \n " ,80,j,1,m->mu->d[1]-1);
 }
-int nctemp194=i;
+int nctemp156=i;
 if((0>i)||(i>=vs->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:model.e vs %d %d %d %d \n " ,90,i,0,vs->d[0]-1);
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e vs %d %d %d %d \n " ,80,i,0,vs->d[0]-1);
 }
-nctemp194=j*vs->d[0]+nctemp194;
+nctemp156=j*vs->d[0]+nctemp156;
 if((0>j)||(j>=vs->d[1])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:model.e vs %d %d %d %d \n " ,90,j,1,vs->d[1]-1);
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e vs %d %d %d %d \n " ,80,j,1,vs->d[1]-1);
 }
-int nctemp198=i;
+int nctemp160=i;
 if((0>i)||(i>=vs->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:model.e vs %d %d %d %d \n " ,90,i,0,vs->d[0]-1);
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e vs %d %d %d %d \n " ,80,i,0,vs->d[0]-1);
 }
-nctemp198=j*vs->d[0]+nctemp198;
+nctemp160=j*vs->d[0]+nctemp160;
 if((0>j)||(j>=vs->d[1])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:model.e vs %d %d %d %d \n " ,90,j,1,vs->d[1]-1);
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e vs %d %d %d %d \n " ,80,j,1,vs->d[1]-1);
 }
-float nctemp201 = vs->a[nctemp194] * vs->a[nctemp198];
-int nctemp203=i;
+float nctemp163 = vs->a[nctemp156] * vs->a[nctemp160];
+int nctemp165=i;
 if((0>i)||(i>=rho->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:model.e rho %d %d %d %d \n " ,90,i,0,rho->d[0]-1);
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e rho %d %d %d %d \n " ,80,i,0,rho->d[0]-1);
 }
-nctemp203=j*rho->d[0]+nctemp203;
+nctemp165=j*rho->d[0]+nctemp165;
 if((0>j)||(j>=rho->d[1])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:model.e rho %d %d %d %d \n " ,90,j,1,rho->d[1]-1);
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e rho %d %d %d %d \n " ,80,j,1,rho->d[1]-1);
 }
-float nctemp206 = nctemp201 * rho->a[nctemp203];
-m->mu->a[nctemp184] =nctemp206;
-int nctemp210=i;
+float nctemp168 = nctemp163 * rho->a[nctemp165];
+m->mu->a[nctemp146] =nctemp168;
+int nctemp172=i;
 if((0>i)||(i>=m->lambda->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:model.e m->lambda %d %d %d %d \n " ,91,i,0,m->lambda->d[0]-1);
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e m->lambda %d %d %d %d \n " ,81,i,0,m->lambda->d[0]-1);
 }
-nctemp210=j*m->lambda->d[0]+nctemp210;
+nctemp172=j*m->lambda->d[0]+nctemp172;
 if((0>j)||(j>=m->lambda->d[1])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:model.e m->lambda %d %d %d %d \n " ,91,j,1,m->lambda->d[1]-1);
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e m->lambda %d %d %d %d \n " ,81,j,1,m->lambda->d[1]-1);
 }
-int nctemp217=i;
+int nctemp179=i;
 if((0>i)||(i>=rho->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:model.e rho %d %d %d %d \n " ,91,i,0,rho->d[0]-1);
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e rho %d %d %d %d \n " ,81,i,0,rho->d[0]-1);
 }
-nctemp217=j*rho->d[0]+nctemp217;
+nctemp179=j*rho->d[0]+nctemp179;
 if((0>j)||(j>=rho->d[1])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:model.e rho %d %d %d %d \n " ,91,j,1,rho->d[1]-1);
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e rho %d %d %d %d \n " ,81,j,1,rho->d[1]-1);
 }
-int nctemp227=i;
+int nctemp189=i;
 if((0>i)||(i>=vp->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:model.e vp %d %d %d %d \n " ,91,i,0,vp->d[0]-1);
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e vp %d %d %d %d \n " ,81,i,0,vp->d[0]-1);
 }
-nctemp227=j*vp->d[0]+nctemp227;
+nctemp189=j*vp->d[0]+nctemp189;
 if((0>j)||(j>=vp->d[1])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:model.e vp %d %d %d %d \n " ,91,j,1,vp->d[1]-1);
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e vp %d %d %d %d \n " ,81,j,1,vp->d[1]-1);
 }
-int nctemp231=i;
+int nctemp193=i;
 if((0>i)||(i>=vp->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:model.e vp %d %d %d %d \n " ,91,i,0,vp->d[0]-1);
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e vp %d %d %d %d \n " ,81,i,0,vp->d[0]-1);
 }
-nctemp231=j*vp->d[0]+nctemp231;
+nctemp193=j*vp->d[0]+nctemp193;
 if((0>j)||(j>=vp->d[1])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:model.e vp %d %d %d %d \n " ,91,j,1,vp->d[1]-1);
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e vp %d %d %d %d \n " ,81,j,1,vp->d[1]-1);
 }
-float nctemp234 = vp->a[nctemp227] * vp->a[nctemp231];
-int nctemp243=i;
+float nctemp196 = vp->a[nctemp189] * vp->a[nctemp193];
+int nctemp205=i;
 if((0>i)||(i>=vs->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:model.e vs %d %d %d %d \n " ,91,i,0,vs->d[0]-1);
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e vs %d %d %d %d \n " ,81,i,0,vs->d[0]-1);
 }
-nctemp243=j*vs->d[0]+nctemp243;
+nctemp205=j*vs->d[0]+nctemp205;
 if((0>j)||(j>=vs->d[1])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:model.e vs %d %d %d %d \n " ,91,j,1,vs->d[1]-1);
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e vs %d %d %d %d \n " ,81,j,1,vs->d[1]-1);
 }
-float nctemp246 = 2.0 * vs->a[nctemp243];
-int nctemp248=i;
+float nctemp208 = 2.0 * vs->a[nctemp205];
+int nctemp210=i;
 if((0>i)||(i>=vs->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:model.e vs %d %d %d %d \n " ,91,i,0,vs->d[0]-1);
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e vs %d %d %d %d \n " ,81,i,0,vs->d[0]-1);
 }
-nctemp248=j*vs->d[0]+nctemp248;
+nctemp210=j*vs->d[0]+nctemp210;
 if((0>j)||(j>=vs->d[1])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:model.e vs %d %d %d %d \n " ,91,j,1,vs->d[1]-1);
+printf("***Out of bounds error (file,array,line,index,rank,bound:model.e vs %d %d %d %d \n " ,81,j,1,vs->d[1]-1);
 }
-float nctemp251 = nctemp246 * vs->a[nctemp248];
-float nctemp252 = nctemp234 - nctemp251;
-float nctemp253 = rho->a[nctemp217] * nctemp252;
-m->lambda->a[nctemp210] =nctemp253;
+float nctemp213 = nctemp208 * vs->a[nctemp210];
+float nctemp214 = nctemp196 - nctemp213;
+float nctemp215 = rho->a[nctemp179] * nctemp214;
+m->lambda->a[nctemp172] =nctemp215;
 }
 }
 }

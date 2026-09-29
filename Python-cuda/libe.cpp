@@ -1355,7 +1355,7 @@ float nctemp1017= base;
 float nctemp1019=LibeLn(nctemp1017);
 float nctemp1020 = exponent * nctemp1019;
 float nctemp1012= nctemp1020;
-float nctemp1021=LibeExp(nctemp1012);
+float nctemp1021=exp(nctemp1012);
 return nctemp1021;
 }
 }

@@ -56,16 +56,6 @@ def struct model ModelNew(float [*,*] vp,     float [*,*] vs,          \
   nx = len(vp,0)
   ny = len(vp,1)
 
-  for i in range(0,10):
-    LibePs("Eps x ============\n")
-    LibePf(chiex[i,0])
-    LibePs("\n")
-
-  for i in range(0,10):
-    LibePs("Eps y ============\n")
-    LibePf(chiey[0,i])
-    LibePs("\n")
-
   m = new(struct model) 
   m.mu     = new(float[nx,ny])
   m.lambda = new(float[nx,ny])

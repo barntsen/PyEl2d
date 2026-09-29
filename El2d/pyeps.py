@@ -43,11 +43,10 @@
           argument to/from the gpu.  The overhead for this is very large, hence
           I use the approach with dedicated Izeros and Fzeros functions for
           creating numpy arrays.  Numpy arrays created in this way may be used
-          as normal numpy arrays, the only limitation is that some numpy
-          operations creates non contiguos arrays.  Trying to call an eps
-          function will then fail.  The remedy is to make a new copy of the
-          array, f.ex. using np.copy.  Finally, the functions can be used to
-          run both on single core cpu, multi core cpu and gpu.
+          to a limited extent as a normal numpy array, i.e reading/writing to
+          the array from other numpy arrays.
+          However, any operation involving slicing, reshape and similar
+          which creates a non contigous memory is not allowed.
 
           Nvidia has made a similar library (pyCuda) which 
           uses the same approach,

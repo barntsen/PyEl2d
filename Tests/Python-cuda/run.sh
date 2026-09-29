@@ -23,8 +23,10 @@ $B/spike -n1 $n1 -n2 $n2 -val 1000.0 rho.bin
 
 #Run modelling
 
-export NTHREADS=128
-export NBLOCKS=8192
+#export NTHREADS=128
+#export NBLOCKS=8192
+export NTHREADS=1024
+export NBLOCKS=1024
 lib="/home/barn/Dropbox/Src/PyEl2d/Bin/pyel2dcuda.so"
 $B/el2dmod -m c -path $lib mod.py 
 #./snp.sh
