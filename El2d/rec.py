@@ -21,7 +21,8 @@ class rec :
          resamp   : (Optional) Resampling factor (relative to modeling timestep)
                     Default value = 1
 
-       Returns    : Receiver object.
+       Returns    : 
+       Receiver object. rec.re contains a pointer to the eps rec object.
 
     '''
 

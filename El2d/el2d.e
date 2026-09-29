@@ -201,11 +201,11 @@ def int El2dstress(struct el2d El2d, struct model Model):
    El2d.p[i,j]       = 0.5*(El2d.sigmaxx[i,j] + El2d.sigmayy[i,j]) 
 
    El2d.sigmaxy[i,j] = Model.dt*Model.mu[i,j]*(El2d.exy[i,j]+El2d.eyx[i,j]) \
-                      + dt*El2d.betaxy[i,j]                                \
+                      + dt*(El2d.betaxy[i,j] + El2d.betayx[i,j])            \
                       + El2d.sigmaxy[i,j] 
 
-   El2d.sigmayx[i,j] = Model.dt*Model.mu[i,j]*El2d.eyx[i,j]                \
-                      + dt*El2d.betayx[i,j]                                \
+   El2d.sigmayx[i,j] = Model.dt*Model.mu[i,j]*(El2d.eyx[i,j] +El2d.exy[i,j]) \
+                      + dt*(El2d.betayx[i,j]+El2d.betaxy[i,j])              \
                       + El2d.sigmayx[i,j] 
    
    El2d.gammax[i,j]  = El2d.gammax[i,j]*LibeExp(-dt/Model.tausx[i,j])      \

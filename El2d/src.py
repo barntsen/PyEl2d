@@ -34,13 +34,12 @@ class src :
 
   ''' src is a class for creating a source object '''
 
-  def __init__(self,sx,sy,nt,dt,f0=None,t0=None,**kwargs) :
+  def __init__(self,sx,sy,nt,dt,f0=25.0,t0=0.05,**kwargs) :
 
 
     ''' init__ creates a new source object.
 
     Arguments:
-      pyel2d: shared library with object code
       sx    : 1D array with x-coordinate of source position
       sy    : 1D array with y-coordinate of source position
       nt    : Number of time samples in the source function
@@ -69,8 +68,12 @@ class src :
               sqxy[i,j] contains time sample no i for source no j
               at position (sx[j],sy[j]). Default value is a zero array.
 
-      If all arrays sfx,sfy,sqxx, sqyy and sqxy are missing the sqxx and sqyy is
-      set with the time function equal to a ricker pulse with 
+      Returns:
+
+      Src model object is returned. src.sr contains a pointer to
+      the eps src object.
+      If all arrays sfx,sfy,sqxx, sqyy and sqxy are missing the sqxx and 
+      sqyy is set with the time function equal to a ricker pulse with 
       parameters f0 and t0.
 
     '''

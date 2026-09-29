@@ -62,6 +62,7 @@
 import numpy as np
 from ctypes import *
 import config
+from numpy.lib.stride_tricks import as_strided
 
 def setup(libpath) :
   
@@ -188,6 +189,9 @@ def Izeros2di(pylib,dims) :
   # Create the numpy array using the ctypes constructor
   out = np.ctypeslib.as_array(data,shape=dimension)
 
+  # Map to fortran style ordering
+  out = np.ndarray(dimension,dtype=np.int32,buffer=out,order='F')
+
   # Store the eps array in a dictionary with the
   # numpy id as key
   config.descr[id(out)]=epsarr
@@ -272,6 +276,9 @@ def Fzeros2df(pylib,dims) :
 
   # Create the numpy array using the ctypes constructor
   out = np.ctypeslib.as_array(data,shape=dimension)
+  
+  # Map to fortran style ordering
+  out = np.ndarray(dimension,dtype=np.float32,buffer=out,order='F')
 
   # Store the eps array in a dictionary with the
   # numpy id as key
@@ -344,9 +351,8 @@ def eps1di(arr):
       Parameters:
         arr     : 1D numpy int array
   '''
-
-  if(arr.flags['CONTIGUOUS'] == False) :
-    print("The numpy array is not contiguos. Use numpy.copy")
+  if(arr.flags['F_CONTIGUOUS'] == False) :
+    print("The numpy array is not contiguos.")
     exit()
 
   # Get the eps array pointer
@@ -376,9 +382,8 @@ def eps2di(arr):
       Parameters:
         arr     : 2D numpy int array
   '''
-
-  if(arr.flags['CONTIGUOUS'] == False) :
-    print("The numpy array is not contiguos. Use numpy.copy")
+  if(arr.flags['F_CONTIGUOUS'] == False) :
+    print("The numpy array is not contiguos.")
     exit()
 
   # Get the eps array pointer
@@ -410,9 +415,9 @@ def eps1df(arr):
       Parameters:
         arr     : 1D numpy float array
   '''
-
-  if(arr.flags['CONTIGUOUS'] == False) :
-    print("The numpy array is not contiguos. Use numpy.copy")
+  
+  if(arr.flags['F_CONTIGUOUS'] == False) :
+    print("The numpy array is not contiguos.")
     exit()
 
 # Get the eps array pointer
@@ -444,8 +449,8 @@ def eps2df(arr):
         arr     : 2D numpy float array
   '''
 
-  if(arr.flags['CONTIGUOUS'] == False) :
-    print("The numpy array is not contiguos. Use numpy.copy")
+  if(arr.flags['F_CONTIGUOUS'] == False) :
+    print("The numpy array is not contiguos.")
     exit()
 
   # Get the eps array pointer

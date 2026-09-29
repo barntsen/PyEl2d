@@ -19,8 +19,8 @@ class model :
         left border zone
 
     Parameters: 
-      taue: 1D array with taue relaxation times in the cpml zone
-      taus: 1D array with taus relaxation times in the cpml zone
+      taue: 1D array with taue relaxation times in the border  zone
+      taus: 1D array with taus relaxation times in the border zone
 
     Returns:
       tauex: 2D array with taue realaxation times for left and right
@@ -53,7 +53,7 @@ class model :
 
   def __init__(self,vp,vs,rho,dx,dt,w0,nb=35,rheol=2,
                freesurface=1, **kwargs):
-    ''' Constructor for the model object.
+    ''' Initialization of the model object
 
     Arguments: 
       vp    : P-wave velocity array 
@@ -65,9 +65,16 @@ class model :
       nb    : (Optional) Width of border zone
       rheol : (Optional) Rheology for Q-model. 
               The default value is a standard linear solid.
+      freesurface : =1 Turn free surface on =0 Turn free surface off
+
+      Optional arguments (if not present default of Q=100000 is used)
       Ql    : Lambda Q-model
       Qm    : Mu Q-model array
       Qr    : Density Q-model array
+
+      Returns:
+      Model object is returned.
+      model.mod contains a pointer to the eps object.
 
     All arrays are 2D with the first dimension in the x-direction.
 
@@ -108,6 +115,7 @@ class model :
       Qr=np.ones((nx,ny), dtype=np.float32,order='F')
       Qr[:,:] = Q0
 
+    print("In model====")
     # Create alpha and d
     f0=w0/(2*np.pi)
     d0=349.1
@@ -118,9 +126,14 @@ class model :
     tauex,tauey,tausx,tausy = self.tauborder(taue,taus,nx,ny) 
     chiex,chiey,chisx,chisy = self.tauborder(taue,taus,nx,ny) 
     etaex,etaey,etasx,etasy = self.tauborder(taue,taus,nx,ny) 
+
+    print("Python x:-------------")
+    print(chiex[0:10,0])
+    print("Python y:-------------")
+    print(chiey[0,0:10])
     
     model.mod=modelw.ModelNew(vp,vs,rho,dx,w0,dt,nb,
-                         freesurface,tausy,tausx,tauey,tauex,
-                         chisy,chisx,chiey,chiex,etasy,etasx,
-                         etaey,etaex)
+                         freesurface,tausx,tausy,tauex,tauey,
+                         chisx,chisy,chiex,chiey,etasx,etasy,
+                         etaex,etaey)
 

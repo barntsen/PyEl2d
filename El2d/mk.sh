@@ -48,10 +48,9 @@ if  test $cc = c ; then
   cp         model.c $path
   ec  $opt  -c   pyeps.e
   cp         pyeps.c $path
-  cp         pyepsc.e pyepsc.c
-  cp         pyepsc.c $path
   ec  $opt  -c   m.e
   cp         m.c    $path
+  ec  $opt  -c run.e
   ec  $opt  -c   libe.e
   cp         libe.c $path
   cp         runcpu.e $path/runcpu.c

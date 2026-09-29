@@ -1,4 +1,4 @@
-//  Translated by epsc  version: Fri Sep 25 17:44:05 2026
+//  Translated by epsc  version: Tue Sep 29 12:09:44 2026
 
 #include <stddef.h>
 #include <stdio.h>
@@ -1292,534 +1292,561 @@ printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->ey
 }
 float nctemp1103 = El2d->exy->a[nctemp1096] + El2d->eyx->a[nctemp1100];
 float nctemp1104 = nctemp1091 * nctemp1103;
-int nctemp1110=i;
+int nctemp1113=i;
 if((0>i)||(i>=El2d->betaxy->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->betaxy %d %d %d %d \n " ,204,i,0,El2d->betaxy->d[0]-1);
 }
-nctemp1110=j*El2d->betaxy->d[0]+nctemp1110;
+nctemp1113=j*El2d->betaxy->d[0]+nctemp1113;
 if((0>j)||(j>=El2d->betaxy->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->betaxy %d %d %d %d \n " ,204,j,1,El2d->betaxy->d[1]-1);
 }
-float nctemp1113 = dt * El2d->betaxy->a[nctemp1110];
-float nctemp1114 = nctemp1104 + nctemp1113;
-int nctemp1116=i;
+int nctemp1117=i;
+if((0>i)||(i>=El2d->betayx->d[0])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->betayx %d %d %d %d \n " ,204,i,0,El2d->betayx->d[0]-1);
+}
+nctemp1117=j*El2d->betayx->d[0]+nctemp1117;
+if((0>j)||(j>=El2d->betayx->d[1])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->betayx %d %d %d %d \n " ,204,j,1,El2d->betayx->d[1]-1);
+}
+float nctemp1120 = El2d->betaxy->a[nctemp1113] + El2d->betayx->a[nctemp1117];
+float nctemp1121 = dt * nctemp1120;
+float nctemp1122 = nctemp1104 + nctemp1121;
+int nctemp1124=i;
 if((0>i)||(i>=El2d->sigmaxy->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->sigmaxy %d %d %d %d \n " ,205,i,0,El2d->sigmaxy->d[0]-1);
 }
-nctemp1116=j*El2d->sigmaxy->d[0]+nctemp1116;
+nctemp1124=j*El2d->sigmaxy->d[0]+nctemp1124;
 if((0>j)||(j>=El2d->sigmaxy->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->sigmaxy %d %d %d %d \n " ,205,j,1,El2d->sigmaxy->d[1]-1);
 }
-float nctemp1119 = nctemp1114 + El2d->sigmaxy->a[nctemp1116];
-El2d->sigmaxy->a[nctemp1071] =nctemp1119;
-int nctemp1123=i;
+float nctemp1127 = nctemp1122 + El2d->sigmaxy->a[nctemp1124];
+El2d->sigmaxy->a[nctemp1071] =nctemp1127;
+int nctemp1131=i;
 if((0>i)||(i>=El2d->sigmayx->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->sigmayx %d %d %d %d \n " ,207,i,0,El2d->sigmayx->d[0]-1);
 }
-nctemp1123=j*El2d->sigmayx->d[0]+nctemp1123;
+nctemp1131=j*El2d->sigmayx->d[0]+nctemp1131;
 if((0>j)||(j>=El2d->sigmayx->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->sigmayx %d %d %d %d \n " ,207,j,1,El2d->sigmayx->d[1]-1);
 }
-int nctemp1140=i;
+int nctemp1148=i;
 if((0>i)||(i>=Model->mu->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->mu %d %d %d %d \n " ,207,i,0,Model->mu->d[0]-1);
 }
-nctemp1140=j*Model->mu->d[0]+nctemp1140;
+nctemp1148=j*Model->mu->d[0]+nctemp1148;
 if((0>j)||(j>=Model->mu->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->mu %d %d %d %d \n " ,207,j,1,Model->mu->d[1]-1);
 }
-float nctemp1143 = Model->dt * Model->mu->a[nctemp1140];
-int nctemp1145=i;
+float nctemp1151 = Model->dt * Model->mu->a[nctemp1148];
+int nctemp1156=i;
 if((0>i)||(i>=El2d->eyx->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->eyx %d %d %d %d \n " ,207,i,0,El2d->eyx->d[0]-1);
 }
-nctemp1145=j*El2d->eyx->d[0]+nctemp1145;
+nctemp1156=j*El2d->eyx->d[0]+nctemp1156;
 if((0>j)||(j>=El2d->eyx->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->eyx %d %d %d %d \n " ,207,j,1,El2d->eyx->d[1]-1);
 }
-float nctemp1148 = nctemp1143 * El2d->eyx->a[nctemp1145];
-int nctemp1154=i;
+int nctemp1160=i;
+if((0>i)||(i>=El2d->exy->d[0])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->exy %d %d %d %d \n " ,207,i,0,El2d->exy->d[0]-1);
+}
+nctemp1160=j*El2d->exy->d[0]+nctemp1160;
+if((0>j)||(j>=El2d->exy->d[1])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->exy %d %d %d %d \n " ,207,j,1,El2d->exy->d[1]-1);
+}
+float nctemp1163 = El2d->eyx->a[nctemp1156] + El2d->exy->a[nctemp1160];
+float nctemp1164 = nctemp1151 * nctemp1163;
+int nctemp1173=i;
 if((0>i)||(i>=El2d->betayx->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->betayx %d %d %d %d \n " ,208,i,0,El2d->betayx->d[0]-1);
 }
-nctemp1154=j*El2d->betayx->d[0]+nctemp1154;
+nctemp1173=j*El2d->betayx->d[0]+nctemp1173;
 if((0>j)||(j>=El2d->betayx->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->betayx %d %d %d %d \n " ,208,j,1,El2d->betayx->d[1]-1);
 }
-float nctemp1157 = dt * El2d->betayx->a[nctemp1154];
-float nctemp1158 = nctemp1148 + nctemp1157;
-int nctemp1160=i;
+int nctemp1177=i;
+if((0>i)||(i>=El2d->betaxy->d[0])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->betaxy %d %d %d %d \n " ,208,i,0,El2d->betaxy->d[0]-1);
+}
+nctemp1177=j*El2d->betaxy->d[0]+nctemp1177;
+if((0>j)||(j>=El2d->betaxy->d[1])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->betaxy %d %d %d %d \n " ,208,j,1,El2d->betaxy->d[1]-1);
+}
+float nctemp1180 = El2d->betayx->a[nctemp1173] + El2d->betaxy->a[nctemp1177];
+float nctemp1181 = dt * nctemp1180;
+float nctemp1182 = nctemp1164 + nctemp1181;
+int nctemp1184=i;
 if((0>i)||(i>=El2d->sigmayx->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->sigmayx %d %d %d %d \n " ,209,i,0,El2d->sigmayx->d[0]-1);
 }
-nctemp1160=j*El2d->sigmayx->d[0]+nctemp1160;
+nctemp1184=j*El2d->sigmayx->d[0]+nctemp1184;
 if((0>j)||(j>=El2d->sigmayx->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->sigmayx %d %d %d %d \n " ,209,j,1,El2d->sigmayx->d[1]-1);
 }
-float nctemp1163 = nctemp1158 + El2d->sigmayx->a[nctemp1160];
-El2d->sigmayx->a[nctemp1123] =nctemp1163;
-int nctemp1167=i;
+float nctemp1187 = nctemp1182 + El2d->sigmayx->a[nctemp1184];
+El2d->sigmayx->a[nctemp1131] =nctemp1187;
+int nctemp1191=i;
 if((0>i)||(i>=El2d->gammax->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->gammax %d %d %d %d \n " ,211,i,0,El2d->gammax->d[0]-1);
 }
-nctemp1167=j*El2d->gammax->d[0]+nctemp1167;
+nctemp1191=j*El2d->gammax->d[0]+nctemp1191;
 if((0>j)||(j>=El2d->gammax->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->gammax %d %d %d %d \n " ,211,j,1,El2d->gammax->d[1]-1);
 }
-int nctemp1177=i;
+int nctemp1201=i;
 if((0>i)||(i>=El2d->gammax->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->gammax %d %d %d %d \n " ,211,i,0,El2d->gammax->d[0]-1);
 }
-nctemp1177=j*El2d->gammax->d[0]+nctemp1177;
+nctemp1201=j*El2d->gammax->d[0]+nctemp1201;
 if((0>j)||(j>=El2d->gammax->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->gammax %d %d %d %d \n " ,211,j,1,El2d->gammax->d[1]-1);
 }
-float nctemp1184= -dt;
-int nctemp1186=i;
+float nctemp1208= -dt;
+int nctemp1210=i;
 if((0>i)||(i>=Model->tausx->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->tausx %d %d %d %d \n " ,211,i,0,Model->tausx->d[0]-1);
 }
-nctemp1186=j*Model->tausx->d[0]+nctemp1186;
+nctemp1210=j*Model->tausx->d[0]+nctemp1210;
 if((0>j)||(j>=Model->tausx->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->tausx %d %d %d %d \n " ,211,j,1,Model->tausx->d[1]-1);
 }
-float nctemp1189 = nctemp1184 / Model->tausx->a[nctemp1186];
-float nctemp1181= nctemp1189;
-float nctemp1190=LibeExp(nctemp1181);
-float nctemp1191 = El2d->gammax->a[nctemp1177] * nctemp1190;
-int nctemp1205=i;
+float nctemp1213 = nctemp1208 / Model->tausx->a[nctemp1210];
+float nctemp1205= nctemp1213;
+float nctemp1214=LibeExp(nctemp1205);
+float nctemp1215 = El2d->gammax->a[nctemp1201] * nctemp1214;
+int nctemp1229=i;
 if((0>i)||(i>=Model->lambda->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->lambda %d %d %d %d \n " ,212,i,0,Model->lambda->d[0]-1);
 }
-nctemp1205=j*Model->lambda->d[0]+nctemp1205;
+nctemp1229=j*Model->lambda->d[0]+nctemp1229;
 if((0>j)||(j>=Model->lambda->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->lambda %d %d %d %d \n " ,212,j,1,Model->lambda->d[1]-1);
 }
-int nctemp1216=i;
+int nctemp1240=i;
 if((0>i)||(i>=Model->tauex->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->tauex %d %d %d %d \n " ,212,i,0,Model->tauex->d[0]-1);
 }
-nctemp1216=j*Model->tauex->d[0]+nctemp1216;
+nctemp1240=j*Model->tauex->d[0]+nctemp1240;
 if((0>j)||(j>=Model->tauex->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->tauex %d %d %d %d \n " ,212,j,1,Model->tauex->d[1]-1);
 }
-int nctemp1220=i;
+int nctemp1244=i;
 if((0>i)||(i>=Model->tausx->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->tausx %d %d %d %d \n " ,213,i,0,Model->tausx->d[0]-1);
 }
-nctemp1220=j*Model->tausx->d[0]+nctemp1220;
+nctemp1244=j*Model->tausx->d[0]+nctemp1244;
 if((0>j)||(j>=Model->tausx->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->tausx %d %d %d %d \n " ,213,j,1,Model->tausx->d[1]-1);
 }
-float nctemp1223 = Model->tauex->a[nctemp1216] / Model->tausx->a[nctemp1220];
-float nctemp1224 = 1.0 - nctemp1223;
-float nctemp1225 = Model->lambda->a[nctemp1205] * nctemp1224;
-float nctemp1227 = nctemp1225 * dt;
-int nctemp1229=i;
+float nctemp1247 = Model->tauex->a[nctemp1240] / Model->tausx->a[nctemp1244];
+float nctemp1248 = 1.0 - nctemp1247;
+float nctemp1249 = Model->lambda->a[nctemp1229] * nctemp1248;
+float nctemp1251 = nctemp1249 * dt;
+int nctemp1253=i;
 if((0>i)||(i>=Model->tauex->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->tauex %d %d %d %d \n " ,213,i,0,Model->tauex->d[0]-1);
 }
-nctemp1229=j*Model->tauex->d[0]+nctemp1229;
+nctemp1253=j*Model->tauex->d[0]+nctemp1253;
 if((0>j)||(j>=Model->tauex->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->tauex %d %d %d %d \n " ,213,j,1,Model->tauex->d[1]-1);
 }
-float nctemp1232 = nctemp1227 / Model->tauex->a[nctemp1229];
-int nctemp1234=i;
+float nctemp1256 = nctemp1251 / Model->tauex->a[nctemp1253];
+int nctemp1258=i;
 if((0>i)||(i>=El2d->exx->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->exx %d %d %d %d \n " ,214,i,0,El2d->exx->d[0]-1);
 }
-nctemp1234=j*El2d->exx->d[0]+nctemp1234;
+nctemp1258=j*El2d->exx->d[0]+nctemp1258;
 if((0>j)||(j>=El2d->exx->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->exx %d %d %d %d \n " ,214,j,1,El2d->exx->d[1]-1);
 }
-float nctemp1237 = nctemp1232 * El2d->exx->a[nctemp1234];
-float nctemp1238 = nctemp1191 + nctemp1237;
-El2d->gammax->a[nctemp1167] =nctemp1238;
-int nctemp1242=i;
+float nctemp1261 = nctemp1256 * El2d->exx->a[nctemp1258];
+float nctemp1262 = nctemp1215 + nctemp1261;
+El2d->gammax->a[nctemp1191] =nctemp1262;
+int nctemp1266=i;
 if((0>i)||(i>=El2d->gammay->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->gammay %d %d %d %d \n " ,216,i,0,El2d->gammay->d[0]-1);
 }
-nctemp1242=j*El2d->gammay->d[0]+nctemp1242;
+nctemp1266=j*El2d->gammay->d[0]+nctemp1266;
 if((0>j)||(j>=El2d->gammay->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->gammay %d %d %d %d \n " ,216,j,1,El2d->gammay->d[1]-1);
 }
-int nctemp1252=i;
+int nctemp1276=i;
 if((0>i)||(i>=El2d->gammay->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->gammay %d %d %d %d \n " ,216,i,0,El2d->gammay->d[0]-1);
 }
-nctemp1252=j*El2d->gammay->d[0]+nctemp1252;
+nctemp1276=j*El2d->gammay->d[0]+nctemp1276;
 if((0>j)||(j>=El2d->gammay->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->gammay %d %d %d %d \n " ,216,j,1,El2d->gammay->d[1]-1);
 }
-float nctemp1259= -dt;
-int nctemp1261=i;
+float nctemp1283= -dt;
+int nctemp1285=i;
 if((0>i)||(i>=Model->tausy->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->tausy %d %d %d %d \n " ,216,i,0,Model->tausy->d[0]-1);
 }
-nctemp1261=j*Model->tausy->d[0]+nctemp1261;
+nctemp1285=j*Model->tausy->d[0]+nctemp1285;
 if((0>j)||(j>=Model->tausy->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->tausy %d %d %d %d \n " ,216,j,1,Model->tausy->d[1]-1);
 }
-float nctemp1264 = nctemp1259 / Model->tausy->a[nctemp1261];
-float nctemp1256= nctemp1264;
-float nctemp1265=LibeExp(nctemp1256);
-float nctemp1266 = El2d->gammay->a[nctemp1252] * nctemp1265;
-int nctemp1280=i;
+float nctemp1288 = nctemp1283 / Model->tausy->a[nctemp1285];
+float nctemp1280= nctemp1288;
+float nctemp1289=LibeExp(nctemp1280);
+float nctemp1290 = El2d->gammay->a[nctemp1276] * nctemp1289;
+int nctemp1304=i;
 if((0>i)||(i>=Model->lambda->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->lambda %d %d %d %d \n " ,217,i,0,Model->lambda->d[0]-1);
 }
-nctemp1280=j*Model->lambda->d[0]+nctemp1280;
+nctemp1304=j*Model->lambda->d[0]+nctemp1304;
 if((0>j)||(j>=Model->lambda->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->lambda %d %d %d %d \n " ,217,j,1,Model->lambda->d[1]-1);
 }
-int nctemp1291=i;
+int nctemp1315=i;
 if((0>i)||(i>=Model->tauey->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->tauey %d %d %d %d \n " ,217,i,0,Model->tauey->d[0]-1);
 }
-nctemp1291=j*Model->tauey->d[0]+nctemp1291;
+nctemp1315=j*Model->tauey->d[0]+nctemp1315;
 if((0>j)||(j>=Model->tauey->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->tauey %d %d %d %d \n " ,217,j,1,Model->tauey->d[1]-1);
 }
-int nctemp1295=i;
+int nctemp1319=i;
 if((0>i)||(i>=Model->tausy->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->tausy %d %d %d %d \n " ,218,i,0,Model->tausy->d[0]-1);
 }
-nctemp1295=j*Model->tausy->d[0]+nctemp1295;
+nctemp1319=j*Model->tausy->d[0]+nctemp1319;
 if((0>j)||(j>=Model->tausy->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->tausy %d %d %d %d \n " ,218,j,1,Model->tausy->d[1]-1);
 }
-float nctemp1298 = Model->tauey->a[nctemp1291] / Model->tausy->a[nctemp1295];
-float nctemp1299 = 1.0 - nctemp1298;
-float nctemp1300 = Model->lambda->a[nctemp1280] * nctemp1299;
-float nctemp1302 = nctemp1300 * dt;
-int nctemp1304=i;
+float nctemp1322 = Model->tauey->a[nctemp1315] / Model->tausy->a[nctemp1319];
+float nctemp1323 = 1.0 - nctemp1322;
+float nctemp1324 = Model->lambda->a[nctemp1304] * nctemp1323;
+float nctemp1326 = nctemp1324 * dt;
+int nctemp1328=i;
 if((0>i)||(i>=Model->tauey->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->tauey %d %d %d %d \n " ,218,i,0,Model->tauey->d[0]-1);
 }
-nctemp1304=j*Model->tauey->d[0]+nctemp1304;
+nctemp1328=j*Model->tauey->d[0]+nctemp1328;
 if((0>j)||(j>=Model->tauey->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->tauey %d %d %d %d \n " ,218,j,1,Model->tauey->d[1]-1);
 }
-float nctemp1307 = nctemp1302 / Model->tauey->a[nctemp1304];
-int nctemp1309=i;
+float nctemp1331 = nctemp1326 / Model->tauey->a[nctemp1328];
+int nctemp1333=i;
 if((0>i)||(i>=El2d->eyy->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->eyy %d %d %d %d \n " ,219,i,0,El2d->eyy->d[0]-1);
 }
-nctemp1309=j*El2d->eyy->d[0]+nctemp1309;
+nctemp1333=j*El2d->eyy->d[0]+nctemp1333;
 if((0>j)||(j>=El2d->eyy->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->eyy %d %d %d %d \n " ,219,j,1,El2d->eyy->d[1]-1);
 }
-float nctemp1312 = nctemp1307 * El2d->eyy->a[nctemp1309];
-float nctemp1313 = nctemp1266 + nctemp1312;
-El2d->gammay->a[nctemp1242] =nctemp1313;
-int nctemp1317=i;
+float nctemp1336 = nctemp1331 * El2d->eyy->a[nctemp1333];
+float nctemp1337 = nctemp1290 + nctemp1336;
+El2d->gammay->a[nctemp1266] =nctemp1337;
+int nctemp1341=i;
 if((0>i)||(i>=El2d->alphax->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->alphax %d %d %d %d \n " ,221,i,0,El2d->alphax->d[0]-1);
 }
-nctemp1317=j*El2d->alphax->d[0]+nctemp1317;
+nctemp1341=j*El2d->alphax->d[0]+nctemp1341;
 if((0>j)||(j>=El2d->alphax->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->alphax %d %d %d %d \n " ,221,j,1,El2d->alphax->d[1]-1);
 }
-int nctemp1327=i;
+int nctemp1351=i;
 if((0>i)||(i>=El2d->alphax->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->alphax %d %d %d %d \n " ,221,i,0,El2d->alphax->d[0]-1);
 }
-nctemp1327=j*El2d->alphax->d[0]+nctemp1327;
+nctemp1351=j*El2d->alphax->d[0]+nctemp1351;
 if((0>j)||(j>=El2d->alphax->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->alphax %d %d %d %d \n " ,221,j,1,El2d->alphax->d[1]-1);
 }
-float nctemp1334= -dt;
-int nctemp1336=i;
+float nctemp1358= -dt;
+int nctemp1360=i;
 if((0>i)||(i>=Model->chisx->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->chisx %d %d %d %d \n " ,221,i,0,Model->chisx->d[0]-1);
 }
-nctemp1336=j*Model->chisx->d[0]+nctemp1336;
+nctemp1360=j*Model->chisx->d[0]+nctemp1360;
 if((0>j)||(j>=Model->chisx->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->chisx %d %d %d %d \n " ,221,j,1,Model->chisx->d[1]-1);
 }
-float nctemp1339 = nctemp1334 / Model->chisx->a[nctemp1336];
-float nctemp1331= nctemp1339;
-float nctemp1340=LibeExp(nctemp1331);
-float nctemp1341 = El2d->alphax->a[nctemp1327] * nctemp1340;
-int nctemp1355=i;
+float nctemp1363 = nctemp1358 / Model->chisx->a[nctemp1360];
+float nctemp1355= nctemp1363;
+float nctemp1364=LibeExp(nctemp1355);
+float nctemp1365 = El2d->alphax->a[nctemp1351] * nctemp1364;
+int nctemp1379=i;
 if((0>i)||(i>=Model->mu->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->mu %d %d %d %d \n " ,222,i,0,Model->mu->d[0]-1);
 }
-nctemp1355=j*Model->mu->d[0]+nctemp1355;
+nctemp1379=j*Model->mu->d[0]+nctemp1379;
 if((0>j)||(j>=Model->mu->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->mu %d %d %d %d \n " ,222,j,1,Model->mu->d[1]-1);
 }
-int nctemp1366=i;
+int nctemp1390=i;
 if((0>i)||(i>=Model->chiex->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->chiex %d %d %d %d \n " ,222,i,0,Model->chiex->d[0]-1);
 }
-nctemp1366=j*Model->chiex->d[0]+nctemp1366;
+nctemp1390=j*Model->chiex->d[0]+nctemp1390;
 if((0>j)||(j>=Model->chiex->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->chiex %d %d %d %d \n " ,222,j,1,Model->chiex->d[1]-1);
 }
-int nctemp1370=i;
+int nctemp1394=i;
 if((0>i)||(i>=Model->chisx->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->chisx %d %d %d %d \n " ,223,i,0,Model->chisx->d[0]-1);
 }
-nctemp1370=j*Model->chisx->d[0]+nctemp1370;
+nctemp1394=j*Model->chisx->d[0]+nctemp1394;
 if((0>j)||(j>=Model->chisx->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->chisx %d %d %d %d \n " ,223,j,1,Model->chisx->d[1]-1);
 }
-float nctemp1373 = Model->chiex->a[nctemp1366] / Model->chisx->a[nctemp1370];
-float nctemp1374 = 1.0 - nctemp1373;
-float nctemp1375 = Model->mu->a[nctemp1355] * nctemp1374;
-float nctemp1377 = nctemp1375 * dt;
-int nctemp1379=i;
+float nctemp1397 = Model->chiex->a[nctemp1390] / Model->chisx->a[nctemp1394];
+float nctemp1398 = 1.0 - nctemp1397;
+float nctemp1399 = Model->mu->a[nctemp1379] * nctemp1398;
+float nctemp1401 = nctemp1399 * dt;
+int nctemp1403=i;
 if((0>i)||(i>=Model->chiex->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->chiex %d %d %d %d \n " ,223,i,0,Model->chiex->d[0]-1);
 }
-nctemp1379=j*Model->chiex->d[0]+nctemp1379;
+nctemp1403=j*Model->chiex->d[0]+nctemp1403;
 if((0>j)||(j>=Model->chiex->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->chiex %d %d %d %d \n " ,223,j,1,Model->chiex->d[1]-1);
 }
-float nctemp1382 = nctemp1377 / Model->chiex->a[nctemp1379];
-int nctemp1384=i;
+float nctemp1406 = nctemp1401 / Model->chiex->a[nctemp1403];
+int nctemp1408=i;
 if((0>i)||(i>=El2d->exx->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->exx %d %d %d %d \n " ,224,i,0,El2d->exx->d[0]-1);
 }
-nctemp1384=j*El2d->exx->d[0]+nctemp1384;
+nctemp1408=j*El2d->exx->d[0]+nctemp1408;
 if((0>j)||(j>=El2d->exx->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->exx %d %d %d %d \n " ,224,j,1,El2d->exx->d[1]-1);
 }
-float nctemp1387 = nctemp1382 * El2d->exx->a[nctemp1384];
-float nctemp1388 = nctemp1341 + nctemp1387;
-El2d->alphax->a[nctemp1317] =nctemp1388;
-int nctemp1392=i;
+float nctemp1411 = nctemp1406 * El2d->exx->a[nctemp1408];
+float nctemp1412 = nctemp1365 + nctemp1411;
+El2d->alphax->a[nctemp1341] =nctemp1412;
+int nctemp1416=i;
 if((0>i)||(i>=El2d->alphay->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->alphay %d %d %d %d \n " ,226,i,0,El2d->alphay->d[0]-1);
 }
-nctemp1392=j*El2d->alphay->d[0]+nctemp1392;
+nctemp1416=j*El2d->alphay->d[0]+nctemp1416;
 if((0>j)||(j>=El2d->alphay->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->alphay %d %d %d %d \n " ,226,j,1,El2d->alphay->d[1]-1);
 }
-int nctemp1402=i;
+int nctemp1426=i;
 if((0>i)||(i>=El2d->alphay->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->alphay %d %d %d %d \n " ,226,i,0,El2d->alphay->d[0]-1);
 }
-nctemp1402=j*El2d->alphay->d[0]+nctemp1402;
+nctemp1426=j*El2d->alphay->d[0]+nctemp1426;
 if((0>j)||(j>=El2d->alphay->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->alphay %d %d %d %d \n " ,226,j,1,El2d->alphay->d[1]-1);
 }
-float nctemp1409= -dt;
-int nctemp1411=i;
+float nctemp1433= -dt;
+int nctemp1435=i;
 if((0>i)||(i>=Model->chisx->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->chisx %d %d %d %d \n " ,226,i,0,Model->chisx->d[0]-1);
 }
-nctemp1411=j*Model->chisx->d[0]+nctemp1411;
+nctemp1435=j*Model->chisx->d[0]+nctemp1435;
 if((0>j)||(j>=Model->chisx->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->chisx %d %d %d %d \n " ,226,j,1,Model->chisx->d[1]-1);
 }
-float nctemp1414 = nctemp1409 / Model->chisx->a[nctemp1411];
-float nctemp1406= nctemp1414;
-float nctemp1415=LibeExp(nctemp1406);
-float nctemp1416 = El2d->alphay->a[nctemp1402] * nctemp1415;
-int nctemp1430=i;
+float nctemp1438 = nctemp1433 / Model->chisx->a[nctemp1435];
+float nctemp1430= nctemp1438;
+float nctemp1439=LibeExp(nctemp1430);
+float nctemp1440 = El2d->alphay->a[nctemp1426] * nctemp1439;
+int nctemp1454=i;
 if((0>i)||(i>=Model->mu->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->mu %d %d %d %d \n " ,227,i,0,Model->mu->d[0]-1);
 }
-nctemp1430=j*Model->mu->d[0]+nctemp1430;
+nctemp1454=j*Model->mu->d[0]+nctemp1454;
 if((0>j)||(j>=Model->mu->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->mu %d %d %d %d \n " ,227,j,1,Model->mu->d[1]-1);
 }
-int nctemp1441=i;
+int nctemp1465=i;
 if((0>i)||(i>=Model->chiex->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->chiex %d %d %d %d \n " ,227,i,0,Model->chiex->d[0]-1);
 }
-nctemp1441=j*Model->chiex->d[0]+nctemp1441;
+nctemp1465=j*Model->chiex->d[0]+nctemp1465;
 if((0>j)||(j>=Model->chiex->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->chiex %d %d %d %d \n " ,227,j,1,Model->chiex->d[1]-1);
 }
-int nctemp1445=i;
+int nctemp1469=i;
 if((0>i)||(i>=Model->chisx->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->chisx %d %d %d %d \n " ,228,i,0,Model->chisx->d[0]-1);
 }
-nctemp1445=j*Model->chisx->d[0]+nctemp1445;
+nctemp1469=j*Model->chisx->d[0]+nctemp1469;
 if((0>j)||(j>=Model->chisx->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->chisx %d %d %d %d \n " ,228,j,1,Model->chisx->d[1]-1);
 }
-float nctemp1448 = Model->chiex->a[nctemp1441] / Model->chisx->a[nctemp1445];
-float nctemp1449 = 1.0 - nctemp1448;
-float nctemp1450 = Model->mu->a[nctemp1430] * nctemp1449;
-float nctemp1452 = nctemp1450 * dt;
-int nctemp1454=i;
+float nctemp1472 = Model->chiex->a[nctemp1465] / Model->chisx->a[nctemp1469];
+float nctemp1473 = 1.0 - nctemp1472;
+float nctemp1474 = Model->mu->a[nctemp1454] * nctemp1473;
+float nctemp1476 = nctemp1474 * dt;
+int nctemp1478=i;
 if((0>i)||(i>=Model->chiex->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->chiex %d %d %d %d \n " ,228,i,0,Model->chiex->d[0]-1);
 }
-nctemp1454=j*Model->chiex->d[0]+nctemp1454;
+nctemp1478=j*Model->chiex->d[0]+nctemp1478;
 if((0>j)||(j>=Model->chiex->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->chiex %d %d %d %d \n " ,228,j,1,Model->chiex->d[1]-1);
 }
-float nctemp1457 = nctemp1452 / Model->chiex->a[nctemp1454];
-int nctemp1459=i;
+float nctemp1481 = nctemp1476 / Model->chiex->a[nctemp1478];
+int nctemp1483=i;
 if((0>i)||(i>=El2d->eyy->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->eyy %d %d %d %d \n " ,229,i,0,El2d->eyy->d[0]-1);
 }
-nctemp1459=j*El2d->eyy->d[0]+nctemp1459;
+nctemp1483=j*El2d->eyy->d[0]+nctemp1483;
 if((0>j)||(j>=El2d->eyy->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->eyy %d %d %d %d \n " ,229,j,1,El2d->eyy->d[1]-1);
 }
-float nctemp1462 = nctemp1457 * El2d->eyy->a[nctemp1459];
-float nctemp1463 = nctemp1416 + nctemp1462;
-El2d->alphay->a[nctemp1392] =nctemp1463;
-int nctemp1467=i;
+float nctemp1486 = nctemp1481 * El2d->eyy->a[nctemp1483];
+float nctemp1487 = nctemp1440 + nctemp1486;
+El2d->alphay->a[nctemp1416] =nctemp1487;
+int nctemp1491=i;
 if((0>i)||(i>=El2d->betaxy->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->betaxy %d %d %d %d \n " ,231,i,0,El2d->betaxy->d[0]-1);
 }
-nctemp1467=j*El2d->betaxy->d[0]+nctemp1467;
+nctemp1491=j*El2d->betaxy->d[0]+nctemp1491;
 if((0>j)||(j>=El2d->betaxy->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->betaxy %d %d %d %d \n " ,231,j,1,El2d->betaxy->d[1]-1);
 }
-int nctemp1477=i;
+int nctemp1501=i;
 if((0>i)||(i>=El2d->betaxy->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->betaxy %d %d %d %d \n " ,231,i,0,El2d->betaxy->d[0]-1);
 }
-nctemp1477=j*El2d->betaxy->d[0]+nctemp1477;
+nctemp1501=j*El2d->betaxy->d[0]+nctemp1501;
 if((0>j)||(j>=El2d->betaxy->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->betaxy %d %d %d %d \n " ,231,j,1,El2d->betaxy->d[1]-1);
 }
-float nctemp1484= -dt;
-int nctemp1486=i;
+float nctemp1508= -dt;
+int nctemp1510=i;
 if((0>i)||(i>=Model->chisy->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->chisy %d %d %d %d \n " ,231,i,0,Model->chisy->d[0]-1);
 }
-nctemp1486=j*Model->chisy->d[0]+nctemp1486;
+nctemp1510=j*Model->chisy->d[0]+nctemp1510;
 if((0>j)||(j>=Model->chisy->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->chisy %d %d %d %d \n " ,231,j,1,Model->chisy->d[1]-1);
 }
-float nctemp1489 = nctemp1484 / Model->chisy->a[nctemp1486];
-float nctemp1481= nctemp1489;
-float nctemp1490=LibeExp(nctemp1481);
-float nctemp1491 = El2d->betaxy->a[nctemp1477] * nctemp1490;
-int nctemp1505=i;
+float nctemp1513 = nctemp1508 / Model->chisy->a[nctemp1510];
+float nctemp1505= nctemp1513;
+float nctemp1514=LibeExp(nctemp1505);
+float nctemp1515 = El2d->betaxy->a[nctemp1501] * nctemp1514;
+int nctemp1529=i;
 if((0>i)||(i>=Model->mu->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->mu %d %d %d %d \n " ,232,i,0,Model->mu->d[0]-1);
 }
-nctemp1505=j*Model->mu->d[0]+nctemp1505;
+nctemp1529=j*Model->mu->d[0]+nctemp1529;
 if((0>j)||(j>=Model->mu->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->mu %d %d %d %d \n " ,232,j,1,Model->mu->d[1]-1);
 }
-int nctemp1516=i;
+int nctemp1540=i;
 if((0>i)||(i>=Model->chiey->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->chiey %d %d %d %d \n " ,232,i,0,Model->chiey->d[0]-1);
 }
-nctemp1516=j*Model->chiey->d[0]+nctemp1516;
+nctemp1540=j*Model->chiey->d[0]+nctemp1540;
 if((0>j)||(j>=Model->chiey->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->chiey %d %d %d %d \n " ,232,j,1,Model->chiey->d[1]-1);
 }
-int nctemp1520=i;
+int nctemp1544=i;
 if((0>i)||(i>=Model->chisy->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->chisy %d %d %d %d \n " ,233,i,0,Model->chisy->d[0]-1);
 }
-nctemp1520=j*Model->chisy->d[0]+nctemp1520;
+nctemp1544=j*Model->chisy->d[0]+nctemp1544;
 if((0>j)||(j>=Model->chisy->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->chisy %d %d %d %d \n " ,233,j,1,Model->chisy->d[1]-1);
 }
-float nctemp1523 = Model->chiey->a[nctemp1516] / Model->chisy->a[nctemp1520];
-float nctemp1524 = 1.0 - nctemp1523;
-float nctemp1525 = Model->mu->a[nctemp1505] * nctemp1524;
-float nctemp1527 = nctemp1525 * dt;
-int nctemp1529=i;
+float nctemp1547 = Model->chiey->a[nctemp1540] / Model->chisy->a[nctemp1544];
+float nctemp1548 = 1.0 - nctemp1547;
+float nctemp1549 = Model->mu->a[nctemp1529] * nctemp1548;
+float nctemp1551 = nctemp1549 * dt;
+int nctemp1553=i;
 if((0>i)||(i>=Model->chiey->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->chiey %d %d %d %d \n " ,233,i,0,Model->chiey->d[0]-1);
 }
-nctemp1529=j*Model->chiey->d[0]+nctemp1529;
+nctemp1553=j*Model->chiey->d[0]+nctemp1553;
 if((0>j)||(j>=Model->chiey->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->chiey %d %d %d %d \n " ,233,j,1,Model->chiey->d[1]-1);
 }
-float nctemp1532 = nctemp1527 / Model->chiey->a[nctemp1529];
-int nctemp1534=i;
+float nctemp1556 = nctemp1551 / Model->chiey->a[nctemp1553];
+int nctemp1558=i;
 if((0>i)||(i>=El2d->exy->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->exy %d %d %d %d \n " ,234,i,0,El2d->exy->d[0]-1);
 }
-nctemp1534=j*El2d->exy->d[0]+nctemp1534;
+nctemp1558=j*El2d->exy->d[0]+nctemp1558;
 if((0>j)||(j>=El2d->exy->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->exy %d %d %d %d \n " ,234,j,1,El2d->exy->d[1]-1);
 }
-float nctemp1537 = nctemp1532 * El2d->exy->a[nctemp1534];
-float nctemp1538 = nctemp1491 + nctemp1537;
-El2d->betaxy->a[nctemp1467] =nctemp1538;
-int nctemp1542=i;
+float nctemp1561 = nctemp1556 * El2d->exy->a[nctemp1558];
+float nctemp1562 = nctemp1515 + nctemp1561;
+El2d->betaxy->a[nctemp1491] =nctemp1562;
+int nctemp1566=i;
 if((0>i)||(i>=El2d->betayx->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->betayx %d %d %d %d \n " ,236,i,0,El2d->betayx->d[0]-1);
 }
-nctemp1542=j*El2d->betayx->d[0]+nctemp1542;
+nctemp1566=j*El2d->betayx->d[0]+nctemp1566;
 if((0>j)||(j>=El2d->betayx->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->betayx %d %d %d %d \n " ,236,j,1,El2d->betayx->d[1]-1);
 }
-int nctemp1552=i;
+int nctemp1576=i;
 if((0>i)||(i>=El2d->betayx->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->betayx %d %d %d %d \n " ,236,i,0,El2d->betayx->d[0]-1);
 }
-nctemp1552=j*El2d->betayx->d[0]+nctemp1552;
+nctemp1576=j*El2d->betayx->d[0]+nctemp1576;
 if((0>j)||(j>=El2d->betayx->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->betayx %d %d %d %d \n " ,236,j,1,El2d->betayx->d[1]-1);
 }
-float nctemp1559= -dt;
-int nctemp1561=i;
+float nctemp1583= -dt;
+int nctemp1585=i;
 if((0>i)||(i>=Model->chisx->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->chisx %d %d %d %d \n " ,236,i,0,Model->chisx->d[0]-1);
 }
-nctemp1561=j*Model->chisx->d[0]+nctemp1561;
+nctemp1585=j*Model->chisx->d[0]+nctemp1585;
 if((0>j)||(j>=Model->chisx->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->chisx %d %d %d %d \n " ,236,j,1,Model->chisx->d[1]-1);
 }
-float nctemp1564 = nctemp1559 / Model->chisx->a[nctemp1561];
-float nctemp1556= nctemp1564;
-float nctemp1565=LibeExp(nctemp1556);
-float nctemp1566 = El2d->betayx->a[nctemp1552] * nctemp1565;
-int nctemp1580=i;
+float nctemp1588 = nctemp1583 / Model->chisx->a[nctemp1585];
+float nctemp1580= nctemp1588;
+float nctemp1589=LibeExp(nctemp1580);
+float nctemp1590 = El2d->betayx->a[nctemp1576] * nctemp1589;
+int nctemp1604=i;
 if((0>i)||(i>=Model->mu->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->mu %d %d %d %d \n " ,237,i,0,Model->mu->d[0]-1);
 }
-nctemp1580=j*Model->mu->d[0]+nctemp1580;
+nctemp1604=j*Model->mu->d[0]+nctemp1604;
 if((0>j)||(j>=Model->mu->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->mu %d %d %d %d \n " ,237,j,1,Model->mu->d[1]-1);
 }
-int nctemp1591=i;
+int nctemp1615=i;
 if((0>i)||(i>=Model->chiex->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->chiex %d %d %d %d \n " ,237,i,0,Model->chiex->d[0]-1);
 }
-nctemp1591=j*Model->chiex->d[0]+nctemp1591;
+nctemp1615=j*Model->chiex->d[0]+nctemp1615;
 if((0>j)||(j>=Model->chiex->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->chiex %d %d %d %d \n " ,237,j,1,Model->chiex->d[1]-1);
 }
-int nctemp1595=i;
+int nctemp1619=i;
 if((0>i)||(i>=Model->chisx->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->chisx %d %d %d %d \n " ,238,i,0,Model->chisx->d[0]-1);
 }
-nctemp1595=j*Model->chisx->d[0]+nctemp1595;
+nctemp1619=j*Model->chisx->d[0]+nctemp1619;
 if((0>j)||(j>=Model->chisx->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->chisx %d %d %d %d \n " ,238,j,1,Model->chisx->d[1]-1);
 }
-float nctemp1598 = Model->chiex->a[nctemp1591] / Model->chisx->a[nctemp1595];
-float nctemp1599 = 1.0 - nctemp1598;
-float nctemp1600 = Model->mu->a[nctemp1580] * nctemp1599;
-float nctemp1602 = nctemp1600 * dt;
-int nctemp1604=i;
+float nctemp1622 = Model->chiex->a[nctemp1615] / Model->chisx->a[nctemp1619];
+float nctemp1623 = 1.0 - nctemp1622;
+float nctemp1624 = Model->mu->a[nctemp1604] * nctemp1623;
+float nctemp1626 = nctemp1624 * dt;
+int nctemp1628=i;
 if((0>i)||(i>=Model->chiex->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->chiex %d %d %d %d \n " ,238,i,0,Model->chiex->d[0]-1);
 }
-nctemp1604=j*Model->chiex->d[0]+nctemp1604;
+nctemp1628=j*Model->chiex->d[0]+nctemp1628;
 if((0>j)||(j>=Model->chiex->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Model->chiex %d %d %d %d \n " ,238,j,1,Model->chiex->d[1]-1);
 }
-float nctemp1607 = nctemp1602 / Model->chiex->a[nctemp1604];
-int nctemp1609=i;
+float nctemp1631 = nctemp1626 / Model->chiex->a[nctemp1628];
+int nctemp1633=i;
 if((0>i)||(i>=El2d->eyx->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->eyx %d %d %d %d \n " ,239,i,0,El2d->eyx->d[0]-1);
 }
-nctemp1609=j*El2d->eyx->d[0]+nctemp1609;
+nctemp1633=j*El2d->eyx->d[0]+nctemp1633;
 if((0>j)||(j>=El2d->eyx->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->eyx %d %d %d %d \n " ,239,j,1,El2d->eyx->d[1]-1);
 }
-float nctemp1612 = nctemp1607 * El2d->eyx->a[nctemp1609];
-float nctemp1613 = nctemp1566 + nctemp1612;
-El2d->betayx->a[nctemp1542] =nctemp1613;
+float nctemp1636 = nctemp1631 * El2d->eyx->a[nctemp1633];
+float nctemp1637 = nctemp1590 + nctemp1636;
+El2d->betayx->a[nctemp1566] =nctemp1637;
 }
 }
 }}}
@@ -1832,155 +1859,155 @@ int n;
 nctempchar1 *tmp;
 int err;
 {
-int nctemp1614 = (El2d->sresamp <= 0);
-if(nctemp1614)
+int nctemp1638 = (El2d->sresamp <= 0);
+if(nctemp1638)
 {
 {
 return 1;
 }
 }
-int nctemp1623=El2d->sigmaxx->d[0];nx =nctemp1623;
-int nctemp1631=El2d->sigmaxx->d[1];ny =nctemp1631;
-int nctemp1643 = nx * ny;
-n =nctemp1643;
-int nctemp1647= it;
-int nctemp1649= El2d->sresamp;
-int nctemp1651=LibeMod(nctemp1647,nctemp1649);
-int nctemp1644 = (nctemp1651 ==0);
-if(nctemp1644)
+int nctemp1647=El2d->sigmaxx->d[0];nx =nctemp1647;
+int nctemp1655=El2d->sigmaxx->d[1];ny =nctemp1655;
+int nctemp1667 = nx * ny;
+n =nctemp1667;
+int nctemp1671= it;
+int nctemp1673= El2d->sresamp;
+int nctemp1675=LibeMod(nctemp1671,nctemp1673);
+int nctemp1668 = (nctemp1675 ==0);
+if(nctemp1668)
 {
 {
-int nctemp1656=0;
+int nctemp1680=0;
 if((0>0)||(0>=El2d->snpflags->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->snpflags %d %d %d %d \n " ,261,0,0,El2d->snpflags->d[0]-1);
 }
-int nctemp1653 = (El2d->snpflags->a[nctemp1656] ==1);
-if(nctemp1653)
+int nctemp1677 = (El2d->snpflags->a[nctemp1680] ==1);
+if(nctemp1677)
 {
 {
-nctempchar1 nctemp1665;
-nctempchar1 *nctemp1664;
-nctemp1665=*(nctempchar1*)(El2d->p);
-int nctemp1672 = 4 * n;
-nctemp1665.d[0]=nctemp1672;
-nctemp1664=&nctemp1665;
-tmp=nctemp1664;
-int nctemp1674= El2d->fdp;
-int nctemp1681 = 4 * n;
-int nctemp1676= nctemp1681;
-nctempchar1* nctemp1682= tmp;
-int nctemp1685=LibeWrite(nctemp1674,nctemp1676,nctemp1682);
+nctempchar1 nctemp1689;
+nctempchar1 *nctemp1688;
+nctemp1689=*(nctempchar1*)(El2d->p);
+int nctemp1696 = 4 * n;
+nctemp1689.d[0]=nctemp1696;
+nctemp1688=&nctemp1689;
+tmp=nctemp1688;
+int nctemp1698= El2d->fdp;
+int nctemp1705 = 4 * n;
+int nctemp1700= nctemp1705;
+nctempchar1* nctemp1706= tmp;
+int nctemp1709=LibeWrite(nctemp1698,nctemp1700,nctemp1706);
 }
 }
-int nctemp1689=1;
+int nctemp1713=1;
 if((0>1)||(1>=El2d->snpflags->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->snpflags %d %d %d %d \n " ,265,1,0,El2d->snpflags->d[0]-1);
 }
-int nctemp1686 = (El2d->snpflags->a[nctemp1689] ==1);
-if(nctemp1686)
+int nctemp1710 = (El2d->snpflags->a[nctemp1713] ==1);
+if(nctemp1710)
 {
 {
-nctempchar1 nctemp1698;
-nctempchar1 *nctemp1697;
-nctemp1698=*(nctempchar1*)(El2d->vx);
-int nctemp1705 = 4 * n;
-nctemp1698.d[0]=nctemp1705;
-nctemp1697=&nctemp1698;
-tmp=nctemp1697;
-int nctemp1710= El2d->fdvx;
-int nctemp1717 = 4 * n;
-int nctemp1712= nctemp1717;
-nctempchar1* nctemp1718= tmp;
-int nctemp1721=LibeWrite(nctemp1710,nctemp1712,nctemp1718);
-err =nctemp1721;
+nctempchar1 nctemp1722;
+nctempchar1 *nctemp1721;
+nctemp1722=*(nctempchar1*)(El2d->vx);
+int nctemp1729 = 4 * n;
+nctemp1722.d[0]=nctemp1729;
+nctemp1721=&nctemp1722;
+tmp=nctemp1721;
+int nctemp1734= El2d->fdvx;
+int nctemp1741 = 4 * n;
+int nctemp1736= nctemp1741;
+nctempchar1* nctemp1742= tmp;
+int nctemp1745=LibeWrite(nctemp1734,nctemp1736,nctemp1742);
+err =nctemp1745;
 }
 }
-int nctemp1725=2;
+int nctemp1749=2;
 if((0>2)||(2>=El2d->snpflags->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->snpflags %d %d %d %d \n " ,269,2,0,El2d->snpflags->d[0]-1);
 }
-int nctemp1722 = (El2d->snpflags->a[nctemp1725] ==1);
-if(nctemp1722)
+int nctemp1746 = (El2d->snpflags->a[nctemp1749] ==1);
+if(nctemp1746)
 {
 {
-nctempchar1 nctemp1734;
-nctempchar1 *nctemp1733;
-nctemp1734=*(nctempchar1*)(El2d->vy);
-int nctemp1741 = 4 * n;
-nctemp1734.d[0]=nctemp1741;
-nctemp1733=&nctemp1734;
-tmp=nctemp1733;
-int nctemp1743= El2d->fdvy;
-int nctemp1750 = 4 * n;
-int nctemp1745= nctemp1750;
-nctempchar1* nctemp1751= tmp;
-int nctemp1754=LibeWrite(nctemp1743,nctemp1745,nctemp1751);
+nctempchar1 nctemp1758;
+nctempchar1 *nctemp1757;
+nctemp1758=*(nctempchar1*)(El2d->vy);
+int nctemp1765 = 4 * n;
+nctemp1758.d[0]=nctemp1765;
+nctemp1757=&nctemp1758;
+tmp=nctemp1757;
+int nctemp1767= El2d->fdvy;
+int nctemp1774 = 4 * n;
+int nctemp1769= nctemp1774;
+nctempchar1* nctemp1775= tmp;
+int nctemp1778=LibeWrite(nctemp1767,nctemp1769,nctemp1775);
 }
 }
-int nctemp1758=3;
+int nctemp1782=3;
 if((0>3)||(3>=El2d->snpflags->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->snpflags %d %d %d %d \n " ,273,3,0,El2d->snpflags->d[0]-1);
 }
-int nctemp1755 = (El2d->snpflags->a[nctemp1758] ==1);
-if(nctemp1755)
+int nctemp1779 = (El2d->snpflags->a[nctemp1782] ==1);
+if(nctemp1779)
 {
 {
-nctempchar1 nctemp1767;
-nctempchar1 *nctemp1766;
-nctemp1767=*(nctempchar1*)(El2d->sigmaxx);
-int nctemp1774 = 4 * n;
-nctemp1767.d[0]=nctemp1774;
-nctemp1766=&nctemp1767;
-tmp=nctemp1766;
-int nctemp1776= El2d->fdsxx;
-int nctemp1783 = 4 * n;
-int nctemp1778= nctemp1783;
-nctempchar1* nctemp1784= tmp;
-int nctemp1787=LibeWrite(nctemp1776,nctemp1778,nctemp1784);
+nctempchar1 nctemp1791;
+nctempchar1 *nctemp1790;
+nctemp1791=*(nctempchar1*)(El2d->sigmaxx);
+int nctemp1798 = 4 * n;
+nctemp1791.d[0]=nctemp1798;
+nctemp1790=&nctemp1791;
+tmp=nctemp1790;
+int nctemp1800= El2d->fdsxx;
+int nctemp1807 = 4 * n;
+int nctemp1802= nctemp1807;
+nctempchar1* nctemp1808= tmp;
+int nctemp1811=LibeWrite(nctemp1800,nctemp1802,nctemp1808);
 }
 }
-int nctemp1791=4;
+int nctemp1815=4;
 if((0>4)||(4>=El2d->snpflags->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->snpflags %d %d %d %d \n " ,277,4,0,El2d->snpflags->d[0]-1);
 }
-int nctemp1788 = (El2d->snpflags->a[nctemp1791] ==1);
-if(nctemp1788)
+int nctemp1812 = (El2d->snpflags->a[nctemp1815] ==1);
+if(nctemp1812)
 {
 {
-nctempchar1 nctemp1800;
-nctempchar1 *nctemp1799;
-nctemp1800=*(nctempchar1*)(El2d->sigmayy);
-int nctemp1807 = 4 * n;
-nctemp1800.d[0]=nctemp1807;
-nctemp1799=&nctemp1800;
-tmp=nctemp1799;
-int nctemp1809= El2d->fdsyy;
-int nctemp1816 = 4 * n;
-int nctemp1811= nctemp1816;
-nctempchar1* nctemp1817= tmp;
-int nctemp1820=LibeWrite(nctemp1809,nctemp1811,nctemp1817);
+nctempchar1 nctemp1824;
+nctempchar1 *nctemp1823;
+nctemp1824=*(nctempchar1*)(El2d->sigmayy);
+int nctemp1831 = 4 * n;
+nctemp1824.d[0]=nctemp1831;
+nctemp1823=&nctemp1824;
+tmp=nctemp1823;
+int nctemp1833= El2d->fdsyy;
+int nctemp1840 = 4 * n;
+int nctemp1835= nctemp1840;
+nctempchar1* nctemp1841= tmp;
+int nctemp1844=LibeWrite(nctemp1833,nctemp1835,nctemp1841);
 }
 }
-int nctemp1824=5;
+int nctemp1848=5;
 if((0>5)||(5>=El2d->snpflags->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->snpflags %d %d %d %d \n " ,281,5,0,El2d->snpflags->d[0]-1);
 }
-int nctemp1821 = (El2d->snpflags->a[nctemp1824] ==1);
-if(nctemp1821)
+int nctemp1845 = (El2d->snpflags->a[nctemp1848] ==1);
+if(nctemp1845)
 {
 {
-nctempchar1 nctemp1833;
-nctempchar1 *nctemp1832;
-nctemp1833=*(nctempchar1*)(El2d->sigmaxy);
-int nctemp1840 = 4 * n;
-nctemp1833.d[0]=nctemp1840;
-nctemp1832=&nctemp1833;
-tmp=nctemp1832;
-int nctemp1842= El2d->fdsxy;
-int nctemp1849 = 4 * n;
-int nctemp1844= nctemp1849;
-nctempchar1* nctemp1850= tmp;
-int nctemp1853=LibeWrite(nctemp1842,nctemp1844,nctemp1850);
+nctempchar1 nctemp1857;
+nctempchar1 *nctemp1856;
+nctemp1857=*(nctempchar1*)(El2d->sigmaxy);
+int nctemp1864 = 4 * n;
+nctemp1857.d[0]=nctemp1864;
+nctemp1856=&nctemp1857;
+tmp=nctemp1856;
+int nctemp1866= El2d->fdsxy;
+int nctemp1873 = 4 * n;
+int nctemp1868= nctemp1873;
+nctempchar1* nctemp1874= tmp;
+int nctemp1877=LibeWrite(nctemp1866,nctemp1868,nctemp1874);
 }
 }
 }
@@ -2003,290 +2030,290 @@ int sy;
 float perc;
 int iperc;
 {
-int nctemp1859= l;
-struct diff* nctemp1861=DiffNew(nctemp1859);
-Diff =nctemp1861;
-int nctemp1868=Model->nx;
-nctemp1868=nctemp1868*Model->ny;
-nctempfloat2 *nctemp1867;
-nctemp1867=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp1867->d[0]=Model->nx;
-nctemp1867->d[1]=Model->ny;
-nctemp1867->a=(float *)RunMalloc(sizeof(float)*nctemp1868);
-tmp1=nctemp1867;
-int nctemp1879=Model->nx;
-nctemp1879=nctemp1879*Model->ny;
-nctempfloat2 *nctemp1878;
-nctemp1878=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp1878->d[0]=Model->nx;
-nctemp1878->d[1]=Model->ny;
-nctemp1878->a=(float *)RunMalloc(sizeof(float)*nctemp1879);
-tmp2=nctemp1878;
+int nctemp1883= l;
+struct diff* nctemp1885=DiffNew(nctemp1883);
+Diff =nctemp1885;
+int nctemp1892=Model->nx;
+nctemp1892=nctemp1892*Model->ny;
+nctempfloat2 *nctemp1891;
+nctemp1891=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp1891->d[0]=Model->nx;
+nctemp1891->d[1]=Model->ny;
+nctemp1891->a=(float *)RunMalloc(sizeof(float)*nctemp1892);
+tmp1=nctemp1891;
+int nctemp1903=Model->nx;
+nctemp1903=nctemp1903*Model->ny;
+nctempfloat2 *nctemp1902;
+nctemp1902=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp1902->d[0]=Model->nx;
+nctemp1902->d[1]=Model->ny;
+nctemp1902->a=(float *)RunMalloc(sizeof(float)*nctemp1903);
+tmp2=nctemp1902;
 oldperc =0.0;
 ns =El2d->ts;
-int nctemp1900 = ns + nt;
-ne =nctemp1900;
+int nctemp1924 = ns + nt;
+ne =nctemp1924;
 for(i = ns;i < ne;i = (i + 1)){
 {
-struct diff* nctemp1902= Diff;
-nctempfloat2* nctemp1904= El2d->sigmaxx;
-nctempfloat2* nctemp1907= El2d->exx;
-float nctemp1910= Model->dx;
-int nctemp1912=DiffDxplus(nctemp1902,nctemp1904,nctemp1907,nctemp1910);
-struct diff* nctemp1914= Diff;
-nctempfloat2* nctemp1916= El2d->sigmaxy;
-nctempfloat2* nctemp1919= El2d->exy;
-float nctemp1922= Model->dx;
-int nctemp1924=DiffDyminus(nctemp1914,nctemp1916,nctemp1919,nctemp1922);
-struct el2d* nctemp1926= El2d;
-struct model* nctemp1928= Model;
-int nctemp1930=El2dvx(nctemp1926,nctemp1928);
-struct diff* nctemp1932= Diff;
-nctempfloat2* nctemp1934= El2d->sigmayy;
-nctempfloat2* nctemp1937= El2d->eyy;
-float nctemp1940= Model->dx;
-int nctemp1942=DiffDyplus(nctemp1932,nctemp1934,nctemp1937,nctemp1940);
-struct diff* nctemp1944= Diff;
-nctempfloat2* nctemp1946= El2d->sigmaxy;
-nctempfloat2* nctemp1949= El2d->eyx;
-float nctemp1952= Model->dx;
-int nctemp1954=DiffDxminus(nctemp1944,nctemp1946,nctemp1949,nctemp1952);
-struct el2d* nctemp1956= El2d;
-struct model* nctemp1958= Model;
-int nctemp1960=El2dvy(nctemp1956,nctemp1958);
-struct diff* nctemp1962= Diff;
-nctempfloat2* nctemp1964= El2d->vx;
-nctempfloat2* nctemp1967= El2d->exx;
-float nctemp1970= Model->dx;
-int nctemp1972=DiffDxminus(nctemp1962,nctemp1964,nctemp1967,nctemp1970);
-struct diff* nctemp1974= Diff;
-nctempfloat2* nctemp1976= El2d->vy;
-nctempfloat2* nctemp1979= El2d->eyy;
-float nctemp1982= Model->dx;
-int nctemp1984=DiffDyminus(nctemp1974,nctemp1976,nctemp1979,nctemp1982);
+struct diff* nctemp1926= Diff;
+nctempfloat2* nctemp1928= El2d->sigmaxx;
+nctempfloat2* nctemp1931= El2d->exx;
+float nctemp1934= Model->dx;
+int nctemp1936=DiffDxplus(nctemp1926,nctemp1928,nctemp1931,nctemp1934);
+struct diff* nctemp1938= Diff;
+nctempfloat2* nctemp1940= El2d->sigmaxy;
+nctempfloat2* nctemp1943= El2d->exy;
+float nctemp1946= Model->dx;
+int nctemp1948=DiffDyminus(nctemp1938,nctemp1940,nctemp1943,nctemp1946);
+struct el2d* nctemp1950= El2d;
+struct model* nctemp1952= Model;
+int nctemp1954=El2dvx(nctemp1950,nctemp1952);
+struct diff* nctemp1956= Diff;
+nctempfloat2* nctemp1958= El2d->sigmayy;
+nctempfloat2* nctemp1961= El2d->eyy;
+float nctemp1964= Model->dx;
+int nctemp1966=DiffDyplus(nctemp1956,nctemp1958,nctemp1961,nctemp1964);
+struct diff* nctemp1968= Diff;
+nctempfloat2* nctemp1970= El2d->sigmaxy;
+nctempfloat2* nctemp1973= El2d->eyx;
+float nctemp1976= Model->dx;
+int nctemp1978=DiffDxminus(nctemp1968,nctemp1970,nctemp1973,nctemp1976);
+struct el2d* nctemp1980= El2d;
+struct model* nctemp1982= Model;
+int nctemp1984=El2dvy(nctemp1980,nctemp1982);
 struct diff* nctemp1986= Diff;
-nctempfloat2* nctemp1988= El2d->vy;
-nctempfloat2* nctemp1991= El2d->eyx;
+nctempfloat2* nctemp1988= El2d->vx;
+nctempfloat2* nctemp1991= El2d->exx;
 float nctemp1994= Model->dx;
-int nctemp1996=DiffDxplus(nctemp1986,nctemp1988,nctemp1991,nctemp1994);
+int nctemp1996=DiffDxminus(nctemp1986,nctemp1988,nctemp1991,nctemp1994);
 struct diff* nctemp1998= Diff;
-nctempfloat2* nctemp2000= El2d->vx;
-nctempfloat2* nctemp2003= El2d->exy;
+nctempfloat2* nctemp2000= El2d->vy;
+nctempfloat2* nctemp2003= El2d->eyy;
 float nctemp2006= Model->dx;
-int nctemp2008=DiffDyplus(nctemp1998,nctemp2000,nctemp2003,nctemp2006);
-struct el2d* nctemp2010= El2d;
-struct model* nctemp2012= Model;
-int nctemp2014=El2dstress(nctemp2010,nctemp2012);
+int nctemp2008=DiffDyminus(nctemp1998,nctemp2000,nctemp2003,nctemp2006);
+struct diff* nctemp2010= Diff;
+nctempfloat2* nctemp2012= El2d->vy;
+nctempfloat2* nctemp2015= El2d->eyx;
+float nctemp2018= Model->dx;
+int nctemp2020=DiffDxplus(nctemp2010,nctemp2012,nctemp2015,nctemp2018);
+struct diff* nctemp2022= Diff;
+nctempfloat2* nctemp2024= El2d->vx;
+nctempfloat2* nctemp2027= El2d->exy;
+float nctemp2030= Model->dx;
+int nctemp2032=DiffDyplus(nctemp2022,nctemp2024,nctemp2027,nctemp2030);
+struct el2d* nctemp2034= El2d;
+struct model* nctemp2036= Model;
+int nctemp2038=El2dstress(nctemp2034,nctemp2036);
 for(k = 0;k < Src->Ns;k = (k + 1)){
 {
-int nctemp2019=k;
+int nctemp2043=k;
 if((0>k)||(k>=Src->Sx->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Src->Sx %d %d %d %d \n " ,356,k,0,Src->Sx->d[0]-1);
 }
-sx =Src->Sx->a[nctemp2019];
-int nctemp2025=k;
+sx =Src->Sx->a[nctemp2043];
+int nctemp2049=k;
 if((0>k)||(k>=Src->Sy->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Src->Sy %d %d %d %d \n " ,357,k,0,Src->Sy->d[0]-1);
 }
-sy =Src->Sy->a[nctemp2025];
-int nctemp2030=sx;
+sy =Src->Sy->a[nctemp2049];
+int nctemp2054=sx;
 if((0>sx)||(sx>=El2d->sigmaxx->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->sigmaxx %d %d %d %d \n " ,358,sx,0,El2d->sigmaxx->d[0]-1);
 }
-nctemp2030=sy*El2d->sigmaxx->d[0]+nctemp2030;
+nctemp2054=sy*El2d->sigmaxx->d[0]+nctemp2054;
 if((0>sy)||(sy>=El2d->sigmaxx->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->sigmaxx %d %d %d %d \n " ,358,sy,1,El2d->sigmaxx->d[1]-1);
 }
-int nctemp2037=sx;
+int nctemp2061=sx;
 if((0>sx)||(sx>=El2d->sigmaxx->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->sigmaxx %d %d %d %d \n " ,358,sx,0,El2d->sigmaxx->d[0]-1);
 }
-nctemp2037=sy*El2d->sigmaxx->d[0]+nctemp2037;
+nctemp2061=sy*El2d->sigmaxx->d[0]+nctemp2061;
 if((0>sy)||(sy>=El2d->sigmaxx->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->sigmaxx %d %d %d %d \n " ,358,sy,1,El2d->sigmaxx->d[1]-1);
 }
-int nctemp2048=i;
+int nctemp2072=i;
 if((0>i)||(i>=Src->Sqxx->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Src->Sqxx %d %d %d %d \n " ,359,i,0,Src->Sqxx->d[0]-1);
 }
-nctemp2048=k*Src->Sqxx->d[0]+nctemp2048;
+nctemp2072=k*Src->Sqxx->d[0]+nctemp2072;
 if((0>k)||(k>=Src->Sqxx->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Src->Sqxx %d %d %d %d \n " ,359,k,1,Src->Sqxx->d[1]-1);
 }
-float nctemp2056 = Model->dx * Model->dx;
-float nctemp2057 = Src->Sqxx->a[nctemp2048] / nctemp2056;
-float nctemp2058 = Model->dt * nctemp2057;
-float nctemp2059 = El2d->sigmaxx->a[nctemp2037] + nctemp2058;
-El2d->sigmaxx->a[nctemp2030] =nctemp2059;
-int nctemp2063=sx;
+float nctemp2080 = Model->dx * Model->dx;
+float nctemp2081 = Src->Sqxx->a[nctemp2072] / nctemp2080;
+float nctemp2082 = Model->dt * nctemp2081;
+float nctemp2083 = El2d->sigmaxx->a[nctemp2061] + nctemp2082;
+El2d->sigmaxx->a[nctemp2054] =nctemp2083;
+int nctemp2087=sx;
 if((0>sx)||(sx>=El2d->sigmayy->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->sigmayy %d %d %d %d \n " ,360,sx,0,El2d->sigmayy->d[0]-1);
 }
-nctemp2063=sy*El2d->sigmayy->d[0]+nctemp2063;
+nctemp2087=sy*El2d->sigmayy->d[0]+nctemp2087;
 if((0>sy)||(sy>=El2d->sigmayy->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->sigmayy %d %d %d %d \n " ,360,sy,1,El2d->sigmayy->d[1]-1);
 }
-int nctemp2070=sx;
+int nctemp2094=sx;
 if((0>sx)||(sx>=El2d->sigmayy->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->sigmayy %d %d %d %d \n " ,360,sx,0,El2d->sigmayy->d[0]-1);
 }
-nctemp2070=sy*El2d->sigmayy->d[0]+nctemp2070;
+nctemp2094=sy*El2d->sigmayy->d[0]+nctemp2094;
 if((0>sy)||(sy>=El2d->sigmayy->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->sigmayy %d %d %d %d \n " ,360,sy,1,El2d->sigmayy->d[1]-1);
 }
-int nctemp2081=i;
+int nctemp2105=i;
 if((0>i)||(i>=Src->Sqyy->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Src->Sqyy %d %d %d %d \n " ,361,i,0,Src->Sqyy->d[0]-1);
 }
-nctemp2081=k*Src->Sqyy->d[0]+nctemp2081;
+nctemp2105=k*Src->Sqyy->d[0]+nctemp2105;
 if((0>k)||(k>=Src->Sqyy->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Src->Sqyy %d %d %d %d \n " ,361,k,1,Src->Sqyy->d[1]-1);
 }
-float nctemp2089 = Model->dx * Model->dx;
-float nctemp2090 = Src->Sqyy->a[nctemp2081] / nctemp2089;
-float nctemp2091 = Model->dt * nctemp2090;
-float nctemp2092 = El2d->sigmayy->a[nctemp2070] + nctemp2091;
-El2d->sigmayy->a[nctemp2063] =nctemp2092;
-int nctemp2096=sx;
+float nctemp2113 = Model->dx * Model->dx;
+float nctemp2114 = Src->Sqyy->a[nctemp2105] / nctemp2113;
+float nctemp2115 = Model->dt * nctemp2114;
+float nctemp2116 = El2d->sigmayy->a[nctemp2094] + nctemp2115;
+El2d->sigmayy->a[nctemp2087] =nctemp2116;
+int nctemp2120=sx;
 if((0>sx)||(sx>=El2d->sigmayy->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->sigmayy %d %d %d %d \n " ,362,sx,0,El2d->sigmayy->d[0]-1);
 }
-nctemp2096=sy*El2d->sigmayy->d[0]+nctemp2096;
+nctemp2120=sy*El2d->sigmayy->d[0]+nctemp2120;
 if((0>sy)||(sy>=El2d->sigmayy->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->sigmayy %d %d %d %d \n " ,362,sy,1,El2d->sigmayy->d[1]-1);
 }
-int nctemp2103=sx;
+int nctemp2127=sx;
 if((0>sx)||(sx>=El2d->sigmaxy->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->sigmaxy %d %d %d %d \n " ,362,sx,0,El2d->sigmaxy->d[0]-1);
 }
-nctemp2103=sy*El2d->sigmaxy->d[0]+nctemp2103;
+nctemp2127=sy*El2d->sigmaxy->d[0]+nctemp2127;
 if((0>sy)||(sy>=El2d->sigmaxy->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->sigmaxy %d %d %d %d \n " ,362,sy,1,El2d->sigmaxy->d[1]-1);
 }
-int nctemp2114=i;
+int nctemp2138=i;
 if((0>i)||(i>=Src->Sqxy->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Src->Sqxy %d %d %d %d \n " ,363,i,0,Src->Sqxy->d[0]-1);
 }
-nctemp2114=k*Src->Sqxy->d[0]+nctemp2114;
+nctemp2138=k*Src->Sqxy->d[0]+nctemp2138;
 if((0>k)||(k>=Src->Sqxy->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Src->Sqxy %d %d %d %d \n " ,363,k,1,Src->Sqxy->d[1]-1);
 }
-float nctemp2122 = Model->dx * Model->dx;
-float nctemp2123 = Src->Sqxy->a[nctemp2114] / nctemp2122;
-float nctemp2124 = Model->dt * nctemp2123;
-float nctemp2125 = El2d->sigmaxy->a[nctemp2103] + nctemp2124;
-El2d->sigmayy->a[nctemp2096] =nctemp2125;
-int nctemp2129=sx;
+float nctemp2146 = Model->dx * Model->dx;
+float nctemp2147 = Src->Sqxy->a[nctemp2138] / nctemp2146;
+float nctemp2148 = Model->dt * nctemp2147;
+float nctemp2149 = El2d->sigmaxy->a[nctemp2127] + nctemp2148;
+El2d->sigmayy->a[nctemp2120] =nctemp2149;
+int nctemp2153=sx;
 if((0>sx)||(sx>=El2d->vx->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->vx %d %d %d %d \n " ,364,sx,0,El2d->vx->d[0]-1);
 }
-nctemp2129=sy*El2d->vx->d[0]+nctemp2129;
+nctemp2153=sy*El2d->vx->d[0]+nctemp2153;
 if((0>sy)||(sy>=El2d->vx->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->vx %d %d %d %d \n " ,364,sy,1,El2d->vx->d[1]-1);
 }
-int nctemp2136=sx;
+int nctemp2160=sx;
 if((0>sx)||(sx>=El2d->vx->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->vx %d %d %d %d \n " ,364,sx,0,El2d->vx->d[0]-1);
 }
-nctemp2136=sy*El2d->vx->d[0]+nctemp2136;
+nctemp2160=sy*El2d->vx->d[0]+nctemp2160;
 if((0>sy)||(sy>=El2d->vx->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->vx %d %d %d %d \n " ,364,sy,1,El2d->vx->d[1]-1);
 }
-int nctemp2147=i;
+int nctemp2171=i;
 if((0>i)||(i>=Src->Sfx->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Src->Sfx %d %d %d %d \n " ,365,i,0,Src->Sfx->d[0]-1);
 }
-nctemp2147=k*Src->Sfx->d[0]+nctemp2147;
+nctemp2171=k*Src->Sfx->d[0]+nctemp2171;
 if((0>k)||(k>=Src->Sfx->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Src->Sfx %d %d %d %d \n " ,365,k,1,Src->Sfx->d[1]-1);
 }
-float nctemp2155 = Model->dx * Model->dx;
-float nctemp2156 = Src->Sfx->a[nctemp2147] / nctemp2155;
-float nctemp2157 = Model->dt * nctemp2156;
-float nctemp2158 = El2d->vx->a[nctemp2136] + nctemp2157;
-El2d->vx->a[nctemp2129] =nctemp2158;
-int nctemp2162=sx;
+float nctemp2179 = Model->dx * Model->dx;
+float nctemp2180 = Src->Sfx->a[nctemp2171] / nctemp2179;
+float nctemp2181 = Model->dt * nctemp2180;
+float nctemp2182 = El2d->vx->a[nctemp2160] + nctemp2181;
+El2d->vx->a[nctemp2153] =nctemp2182;
+int nctemp2186=sx;
 if((0>sx)||(sx>=El2d->vy->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->vy %d %d %d %d \n " ,366,sx,0,El2d->vy->d[0]-1);
 }
-nctemp2162=sy*El2d->vy->d[0]+nctemp2162;
+nctemp2186=sy*El2d->vy->d[0]+nctemp2186;
 if((0>sy)||(sy>=El2d->vy->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->vy %d %d %d %d \n " ,366,sy,1,El2d->vy->d[1]-1);
 }
-int nctemp2169=sx;
+int nctemp2193=sx;
 if((0>sx)||(sx>=El2d->vy->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->vy %d %d %d %d \n " ,366,sx,0,El2d->vy->d[0]-1);
 }
-nctemp2169=sy*El2d->vy->d[0]+nctemp2169;
+nctemp2193=sy*El2d->vy->d[0]+nctemp2193;
 if((0>sy)||(sy>=El2d->vy->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e El2d->vy %d %d %d %d \n " ,366,sy,1,El2d->vy->d[1]-1);
 }
-int nctemp2180=i;
+int nctemp2204=i;
 if((0>i)||(i>=Src->Sfy->d[0])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Src->Sfy %d %d %d %d \n " ,367,i,0,Src->Sfy->d[0]-1);
 }
-nctemp2180=k*Src->Sfy->d[0]+nctemp2180;
+nctemp2204=k*Src->Sfy->d[0]+nctemp2204;
 if((0>k)||(k>=Src->Sfy->d[1])){
 printf("***Out of bounds error (file,array,line,index,rank,bound:el2d.e Src->Sfy %d %d %d %d \n " ,367,k,1,Src->Sfy->d[1]-1);
 }
-float nctemp2188 = Model->dx * Model->dx;
-float nctemp2189 = Src->Sfy->a[nctemp2180] / nctemp2188;
-float nctemp2190 = Model->dt * nctemp2189;
-float nctemp2191 = El2d->vy->a[nctemp2169] + nctemp2190;
-El2d->vy->a[nctemp2162] =nctemp2191;
+float nctemp2212 = Model->dx * Model->dx;
+float nctemp2213 = Src->Sfy->a[nctemp2204] / nctemp2212;
+float nctemp2214 = Model->dt * nctemp2213;
+float nctemp2215 = El2d->vy->a[nctemp2193] + nctemp2214;
+El2d->vy->a[nctemp2186] =nctemp2215;
 }
 }
-float nctemp2203=(float)(i);
-int nctemp2216 = ne - ns;
-int nctemp2218 = nctemp2216 - 1;
-float nctemp2207=(float)(nctemp2218);
-float nctemp2219 = nctemp2203 / nctemp2207;
-float nctemp2220 = 1000.0 * nctemp2219;
-perc =nctemp2220;
-float nctemp2228 = perc - oldperc;
-int nctemp2221 = (nctemp2228 >= 10.0);
-if(nctemp2221)
+float nctemp2227=(float)(i);
+int nctemp2240 = ne - ns;
+int nctemp2242 = nctemp2240 - 1;
+float nctemp2231=(float)(nctemp2242);
+float nctemp2243 = nctemp2227 / nctemp2231;
+float nctemp2244 = 1000.0 * nctemp2243;
+perc =nctemp2244;
+float nctemp2252 = perc - oldperc;
+int nctemp2245 = (nctemp2252 >= 10.0);
+if(nctemp2245)
 {
 {
-int nctemp2237=(int)(perc);
-int nctemp2241 = nctemp2237 / 10;
-iperc =nctemp2241;
-int nctemp2245= iperc;
-int nctemp2247= 10;
-int nctemp2249=LibeMod(nctemp2245,nctemp2247);
-int nctemp2242 = (nctemp2249 ==0);
-if(nctemp2242)
+int nctemp2261=(int)(perc);
+int nctemp2265 = nctemp2261 / 10;
+iperc =nctemp2265;
+int nctemp2269= iperc;
+int nctemp2271= 10;
+int nctemp2273=LibeMod(nctemp2269,nctemp2271);
+int nctemp2266 = (nctemp2273 ==0);
+if(nctemp2266)
 {
 {
-int nctemp2252= 4;
-struct nctempchar1 *nctemp2256;
-static struct nctempchar1 nctemp2257 = {{ 20}, (char*)"percent completed: \0"};
-nctemp2256=&nctemp2257;
-nctempchar1* nctemp2254= nctemp2256;
-int nctemp2258=LibePuts(nctemp2252,nctemp2254);
-int nctemp2260= 4;
-int nctemp2262= iperc;
-int nctemp2264=LibePuti(nctemp2260,nctemp2262);
-int nctemp2266= 4;
-struct nctempchar1 *nctemp2270;
-static struct nctempchar1 nctemp2271 = {{ 3}, (char*)"\n\0"};
-nctemp2270=&nctemp2271;
-nctempchar1* nctemp2268= nctemp2270;
-int nctemp2272=LibePuts(nctemp2266,nctemp2268);
-int nctemp2274= 4;
-int nctemp2276=LibeFlush(nctemp2274);
+int nctemp2276= 4;
+struct nctempchar1 *nctemp2280;
+static struct nctempchar1 nctemp2281 = {{ 20}, (char*)"percent completed: \0"};
+nctemp2280=&nctemp2281;
+nctempchar1* nctemp2278= nctemp2280;
+int nctemp2282=LibePuts(nctemp2276,nctemp2278);
+int nctemp2284= 4;
+int nctemp2286= iperc;
+int nctemp2288=LibePuti(nctemp2284,nctemp2286);
+int nctemp2290= 4;
+struct nctempchar1 *nctemp2294;
+static struct nctempchar1 nctemp2295 = {{ 3}, (char*)"\n\0"};
+nctemp2294=&nctemp2295;
+nctempchar1* nctemp2292= nctemp2294;
+int nctemp2296=LibePuts(nctemp2290,nctemp2292);
+int nctemp2298= 4;
+int nctemp2300=LibeFlush(nctemp2298);
 }
 }
 oldperc =perc;
 }
 }
-struct el2d* nctemp2282= El2d;
-int nctemp2284= i;
-int nctemp2286=El2dSnap(nctemp2282,nctemp2284);
+struct el2d* nctemp2306= El2d;
+int nctemp2308= i;
+int nctemp2310=El2dSnap(nctemp2306,nctemp2308);
 }
 }
-int nctemp2295 = El2d->ts + ne;
-El2d->ts =nctemp2295;
+int nctemp2319 = El2d->ts + ne;
+El2d->ts =nctemp2319;
 return 1;
 }
 }
