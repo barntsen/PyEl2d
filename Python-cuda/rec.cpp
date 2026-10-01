@@ -239,12 +239,21 @@ if(nctemp101)
 {
 {
 Rec->p->a[Rec->pit+Rec->p->d[0]*(pos)] = field->a[ixr+field->d[0]*(iyr)];
+int nctemp108=ixr;
+nctemp108=iyr*field->d[0]+nctemp108;
+float nctemp106= field->a[nctemp108];
+int nctemp111=LibePf(nctemp106);
+struct nctempchar1 *nctemp115;
+static struct nctempchar1 nctemp116 = {{ 3}, (char*)"\n\0"};
+nctemp115=&nctemp116;
+nctempchar1* nctemp113= nctemp115;
+int nctemp117=LibePs(nctemp113);
 }
 }
 else{
 {
-int nctemp105 = (dtype ==2);
-if(nctemp105)
+int nctemp118 = (dtype ==2);
+if(nctemp118)
 {
 {
 Rec->vx->a[Rec->pit+Rec->vx->d[0]*(pos)] = field->a[ixr+field->d[0]*(iyr)];
@@ -252,8 +261,8 @@ Rec->vx->a[Rec->pit+Rec->vx->d[0]*(pos)] = field->a[ixr+field->d[0]*(iyr)];
 }
 else{
 {
-int nctemp109 = (dtype ==3);
-if(nctemp109)
+int nctemp122 = (dtype ==3);
+if(nctemp122)
 {
 {
 Rec->vy->a[Rec->pit+Rec->vy->d[0]*(pos)] = field->a[ixr+field->d[0]*(iyr)];
@@ -261,8 +270,8 @@ Rec->vy->a[Rec->pit+Rec->vy->d[0]*(pos)] = field->a[ixr+field->d[0]*(iyr)];
 }
 else{
 {
-int nctemp113 = (dtype ==4);
-if(nctemp113)
+int nctemp126 = (dtype ==4);
+if(nctemp126)
 {
 {
 Rec->sxx->a[Rec->pit+Rec->sxx->d[0]*(pos)] = field->a[ixr+field->d[0]*(iyr)];
@@ -270,8 +279,8 @@ Rec->sxx->a[Rec->pit+Rec->sxx->d[0]*(pos)] = field->a[ixr+field->d[0]*(iyr)];
 }
 else{
 {
-int nctemp117 = (dtype ==5);
-if(nctemp117)
+int nctemp130 = (dtype ==5);
+if(nctemp130)
 {
 {
 Rec->syy->a[Rec->pit+Rec->syy->d[0]*(pos)] = field->a[ixr+field->d[0]*(iyr)];
@@ -279,8 +288,8 @@ Rec->syy->a[Rec->pit+Rec->syy->d[0]*(pos)] = field->a[ixr+field->d[0]*(iyr)];
 }
 else{
 {
-int nctemp121 = (dtype ==6);
-if(nctemp121)
+int nctemp134 = (dtype ==6);
+if(nctemp134)
 {
 {
 Rec->sxy->a[Rec->pit+Rec->sxy->d[0]*(pos)] = field->a[ixr+field->d[0]*(iyr)];
@@ -309,64 +318,111 @@ Rec->pit = (Rec->pit + 1);
 return 1;
 }
 }
-nctempfloat2 * RecGetrec (struct rec* Rec,int data)
+int RecCopy (nctempfloat2 *a,nctempfloat2 *b)
+{
+int i;
+int j;
+{
+i =0;
+int nctemp148=a->d[0];int nctemp144 = (i < nctemp148);
+while(nctemp144){
 {
 {
-int nctemp127 = (data ==0);
-if(nctemp127)
+j =0;
+int nctemp160=a->d[1];int nctemp156 = (j < nctemp160);
+while(nctemp156){
 {
 {
-return Rec->p;
+b->a[i+b->d[0]*(j)] = a->a[i+a->d[0]*(j)];
+}
+}
+int nctemp172 = j + 1;
+j =nctemp172;
+int nctemp177=a->d[1];int nctemp173 = (j < nctemp177);
+nctemp156=nctemp173;
+}
+}
+}
+int nctemp189 = i + 1;
+i =nctemp189;
+int nctemp194=a->d[0];int nctemp190 = (i < nctemp194);
+nctemp144=nctemp190;
+}
+return 1;
+}
+}
+int RecGetrec (struct rec* Rec,nctempfloat2 *data,int type)
+{
+{
+int nctemp199 = (type ==0);
+if(nctemp199)
+{
+{
+nctempfloat2* nctemp204= Rec->p;
+nctempfloat2* nctemp207= data;
+int nctemp210=RecCopy(nctemp204,nctemp207);
 }
 }
 else{
 {
-int nctemp133 = (data ==1);
-if(nctemp133)
+int nctemp211 = (type ==1);
+if(nctemp211)
 {
 {
-return Rec->vx;
+nctempfloat2* nctemp216= Rec->vx;
+nctempfloat2* nctemp219= data;
+int nctemp222=RecCopy(nctemp216,nctemp219);
 }
 }
 else{
 {
-int nctemp139 = (data ==2);
-if(nctemp139)
+int nctemp223 = (type ==2);
+if(nctemp223)
 {
 {
-return Rec->vy;
+nctempfloat2* nctemp228= Rec->vy;
+nctempfloat2* nctemp231= data;
+int nctemp234=RecCopy(nctemp228,nctemp231);
 }
 }
 else{
 {
-int nctemp145 = (data ==3);
-if(nctemp145)
+int nctemp235 = (type ==3);
+if(nctemp235)
 {
 {
-return Rec->sxx;
+nctempfloat2* nctemp240= Rec->sxx;
+nctempfloat2* nctemp243= data;
+int nctemp246=RecCopy(nctemp240,nctemp243);
 }
 }
 else{
 {
-int nctemp151 = (data ==4);
-if(nctemp151)
+int nctemp247 = (type ==4);
+if(nctemp247)
 {
 {
-return Rec->syy;
+nctempfloat2* nctemp252= Rec->syy;
+nctempfloat2* nctemp255= data;
+int nctemp258=RecCopy(nctemp252,nctemp255);
 }
 }
 else{
 {
-int nctemp157 = (data ==5);
-if(nctemp157)
+int nctemp259 = (type ==5);
+if(nctemp259)
 {
 {
-return Rec->sxy;
+nctempfloat2* nctemp264= Rec->sxy;
+nctempfloat2* nctemp267= data;
+int nctemp270=RecCopy(nctemp264,nctemp267);
 }
 }
 else{
 {
-return Rec->p;
+nctempfloat2* nctemp272= Rec->p;
+nctempfloat2* nctemp275= data;
+int nctemp278=RecCopy(nctemp272,nctemp275);
 }
 }
 }
@@ -379,6 +435,7 @@ return Rec->p;
 }
 }
 }
+return 1;
 }
 }
 };

@@ -144,21 +144,21 @@ e.solve(e.el,m.mod,src.sr,par.nt,rec.re,par.l)
 tsolve = time.perf_counter()-t1
 
 # Get data
-#dtype=0
-#data = rec.getrec(rec.re,dtype)
-#print("data dimensions: ", data.shape)
-#fd=ba.bin("p.bin",'w')
-#fd.write(data)
+dtype=0
+data = rec.getrec(rec.re,dtype)
+print("data dimensions: ", data.shape)
+fd=ba.bin("p.bin",'w')
+fd.write(data)
 
-#dtype=1
-#data = rec.getrec(pyel2d,dtype)
-#fd=ba.bin("vx.bin",'w')
-#fd.write(data)
+dtype=1
+data = rec.getrec(rec.re,dtype)
+fd=ba.bin("vx.bin",'w')
+fd.write(data)
 
-#dtype=2
-#data = rec.getrec(pyel2d,dtype)
-#fd=ba.bin("vy.bin",'w')
-#fd.write(data)
+dtype=2
+data = rec.getrec(rec.re,dtype)
+fd=ba.bin("vy.bin",'w')
+fd.write(data)
 
 # Log wall clock time and date
 now = datetime.now()

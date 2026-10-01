@@ -72,6 +72,8 @@ def int RecReceiver(struct rec Rec, int it, float [*,*] field, int dtype):
       iyr=Rec.ry[pos]
       if(dtype == 1) :
         Rec.p[Rec.pit,pos]   = field[ixr,iyr]
+        LibePf(field[ixr,iyr])
+        LibePs("\n")
       elif(dtype == 2) :
         Rec.vx[Rec.pit,pos]  = field[ixr,iyr]
       elif(dtype == 3) :
@@ -89,32 +91,49 @@ def int RecReceiver(struct rec Rec, int it, float [*,*] field, int dtype):
   
   return(OK)
 
+def int RecCopy(float [*,*] a, float [*,*] b):
+  
+  # Copy data from a  into b
+  #
+  # Parameters:
+  #   a : Input array
+  #   b : Output array
+  #
+  # Returns: OK
 
-def float [*,*] RecGetrec(struct rec Rec, int data):
+  for i in range(0,len(a,0)):
+    for j in range(0,len(a,1)):
+      b[i,j]=a[i,j]
+    
+  return(OK)
+
+def int RecGetrec(struct rec Rec, float [*,*] data, int type):
 
   # RecGetrec retrieves the recorded data
   #
   # Arguments: 
   #  Rec:    : Receiver object
-  #  data    : =0 for  p
-  #  data    : =1 for vx velocity particle velocity x-comp.
-  #  data    : =2 for vy velocity particle velocity y-comp.
-  #  data    : =3 for sxx stress 
-  #  data    : =4 for syy stress 
-  #  data    : =5 for sxy stress 
-  #  data    :  p in all other cases
+  #  type    : =0 for  p
+  #  type    : =1 for vx velocity particle velocity x-comp.
+  #  type    : =2 for vy velocity particle velocity y-comp.
+  #  type    : =3 for sxx stress 
+  #  type    : =4 for syy stress 
+  #  type    : =5 for sxy stress 
+  #  type    :  p in all other cases
  
-  if(data == 0):
-    return(Rec.p)
-  elif(data == 1):
-    return(Rec.vx)
-  elif(data == 2):
-    return(Rec.vy)
-  elif(data == 3):
-    return(Rec.sxx)
-  elif(data == 4):
-    return(Rec.syy)
-  elif(data == 5):
-    return(Rec.sxy)
+  if(type == 1):
+    RecCopy(Rec.p,data)
+  elif(type == 2):
+    RecCopy(Rec.vx,data)
+  elif(type == 3):
+    RecCopy(Rec.vy,data)
+  elif(type == 4):
+    RecCopy(Rec.sxx,data)
+  elif(type == 5):
+    RecCopy(Rec.syy,data)
+  elif(type == 6):
+    RecCopy(Rec.sxy,data)
   else :
-    return(Rec.p)
+    RecCopy(Rec.p,data)
+
+  return(OK)

@@ -22,10 +22,23 @@ def RecReceiver(Rec,it,field,dtype):
  field=pyeps.num2df(field_eps)
  rval=r_val
  return rval
-def RecGetrec(Rec,data):
+def RecCopy(a,b):
  pylib=config.pylib
- pylib.RecGetrec.argtypes =[c_void_p,c_int]
- pylib.RecGetrec.restype=c_void_p
- r_val=pylib.RecGetrec(Rec,data)
- rval=pyeps.num2df(r_val)
+ pylib.RecCopy.argtypes =[c_void_p,c_void_p]
+ pylib.RecCopy.restype=int
+ a_eps=pyeps.eps2df(a)
+ b_eps=pyeps.eps2df(b)
+ r_val=pylib.RecCopy(a_eps,b_eps)
+ a=pyeps.num2df(a_eps)
+ b=pyeps.num2df(b_eps)
+ rval=r_val
+ return rval
+def RecGetrec(Rec,data,type):
+ pylib=config.pylib
+ pylib.RecGetrec.argtypes =[c_void_p,c_void_p,c_int]
+ pylib.RecGetrec.restype=int
+ data_eps=pyeps.eps2df(data)
+ r_val=pylib.RecGetrec(Rec,data_eps,type)
+ data=pyeps.num2df(data_eps)
+ rval=r_val
  return rval

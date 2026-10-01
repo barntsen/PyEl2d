@@ -73,7 +73,6 @@ def struct el2d El2dNew(struct model Model, int sresamp, int [*] snpflags):
   El2d.eyy=new(float [Model.nx,Model.ny]) 
   El2d.exy=new(float [Model.nx,Model.ny]) 
   El2d.eyx=new(float [Model.nx,Model.ny]) 
-  El2d.e=new(float [Model.nx,Model.ny]) 
   El2d.gammax=new(float [Model.nx,Model.ny]) 
   El2d.gammay=new(float [Model.nx,Model.ny]) 
   El2d.alphax=new(float [Model.nx,Model.ny]) 
@@ -379,20 +378,25 @@ def int El2dSolve(struct el2d El2d, struct model Model, struct src Src, \
       oldperc=perc 
 
     #Record wavefield
-    #if(Rec != NULL) :
-    #  RecReceiver(Rec,i,El2d.p,dtype=1)  
-    #  RecReceiver(Rec,i,El2d.vx,dtype=2)  
-    #  RecReceiver(Rec,i,El2d.vy,dtype=3)  
-    #  RecReceiver(Rec,i,El2d.sigmaxx,dtype=4)  
-    #  RecReceiver(Rec,i,El2d.sigmayy,dtype=5)  
-    #  RecReceiver(Rec,i,El2d.sigmaxy,dtype=6)  
+    if(Rec != NULL) :
+      RecReceiver(Rec,i,El2d.p,dtype=1)  
+      RecReceiver(Rec,i,El2d.vx,dtype=2)  
+      RecReceiver(Rec,i,El2d.vy,dtype=3)  
+      RecReceiver(Rec,i,El2d.sigmaxx,dtype=4)  
+      RecReceiver(Rec,i,El2d.sigmayy,dtype=5)  
+      RecReceiver(Rec,i,El2d.sigmaxy,dtype=6)  
 
     # Record Snapshots
     El2dSnap(El2d,i) 
 
   # Update the time variable
   El2d.ts = El2d.ts+ne 
+  #DEBUG
+  #for k in range(0,Model.nx):
+  #  for l in range(0,Model.ny):
+  #    LibePf(Rec.p[k,l])
+  #    LibePs("\n")
 
-  return(1) 
+  return(OK) 
 
 

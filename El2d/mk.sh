@@ -32,7 +32,7 @@ fi
 
 # Compile c code
 if  test $cc = c ; then
-  opt=" -C -x cpu "
+  opt=" -x cpu "
   path=../Python-c
   ec  $opt -c   model.e
   cp         model.c $path

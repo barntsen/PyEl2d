@@ -1,4 +1,4 @@
-//  Translated by epsc  version: Tue Sep 29 12:51:09 2026
+//  Translated by epsc  version: Tue Sep 29 21:19:03 2026
 
 #include <stddef.h>
 #include <stdio.h>
@@ -8,8 +8,6 @@ typedef struct nctempfloat1 { int d[1]; float *a;} nctempfloat1;
 typedef struct nctempint1 { int d[1]; int *a;} nctempint1; 
 typedef struct nctempchar1 { int d[1]; char *a;} nctempchar1; 
 typedef struct nctempcomplex1 { int d[1]; complex *a;} nctempcomplex1; 
-static struct nctempchar1 nctempstringx = {0, NULL};
-static struct nctempchar1 *nctempstring = &nctempstringx;
 typedef struct nctempfloat2 { int d[2]; float *a;} nctempfloat2; 
 typedef struct nctempint2 { int d[2]; int *a;} nctempint2; 
 typedef struct nctempchar2 { int d[2]; char *a;} nctempchar2; 

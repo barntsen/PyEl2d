@@ -21,7 +21,7 @@ nt      = 1501      #No of time steps
 f0      = 25.0        #Q-model peak frequency
 w0      = 2.0*pi*f0  #Q-model peak angular frequency
 resamp  = 1          #Resampling factor (relative to no of timesteps) for data
-sresamp = 0         #Resampling factor (relative to timesteps)for snapshots
+sresamp = 10         #Resampling factor (relative to timesteps)for snapshots
 nb      = 15         #No of PML boundary points
 l       = 6          #Length of differentiator
 freesurface = 1      # =1: Use freesurface =0: No free surface
@@ -61,7 +61,7 @@ rx=pyeps.Izeros((nr,))
 ry=pyeps.Izeros((nr,))
 for i in range(0,nr):
   rx[i] = i
-  ry[i] = nb+5
+  ry[i] = nb+10
  
 #Snapshost (0=flag not set, 1=flag set)
 snpflags = pyeps.Izeros((6,))

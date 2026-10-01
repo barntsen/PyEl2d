@@ -1,4 +1,4 @@
-//  Translated by epsc  version: Tue Sep 29 12:51:09 2026
+//  Translated by epsc  version: Tue Sep 29 21:19:03 2026
 
 #include <stddef.h>
 #include <stdio.h>
@@ -8,8 +8,6 @@ typedef struct nctempfloat1 { int d[1]; float *a;} nctempfloat1;
 typedef struct nctempint1 { int d[1]; int *a;} nctempint1; 
 typedef struct nctempchar1 { int d[1]; char *a;} nctempchar1; 
 typedef struct nctempcomplex1 { int d[1]; complex *a;} nctempcomplex1; 
-static struct nctempchar1 nctempstringx = {0, NULL};
-static struct nctempchar1 *nctempstring = &nctempstringx;
 typedef struct nctempfloat2 { int d[2]; float *a;} nctempfloat2; 
 typedef struct nctempint2 { int d[2]; int *a;} nctempint2; 
 typedef struct nctempchar2 { int d[2]; char *a;} nctempchar2; 
@@ -52,8 +50,8 @@ static nctempchar1 *LibeErrstr;
 int LibeErrinit ()
 {
 {
-LibeErrno =1;
-LibeErrstr=(0);
+LibeErrno = 1;
+LibeErrstr  = 0;
 return 1;
 }
 }
@@ -66,7 +64,7 @@ return LibeErrno;
 int LibeClearerr ()
 {
 {
-LibeErrno =1;
+LibeErrno = 1;
 return 1;
 }
 }
@@ -79,16 +77,16 @@ return LibeErrstr;
 nctempchar1 * LibeGetenv (nctempchar1 *name)
 {
 {
-nctempchar1* nctemp20= name;
-nctempchar1* nctemp23=RunGetenv(nctemp20);
-return nctemp23;
+nctempchar1* nctemp7= name;
+nctempchar1* nctemp10=RunGetenv(nctemp7);
+return nctemp10;
 }
 }
 float LibeMach (int flag)
 {
 {
-int nctemp24 = (flag ==1);
-if(nctemp24)
+int nctemp11 = (flag ==1);
+if(nctemp11)
 {
 {
 return 1.1754943508222875e-38;
@@ -96,8 +94,8 @@ return 1.1754943508222875e-38;
 }
 else{
 {
-int nctemp29 = (flag ==2);
-if(nctemp29)
+int nctemp16 = (flag ==2);
+if(nctemp16)
 {
 {
 return 3.4028234663852886e+38;
@@ -105,8 +103,8 @@ return 3.4028234663852886e+38;
 }
 else{
 {
-int nctemp34 = (flag ==3);
-if(nctemp34)
+int nctemp21 = (flag ==3);
+if(nctemp21)
 {
 {
 return 5.9604644775390625e-08;
@@ -114,8 +112,8 @@ return 5.9604644775390625e-08;
 }
 else{
 {
-int nctemp39 = (flag ==4);
-if(nctemp39)
+int nctemp26 = (flag ==4);
+if(nctemp26)
 {
 {
 return 1.1920928955078125e-07;
@@ -123,8 +121,8 @@ return 1.1920928955078125e-07;
 }
 else{
 {
-int nctemp44 = (flag ==5);
-if(nctemp44)
+int nctemp31 = (flag ==5);
+if(nctemp31)
 {
 {
 return 0.6931471805599453;
@@ -132,8 +130,8 @@ return 0.6931471805599453;
 }
 else{
 {
-float nctemp50=(float)(0);
-return nctemp50;
+float nctemp37=(float)(0);
+return nctemp37;
 }
 }
 }
@@ -149,12 +147,12 @@ return nctemp50;
 float LibeFabs (float x)
 {
 {
-int nctemp53 = (x < 0.0);
-if(nctemp53)
+int nctemp40 = (x < 0.0);
+if(nctemp40)
 {
 {
-float nctemp57= -x;
-return nctemp57;
+float nctemp44= -x;
+return nctemp44;
 }
 }
 else{
@@ -169,40 +167,37 @@ float LibeFscale2 (float x,int n)
 int i;
 float rval;
 {
-int nctemp59 = (n ==0);
-if(nctemp59)
+int nctemp46 = (n ==0);
+if(nctemp46)
 {
 {
 return x;
 }
 }
-rval =1.0;
-int nctemp68 = (n > 0);
-if(nctemp68)
+rval = 1.0;
+int nctemp51 = (n > 0);
+if(nctemp51)
 {
 {
 for(i = 0;i < n;i = (i + 1)){
 {
-float nctemp80 = rval * 2.0;
-rval =nctemp80;
+rval = (rval * 2.0);
 }
 }
 }
 }
 else{
 {
-int nctemp84= -n;
-n =nctemp84;
+n =  -n;
 for(i = 0;i < n;i = (i + 1)){
 {
-float nctemp93 = rval * 0.5;
-rval =nctemp93;
+rval = (rval * 0.5);
 }
 }
 }
 }
-float nctemp98 = rval * x;
-return nctemp98;
+float nctemp59 = rval * x;
+return nctemp59;
 }
 }
 float LibeGetfman2 (float x)
@@ -210,47 +205,43 @@ float LibeGetfman2 (float x)
 float absx;
 int n;
 {
-float nctemp103= x;
-float nctemp105=LibeFabs(nctemp103);
-absx =nctemp105;
-n =0;
-int nctemp110 = (x ==0.0);
-if(nctemp110)
+float nctemp64= x;
+float nctemp66=LibeFabs(nctemp64);
+absx =nctemp66;
+n = 0;
+int nctemp67 = (x ==0.0);
+if(nctemp67)
 {
 {
 return 0.0;
 }
 }
-int nctemp115 = (absx < 0.5);
-int nctemp119=nctemp115;
-while(nctemp119)
+int nctemp72 = (absx < 0.5);
+int nctemp76=nctemp72;
+while(nctemp76)
 {{
 {
-int nctemp128 = n - 1;
-n =nctemp128;
-float nctemp137 = absx * 2.0;
-absx =nctemp137;
+n = (n - 1);
+absx = (absx * 2.0);
 }
 }
-int nctemp138 = (absx < 0.5);
-nctemp119=nctemp138;}int nctemp142 = (absx >= 1.0);
-int nctemp146=nctemp142;
-while(nctemp146)
+int nctemp77 = (absx < 0.5);
+nctemp76=nctemp77;}int nctemp81 = (absx >= 1.0);
+int nctemp85=nctemp81;
+while(nctemp85)
 {{
 {
-int nctemp155 = n + 1;
-n =nctemp155;
-float nctemp164 = absx * 0.5;
-absx =nctemp164;
+n = (n + 1);
+absx = (absx * 0.5);
 }
 }
-int nctemp165 = (absx >= 1.0);
-nctemp146=nctemp165;}int nctemp169 = (x < 0.0);
-if(nctemp169)
+int nctemp86 = (absx >= 1.0);
+nctemp85=nctemp86;}int nctemp90 = (x < 0.0);
+if(nctemp90)
 {
 {
-float nctemp173= -absx;
-return nctemp173;
+float nctemp94= -absx;
+return nctemp94;
 }
 }
 else{
@@ -265,42 +256,38 @@ int LibeGetfexp2 (float x)
 float absx;
 int n;
 {
-float nctemp179= x;
-float nctemp181=LibeFabs(nctemp179);
-absx =nctemp181;
-n =0;
-int nctemp186 = (x ==0.0);
-if(nctemp186)
+float nctemp100= x;
+float nctemp102=LibeFabs(nctemp100);
+absx =nctemp102;
+n = 0;
+int nctemp103 = (x ==0.0);
+if(nctemp103)
 {
 {
 return 0;
 }
 }
-int nctemp191 = (absx < 0.5);
-int nctemp195=nctemp191;
-while(nctemp195)
+int nctemp108 = (absx < 0.5);
+int nctemp112=nctemp108;
+while(nctemp112)
 {{
 {
-int nctemp204 = n - 1;
-n =nctemp204;
-float nctemp213 = absx * 2.0;
-absx =nctemp213;
+n = (n - 1);
+absx = (absx * 2.0);
 }
 }
-int nctemp214 = (absx < 0.5);
-nctemp195=nctemp214;}int nctemp218 = (absx >= 1.0);
-int nctemp222=nctemp218;
-while(nctemp222)
+int nctemp113 = (absx < 0.5);
+nctemp112=nctemp113;}int nctemp117 = (absx >= 1.0);
+int nctemp121=nctemp117;
+while(nctemp121)
 {{
 {
-int nctemp231 = n + 1;
-n =nctemp231;
-float nctemp240 = absx * 0.5;
-absx =nctemp240;
+n = (n + 1);
+absx = (absx * 0.5);
 }
 }
-int nctemp241 = (absx >= 1.0);
-nctemp222=nctemp241;}return n;
+int nctemp122 = (absx >= 1.0);
+nctemp121=nctemp122;}return n;
 }
 }
 float LibeFscale (float x,int n)
@@ -308,40 +295,36 @@ float LibeFscale (float x,int n)
 int i;
 float rval;
 {
-rval =1.0;
-int nctemp250 = (n ==0);
-if(nctemp250)
+rval = 1.0;
+int nctemp127 = (n ==0);
+if(nctemp127)
 {
 {
 return x;
 }
 }
-int nctemp255 = (n > 0);
-if(nctemp255)
+int nctemp132 = (n > 0);
+if(nctemp132)
 {
 {
 for(i = 0;i < n;i = (i + 1)){
 {
-float nctemp267 = rval * 10.0;
-rval =nctemp267;
+rval = (rval * 10.0);
 }
 }
 }
 }
 else{
 {
-int nctemp271= -n;
-n =nctemp271;
+n =  -n;
 for(i = 0;i < n;i = (i + 1)){
 {
-float nctemp280 = rval * 0.1;
-rval =nctemp280;
+rval = (rval * 0.1);
 }
 }
 }
 }
-float nctemp289 = rval * x;
-rval =nctemp289;
+rval = (rval * x);
 return rval;
 }
 }
@@ -352,89 +335,81 @@ int nexp;
 int n;
 int i;
 {
-int nctemp291 = (f ==0.0);
-if(nctemp291)
+int nctemp137 = (f ==0.0);
+if(nctemp137)
 {
 {
 return 0;
 }
 }
-sign =1;
-int nctemp300 = (f < 0.0);
-if(nctemp300)
+sign = 1;
+int nctemp142 = (f < 0.0);
+if(nctemp142)
 {
 {
-float nctemp307= -f;
-f =nctemp307;
-int nctemp311= -sign;
-sign =nctemp311;
+f =  -f;
+sign =  -sign;
 }
 }
-nexp =0;
-float nctemp326 = f / 10.0;
-float nctemp328 = nctemp326 + 1.1920928955078125e-07;
-int nctemp316 = (nctemp328 >= 1.0);
-if(nctemp316)
+nexp = 0;
+float nctemp156 = f / 10.0;
+float nctemp158 = nctemp156 + 1.1920928955078125e-07;
+int nctemp146 = (nctemp158 >= 1.0);
+if(nctemp146)
 {
 {
-float nctemp340 = f / 10.0;
-float nctemp342 = nctemp340 + 1.1920928955078125e-07;
-int nctemp330 = (nctemp342 >= 1.0);
-int nctemp344=nctemp330;
-while(nctemp344)
+float nctemp170 = f / 10.0;
+float nctemp172 = nctemp170 + 1.1920928955078125e-07;
+int nctemp160 = (nctemp172 >= 1.0);
+int nctemp174=nctemp160;
+while(nctemp174)
 {{
 {
-float nctemp353 = f / 10.0;
-f =nctemp353;
-int nctemp362 = nexp + 1;
-nexp =nctemp362;
+f = (f / 10.0);
+nexp = (nexp + 1);
 }
 }
-float nctemp373 = f / 10.0;
-float nctemp375 = nctemp373 + 1.1920928955078125e-07;
-int nctemp363 = (nctemp375 >= 1.0);
-nctemp344=nctemp363;}}
+float nctemp185 = f / 10.0;
+float nctemp187 = nctemp185 + 1.1920928955078125e-07;
+int nctemp175 = (nctemp187 >= 1.0);
+nctemp174=nctemp175;}}
 }
 else{
 {
-float nctemp384 = f + 1.1920928955078125e-07;
-int nctemp377 = (nctemp384 < 1.0);
-if(nctemp377)
+float nctemp196 = f + 1.1920928955078125e-07;
+int nctemp189 = (nctemp196 < 1.0);
+if(nctemp189)
 {
 {
-float nctemp393 = f + 1.1920928955078125e-07;
-int nctemp386 = (nctemp393 < 1.0);
-int nctemp395=nctemp386;
-while(nctemp395)
+float nctemp205 = f + 1.1920928955078125e-07;
+int nctemp198 = (nctemp205 < 1.0);
+int nctemp207=nctemp198;
+while(nctemp207)
 {{
 {
-float nctemp404 = f * 10.0;
-f =nctemp404;
-int nctemp413 = nexp - 1;
-nexp =nctemp413;
+f = (f * 10.0);
+nexp = (nexp - 1);
 }
 }
-float nctemp421 = f + 1.1920928955078125e-07;
-int nctemp414 = (nctemp421 < 1.0);
-nctemp395=nctemp414;}}
+float nctemp215 = f + 1.1920928955078125e-07;
+int nctemp208 = (nctemp215 < 1.0);
+nctemp207=nctemp208;}}
 }
 }
 }
 for(i = 0;i < (maxdig - 1);i = (i + 1)){
 {
-float nctemp431 = f * 10.0;
-f =nctemp431;
+f = (f * 10.0);
 }
 }
-float nctemp442 = f + 0.5;
-int nctemp436=(int)(nctemp442);
-n =nctemp436;
-int nctemp443 = (sign < 0);
-if(nctemp443)
+float nctemp227 = f + 0.5;
+int nctemp221=(int)(nctemp227);
+n =nctemp221;
+int nctemp228 = (sign < 0);
+if(nctemp228)
 {
 {
-int nctemp450= -n;
-n =nctemp450;
+n =  -n;
 }
 }
 return n;
@@ -445,71 +420,65 @@ float LibeGetffman (float f)
 int sign;
 int nexp;
 {
-int nctemp452 = (f ==0.0);
-if(nctemp452)
+int nctemp233 = (f ==0.0);
+if(nctemp233)
 {
 {
 return 0.0;
 }
 }
-sign =1;
-int nctemp461 = (f < 0.0);
-if(nctemp461)
+sign = 1;
+int nctemp238 = (f < 0.0);
+if(nctemp238)
 {
 {
-float nctemp468= -f;
-f =nctemp468;
-int nctemp472= -sign;
-sign =nctemp472;
+f =  -f;
+sign =  -sign;
 }
 }
-nexp =0;
-float nctemp487 = f / 10.0;
-float nctemp489 = nctemp487 + 1.1920928955078125e-07;
-int nctemp477 = (nctemp489 >= 1.0);
-if(nctemp477)
+nexp = 0;
+float nctemp252 = f / 10.0;
+float nctemp254 = nctemp252 + 1.1920928955078125e-07;
+int nctemp242 = (nctemp254 >= 1.0);
+if(nctemp242)
 {
 {
-float nctemp501 = f / 10.0;
-float nctemp503 = nctemp501 + 1.1920928955078125e-07;
-int nctemp491 = (nctemp503 >= 1.0);
-int nctemp505=nctemp491;
-while(nctemp505)
+float nctemp266 = f / 10.0;
+float nctemp268 = nctemp266 + 1.1920928955078125e-07;
+int nctemp256 = (nctemp268 >= 1.0);
+int nctemp270=nctemp256;
+while(nctemp270)
 {{
 {
-float nctemp514 = f / 10.0;
-f =nctemp514;
-int nctemp523 = nexp + 1;
-nexp =nctemp523;
+f = (f / 10.0);
+nexp = (nexp + 1);
 }
 }
-float nctemp534 = f / 10.0;
-float nctemp536 = nctemp534 + 1.1920928955078125e-07;
-int nctemp524 = (nctemp536 >= 1.0);
-nctemp505=nctemp524;}}
+float nctemp281 = f / 10.0;
+float nctemp283 = nctemp281 + 1.1920928955078125e-07;
+int nctemp271 = (nctemp283 >= 1.0);
+nctemp270=nctemp271;}}
 }
 else{
 {
-float nctemp545 = f + 1.1920928955078125e-07;
-int nctemp538 = (nctemp545 < 1.0);
-if(nctemp538)
+float nctemp292 = f + 1.1920928955078125e-07;
+int nctemp285 = (nctemp292 < 1.0);
+if(nctemp285)
 {
 {
-float nctemp554 = f + 1.1920928955078125e-07;
-int nctemp547 = (nctemp554 < 1.0);
-int nctemp556=nctemp547;
-while(nctemp556)
+float nctemp301 = f + 1.1920928955078125e-07;
+int nctemp294 = (nctemp301 < 1.0);
+int nctemp303=nctemp294;
+while(nctemp303)
 {{
 {
-float nctemp565 = f * 10.0;
-f =nctemp565;
-int nctemp574 = nexp - 1;
-nexp =nctemp574;
+f = (f * 10.0);
+nexp = (nexp - 1);
 }
 }
-float nctemp582 = f + 1.1920928955078125e-07;
-int nctemp575 = (nctemp582 < 1.0);
-nctemp556=nctemp575;}}
+float nctemp311 = f + 1.1920928955078125e-07;
+int nctemp304 = (nctemp311 < 1.0);
+nctemp303=nctemp304;}}
 }
 }
 }
@@ -524,177 +493,164 @@ int i;
 int loop;
 float r;
 {
-int nctemp585 = (f ==0.0);
-if(nctemp585)
+int nctemp314 = (f ==0.0);
+if(nctemp314)
 {
 {
 return 0;
 }
 }
-sign =1;
-int nctemp594 = (f < 0.0);
-if(nctemp594)
+sign = 1;
+int nctemp319 = (f < 0.0);
+if(nctemp319)
 {
 {
-float nctemp601= -f;
-f =nctemp601;
-int nctemp605= -sign;
-sign =nctemp605;
+f =  -f;
+sign =  -sign;
 }
 }
-nexp =0;
-float nctemp620 = f / 10.0;
-float nctemp622 = nctemp620 + 1.1920928955078125e-07;
-int nctemp610 = (nctemp622 >= 1.0);
-if(nctemp610)
+nexp = 0;
+float nctemp333 = f / 10.0;
+float nctemp335 = nctemp333 + 1.1920928955078125e-07;
+int nctemp323 = (nctemp335 >= 1.0);
+if(nctemp323)
 {
 {
-float nctemp634 = f / 10.0;
-float nctemp636 = nctemp634 + 1.1920928955078125e-07;
-int nctemp624 = (nctemp636 >= 1.0);
-int nctemp638=nctemp624;
-while(nctemp638)
+float nctemp347 = f / 10.0;
+float nctemp349 = nctemp347 + 1.1920928955078125e-07;
+int nctemp337 = (nctemp349 >= 1.0);
+int nctemp351=nctemp337;
+while(nctemp351)
 {{
 {
-float nctemp647 = f / 10.0;
-f =nctemp647;
-int nctemp656 = nexp + 1;
-nexp =nctemp656;
+f = (f / 10.0);
+nexp = (nexp + 1);
 }
 }
-float nctemp667 = f / 10.0;
-float nctemp669 = nctemp667 + 1.1920928955078125e-07;
-int nctemp657 = (nctemp669 >= 1.0);
-nctemp638=nctemp657;}}
+float nctemp362 = f / 10.0;
+float nctemp364 = nctemp362 + 1.1920928955078125e-07;
+int nctemp352 = (nctemp364 >= 1.0);
+nctemp351=nctemp352;}}
 }
 else{
 {
-float nctemp678 = f + 1.1920928955078125e-07;
-int nctemp671 = (nctemp678 < 1.0);
-if(nctemp671)
+float nctemp373 = f + 1.1920928955078125e-07;
+int nctemp366 = (nctemp373 < 1.0);
+if(nctemp366)
 {
 {
-float nctemp687 = f + 1.1920928955078125e-07;
-int nctemp680 = (nctemp687 < 1.0);
-int nctemp689=nctemp680;
-while(nctemp689)
+float nctemp382 = f + 1.1920928955078125e-07;
+int nctemp375 = (nctemp382 < 1.0);
+int nctemp384=nctemp375;
+while(nctemp384)
 {{
 {
-float nctemp698 = f * 10.0;
-f =nctemp698;
-int nctemp707 = nexp - 1;
-nexp =nctemp707;
+f = (f * 10.0);
+nexp = (nexp - 1);
 }
 }
-float nctemp715 = f + 1.1920928955078125e-07;
-int nctemp708 = (nctemp715 < 1.0);
-nctemp689=nctemp708;}}
+float nctemp392 = f + 1.1920928955078125e-07;
+int nctemp385 = (nctemp392 < 1.0);
+nctemp384=nctemp385;}}
 }
 }
 }
-i =0;
-loop =1;
-int nctemp726=loop;
-while(nctemp726)
+i = 0;
+loop = 1;
+int nctemp395=loop;
+while(nctemp395)
 {{
 {
-int nctemp738=(int)(f);
-float nctemp735=(float)(nctemp738);
-float nctemp741 = f - nctemp735;
-r =nctemp741;
-int nctemp742 = (r < 1.1920928955078125e-07);
-if(nctemp742)
+int nctemp407=(int)(f);
+float nctemp404=(float)(nctemp407);
+float nctemp410 = f - nctemp404;
+r =nctemp410;
+int nctemp411 = (r < 1.1920928955078125e-07);
+if(nctemp411)
 {
 {
-loop =0;
+loop = 0;
 }
 }
 else{
 {
-float nctemp758 = f * 10.0;
-f =nctemp758;
+f = (f * 10.0);
 }
 }
-int nctemp767 = i + 1;
-i =nctemp767;
-int nctemp768 = (i >= 10);
-if(nctemp768)
+i = (i + 1);
+int nctemp415 = (i >= 10);
+if(nctemp415)
 {
 {
-loop =0;
+loop = 0;
 }
 }
 }
 }
-nctemp726=loop;}return i;
+nctemp395=loop;}return i;
 }
 }
 int LibeGetfexp (float f)
 {
 int nexp;
 {
-int nctemp778 = (f ==0.0);
-if(nctemp778)
+int nctemp421 = (f ==0.0);
+if(nctemp421)
 {
 {
 return 0;
 }
 }
-nexp =0;
-int nctemp787 = (f < 0.0);
-if(nctemp787)
+nexp = 0;
+int nctemp426 = (f < 0.0);
+if(nctemp426)
 {
 {
-float nctemp794= -f;
-f =nctemp794;
+f =  -f;
 }
 }
-float nctemp805 = f / 10.0;
-float nctemp807 = nctemp805 + 1.1920928955078125e-07;
-int nctemp795 = (nctemp807 >= 1.0);
-if(nctemp795)
+float nctemp440 = f / 10.0;
+float nctemp442 = nctemp440 + 1.1920928955078125e-07;
+int nctemp430 = (nctemp442 >= 1.0);
+if(nctemp430)
 {
 {
-float nctemp819 = f / 10.0;
-float nctemp821 = nctemp819 + 1.1920928955078125e-07;
-int nctemp809 = (nctemp821 >= 1.0);
-int nctemp823=nctemp809;
-while(nctemp823)
+float nctemp454 = f / 10.0;
+float nctemp456 = nctemp454 + 1.1920928955078125e-07;
+int nctemp444 = (nctemp456 >= 1.0);
+int nctemp458=nctemp444;
+while(nctemp458)
 {{
 {
-float nctemp832 = f / 10.0;
-f =nctemp832;
-int nctemp841 = nexp + 1;
-nexp =nctemp841;
+f = (f / 10.0);
+nexp = (nexp + 1);
 }
 }
-float nctemp852 = f / 10.0;
-float nctemp854 = nctemp852 + 1.1920928955078125e-07;
-int nctemp842 = (nctemp854 >= 1.0);
-nctemp823=nctemp842;}}
+float nctemp469 = f / 10.0;
+float nctemp471 = nctemp469 + 1.1920928955078125e-07;
+int nctemp459 = (nctemp471 >= 1.0);
+nctemp458=nctemp459;}}
 }
 else{
 {
-float nctemp863 = f + 1.1920928955078125e-07;
-int nctemp856 = (nctemp863 < 1.0);
-if(nctemp856)
+float nctemp480 = f + 1.1920928955078125e-07;
+int nctemp473 = (nctemp480 < 1.0);
+if(nctemp473)
 {
 {
-float nctemp872 = f + 1.1920928955078125e-07;
-int nctemp865 = (nctemp872 < 1.0);
-int nctemp874=nctemp865;
-while(nctemp874)
+float nctemp489 = f + 1.1920928955078125e-07;
+int nctemp482 = (nctemp489 < 1.0);
+int nctemp491=nctemp482;
+while(nctemp491)
 {{
 {
-float nctemp883 = f * 10.0;
-f =nctemp883;
-int nctemp892 = nexp - 1;
-nexp =nctemp892;
+f = (f * 10.0);
+nexp = (nexp - 1);
 }
 }
-float nctemp900 = f + 1.1920928955078125e-07;
-int nctemp893 = (nctemp900 < 1.0);
-nctemp874=nctemp893;}}
+float nctemp499 = f + 1.1920928955078125e-07;
+int nctemp492 = (nctemp499 < 1.0);
+nctemp491=nctemp492;}}
 }
 }
 }
@@ -704,8 +660,8 @@ return nexp;
 float LibeClock ()
 {
 {
-float nctemp904=RunClock();
-return nctemp904;
+float nctemp503=RunClock();
+return nctemp503;
 }
 }
 static float LibeSincosmax;
@@ -715,17 +671,17 @@ static float LibeLnmin;
 int LibeMod (int n,int r)
 {
 {
-int nctemp905 = (r ==0);
-if(nctemp905)
+int nctemp504 = (r ==0);
+if(nctemp504)
 {
 {
 return n;
 }
 }
-int nctemp921 = n / r;
-int nctemp923 = nctemp921 * r;
-int nctemp924 = n - nctemp923;
-return nctemp924;
+int nctemp520 = n / r;
+int nctemp522 = nctemp520 * r;
+int nctemp523 = n - nctemp522;
+return nctemp523;
 }
 }
 float LibeSqrt (float x)
@@ -735,59 +691,50 @@ float yest;
 float z;
 int n;
 {
-int nctemp925 = (x ==0.0);
-if(nctemp925)
+int nctemp524 = (x ==0.0);
+if(nctemp524)
 {
 {
 return 0.0;
 }
 }
-int nctemp930 = (x < 0.0);
-if(nctemp930)
+int nctemp529 = (x < 0.0);
+if(nctemp529)
 {
 {
-LibeErrno =-101;
-struct nctempchar1 *nctemp943;
-static struct nctempchar1 nctemp944 = {{ 25}, (char*)"Sqrt input argument < 0 \0"};
-nctemp943=&nctemp944;
-LibeErrstr=nctemp943;
+LibeErrno = -101;
+struct nctempchar1 *nctemp538;
+static struct nctempchar1 nctemp539 = {{ 25}, (char*)"Sqrt input argument < 0 \0"};
+nctemp538=&nctemp539;
+LibeErrstr=nctemp538;
 return 0.0;
 }
 }
-float nctemp950= x;
-float nctemp952=LibeGetfman2(nctemp950);
-f =nctemp952;
-float nctemp957= x;
-int nctemp959=LibeGetfexp2(nctemp957);
-n =nctemp959;
-float nctemp972 = 0.59016 * f;
-float nctemp973 = 0.41731 + nctemp972;
-yest =nctemp973;
-float nctemp986 = f / yest;
-float nctemp987 = yest + nctemp986;
-z =nctemp987;
-float nctemp999 = 0.25 * z;
-float nctemp1005 = f / z;
-float nctemp1006 = nctemp999 + nctemp1005;
-yest =nctemp1006;
-int nctemp1010= n;
-int nctemp1012= 2;
-int nctemp1014=LibeMod(nctemp1010,nctemp1012);
-int nctemp1007 = (nctemp1014 !=0);
-if(nctemp1007)
+float nctemp545= x;
+float nctemp547=LibeGetfman2(nctemp545);
+f =nctemp547;
+float nctemp552= x;
+int nctemp554=LibeGetfexp2(nctemp552);
+n =nctemp554;
+yest = (0.41731 + (0.59016 * f));
+z = (yest + (f / yest));
+yest = ((0.25 * z) + (f / z));
+int nctemp558= n;
+int nctemp560= 2;
+int nctemp562=LibeMod(nctemp558,nctemp560);
+int nctemp555 = (nctemp562 !=0);
+if(nctemp555)
 {
 {
-float nctemp1024 = yest * 0.70710678118654752440;
-yest =nctemp1024;
-int nctemp1033 = n + 1;
-n =nctemp1033;
+yest = (yest * 0.70710678118654752440);
+n = (n + 1);
 }
 }
-float nctemp1035= yest;
-int nctemp1042 = n / 2;
-int nctemp1037= nctemp1042;
-float nctemp1043=LibeFscale2(nctemp1035,nctemp1037);
-return nctemp1043;
+float nctemp565= yest;
+int nctemp572 = n / 2;
+int nctemp567= nctemp572;
+float nctemp573=LibeFscale2(nctemp565,nctemp567);
+return nctemp573;
 }
 }
 float LibeLn (float x)
@@ -801,64 +748,49 @@ float w;
 float r;
 float xn;
 {
-int nctemp1044 = (x <= 0.0);
-if(nctemp1044)
+int nctemp574 = (x <= 0.0);
+if(nctemp574)
 {
 {
-LibeErrno =-101;
-struct nctempchar1 *nctemp1057;
-static struct nctempchar1 nctemp1058 = {{ 23}, (char*)"Ln input argument < 0 \0"};
-nctemp1057=&nctemp1058;
-LibeErrstr=nctemp1057;
+LibeErrno = -101;
+struct nctempchar1 *nctemp583;
+static struct nctempchar1 nctemp584 = {{ 23}, (char*)"Ln input argument < 0 \0"};
+nctemp583=&nctemp584;
+LibeErrstr=nctemp583;
 return 3.4028234663852886e+38;
 }
 }
-float nctemp1064= x;
-float nctemp1066=LibeGetfman2(nctemp1064);
-f =nctemp1066;
-float nctemp1071= x;
-int nctemp1073=LibeGetfexp2(nctemp1071);
-n =nctemp1073;
-int nctemp1074 = (f > 0.70710678118654752440);
-if(nctemp1074)
+float nctemp590= x;
+float nctemp592=LibeGetfman2(nctemp590);
+f =nctemp592;
+float nctemp597= x;
+int nctemp599=LibeGetfexp2(nctemp597);
+n =nctemp599;
+int nctemp600 = (f > 0.70710678118654752440);
+if(nctemp600)
 {
 {
-float nctemp1089 = f - 0.5;
-float nctemp1091 = nctemp1089 - 0.5;
-zn =nctemp1091;
-float nctemp1103 = f * 0.5;
-float nctemp1105 = nctemp1103 + 0.5;
-zd =nctemp1105;
+zn = ((f - 0.5) - 0.5);
+zd = ((f * 0.5) + 0.5);
 }
 }
 else{
 {
-float nctemp1114 = f - 0.5;
-zn =nctemp1114;
-float nctemp1126 = zn * 0.5;
-float nctemp1128 = nctemp1126 + 0.5;
-zd =nctemp1128;
-int nctemp1137 = n - 1;
-n =nctemp1137;
+zn = (f - 0.5);
+zd = ((zn * 0.5) + 0.5);
+n = (n - 1);
 }
 }
-float nctemp1146 = zn / zd;
-z =nctemp1146;
-float nctemp1155 = z * z;
-w =nctemp1155;
-float nctemp1175 = w * -0.5527074855E+0;
-float nctemp1181 = w + -0.6632718214E+1;
-float nctemp1182 = nctemp1175 / nctemp1181;
-float nctemp1183 = z * nctemp1182;
-float nctemp1184 = z + nctemp1183;
-r =nctemp1184;
-float nctemp1189=(float)(n);
-xn =nctemp1189;
-float nctemp1202 = xn * -2.121944400546905827679E-4;
-float nctemp1204 = nctemp1202 + r;
-float nctemp1210 = xn * 0.69335938;
-float nctemp1211 = nctemp1204 + nctemp1210;
-return nctemp1211;
+z = (zn / zd);
+w = (z * z);
+r = (z + (z * ((w * -0.5527074855E+0) / (w + -0.6632718214E+1))));
+float nctemp608=(float)(n);
+xn =nctemp608;
+float nctemp621 = xn * -2.121944400546905827679E-4;
+float nctemp623 = nctemp621 + r;
+float nctemp629 = xn * 0.69335938;
+float nctemp630 = nctemp623 + nctemp629;
+return nctemp630;
 }
 }
 float LibeExp (float x)
@@ -874,59 +806,48 @@ float P1;
 float Q1;
 float rval;
 {
-P0 =0.24999999950E+0;
-P1 =0.41602886268E-2;
-Q1 =0.49987178778E-1;
-int nctemp1224 = (x >= LibeLnmax);
-if(nctemp1224)
+P0 = 0.24999999950E+0;
+P1 = 0.41602886268E-2;
+Q1 = 0.49987178778E-1;
+int nctemp631 = (x >= LibeLnmax);
+if(nctemp631)
 {
 {
-LibeErrno =-102;
-struct nctempchar1 *nctemp1237;
-static struct nctempchar1 nctemp1238 = {{ 25}, (char*)"Overflow in exp function\0"};
-nctemp1237=&nctemp1238;
-LibeErrstr=nctemp1237;
+LibeErrno = -102;
+struct nctempchar1 *nctemp640;
+static struct nctempchar1 nctemp641 = {{ 25}, (char*)"Overflow in exp function\0"};
+nctemp640=&nctemp641;
+LibeErrstr=nctemp640;
 return 3.4028234663852886e+38;
 }
 }
-int nctemp1240 = (x < LibeLnmin);
-if(nctemp1240)
+int nctemp643 = (x < LibeLnmin);
+if(nctemp643)
 {
 {
-LibeErrno =-102;
-struct nctempchar1 *nctemp1253;
-static struct nctempchar1 nctemp1254 = {{ 26}, (char*)"Underflow in exp function\0"};
-nctemp1253=&nctemp1254;
-LibeErrstr=nctemp1253;
+LibeErrno = -102;
+struct nctempchar1 *nctemp652;
+static struct nctempchar1 nctemp653 = {{ 26}, (char*)"Underflow in exp function\0"};
+nctemp652=&nctemp653;
+LibeErrstr=nctemp652;
 return 0.0;
 }
 }
-float nctemp1266 = x * 1.4426950408889634073;
-int nctemp1260=(int)(nctemp1266);
-n =nctemp1260;
-float nctemp1271=(float)(n);
-xn =nctemp1271;
-float nctemp1286 = xn * 0.693147180559945309417232;
-float nctemp1287 = x - nctemp1286;
-g =nctemp1287;
-float nctemp1296 = g * g;
-z =nctemp1296;
-float nctemp1311 = P1 * z;
-float nctemp1313 = nctemp1311 + P0;
-float nctemp1315 = nctemp1313 * g;
-p =nctemp1315;
-float nctemp1327 = Q1 * z;
-float nctemp1329 = nctemp1327 + 0.5;
-q =nctemp1329;
-float nctemp1346 = q - p;
-float nctemp1347 = p / nctemp1346;
-float nctemp1348 = 0.5 + nctemp1347;
-rval =nctemp1348;
-float nctemp1350= rval;
-int nctemp1357 = n + 1;
-int nctemp1352= nctemp1357;
-float nctemp1358=LibeFscale2(nctemp1350,nctemp1352);
-return nctemp1358;
+float nctemp665 = x * 1.4426950408889634073;
+int nctemp659=(int)(nctemp665);
+n =nctemp659;
+float nctemp670=(float)(n);
+xn =nctemp670;
+g = (x - (xn * 0.693147180559945309417232));
+z = (g * g);
+p = (((P1 * z) + P0) * g);
+q = ((Q1 * z) + 0.5);
+rval = (0.5 + (p / (q - p)));
+float nctemp674= rval;
+int nctemp681 = n + 1;
+int nctemp676= nctemp681;
+float nctemp682=LibeFscale2(nctemp674,nctemp676);
+return nctemp682;
 }
 }
 float LibeSincos (float x,float y,float sign)
@@ -940,107 +861,93 @@ float R2;
 float R3;
 float R4;
 {
-float nctemp1362= -0.1666665668E+0;
-R1 =nctemp1362;
-R2 =0.8333025139E-2;
-float nctemp1370= -0.1980741872E-3;
-R3 =nctemp1370;
-R4 =0.2601903036E-5;
-int nctemp1375 = (y > LibeSincosmax);
-if(nctemp1375)
+R1 =  -0.1666665668E+0;
+R2 = 0.8333025139E-2;
+R3 =  -0.1980741872E-3;
+R4 = 0.2601903036E-5;
+int nctemp683 = (y > LibeSincosmax);
+if(nctemp683)
 {
 {
-LibeErrno =-102;
-struct nctempchar1 *nctemp1388;
-static struct nctempchar1 nctemp1389 = {{ 37}, (char*)"Loss of accuracy in sin/cos function\0"};
-nctemp1388=&nctemp1389;
-LibeErrstr=nctemp1388;
+LibeErrno = -102;
+struct nctempchar1 *nctemp692;
+static struct nctempchar1 nctemp693 = {{ 37}, (char*)"Loss of accuracy in sin/cos function\0"};
+nctemp692=&nctemp693;
+LibeErrstr=nctemp692;
 return 0.0;
 }
 }
-float nctemp1404 = y * 0.31830988618379067154;
-float nctemp1406 = nctemp1404 + 0.5;
-int nctemp1395=(int)(nctemp1406);
-n =nctemp1395;
-float nctemp1411=(float)(n);
-xn =nctemp1411;
-int nctemp1417= n;
-int nctemp1419= 2;
-int nctemp1421=LibeMod(nctemp1417,nctemp1419);
-int nctemp1414 = (nctemp1421 !=0);
-if(nctemp1414)
+float nctemp708 = y * 0.31830988618379067154;
+float nctemp710 = nctemp708 + 0.5;
+int nctemp699=(int)(nctemp710);
+n =nctemp699;
+float nctemp715=(float)(n);
+xn =nctemp715;
+int nctemp721= n;
+int nctemp723= 2;
+int nctemp725=LibeMod(nctemp721,nctemp723);
+int nctemp718 = (nctemp725 !=0);
+if(nctemp718)
 {
 {
-float nctemp1426= -sign;
-sign =nctemp1426;
+sign =  -sign;
 }
 }
-float nctemp1431= x;
-float nctemp1433=LibeFabs(nctemp1431);
-x =nctemp1433;
-int nctemp1434 = (x !=y);
-if(nctemp1434)
+float nctemp731= x;
+float nctemp733=LibeFabs(nctemp731);
+x =nctemp733;
+int nctemp734 = (x !=y);
+if(nctemp734)
 {
 {
-float nctemp1446 = xn - 0.5;
-xn =nctemp1446;
+xn = (xn - 0.5);
 }
 }
-float nctemp1454= x;
-float nctemp1456=LibeFabs(nctemp1454);
-float nctemp1462 = xn * 3.1415926535897932384626433832795028841972;
-float nctemp1463 = nctemp1456 - nctemp1462;
-f =nctemp1463;
-float nctemp1467= f;
-float nctemp1469=LibeFabs(nctemp1467);
-int nctemp1464 = (nctemp1469 < LibeSincoslim);
-if(nctemp1464)
+float nctemp745= x;
+float nctemp747=LibeFabs(nctemp745);
+float nctemp753 = xn * 3.1415926535897932384626433832795028841972;
+float nctemp754 = nctemp747 - nctemp753;
+f =nctemp754;
+float nctemp758= f;
+float nctemp760=LibeFabs(nctemp758);
+int nctemp755 = (nctemp760 < LibeSincoslim);
+if(nctemp755)
 {
 {
-float nctemp1475 = sign * f;
-return nctemp1475;
+float nctemp766 = sign * f;
+return nctemp766;
 }
 }
-float nctemp1484 = f * f;
-g =nctemp1484;
-float nctemp1511 = R4 * g;
-float nctemp1513 = nctemp1511 + R3;
-float nctemp1515 = nctemp1513 * g;
-float nctemp1517 = nctemp1515 + R2;
-float nctemp1519 = nctemp1517 * g;
-float nctemp1521 = nctemp1519 + R1;
-float nctemp1523 = nctemp1521 * g;
-g =nctemp1523;
-float nctemp1536 = f * g;
-float nctemp1537 = f + nctemp1536;
-g =nctemp1537;
-float nctemp1542 = sign * g;
-return nctemp1542;
+g = (f * f);
+g = (((((((R4 * g) + R3) * g) + R2) * g) + R1) * g);
+g = (f + (f * g));
+float nctemp771 = sign * g;
+return nctemp771;
 }
 }
 float LibeSin (float x)
 {
 {
-int nctemp1543 = (x < 0.0);
-if(nctemp1543)
+int nctemp772 = (x < 0.0);
+if(nctemp772)
 {
 {
-float nctemp1548= x;
-float nctemp1551= -x;
-float nctemp1550= nctemp1551;
-float nctemp1553= -1.0;
-float nctemp1552= nctemp1553;
-float nctemp1554=LibeSincos(nctemp1548,nctemp1550,nctemp1552);
-return nctemp1554;
+float nctemp777= x;
+float nctemp780= -x;
+float nctemp779= nctemp780;
+float nctemp782= -1.0;
+float nctemp781= nctemp782;
+float nctemp783=LibeSincos(nctemp777,nctemp779,nctemp781);
+return nctemp783;
 }
 }
 else{
 {
-float nctemp1556= x;
-float nctemp1558= x;
-float nctemp1560= 1.0;
-float nctemp1562=LibeSincos(nctemp1556,nctemp1558,nctemp1560);
-return nctemp1562;
+float nctemp785= x;
+float nctemp787= x;
+float nctemp789= 1.0;
+float nctemp791=LibeSincos(nctemp785,nctemp787,nctemp789);
+return nctemp791;
 }
 }
 }
@@ -1048,14 +955,14 @@ return nctemp1562;
 float LibeCos (float x)
 {
 {
-float nctemp1564= x;
-float nctemp1570= x;
-float nctemp1572=LibeFabs(nctemp1570);
-float nctemp1574 = nctemp1572 + 1.57079632679489661923132;
-float nctemp1566= nctemp1574;
-float nctemp1575= 1.0;
-float nctemp1577=LibeSincos(nctemp1564,nctemp1566,nctemp1575);
-return nctemp1577;
+float nctemp793= x;
+float nctemp799= x;
+float nctemp801=LibeFabs(nctemp799);
+float nctemp803 = nctemp801 + 1.57079632679489661923132;
+float nctemp795= nctemp803;
+float nctemp804= 1.0;
+float nctemp806=LibeSincos(nctemp793,nctemp795,nctemp804);
+return nctemp806;
 }
 }
 float LibeTan (float x)
@@ -1071,76 +978,63 @@ float xnum;
 float xden;
 float g;
 {
-float nctemp1581= -0.958017723E-1;
-P1 =nctemp1581;
-float nctemp1585= -0.429135777E+0;
-Q1 =nctemp1585;
-Q2 =0.971685835E-2;
-float nctemp1594= x;
-float nctemp1596=LibeFabs(nctemp1594);
-y =nctemp1596;
-int nctemp1597 = (y > LibeSincosmax);
-if(nctemp1597)
+P1 =  -0.958017723E-1;
+Q1 =  -0.429135777E+0;
+Q2 = 0.971685835E-2;
+float nctemp811= x;
+float nctemp813=LibeFabs(nctemp811);
+y =nctemp813;
+int nctemp814 = (y > LibeSincosmax);
+if(nctemp814)
 {
 {
-LibeErrno =-102;
-struct nctempchar1 *nctemp1610;
-static struct nctempchar1 nctemp1611 = {{ 33}, (char*)"Loss of accuracy in tan function\0"};
-nctemp1610=&nctemp1611;
-LibeErrstr=nctemp1610;
+LibeErrno = -102;
+struct nctempchar1 *nctemp823;
+static struct nctempchar1 nctemp824 = {{ 33}, (char*)"Loss of accuracy in tan function\0"};
+nctemp823=&nctemp824;
+LibeErrstr=nctemp823;
 return 0.0;
 }
 }
-float nctemp1623 = x * 0.63661977236758134308;
-int nctemp1617=(int)(nctemp1623);
-n =nctemp1617;
-float nctemp1628=(float)(n);
-xn =nctemp1628;
-float nctemp1643 = xn * 1.57079632679489661923132;
-float nctemp1644 = x - nctemp1643;
-f =nctemp1644;
-float nctemp1648= f;
-float nctemp1650=LibeFabs(nctemp1648);
-int nctemp1645 = (nctemp1650 < LibeSincoslim);
-if(nctemp1645)
+float nctemp836 = x * 0.63661977236758134308;
+int nctemp830=(int)(nctemp836);
+n =nctemp830;
+float nctemp841=(float)(n);
+xn =nctemp841;
+f = (x - (xn * 1.57079632679489661923132));
+float nctemp847= f;
+float nctemp849=LibeFabs(nctemp847);
+int nctemp844 = (nctemp849 < LibeSincoslim);
+if(nctemp844)
 {
 {
-xnum =f;
-xden =1.0;
+xnum = f;
+xden = 1.0;
 }
 }
 else{
 {
-float nctemp1668 = f * f;
-g =nctemp1668;
-float nctemp1683 = P1 * g;
-float nctemp1685 = nctemp1683 * f;
-float nctemp1687 = nctemp1685 + f;
-xnum =nctemp1687;
-float nctemp1708 = Q2 * g;
-float nctemp1710 = nctemp1708 + Q1;
-float nctemp1712 = nctemp1710 * g;
-float nctemp1714 = nctemp1712 + 0.5;
-float nctemp1716 = nctemp1714 + 0.5;
-xden =nctemp1716;
+g = (f * f);
+xnum = (((P1 * g) * f) + f);
+xden = (((((Q2 * g) + Q1) * g) + 0.5) + 0.5);
 }
 }
-int nctemp1720= n;
-int nctemp1722= 2;
-int nctemp1724=LibeMod(nctemp1720,nctemp1722);
-int nctemp1717 = (nctemp1724 !=0);
-if(nctemp1717)
+int nctemp854= n;
+int nctemp856= 2;
+int nctemp858=LibeMod(nctemp854,nctemp856);
+int nctemp851 = (nctemp858 !=0);
+if(nctemp851)
 {
 {
-float nctemp1729= -xnum;
-float nctemp1730 = xden / nctemp1729;
-return nctemp1730;
+float nctemp863= -xnum;
+float nctemp864 = xden / nctemp863;
+return nctemp864;
 }
 }
 else{
 {
-float nctemp1735 = xnum / xden;
-return nctemp1735;
+float nctemp869 = xnum / xden;
+return nctemp869;
 }
 }
 }
@@ -1157,99 +1051,71 @@ float r;
 float res;
 int i;
 {
-P1 =0.933935835E+0;
-float nctemp1743= -0.504400557E+0;
-P2 =nctemp1743;
-Q0 =0.560363004E+1;
-float nctemp1751= -0.554846723E+1;
-Q1 =nctemp1751;
-float nctemp1756= x;
-float nctemp1758=LibeFabs(nctemp1756);
-y =nctemp1758;
-int nctemp1759 = (y > 0.5);
-if(nctemp1759)
+P1 = 0.933935835E+0;
+P2 =  -0.504400557E+0;
+Q0 = 0.560363004E+1;
+Q1 =  -0.554846723E+1;
+float nctemp874= x;
+float nctemp876=LibeFabs(nctemp874);
+y =nctemp876;
+int nctemp877 = (y > 0.5);
+if(nctemp877)
 {
 {
-i =1;
-int nctemp1767 = (y > 1.0);
-if(nctemp1767)
+i = 1;
+int nctemp881 = (y > 1.0);
+if(nctemp881)
 {
 {
-LibeErrno =-101;
-struct nctempchar1 *nctemp1780;
-static struct nctempchar1 nctemp1781 = {{ 41}, (char*)"Absolute value of argument of arcsin > 1\0"};
-nctemp1780=&nctemp1781;
-LibeErrstr=nctemp1780;
+LibeErrno = -101;
+struct nctempchar1 *nctemp890;
+static struct nctempchar1 nctemp891 = {{ 41}, (char*)"Absolute value of argument of arcsin > 1\0"};
+nctemp890=&nctemp891;
+LibeErrstr=nctemp890;
 return 3.4028234663852886e+38;
 }
 }
-float nctemp1794 = 1.0 - y;
-float nctemp1796 = nctemp1794 * 0.5;
-g =nctemp1796;
-float nctemp1801= g;
-float nctemp1803=LibeSqrt(nctemp1801);
-r =nctemp1803;
-float nctemp1807= -r;
-r =nctemp1807;
-float nctemp1816 = r + r;
-y =nctemp1816;
-float nctemp1834 = P2 * g;
-float nctemp1836 = nctemp1834 + P1;
-float nctemp1838 = nctemp1836 * g;
-float nctemp1850 = g + Q1;
-float nctemp1852 = nctemp1850 * g;
-float nctemp1854 = nctemp1852 + Q0;
-float nctemp1855 = nctemp1838 / nctemp1854;
-r =nctemp1855;
-float nctemp1868 = y * r;
-float nctemp1869 = y + nctemp1868;
-res =nctemp1869;
+g = ((1.0 - y) * 0.5);
+float nctemp897= g;
+float nctemp899=LibeSqrt(nctemp897);
+r =nctemp899;
+r =  -r;
+y = (r + r);
+r = ((((P2 * g) + P1) * g) / (((g + Q1) * g) + Q0));
+res = (y + (y * r));
 }
 }
 else{
 {
-i =0;
-int nctemp1874 = (y < LibeSincoslim);
-if(nctemp1874)
+i = 0;
+int nctemp900 = (y < LibeSincoslim);
+if(nctemp900)
 {
 {
-res =y;
+res = y;
 }
 }
 else{
 {
-float nctemp1890 = y * y;
-g =nctemp1890;
-float nctemp1908 = P2 * g;
-float nctemp1910 = nctemp1908 + P1;
-float nctemp1912 = nctemp1910 * g;
-float nctemp1924 = g + Q1;
-float nctemp1926 = nctemp1924 * g;
-float nctemp1928 = nctemp1926 + Q0;
-float nctemp1929 = nctemp1912 / nctemp1928;
-g =nctemp1929;
-float nctemp1942 = y * g;
-float nctemp1943 = y + nctemp1942;
-res =nctemp1943;
+g = (y * y);
+g = ((((P2 * g) + P1) * g) / (((g + Q1) * g) + Q0));
+res = (y + (y * g));
 }
 }
 }
 }
-int nctemp1944 = (i ==1);
-if(nctemp1944)
+int nctemp904 = (i ==1);
+if(nctemp904)
 {
 {
-float nctemp1960 = 0.78539816339744830962 + res;
-float nctemp1961 = 0.78539816339744830962 + nctemp1960;
-res =nctemp1961;
+res = (0.78539816339744830962 + (0.78539816339744830962 + res));
 }
 }
-int nctemp1962 = (x < 0.0);
-if(nctemp1962)
+int nctemp908 = (x < 0.0);
+if(nctemp908)
 {
 {
-float nctemp1969= -res;
-res =nctemp1969;
+res =  -res;
 }
 }
 return res;
@@ -1267,121 +1133,89 @@ float r;
 float res;
 int i;
 {
-P1 =0.933935835E+0;
-float nctemp1978= -0.504400557E+0;
-P2 =nctemp1978;
-Q0 =0.560363004E+1;
-float nctemp1986= -0.554846723E+1;
-Q1 =nctemp1986;
-float nctemp1991= x;
-float nctemp1993=LibeFabs(nctemp1991);
-y =nctemp1993;
-int nctemp1994 = (y > 0.5);
-if(nctemp1994)
+P1 = 0.933935835E+0;
+P2 =  -0.504400557E+0;
+Q0 = 0.560363004E+1;
+Q1 =  -0.554846723E+1;
+float nctemp917= x;
+float nctemp919=LibeFabs(nctemp917);
+y =nctemp919;
+int nctemp920 = (y > 0.5);
+if(nctemp920)
 {
 {
-i =0;
-int nctemp2002 = (y > 1.0);
-if(nctemp2002)
+i = 0;
+int nctemp924 = (y > 1.0);
+if(nctemp924)
 {
 {
-LibeErrno =-101;
-struct nctempchar1 *nctemp2015;
-static struct nctempchar1 nctemp2016 = {{ 50}, (char*)"Absolute value of argument of arccos out of range\0"};
-nctemp2015=&nctemp2016;
-LibeErrstr=nctemp2015;
+LibeErrno = -101;
+struct nctempchar1 *nctemp933;
+static struct nctempchar1 nctemp934 = {{ 50}, (char*)"Absolute value of argument of arccos out of range\0"};
+nctemp933=&nctemp934;
+LibeErrstr=nctemp933;
 return 3.4028234663852886e+38;
 }
 }
-float nctemp2029 = 1.0 - y;
-float nctemp2031 = nctemp2029 * 0.5;
-g =nctemp2031;
-float nctemp2036= g;
-float nctemp2038=LibeSqrt(nctemp2036);
-r =nctemp2038;
-float nctemp2042= -r;
-r =nctemp2042;
-float nctemp2051 = r + r;
-y =nctemp2051;
-float nctemp2069 = P2 * g;
-float nctemp2071 = nctemp2069 + P1;
-float nctemp2073 = nctemp2071 * g;
-float nctemp2085 = g + Q1;
-float nctemp2087 = nctemp2085 * g;
-float nctemp2089 = nctemp2087 + Q0;
-float nctemp2090 = nctemp2073 / nctemp2089;
-r =nctemp2090;
-float nctemp2103 = y * r;
-float nctemp2104 = y + nctemp2103;
-res =nctemp2104;
+g = ((1.0 - y) * 0.5);
+float nctemp940= g;
+float nctemp942=LibeSqrt(nctemp940);
+r =nctemp942;
+r =  -r;
+y = (r + r);
+r = ((((P2 * g) + P1) * g) / (((g + Q1) * g) + Q0));
+res = (y + (y * r));
 }
 }
 else{
 {
-i =1;
-int nctemp2109 = (y < LibeSincoslim);
-if(nctemp2109)
+i = 1;
+int nctemp943 = (y < LibeSincoslim);
+if(nctemp943)
 {
 {
-res =y;
+res = y;
 }
 }
 else{
 {
-float nctemp2125 = y * y;
-g =nctemp2125;
-float nctemp2143 = P2 * g;
-float nctemp2145 = nctemp2143 + P1;
-float nctemp2147 = nctemp2145 * g;
-float nctemp2159 = g + Q1;
-float nctemp2161 = nctemp2159 * g;
-float nctemp2163 = nctemp2161 + Q0;
-float nctemp2164 = nctemp2147 / nctemp2163;
-g =nctemp2164;
-float nctemp2177 = y * g;
-float nctemp2178 = y + nctemp2177;
-res =nctemp2178;
+g = (y * y);
+g = ((((P2 * g) + P1) * g) / (((g + Q1) * g) + Q0));
+res = (y + (y * g));
 }
 }
 }
 }
-int nctemp2179 = (x < 0.0);
-if(nctemp2179)
+int nctemp947 = (x < 0.0);
+if(nctemp947)
 {
 {
-int nctemp2183 = (i ==0);
-if(nctemp2183)
+int nctemp951 = (i ==0);
+if(nctemp951)
 {
 {
-float nctemp2199 = 1.57079632679489661923132 + res;
-float nctemp2200 = 1.57079632679489661923132 + nctemp2199;
-res =nctemp2200;
+res = (1.57079632679489661923132 + (1.57079632679489661923132 + res));
 }
 }
 else{
 {
-float nctemp2213 = 0.78539816339744830962 + res;
-float nctemp2214 = 0.78539816339744830962 + nctemp2213;
-res =nctemp2214;
+res = (0.78539816339744830962 + (0.78539816339744830962 + res));
 }
 }
 }
 }
 else{
 {
-int nctemp2215 = (i ==1);
-if(nctemp2215)
+int nctemp955 = (i ==1);
+if(nctemp955)
 {
 {
-float nctemp2231 = 0.78539816339744830962 - res;
-float nctemp2232 = 0.78539816339744830962 + nctemp2231;
-res =nctemp2232;
+res = (0.78539816339744830962 + (0.78539816339744830962 - res));
 }
 }
 else{
 {
-float nctemp2236= -res;
-res =nctemp2236;
+res =  -res;
 }
 }
 }
@@ -1401,102 +1235,79 @@ int n;
 float res;
 float g;
 {
-rt32 =0.26794919243112270647;
-rt3 =1.73205080756887729353;
-float nctemp2254 = rt3 - 1.0;
-a =nctemp2254;
-float nctemp2258= -0.4708325141E+0;
-P0 =nctemp2258;
-float nctemp2262= -0.5090958253E-1;
-P1 =nctemp2262;
-Q0 =0.1412500740E+1;
-int nctemp2267 = (f > 1.0);
-if(nctemp2267)
+rt32 = 0.26794919243112270647;
+rt3 = 1.73205080756887729353;
+a = (rt3 - 1.0);
+P0 =  -0.4708325141E+0;
+P1 =  -0.5090958253E-1;
+Q0 = 0.1412500740E+1;
+int nctemp960 = (f > 1.0);
+if(nctemp960)
 {
 {
-float nctemp2279 = 1.0 / f;
-f =nctemp2279;
-n =2;
+f = (1.0 / f);
+n = 2;
 }
 }
 else{
 {
-n =0;
+n = 0;
 }
 }
-int nctemp2288 = (f > rt32);
-if(nctemp2288)
+int nctemp964 = (f > rt32);
+if(nctemp964)
 {
 {
-float nctemp2312 = a * f;
-float nctemp2314 = nctemp2312 - 0.5;
-float nctemp2316 = nctemp2314 - 0.5;
-float nctemp2318 = nctemp2316 + f;
-float nctemp2324 = rt3 + f;
-float nctemp2325 = nctemp2318 / nctemp2324;
-f =nctemp2325;
-int nctemp2334 = n + 1;
-n =nctemp2334;
+f = (((((a * f) - 0.5) - 0.5) + f) / (rt3 + f));
+n = (n + 1);
 }
 }
-float nctemp2338= f;
-float nctemp2340=LibeFabs(nctemp2338);
-int nctemp2335 = (nctemp2340 < LibeSincoslim);
-if(nctemp2335)
+float nctemp971= f;
+float nctemp973=LibeFabs(nctemp971);
+int nctemp968 = (nctemp973 < LibeSincoslim);
+if(nctemp968)
 {
 {
-res =f;
+res = f;
 }
 }
 else{
 {
-float nctemp2354 = f * f;
-g =nctemp2354;
-float nctemp2372 = P1 * g;
-float nctemp2374 = nctemp2372 + P0;
-float nctemp2376 = nctemp2374 * g;
-float nctemp2382 = g + Q0;
-float nctemp2383 = nctemp2376 / nctemp2382;
-res =nctemp2383;
-float nctemp2396 = f * res;
-float nctemp2397 = f + nctemp2396;
-res =nctemp2397;
+g = (f * f);
+res = ((((P1 * g) + P0) * g) / (g + Q0));
+res = (f + (f * res));
 }
 }
-int nctemp2398 = (n > 1);
-if(nctemp2398)
+int nctemp975 = (n > 1);
+if(nctemp975)
 {
 {
-float nctemp2405= -res;
-res =nctemp2405;
+res =  -res;
 }
 }
-int nctemp2406 = (n ==1);
-if(nctemp2406)
+int nctemp979 = (n ==1);
+if(nctemp979)
 {
 {
-float nctemp2418 = res + 0.52359877559829887308;
-res =nctemp2418;
+res = (res + 0.52359877559829887308);
 }
 }
 else{
 {
-int nctemp2419 = (n ==2);
-if(nctemp2419)
+int nctemp983 = (n ==2);
+if(nctemp983)
 {
 {
-float nctemp2431 = res + 1.57079632679489661923132;
-res =nctemp2431;
+res = (res + 1.57079632679489661923132);
 }
 }
 else{
 {
-int nctemp2432 = (n ==3);
-if(nctemp2432)
+int nctemp987 = (n ==3);
+if(nctemp987)
 {
 {
-float nctemp2444 = res + 1.04719755119659774615;
-res =nctemp2444;
+res = (res + 1.04719755119659774615);
 }
 }
 }
@@ -1510,23 +1321,22 @@ float LibeArctan (float x)
 {
 float rval;
 {
-int nctemp2446 = (x < 0.0);
-if(nctemp2446)
+int nctemp992 = (x < 0.0);
+if(nctemp992)
 {
 {
-float nctemp2455= -x;
-float nctemp2454= nctemp2455;
-float nctemp2456=LibeAtan(nctemp2454);
-rval =nctemp2456;
-float nctemp2460= -rval;
-rval =nctemp2460;
+float nctemp1001= -x;
+float nctemp1000= nctemp1001;
+float nctemp1002=LibeAtan(nctemp1000);
+rval =nctemp1002;
+rval =  -rval;
 }
 }
 else{
 {
-float nctemp2465= x;
-float nctemp2467=LibeAtan(nctemp2465);
-rval =nctemp2467;
+float nctemp1007= x;
+float nctemp1009=LibeAtan(nctemp1007);
+rval =nctemp1009;
 }
 }
 return rval;
@@ -1535,38 +1345,38 @@ return rval;
 float LibePow (float base,float exponent)
 {
 {
-float nctemp2475= base;
-float nctemp2477=LibeLn(nctemp2475);
-float nctemp2478 = exponent * nctemp2477;
-float nctemp2470= nctemp2478;
-float nctemp2479=LibeExp(nctemp2470);
-return nctemp2479;
+float nctemp1017= base;
+float nctemp1019=LibeLn(nctemp1017);
+float nctemp1020 = exponent * nctemp1019;
+float nctemp1012= nctemp1020;
+float nctemp1021=LibeExp(nctemp1012);
+return nctemp1021;
 }
 }
 int LibeMathinit ()
 {
 {
-float nctemp2484= 1.0;
-int nctemp2491 = 24 - 1;
-int nctemp2486= nctemp2491;
-float nctemp2492=LibeFscale2(nctemp2484,nctemp2486);
-LibeSincosmax =nctemp2492;
-float nctemp2501= LibeSincosmax;
-float nctemp2503=LibeSqrt(nctemp2501);
-float nctemp2504 = 3.1415926535897932384626433832795028841972 * nctemp2503;
-LibeSincosmax =nctemp2504;
-float nctemp2513= 1.0;
-int nctemp2520 = 24 / 2;
-int nctemp2515= nctemp2520;
-float nctemp2521=LibeFscale2(nctemp2513,nctemp2515);
-float nctemp2522 = 1.0 / nctemp2521;
-LibeSincoslim =nctemp2522;
-float nctemp2527= 3.4028234663852886e+38;
-float nctemp2529=LibeLn(nctemp2527);
-LibeLnmax =nctemp2529;
-float nctemp2534= 1.1754943508222875e-38;
-float nctemp2536=LibeLn(nctemp2534);
-LibeLnmin =nctemp2536;
+float nctemp1026= 1.0;
+int nctemp1033 = 24 - 1;
+int nctemp1028= nctemp1033;
+float nctemp1034=LibeFscale2(nctemp1026,nctemp1028);
+LibeSincosmax =nctemp1034;
+float nctemp1043= LibeSincosmax;
+float nctemp1045=LibeSqrt(nctemp1043);
+float nctemp1046 = 3.1415926535897932384626433832795028841972 * nctemp1045;
+LibeSincosmax =nctemp1046;
+float nctemp1055= 1.0;
+int nctemp1062 = 24 / 2;
+int nctemp1057= nctemp1062;
+float nctemp1063=LibeFscale2(nctemp1055,nctemp1057);
+float nctemp1064 = 1.0 / nctemp1063;
+LibeSincoslim =nctemp1064;
+float nctemp1069= 3.4028234663852886e+38;
+float nctemp1071=LibeLn(nctemp1069);
+LibeLnmax =nctemp1071;
+float nctemp1076= 1.1754943508222875e-38;
+float nctemp1078=LibeLn(nctemp1076);
+LibeLnmin =nctemp1078;
 return 1;
 }
 }
@@ -1575,33 +1385,26 @@ int LibeStrlen (nctempchar1 *s)
 int ls;
 int i;
 {
-int nctemp2542=s->d[0];ls =nctemp2542;
-i =0;
-int nctemp2559=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1109,i,0,s->d[0]-1);
-}
-int nctemp2556=(int)(s->a[nctemp2559]);
-int nctemp2553 = (nctemp2556 !=0);
-int nctemp2563 = (i < ls);
-int nctemp2550 = (nctemp2553 && nctemp2563);
-int nctemp2567=nctemp2550;
-while(nctemp2567)
+int nctemp1084=s->d[0];ls =nctemp1084;
+i = 0;
+int nctemp1097=i;
+int nctemp1094=(int)(s->a[nctemp1097]);
+int nctemp1091 = (nctemp1094 !=0);
+int nctemp1101 = (i < ls);
+int nctemp1088 = (nctemp1091 && nctemp1101);
+int nctemp1105=nctemp1088;
+while(nctemp1105)
 {{
 {
-int nctemp2576 = i + 1;
-i =nctemp2576;
+i = (i + 1);
 }
 }
-int nctemp2586=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1109,i,0,s->d[0]-1);
-}
-int nctemp2583=(int)(s->a[nctemp2586]);
-int nctemp2580 = (nctemp2583 !=0);
-int nctemp2590 = (i < ls);
-int nctemp2577 = (nctemp2580 && nctemp2590);
-nctemp2567=nctemp2577;}return i;
+int nctemp1115=i;
+int nctemp1112=(int)(s->a[nctemp1115]);
+int nctemp1109 = (nctemp1112 !=0);
+int nctemp1119 = (i < ls);
+int nctemp1106 = (nctemp1109 && nctemp1119);
+nctemp1105=nctemp1106;}return i;
 }
 }
 int LibeStrcmp (nctempchar1 *s,nctempchar1 *t)
@@ -1609,51 +1412,35 @@ int LibeStrcmp (nctempchar1 *s,nctempchar1 *t)
 int ls;
 int i;
 {
-int nctemp2599=s->d[0];ls =nctemp2599;
-i =0;
-int nctemp2613=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1130,i,0,s->d[0]-1);
-}
-int nctemp2616=i;
-if((0>i)||(i>=t->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e t %d %d %d %d \n " ,1130,i,0,t->d[0]-1);
-}
-int nctemp2610 = (s->a[nctemp2613] ==t->a[nctemp2616]);
-int nctemp2619 = (i < ls);
-int nctemp2607 = (nctemp2610 && nctemp2619);
-int nctemp2623=nctemp2607;
-while(nctemp2623)
+int nctemp1128=s->d[0];ls =nctemp1128;
+i = 0;
+int nctemp1138=i;
+int nctemp1141=i;
+int nctemp1135 = (s->a[nctemp1138] ==t->a[nctemp1141]);
+int nctemp1144 = (i < ls);
+int nctemp1132 = (nctemp1135 && nctemp1144);
+int nctemp1148=nctemp1132;
+while(nctemp1148)
 {{
 {
-int nctemp2630=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1131,i,0,s->d[0]-1);
-}
-int nctemp2627=(int)(s->a[nctemp2630]);
-int nctemp2624 = (nctemp2627 ==0);
-if(nctemp2624)
+int nctemp1155=i;
+int nctemp1152=(int)(s->a[nctemp1155]);
+int nctemp1149 = (nctemp1152 ==0);
+if(nctemp1149)
 {
 {
 return 1;
 }
 }
-int nctemp2642 = i + 1;
-i =nctemp2642;
+i = (i + 1);
 }
 }
-int nctemp2649=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1130,i,0,s->d[0]-1);
-}
-int nctemp2652=i;
-if((0>i)||(i>=t->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e t %d %d %d %d \n " ,1130,i,0,t->d[0]-1);
-}
-int nctemp2646 = (s->a[nctemp2649] ==t->a[nctemp2652]);
-int nctemp2655 = (i < ls);
-int nctemp2643 = (nctemp2646 && nctemp2655);
-nctemp2623=nctemp2643;}return 0;
+int nctemp1165=i;
+int nctemp1168=i;
+int nctemp1162 = (s->a[nctemp1165] ==t->a[nctemp1168]);
+int nctemp1171 = (i < ls);
+int nctemp1159 = (nctemp1162 && nctemp1171);
+nctemp1148=nctemp1159;}return 0;
 }
 }
 int LibeStrev (nctempchar1 *s)
@@ -1662,43 +1449,25 @@ char c;
 int i;
 int j;
 {
-i =0;
-nctempchar1* nctemp2671= s;
-int nctemp2674=LibeStrlen(nctemp2671);
-int nctemp2676 = nctemp2674 - 1;
-j =nctemp2676;
-int nctemp2677 = (i < j);
-int nctemp2681=nctemp2677;
-while(nctemp2681)
+i = 0;
+nctempchar1* nctemp1183= s;
+int nctemp1186=LibeStrlen(nctemp1183);
+int nctemp1188 = nctemp1186 - 1;
+j =nctemp1188;
+int nctemp1189 = (i < j);
+int nctemp1193=nctemp1189;
+while(nctemp1193)
 {{
 {
-int nctemp2686=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1154,i,0,s->d[0]-1);
-}
-c =s->a[nctemp2686];
-int nctemp2691=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1155,i,0,s->d[0]-1);
-}
-int nctemp2694=j;
-if((0>j)||(j>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1155,j,0,s->d[0]-1);
-}
-s->a[nctemp2691] =s->a[nctemp2694];
-int nctemp2699=j;
-if((0>j)||(j>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1156,j,0,s->d[0]-1);
-}
-s->a[nctemp2699] =c;
-int nctemp2710 = i + 1;
-i =nctemp2710;
-int nctemp2719 = j - 1;
-j =nctemp2719;
+c = s->a[i];
+s->a[i] = s->a[j];
+s->a[j] = c;
+i = (i + 1);
+j = (j - 1);
 }
 }
-int nctemp2720 = (i < j);
-nctemp2681=nctemp2720;}return 1;
+int nctemp1194 = (i < j);
+nctemp1193=nctemp1194;}return 1;
 }
 }
 int LibeStrcpy (nctempchar1 *s,nctempchar1 *t)
@@ -1706,18 +1475,18 @@ int LibeStrcpy (nctempchar1 *s,nctempchar1 *t)
 int ls;
 int i;
 {
-nctempchar1* nctemp2729= s;
-int nctemp2732=LibeStrlen(nctemp2729);
-ls =nctemp2732;
-int nctemp2733 = (ls ==0);
-if(nctemp2733)
+nctempchar1* nctemp1203= s;
+int nctemp1206=LibeStrlen(nctemp1203);
+ls =nctemp1206;
+int nctemp1207 = (ls ==0);
+if(nctemp1207)
 {
 {
 return 1;
 }
 }
-int nctemp2741=t->d[0];int nctemp2738 = (nctemp2741 <= ls);
-if(nctemp2738)
+int nctemp1215=t->d[0];int nctemp1212 = (nctemp1215 <= ls);
+if(nctemp1212)
 {
 {
 return 0;
@@ -1725,15 +1494,7 @@ return 0;
 }
 for(i = 0;i <= ls;i = (i + 1)){
 {
-int nctemp2750=i;
-if((0>i)||(i>=t->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e t %d %d %d %d \n " ,1185,i,0,t->d[0]-1);
-}
-int nctemp2753=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1185,i,0,s->d[0]-1);
-}
-t->a[nctemp2750] =s->a[nctemp2753];
+t->a[i] = s->a[i];
 }
 }
 return 1;
@@ -1745,15 +1506,15 @@ int ls;
 int lt;
 int i;
 {
-nctempchar1* nctemp2760= s;
-int nctemp2763=LibeStrlen(nctemp2760);
-ls =nctemp2763;
-nctempchar1* nctemp2768= t;
-int nctemp2771=LibeStrlen(nctemp2768);
-lt =nctemp2771;
-int nctemp2775=t->d[0];int nctemp2784 = lt + ls;
-int nctemp2772 = (nctemp2775 < nctemp2784);
-if(nctemp2772)
+nctempchar1* nctemp1226= s;
+int nctemp1229=LibeStrlen(nctemp1226);
+ls =nctemp1229;
+nctempchar1* nctemp1234= t;
+int nctemp1237=LibeStrlen(nctemp1234);
+lt =nctemp1237;
+int nctemp1241=t->d[0];int nctemp1250 = lt + ls;
+int nctemp1238 = (nctemp1241 < nctemp1250);
+if(nctemp1238)
 {
 {
 return 0;
@@ -1761,25 +1522,13 @@ return 0;
 }
 for(i = lt;i < (ls + lt);i = (i + 1)){
 {
-int nctemp2789=i;
-if((0>i)||(i>=t->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e t %d %d %d %d \n " ,1212,i,0,t->d[0]-1);
-}
-int nctemp2797 = i - lt;
-int nctemp2792=nctemp2797;
-if((0>nctemp2797)||(nctemp2797>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1212,nctemp2797,0,s->d[0]-1);
-}
-t->a[nctemp2789] =s->a[nctemp2792];
+t->a[i] = s->a[i - lt];
 }
 }
-int nctemp2806 = ls + lt;
-int nctemp2801=nctemp2806;
-if((0>nctemp2806)||(nctemp2806>=t->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e t %d %d %d %d \n " ,1214,nctemp2806,0,t->d[0]-1);
-}
-char nctemp2808=(char)(0);
-t->a[nctemp2801] =nctemp2808;
+int nctemp1260 = ls + lt;
+int nctemp1255=nctemp1260;
+char nctemp1262=(char)(0);
+t->a[nctemp1255] =nctemp1262;
 return 1;
 }
 }
@@ -1790,54 +1539,34 @@ int ls;
 nctempchar1 *r;
 int i;
 {
-int nctemp2819=t->d[0];int nctemp2824 = nctemp2819 - 1;
-lt =nctemp2824;
-int nctemp2832=s->d[0];int nctemp2837 = nctemp2832 - 1;
-ls =nctemp2837;
-int nctemp2852 = lt + ls;
-int nctemp2854 = nctemp2852 + 1;
-int nctemp2844=nctemp2854;
-nctempchar1 *nctemp2843;
-nctemp2843=(nctempchar1*)RunMalloc(sizeof(nctempchar1));
-int nctemp2862 = lt + ls;
-int nctemp2864 = nctemp2862 + 1;
-nctemp2843->d[0]=nctemp2864;
-nctemp2843->a=(char *)RunMalloc(sizeof(char)*nctemp2844);
-r=nctemp2843;
+int nctemp1273=t->d[0];int nctemp1278 = nctemp1273 - 1;
+lt =nctemp1278;
+int nctemp1286=s->d[0];int nctemp1291 = nctemp1286 - 1;
+ls =nctemp1291;
+int nctemp1306 = lt + ls;
+int nctemp1308 = nctemp1306 + 1;
+int nctemp1298=nctemp1308;
+nctempchar1 *nctemp1297;
+nctemp1297=(nctempchar1*)RunMalloc(sizeof(nctempchar1));
+int nctemp1316 = lt + ls;
+int nctemp1318 = nctemp1316 + 1;
+nctemp1297->d[0]=nctemp1318;
+nctemp1297->a=(char *)RunMalloc(sizeof(char)*nctemp1298);
+r=nctemp1297;
 for(i = 0;i < lt;i = (i + 1)){
 {
-int nctemp2868=i;
-if((0>i)||(i>=r->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e r %d %d %d %d \n " ,1234,i,0,r->d[0]-1);
-}
-int nctemp2871=i;
-if((0>i)||(i>=t->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e t %d %d %d %d \n " ,1234,i,0,t->d[0]-1);
-}
-r->a[nctemp2868] =t->a[nctemp2871];
+r->a[i] = t->a[i];
 }
 }
 for(i = lt;i < (ls + lt);i = (i + 1)){
 {
-int nctemp2876=i;
-if((0>i)||(i>=r->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e r %d %d %d %d \n " ,1237,i,0,r->d[0]-1);
-}
-int nctemp2884 = i - lt;
-int nctemp2879=nctemp2884;
-if((0>nctemp2884)||(nctemp2884>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1237,nctemp2884,0,s->d[0]-1);
-}
-r->a[nctemp2876] =s->a[nctemp2879];
+r->a[i] = s->a[i - lt];
 }
 }
-int nctemp2893 = ls + lt;
-int nctemp2888=nctemp2893;
-if((0>nctemp2893)||(nctemp2893>=r->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e r %d %d %d %d \n " ,1239,nctemp2893,0,r->d[0]-1);
-}
-char nctemp2895=(char)(0);
-r->a[nctemp2888] =nctemp2895;
+int nctemp1327 = ls + lt;
+int nctemp1322=nctemp1327;
+char nctemp1329=(char)(0);
+r->a[nctemp1322] =nctemp1329;
 return r;
 }
 }
@@ -1846,27 +1575,27 @@ nctempchar1 * LibeStrsave (nctempchar1 *s)
 int l;
 nctempchar1 *tmp;
 {
-tmp=(0);
-l =0;
-nctempchar1* nctemp2913= s;
-int nctemp2916=LibeStrlen(nctemp2913);
-l =nctemp2916;
-int nctemp2928 = l + 1;
-int nctemp2923=nctemp2928;
-nctempchar1 *nctemp2922;
-nctemp2922=(nctempchar1*)RunMalloc(sizeof(nctempchar1));
-int nctemp2933 = l + 1;
-nctemp2922->d[0]=nctemp2933;
-nctemp2922->a=(char *)RunMalloc(sizeof(char)*nctemp2923);
-tmp=nctemp2922;
-nctempchar1 *nctemp2935 =tmp;
-int nctemp2934 =(nctemp2935!=0);
-if(nctemp2934)
+tmp  = 0;
+l = 0;
+nctempchar1* nctemp1338= s;
+int nctemp1341=LibeStrlen(nctemp1338);
+l =nctemp1341;
+int nctemp1353 = l + 1;
+int nctemp1348=nctemp1353;
+nctempchar1 *nctemp1347;
+nctemp1347=(nctempchar1*)RunMalloc(sizeof(nctempchar1));
+int nctemp1358 = l + 1;
+nctemp1347->d[0]=nctemp1358;
+nctemp1347->a=(char *)RunMalloc(sizeof(char)*nctemp1348);
+tmp=nctemp1347;
+nctempchar1 *nctemp1360 =tmp;
+int nctemp1359 =(nctemp1360!=0);
+if(nctemp1359)
 {
 {
-nctempchar1* nctemp2940= s;
-nctempchar1* nctemp2943= tmp;
-int nctemp2946=LibeStrcpy(nctemp2940,nctemp2943);
+nctempchar1* nctemp1365= s;
+nctempchar1* nctemp1368= tmp;
+int nctemp1371=LibeStrcpy(nctemp1365,nctemp1368);
 }
 }
 return tmp;
@@ -1875,14 +1604,14 @@ return tmp;
 int LibeIsalhpa (int c)
 {
 {
-int nctemp2955 = (c >= 'a');
-int nctemp2960 = (c <= 'z');
-int nctemp2952 = (nctemp2955 && nctemp2960);
-int nctemp2968 = (c >= 'A');
-int nctemp2973 = (c <= 'Z');
-int nctemp2965 = (nctemp2968 && nctemp2973);
-int nctemp2949 = (nctemp2952 || nctemp2965);
-if(nctemp2949)
+int nctemp1380 = (c >= 'a');
+int nctemp1385 = (c <= 'z');
+int nctemp1377 = (nctemp1380 && nctemp1385);
+int nctemp1393 = (c >= 'A');
+int nctemp1398 = (c <= 'Z');
+int nctemp1390 = (nctemp1393 && nctemp1398);
+int nctemp1374 = (nctemp1377 || nctemp1390);
+if(nctemp1374)
 {
 {
 return 1;
@@ -1898,10 +1627,10 @@ return 0;
 int LibeIsdigit (int c)
 {
 {
-int nctemp2982 = (c >= '0');
-int nctemp2987 = (c <= '9');
-int nctemp2979 = (nctemp2982 && nctemp2987);
-if(nctemp2979)
+int nctemp1407 = (c >= '0');
+int nctemp1412 = (c <= '9');
+int nctemp1404 = (nctemp1407 && nctemp1412);
+if(nctemp1404)
 {
 {
 return 1;
@@ -1917,14 +1646,14 @@ return 0;
 int LibeIsalnum (int c)
 {
 {
-int nctemp2999 = (c >= 'a');
-int nctemp3004 = (c <= 'z');
-int nctemp2996 = (nctemp2999 && nctemp3004);
-int nctemp3012 = (c >= 'A');
-int nctemp3017 = (c <= 'Z');
-int nctemp3009 = (nctemp3012 && nctemp3017);
-int nctemp2993 = (nctemp2996 || nctemp3009);
-if(nctemp2993)
+int nctemp1424 = (c >= 'a');
+int nctemp1429 = (c <= 'z');
+int nctemp1421 = (nctemp1424 && nctemp1429);
+int nctemp1437 = (c >= 'A');
+int nctemp1442 = (c <= 'Z');
+int nctemp1434 = (nctemp1437 && nctemp1442);
+int nctemp1418 = (nctemp1421 || nctemp1434);
+if(nctemp1418)
 {
 {
 return 1;
@@ -1932,10 +1661,10 @@ return 1;
 }
 else{
 {
-int nctemp3025 = (c >= '0');
-int nctemp3030 = (c <= '9');
-int nctemp3022 = (nctemp3025 && nctemp3030);
-if(nctemp3022)
+int nctemp1450 = (c >= '0');
+int nctemp1455 = (c <= '9');
+int nctemp1447 = (nctemp1450 && nctemp1455);
+if(nctemp1447)
 {
 {
 return 1;
@@ -1956,128 +1685,91 @@ int sign;
 int i;
 int n;
 {
-i =0;
-int nctemp3049=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1353,i,0,s->d[0]-1);
-}
-char nctemp3052=(char)(' ');
-int nctemp3046 = (s->a[nctemp3049] ==nctemp3052);
-int nctemp3059=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1353,i,0,s->d[0]-1);
-}
-char nctemp3062=(char)(10);
-int nctemp3056 = (s->a[nctemp3059] ==nctemp3062);
-int nctemp3043 = (nctemp3046 || nctemp3056);
-int nctemp3069=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1354,i,0,s->d[0]-1);
-}
-char nctemp3072=(char)(9);
-int nctemp3066 = (s->a[nctemp3069] ==nctemp3072);
-int nctemp3040 = (nctemp3043 || nctemp3066);
-int nctemp3075=nctemp3040;
-while(nctemp3075)
+i = 0;
+int nctemp1470=i;
+char nctemp1473=(char)(' ');
+int nctemp1467 = (s->a[nctemp1470] ==nctemp1473);
+int nctemp1480=i;
+char nctemp1483=(char)(10);
+int nctemp1477 = (s->a[nctemp1480] ==nctemp1483);
+int nctemp1464 = (nctemp1467 || nctemp1477);
+int nctemp1490=i;
+char nctemp1493=(char)(9);
+int nctemp1487 = (s->a[nctemp1490] ==nctemp1493);
+int nctemp1461 = (nctemp1464 || nctemp1487);
+int nctemp1496=nctemp1461;
+while(nctemp1496)
 {{
 {
-int nctemp3084 = i + 1;
-i =nctemp3084;
+i = (i + 1);
 }
 }
-int nctemp3094=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1353,i,0,s->d[0]-1);
-}
-char nctemp3097=(char)(' ');
-int nctemp3091 = (s->a[nctemp3094] ==nctemp3097);
-int nctemp3104=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1353,i,0,s->d[0]-1);
-}
-char nctemp3107=(char)(10);
-int nctemp3101 = (s->a[nctemp3104] ==nctemp3107);
-int nctemp3088 = (nctemp3091 || nctemp3101);
-int nctemp3114=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1354,i,0,s->d[0]-1);
-}
-char nctemp3117=(char)(9);
-int nctemp3111 = (s->a[nctemp3114] ==nctemp3117);
-int nctemp3085 = (nctemp3088 || nctemp3111);
-nctemp3075=nctemp3085;}int nctemp3123=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1358,i,0,s->d[0]-1);
-}
-char nctemp3126=(char)('-');
-int nctemp3120 = (s->a[nctemp3123] ==nctemp3126);
-if(nctemp3120)
+int nctemp1506=i;
+char nctemp1509=(char)(' ');
+int nctemp1503 = (s->a[nctemp1506] ==nctemp1509);
+int nctemp1516=i;
+char nctemp1519=(char)(10);
+int nctemp1513 = (s->a[nctemp1516] ==nctemp1519);
+int nctemp1500 = (nctemp1503 || nctemp1513);
+int nctemp1526=i;
+char nctemp1529=(char)(9);
+int nctemp1523 = (s->a[nctemp1526] ==nctemp1529);
+int nctemp1497 = (nctemp1500 || nctemp1523);
+nctemp1496=nctemp1497;}int nctemp1535=i;
+char nctemp1538=(char)('-');
+int nctemp1532 = (s->a[nctemp1535] ==nctemp1538);
+if(nctemp1532)
 {
 {
-int nctemp3132= -1;
-sign =nctemp3132;
-int nctemp3141 = i + 1;
-i =nctemp3141;
+sign =  -1;
+i = (i + 1);
 }
 }
 else{
 {
-int nctemp3145=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1361,i,0,s->d[0]-1);
-}
-char nctemp3148=(char)('+');
-int nctemp3142 = (s->a[nctemp3145] ==nctemp3148);
-if(nctemp3142)
+int nctemp1544=i;
+char nctemp1547=(char)('+');
+int nctemp1541 = (s->a[nctemp1544] ==nctemp1547);
+if(nctemp1541)
 {
 {
-sign =1;
-int nctemp3163 = i + 1;
-i =nctemp3163;
+sign = 1;
+i = (i + 1);
 }
 }
 else{
 {
-sign =1;
+sign = 1;
 }
 }
 }
 }
 n =0;
-int nctemp3178=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1369,i,0,s->d[0]-1);
-}
-int nctemp3175=(int)(s->a[nctemp3178]);
-int nctemp3173= nctemp3175;
-int nctemp3180=LibeIsdigit(nctemp3173);
-while(nctemp3180){
+int nctemp1560=i;
+int nctemp1557=(int)(s->a[nctemp1560]);
+int nctemp1555= nctemp1557;
+int nctemp1562=LibeIsdigit(nctemp1555);
+while(nctemp1562){
 {
 {
-int nctemp3195 = 10 * n;
-int nctemp3200=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1370,i,0,s->d[0]-1);
-}
-int nctemp3197=(int)(s->a[nctemp3200]);
-int nctemp3202 = nctemp3195 + nctemp3197;
-int nctemp3204 = nctemp3202 - '0';
-n =nctemp3204;
+int nctemp1577 = 10 * n;
+int nctemp1582=i;
+int nctemp1579=(int)(s->a[nctemp1582]);
+int nctemp1584 = nctemp1577 + nctemp1579;
+int nctemp1586 = nctemp1584 - '0';
+n =nctemp1586;
 }
 }
-int nctemp3213 = i + 1;
-i =nctemp3213;
-int nctemp3220=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1369,i,0,s->d[0]-1);
+int nctemp1595 = i + 1;
+i =nctemp1595;
+int nctemp1602=i;
+int nctemp1599=(int)(s->a[nctemp1602]);
+int nctemp1597= nctemp1599;
+int nctemp1604=LibeIsdigit(nctemp1597);
+nctemp1562=nctemp1604;
 }
-int nctemp3217=(int)(s->a[nctemp3220]);
-int nctemp3215= nctemp3217;
-int nctemp3222=LibeIsdigit(nctemp3215);
-nctemp3180=nctemp3222;
-}
-int nctemp3227 = sign * n;
-return nctemp3227;
+int nctemp1609 = sign * n;
+return nctemp1609;
 }
 }
 int LibeItoa (int n,nctempchar1 *s)
@@ -2085,109 +1777,96 @@ int LibeItoa (int n,nctempchar1 *s)
 int sign;
 int i;
 {
-nctempchar1 *nctemp3229 =s;
-int nctemp3228 =(nctemp3229==0);
-if(nctemp3228)
+nctempchar1 *nctemp1611 =s;
+int nctemp1610 =(nctemp1611==0);
+if(nctemp1610)
 {
 {
 return 0;
 }
 }
 sign =n;
-int nctemp3234 = (sign < 0);
-if(nctemp3234)
+int nctemp1616 = (sign < 0);
+if(nctemp1616)
 {
 {
-int nctemp3245= -n;
-n =nctemp3245;
+n =  -n;
 }
 }
-i =0;
-int nctemp3253=0;
-if((0>0)||(0>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1400,0,0,s->d[0]-1);
-}
-int nctemp3261= n;
-int nctemp3263= 10;
-int nctemp3265=LibeMod(nctemp3261,nctemp3263);
-int nctemp3267 = nctemp3265 + 48;
-char nctemp3256=(char)(nctemp3267);
-s->a[nctemp3253] =nctemp3256;
-int nctemp3279 = n / 10;
-n =nctemp3279;
-int nctemp3268 = (n > 0);
-int nctemp3281=nctemp3268;
-while(nctemp3281)
+i = 0;
+int nctemp1627=0;
+int nctemp1635= n;
+int nctemp1637= 10;
+int nctemp1639=LibeMod(nctemp1635,nctemp1637);
+int nctemp1641 = nctemp1639 + 48;
+char nctemp1630=(char)(nctemp1641);
+s->a[nctemp1627] =nctemp1630;
+int nctemp1653 = n / 10;
+n =nctemp1653;
+int nctemp1642 = (n > 0);
+int nctemp1655=nctemp1642;
+while(nctemp1655)
 {{
 {
-int nctemp3289 = i + 1;
-int nctemp3294=s->d[0];int nctemp3299 = nctemp3294 - 1;
-int nctemp3282 = (nctemp3289 > nctemp3299);
-if(nctemp3282)
+int nctemp1663 = i + 1;
+int nctemp1668=s->d[0];int nctemp1673 = nctemp1668 - 1;
+int nctemp1656 = (nctemp1663 > nctemp1673);
+if(nctemp1656)
 {
 {
 return 0;
 }
 }
-int nctemp3313 = i + 1;
-i =nctemp3313;
-int nctemp3304=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1404,i,0,s->d[0]-1);
-}
-int nctemp3320= n;
-int nctemp3322= 10;
-int nctemp3324=LibeMod(nctemp3320,nctemp3322);
-int nctemp3326 = nctemp3324 + 48;
-char nctemp3315=(char)(nctemp3326);
-s->a[nctemp3304] =nctemp3315;
+int nctemp1687 = i + 1;
+i =nctemp1687;
+int nctemp1678=i;
+int nctemp1694= n;
+int nctemp1696= 10;
+int nctemp1698=LibeMod(nctemp1694,nctemp1696);
+int nctemp1700 = nctemp1698 + 48;
+char nctemp1689=(char)(nctemp1700);
+s->a[nctemp1678] =nctemp1689;
 }
 }
-int nctemp3338 = n / 10;
-n =nctemp3338;
-int nctemp3327 = (n > 0);
-nctemp3281=nctemp3327;}int nctemp3340 = (sign < 0);
-if(nctemp3340)
+int nctemp1712 = n / 10;
+n =nctemp1712;
+int nctemp1701 = (n > 0);
+nctemp1655=nctemp1701;}int nctemp1714 = (sign < 0);
+if(nctemp1714)
 {
 {
-int nctemp3351 = i + 1;
-int nctemp3356=s->d[0];int nctemp3361 = nctemp3356 - 1;
-int nctemp3344 = (nctemp3351 > nctemp3361);
-if(nctemp3344)
+int nctemp1725 = i + 1;
+int nctemp1730=s->d[0];int nctemp1735 = nctemp1730 - 1;
+int nctemp1718 = (nctemp1725 > nctemp1735);
+if(nctemp1718)
 {
 {
 return 0;
 }
 }
-int nctemp3375 = i + 1;
-i =nctemp3375;
-int nctemp3366=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1409,i,0,s->d[0]-1);
-}
-char nctemp3377=(char)(45);
-s->a[nctemp3366] =nctemp3377;
+int nctemp1749 = i + 1;
+i =nctemp1749;
+int nctemp1740=i;
+char nctemp1751=(char)(45);
+s->a[nctemp1740] =nctemp1751;
 }
 }
-int nctemp3387 = i + 1;
-int nctemp3392=s->d[0];int nctemp3397 = nctemp3392 - 1;
-int nctemp3380 = (nctemp3387 > nctemp3397);
-if(nctemp3380)
+int nctemp1761 = i + 1;
+int nctemp1766=s->d[0];int nctemp1771 = nctemp1766 - 1;
+int nctemp1754 = (nctemp1761 > nctemp1771);
+if(nctemp1754)
 {
 {
 return 0;
 }
 }
-int nctemp3411 = i + 1;
-i =nctemp3411;
-int nctemp3402=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1413,i,0,s->d[0]-1);
-}
-char nctemp3413=(char)(0);
-s->a[nctemp3402] =nctemp3413;
-nctempchar1* nctemp3417= s;
-int nctemp3420=LibeStrev(nctemp3417);
+int nctemp1785 = i + 1;
+i =nctemp1785;
+int nctemp1776=i;
+char nctemp1787=(char)(0);
+s->a[nctemp1776] =nctemp1787;
+nctempchar1* nctemp1791= s;
+int nctemp1794=LibeStrev(nctemp1791);
 return 1;
 }
 }
@@ -2197,123 +1876,104 @@ int i;
 int sign;
 {
 sign =n;
-int nctemp3422 = (sign < 0);
-if(nctemp3422)
+int nctemp1796 = (sign < 0);
+if(nctemp1796)
 {
 {
-int nctemp3433= -n;
-n =nctemp3433;
+n =  -n;
 }
 }
-i =0;
-int nctemp3441= n;
-int nctemp3443= 16;
-int nctemp3445=LibeMod(nctemp3441,nctemp3443);
-int nctemp3438 = (nctemp3445 <= 9);
-if(nctemp3438)
+i = 0;
+int nctemp1807= n;
+int nctemp1809= 16;
+int nctemp1811=LibeMod(nctemp1807,nctemp1809);
+int nctemp1804 = (nctemp1811 <= 9);
+if(nctemp1804)
 {
 {
-int nctemp3450=0;
-if((0>0)||(0>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1443,0,0,s->d[0]-1);
-}
-int nctemp3458= n;
-int nctemp3460= 16;
-int nctemp3462=LibeMod(nctemp3458,nctemp3460);
-int nctemp3464 = nctemp3462 + 48;
-char nctemp3453=(char)(nctemp3464);
-s->a[nctemp3450] =nctemp3453;
+int nctemp1816=0;
+int nctemp1824= n;
+int nctemp1826= 16;
+int nctemp1828=LibeMod(nctemp1824,nctemp1826);
+int nctemp1830 = nctemp1828 + 48;
+char nctemp1819=(char)(nctemp1830);
+s->a[nctemp1816] =nctemp1819;
 }
 }
 else{
 {
-int nctemp3468=0;
-if((0>0)||(0>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1446,0,0,s->d[0]-1);
-}
-int nctemp3479= n;
-int nctemp3481= 16;
-int nctemp3483=LibeMod(nctemp3479,nctemp3481);
-int nctemp3485 = nctemp3483 + 'a';
-int nctemp3487 = nctemp3485 - 10;
-char nctemp3471=(char)(nctemp3487);
-s->a[nctemp3468] =nctemp3471;
+int nctemp1834=0;
+int nctemp1845= n;
+int nctemp1847= 16;
+int nctemp1849=LibeMod(nctemp1845,nctemp1847);
+int nctemp1851 = nctemp1849 + 'a';
+int nctemp1853 = nctemp1851 - 10;
+char nctemp1837=(char)(nctemp1853);
+s->a[nctemp1834] =nctemp1837;
 }
 }
-int nctemp3499 = n / 16;
-n =nctemp3499;
-int nctemp3488 = (n > 0);
-int nctemp3501=nctemp3488;
-while(nctemp3501)
+int nctemp1865 = n / 16;
+n =nctemp1865;
+int nctemp1854 = (n > 0);
+int nctemp1867=nctemp1854;
+while(nctemp1867)
 {{
 {
-int nctemp3505= n;
-int nctemp3507= 16;
-int nctemp3509=LibeMod(nctemp3505,nctemp3507);
-int nctemp3502 = (nctemp3509 <= 9);
-if(nctemp3502)
+int nctemp1871= n;
+int nctemp1873= 16;
+int nctemp1875=LibeMod(nctemp1871,nctemp1873);
+int nctemp1868 = (nctemp1875 <= 9);
+if(nctemp1868)
 {
 {
-int nctemp3523 = i + 1;
-i =nctemp3523;
-int nctemp3514=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1450,i,0,s->d[0]-1);
-}
-int nctemp3530= n;
-int nctemp3532= 16;
-int nctemp3534=LibeMod(nctemp3530,nctemp3532);
-int nctemp3536 = nctemp3534 + 48;
-char nctemp3525=(char)(nctemp3536);
-s->a[nctemp3514] =nctemp3525;
+int nctemp1889 = i + 1;
+i =nctemp1889;
+int nctemp1880=i;
+int nctemp1896= n;
+int nctemp1898= 16;
+int nctemp1900=LibeMod(nctemp1896,nctemp1898);
+int nctemp1902 = nctemp1900 + 48;
+char nctemp1891=(char)(nctemp1902);
+s->a[nctemp1880] =nctemp1891;
 }
 }
 else{
 {
-int nctemp3549 = i + 1;
-i =nctemp3549;
-int nctemp3540=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1453,i,0,s->d[0]-1);
-}
-int nctemp3559= n;
-int nctemp3561= 16;
-int nctemp3563=LibeMod(nctemp3559,nctemp3561);
-int nctemp3565 = nctemp3563 + 'a';
-int nctemp3567 = nctemp3565 - 10;
-char nctemp3551=(char)(nctemp3567);
-s->a[nctemp3540] =nctemp3551;
+int nctemp1915 = i + 1;
+i =nctemp1915;
+int nctemp1906=i;
+int nctemp1925= n;
+int nctemp1927= 16;
+int nctemp1929=LibeMod(nctemp1925,nctemp1927);
+int nctemp1931 = nctemp1929 + 'a';
+int nctemp1933 = nctemp1931 - 10;
+char nctemp1917=(char)(nctemp1933);
+s->a[nctemp1906] =nctemp1917;
 }
 }
 }
 }
-int nctemp3579 = n / 16;
-n =nctemp3579;
-int nctemp3568 = (n > 0);
-nctemp3501=nctemp3568;}int nctemp3581 = (sign < 0);
-if(nctemp3581)
+int nctemp1945 = n / 16;
+n =nctemp1945;
+int nctemp1934 = (n > 0);
+nctemp1867=nctemp1934;}int nctemp1947 = (sign < 0);
+if(nctemp1947)
 {
 {
-int nctemp3597 = i + 1;
-i =nctemp3597;
-int nctemp3588=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1456,i,0,s->d[0]-1);
-}
-char nctemp3599=(char)(45);
-s->a[nctemp3588] =nctemp3599;
+int nctemp1963 = i + 1;
+i =nctemp1963;
+int nctemp1954=i;
+char nctemp1965=(char)(45);
+s->a[nctemp1954] =nctemp1965;
 }
 }
-int nctemp3614 = i + 1;
-i =nctemp3614;
-int nctemp3605=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1458,i,0,s->d[0]-1);
-}
-char nctemp3616=(char)(0);
-s->a[nctemp3605] =nctemp3616;
-nctempchar1* nctemp3620= s;
-int nctemp3623=LibeStrev(nctemp3620);
+int nctemp1980 = i + 1;
+i =nctemp1980;
+int nctemp1971=i;
+char nctemp1982=(char)(0);
+s->a[nctemp1971] =nctemp1982;
+nctempchar1* nctemp1986= s;
+int nctemp1989=LibeStrev(nctemp1986);
 return 0;
 }
 }
@@ -2326,237 +1986,166 @@ int sign;
 int esign;
 int i;
 {
-sign =1;
-val =0.0;
-power =1.0;
-exponent =0;
-esign =1;
-i =0;
-int nctemp3652=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1484,i,0,s->d[0]-1);
-}
-char nctemp3655=(char)(' ');
-int nctemp3649 = (s->a[nctemp3652] ==nctemp3655);
-int nctemp3658=nctemp3649;
-while(nctemp3658)
+sign = 1;
+val = 0.0;
+power = 1.0;
+exponent = 0;
+esign = 1;
+i = 0;
+int nctemp1994=i;
+char nctemp1997=(char)(' ');
+int nctemp1991 = (s->a[nctemp1994] ==nctemp1997);
+int nctemp2000=nctemp1991;
+while(nctemp2000)
 {{
 {
-int nctemp3667 = i + 1;
-i =nctemp3667;
+i = (i + 1);
 }
 }
-int nctemp3671=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1484,i,0,s->d[0]-1);
-}
-char nctemp3674=(char)(' ');
-int nctemp3668 = (s->a[nctemp3671] ==nctemp3674);
-nctemp3658=nctemp3668;}int nctemp3683=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1486,i,0,s->d[0]-1);
-}
-char nctemp3686=(char)('+');
-int nctemp3680 = (s->a[nctemp3683] ==nctemp3686);
-int nctemp3693=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1486,i,0,s->d[0]-1);
-}
-char nctemp3696=(char)('-');
-int nctemp3690 = (s->a[nctemp3693] ==nctemp3696);
-int nctemp3677 = (nctemp3680 || nctemp3690);
-if(nctemp3677)
+int nctemp2004=i;
+char nctemp2007=(char)(' ');
+int nctemp2001 = (s->a[nctemp2004] ==nctemp2007);
+nctemp2000=nctemp2001;}int nctemp2016=i;
+char nctemp2019=(char)('+');
+int nctemp2013 = (s->a[nctemp2016] ==nctemp2019);
+int nctemp2026=i;
+char nctemp2029=(char)('-');
+int nctemp2023 = (s->a[nctemp2026] ==nctemp2029);
+int nctemp2010 = (nctemp2013 || nctemp2023);
+if(nctemp2010)
 {
 {
-int nctemp3702=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1487,i,0,s->d[0]-1);
-}
-char nctemp3705=(char)('-');
-int nctemp3699 = (s->a[nctemp3702] ==nctemp3705);
-if(nctemp3699)
+int nctemp2035=i;
+char nctemp2038=(char)('-');
+int nctemp2032 = (s->a[nctemp2035] ==nctemp2038);
+if(nctemp2032)
 {
 {
-int nctemp3711= -1;
-sign =nctemp3711;
+sign =  -1;
 }
 }
-int nctemp3720 = i + 1;
-i =nctemp3720;
+i = (i + 1);
 }
 }
-int nctemp3727=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1491,i,0,s->d[0]-1);
-}
-int nctemp3724=(int)(s->a[nctemp3727]);
-int nctemp3722= nctemp3724;
-int nctemp3729=LibeIsdigit(nctemp3722);
-int nctemp3730=nctemp3729;
-while(nctemp3730)
+int nctemp2047=i;
+int nctemp2044=(int)(s->a[nctemp2047]);
+int nctemp2042= nctemp2044;
+int nctemp2049=LibeIsdigit(nctemp2042);
+int nctemp2050=nctemp2049;
+while(nctemp2050)
 {{
 {
-float nctemp3742 = 10.0 * val;
-int nctemp3752=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1492,i,0,s->d[0]-1);
-}
-int nctemp3749=(int)(s->a[nctemp3752]);
-int nctemp3755 = nctemp3749 - '0';
-float nctemp3744=(float)(nctemp3755);
-float nctemp3756 = nctemp3742 + nctemp3744;
-val =nctemp3756;
-int nctemp3765 = i + 1;
-i =nctemp3765;
+float nctemp2062 = 10.0 * val;
+int nctemp2072=i;
+int nctemp2069=(int)(s->a[nctemp2072]);
+int nctemp2075 = nctemp2069 - '0';
+float nctemp2064=(float)(nctemp2075);
+float nctemp2076 = nctemp2062 + nctemp2064;
+val =nctemp2076;
+i = (i + 1);
 }
 }
-int nctemp3772=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1491,i,0,s->d[0]-1);
-}
-int nctemp3769=(int)(s->a[nctemp3772]);
-int nctemp3767= nctemp3769;
-int nctemp3774=LibeIsdigit(nctemp3767);
-nctemp3730=nctemp3774;}int nctemp3778=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1495,i,0,s->d[0]-1);
-}
-char nctemp3781=(char)('.');
-int nctemp3775 = (s->a[nctemp3778] ==nctemp3781);
-if(nctemp3775)
+int nctemp2083=i;
+int nctemp2080=(int)(s->a[nctemp2083]);
+int nctemp2078= nctemp2080;
+int nctemp2085=LibeIsdigit(nctemp2078);
+nctemp2050=nctemp2085;}int nctemp2089=i;
+char nctemp2092=(char)('.');
+int nctemp2086 = (s->a[nctemp2089] ==nctemp2092);
+if(nctemp2086)
 {
 {
-int nctemp3792 = i + 1;
-i =nctemp3792;
-int nctemp3799=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1497,i,0,s->d[0]-1);
-}
-int nctemp3796=(int)(s->a[nctemp3799]);
-int nctemp3794= nctemp3796;
-int nctemp3801=LibeIsdigit(nctemp3794);
-int nctemp3802=nctemp3801;
-while(nctemp3802)
+i = (i + 1);
+int nctemp2101=i;
+int nctemp2098=(int)(s->a[nctemp2101]);
+int nctemp2096= nctemp2098;
+int nctemp2103=LibeIsdigit(nctemp2096);
+int nctemp2104=nctemp2103;
+while(nctemp2104)
 {{
 {
-float nctemp3814 = 10.0 * val;
-int nctemp3824=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1498,i,0,s->d[0]-1);
-}
-int nctemp3821=(int)(s->a[nctemp3824]);
-int nctemp3827 = nctemp3821 - '0';
-float nctemp3816=(float)(nctemp3827);
-float nctemp3828 = nctemp3814 + nctemp3816;
-val =nctemp3828;
-int nctemp3837 = i + 1;
-i =nctemp3837;
-float nctemp3846 = 10.0 * power;
-power =nctemp3846;
+float nctemp2116 = 10.0 * val;
+int nctemp2126=i;
+int nctemp2123=(int)(s->a[nctemp2126]);
+int nctemp2129 = nctemp2123 - '0';
+float nctemp2118=(float)(nctemp2129);
+float nctemp2130 = nctemp2116 + nctemp2118;
+val =nctemp2130;
+i = (i + 1);
+power = (10.0 * power);
 }
 }
-int nctemp3853=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1497,i,0,s->d[0]-1);
+int nctemp2137=i;
+int nctemp2134=(int)(s->a[nctemp2137]);
+int nctemp2132= nctemp2134;
+int nctemp2139=LibeIsdigit(nctemp2132);
+nctemp2104=nctemp2139;}}
 }
-int nctemp3850=(int)(s->a[nctemp3853]);
-int nctemp3848= nctemp3850;
-int nctemp3855=LibeIsdigit(nctemp3848);
-nctemp3802=nctemp3855;}}
-}
-int nctemp3862=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1502,i,0,s->d[0]-1);
-}
-char nctemp3865=(char)('e');
-int nctemp3859 = (s->a[nctemp3862] ==nctemp3865);
-int nctemp3872=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1502,i,0,s->d[0]-1);
-}
-char nctemp3875=(char)('E');
-int nctemp3869 = (s->a[nctemp3872] ==nctemp3875);
-int nctemp3856 = (nctemp3859 || nctemp3869);
-if(nctemp3856)
+int nctemp2146=i;
+char nctemp2149=(char)('e');
+int nctemp2143 = (s->a[nctemp2146] ==nctemp2149);
+int nctemp2156=i;
+char nctemp2159=(char)('E');
+int nctemp2153 = (s->a[nctemp2156] ==nctemp2159);
+int nctemp2140 = (nctemp2143 || nctemp2153);
+if(nctemp2140)
 {
 {
-int nctemp3886 = i + 1;
-i =nctemp3886;
-int nctemp3893=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1504,i,0,s->d[0]-1);
-}
-char nctemp3896=(char)('+');
-int nctemp3890 = (s->a[nctemp3893] ==nctemp3896);
-int nctemp3903=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1504,i,0,s->d[0]-1);
-}
-char nctemp3906=(char)('-');
-int nctemp3900 = (s->a[nctemp3903] ==nctemp3906);
-int nctemp3887 = (nctemp3890 || nctemp3900);
-if(nctemp3887)
+i = (i + 1);
+int nctemp2168=i;
+char nctemp2171=(char)('+');
+int nctemp2165 = (s->a[nctemp2168] ==nctemp2171);
+int nctemp2178=i;
+char nctemp2181=(char)('-');
+int nctemp2175 = (s->a[nctemp2178] ==nctemp2181);
+int nctemp2162 = (nctemp2165 || nctemp2175);
+if(nctemp2162)
 {
 {
-int nctemp3912=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1505,i,0,s->d[0]-1);
-}
-char nctemp3915=(char)('-');
-int nctemp3909 = (s->a[nctemp3912] ==nctemp3915);
-if(nctemp3909)
+int nctemp2187=i;
+char nctemp2190=(char)('-');
+int nctemp2184 = (s->a[nctemp2187] ==nctemp2190);
+if(nctemp2184)
 {
 {
-int nctemp3921= -1;
-esign =nctemp3921;
+esign =  -1;
 }
 }
-int nctemp3930 = i + 1;
-i =nctemp3930;
+i = (i + 1);
 }
 }
-int nctemp3937=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1509,i,0,s->d[0]-1);
-}
-int nctemp3934=(int)(s->a[nctemp3937]);
-int nctemp3932= nctemp3934;
-int nctemp3939=LibeIsdigit(nctemp3932);
-int nctemp3940=nctemp3939;
-while(nctemp3940)
+int nctemp2199=i;
+int nctemp2196=(int)(s->a[nctemp2199]);
+int nctemp2194= nctemp2196;
+int nctemp2201=LibeIsdigit(nctemp2194);
+int nctemp2202=nctemp2201;
+while(nctemp2202)
 {{
 {
-int nctemp3955 = 10 * exponent;
-int nctemp3960=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1510,i,0,s->d[0]-1);
-}
-int nctemp3957=(int)(s->a[nctemp3960]);
-int nctemp3962 = nctemp3955 + nctemp3957;
-int nctemp3964 = nctemp3962 - '0';
-exponent =nctemp3964;
-int nctemp3973 = i + 1;
-i =nctemp3973;
+int nctemp2217 = 10 * exponent;
+int nctemp2222=i;
+int nctemp2219=(int)(s->a[nctemp2222]);
+int nctemp2224 = nctemp2217 + nctemp2219;
+int nctemp2226 = nctemp2224 - '0';
+exponent =nctemp2226;
+i = (i + 1);
 }
 }
-int nctemp3980=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1509,i,0,s->d[0]-1);
+int nctemp2233=i;
+int nctemp2230=(int)(s->a[nctemp2233]);
+int nctemp2228= nctemp2230;
+int nctemp2235=LibeIsdigit(nctemp2228);
+nctemp2202=nctemp2235;}}
 }
-int nctemp3977=(int)(s->a[nctemp3980]);
-int nctemp3975= nctemp3977;
-int nctemp3982=LibeIsdigit(nctemp3975);
-nctemp3940=nctemp3982;}}
-}
-float nctemp3991=(float)(sign);
-float nctemp3995 = nctemp3991 * val;
-float nctemp3997=(float)(power);
-float nctemp4000 = nctemp3995 / nctemp3997;
-float nctemp3984= nctemp4000;
-int nctemp4006 = esign * exponent;
-int nctemp4001= nctemp4006;
-float nctemp4007=LibeFscale(nctemp3984,nctemp4001);
-return nctemp4007;
+float nctemp2244=(float)(sign);
+float nctemp2248 = nctemp2244 * val;
+float nctemp2250=(float)(power);
+float nctemp2253 = nctemp2248 / nctemp2250;
+float nctemp2237= nctemp2253;
+int nctemp2259 = esign * exponent;
+int nctemp2254= nctemp2259;
+float nctemp2260=LibeFscale(nctemp2237,nctemp2254);
+return nctemp2260;
 }
 }
 int LibeFtoaf (int mant,int nexp,int nfield,int nfrac,nctempchar1 *s)
@@ -2567,276 +2156,192 @@ int i;
 int tp;
 int l;
 {
-int nctemp4008 = (mant < 0);
-if(nctemp4008)
+int nctemp2261 = (mant < 0);
+if(nctemp2261)
 {
 {
-int nctemp4015= -1;
-sign =nctemp4015;
-int nctemp4019= -mant;
-mant =nctemp4019;
+sign =  -1;
+mant =  -mant;
 }
 }
 else{
 {
-sign =1;
+sign = 1;
 }
 }
-int nctemp4027=s->d[0];int nctemp4036 = nfield + 1;
-int nctemp4024 = (nctemp4027 < nctemp4036);
-if(nctemp4024)
+int nctemp2268=s->d[0];int nctemp2277 = nfield + 1;
+int nctemp2265 = (nctemp2268 < nctemp2277);
+if(nctemp2265)
 {
 {
 return 0;
 }
 }
-int nctemp4052 = nexp + 1;
-int nctemp4054 = nctemp4052 + 1;
-int nctemp4056 = nctemp4054 + nfrac;
-l =nctemp4056;
-int nctemp4057 = (sign < 0);
-if(nctemp4057)
+l = (((nexp + 1) + 1) + nfrac);
+int nctemp2279 = (sign < 0);
+if(nctemp2279)
 {
 {
-int nctemp4069 = l + 1;
-l =nctemp4069;
+l = (l + 1);
 }
 }
-int nctemp4070 = (nfield < l);
-if(nctemp4070)
+int nctemp2283 = (nfield < l);
+if(nctemp2283)
 {
 {
 for(i = 0;i < nfield;i = (i + 1)){
 {
-int nctemp4077=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1550,i,0,s->d[0]-1);
-}
-char nctemp4080=(char)('*');
-s->a[nctemp4077] =nctemp4080;
+int nctemp2290=i;
+char nctemp2293=(char)('*');
+s->a[nctemp2290] =nctemp2293;
 }
 }
-int nctemp4086=nfield;
-if((0>nfield)||(nfield>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1551,nfield,0,s->d[0]-1);
-}
-char nctemp4089=(char)(0);
-s->a[nctemp4086] =nctemp4089;
+int nctemp2299=nfield;
+char nctemp2302=(char)(0);
+s->a[nctemp2299] =nctemp2302;
 return 0;
 }
 }
 else{
 {
-int nctemp4101 = nfield - l;
-tp =nctemp4101;
+tp = (nfield - l);
 }
 }
-int nctemp4113 = 6 + 1;
-int nctemp4108=nctemp4113;
-nctempchar1 *nctemp4107;
-nctemp4107=(nctempchar1*)RunMalloc(sizeof(nctempchar1));
-int nctemp4118 = 6 + 1;
-nctemp4107->d[0]=nctemp4118;
-nctemp4107->a=(char *)RunMalloc(sizeof(char)*nctemp4108);
-t=nctemp4107;
-int nctemp4120= mant;
-nctempchar1* nctemp4122= t;
-int nctemp4125=LibeItoa(nctemp4120,nctemp4122);
+int nctemp2317 = 6 + 1;
+int nctemp2312=nctemp2317;
+nctempchar1 *nctemp2311;
+nctemp2311=(nctempchar1*)RunMalloc(sizeof(nctempchar1));
+int nctemp2322 = 6 + 1;
+nctemp2311->d[0]=nctemp2322;
+nctemp2311->a=(char *)RunMalloc(sizeof(char)*nctemp2312);
+t=nctemp2311;
+int nctemp2324= mant;
+nctempchar1* nctemp2326= t;
+int nctemp2329=LibeItoa(nctemp2324,nctemp2326);
 for(i = 0;i < tp;i = (i + 1)){
 {
-int nctemp4129=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1560,i,0,s->d[0]-1);
-}
-char nctemp4132=(char)(' ');
-s->a[nctemp4129] =nctemp4132;
+int nctemp2333=i;
+char nctemp2336=(char)(' ');
+s->a[nctemp2333] =nctemp2336;
 }
 }
-int nctemp4135 = (nexp >= 0);
-if(nctemp4135)
+int nctemp2339 = (nexp >= 0);
+if(nctemp2339)
 {
 {
-int nctemp4142= -1;
-int nctemp4139 = (sign ==nctemp4142);
-if(nctemp4139)
+int nctemp2346= -1;
+int nctemp2343 = (sign ==nctemp2346);
+if(nctemp2343)
 {
 {
-int nctemp4146=tp;
-if((0>tp)||(tp>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1564,tp,0,s->d[0]-1);
-}
-char nctemp4149=(char)('-');
-s->a[nctemp4146] =nctemp4149;
-int nctemp4160 = tp + 1;
-tp =nctemp4160;
+int nctemp2350=tp;
+char nctemp2353=(char)('-');
+s->a[nctemp2350] =nctemp2353;
+tp = (tp + 1);
 }
 }
 for(i = 0;i <= nexp;i = (i + 1)){
 {
-int nctemp4169 = i + tp;
-int nctemp4164=nctemp4169;
-if((0>nctemp4169)||(nctemp4169>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1568,nctemp4169,0,s->d[0]-1);
-}
-int nctemp4171=i;
-if((0>i)||(i>=t->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e t %d %d %d %d \n " ,1568,i,0,t->d[0]-1);
-}
-s->a[nctemp4164] =t->a[nctemp4171];
+s->a[i + tp] = t->a[i];
 }
 }
-int nctemp4173 = (nfrac > 0);
-if(nctemp4173)
+int nctemp2356 = (nfrac > 0);
+if(nctemp2356)
 {
 {
-int nctemp4188 = tp + nexp;
-int nctemp4190 = nctemp4188 + 1;
-int nctemp4180=nctemp4190;
-if((0>nctemp4190)||(nctemp4190>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1571,nctemp4190,0,s->d[0]-1);
-}
-char nctemp4192=(char)('.');
-s->a[nctemp4180] =nctemp4192;
+int nctemp2371 = tp + nexp;
+int nctemp2373 = nctemp2371 + 1;
+int nctemp2363=nctemp2373;
+char nctemp2375=(char)('.');
+s->a[nctemp2363] =nctemp2375;
 }
 }
 for(i = 0;i < nfrac;i = (i + 1)){
 {
-int nctemp4195 = (mant ==0);
-if(nctemp4195)
+int nctemp2378 = (mant ==0);
+if(nctemp2378)
 {
 {
-int nctemp4216 = tp + nexp;
-int nctemp4218 = nctemp4216 + 1;
-int nctemp4220 = nctemp4218 + 1;
-int nctemp4222 = nctemp4220 + i;
-int nctemp4202=nctemp4222;
-if((0>nctemp4222)||(nctemp4222>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1575,nctemp4222,0,s->d[0]-1);
-}
-char nctemp4224=(char)('0');
-s->a[nctemp4202] =nctemp4224;
+int nctemp2399 = tp + nexp;
+int nctemp2401 = nctemp2399 + 1;
+int nctemp2403 = nctemp2401 + 1;
+int nctemp2405 = nctemp2403 + i;
+int nctemp2385=nctemp2405;
+char nctemp2407=(char)('0');
+s->a[nctemp2385] =nctemp2407;
 }
 }
 else{
 {
-int nctemp4244 = tp + nexp;
-int nctemp4246 = nctemp4244 + 1;
-int nctemp4248 = nctemp4246 + 1;
-int nctemp4250 = nctemp4248 + i;
-int nctemp4230=nctemp4250;
-if((0>nctemp4250)||(nctemp4250>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1577,nctemp4250,0,s->d[0]-1);
-}
-int nctemp4260 = nexp + 1;
-int nctemp4262 = nctemp4260 + i;
-int nctemp4252=nctemp4262;
-if((0>nctemp4262)||(nctemp4262>=t->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e t %d %d %d %d \n " ,1577,nctemp4262,0,t->d[0]-1);
-}
-s->a[nctemp4230] =t->a[nctemp4252];
+s->a[(((tp + nexp) + 1) + 1) + i] = t->a[(nexp + 1) + i];
 }
 }
 }
 }
-int nctemp4263 = (nfrac > 0);
-if(nctemp4263)
+int nctemp2410 = (nfrac > 0);
+if(nctemp2410)
 {
 {
-int nctemp4284 = tp + nexp;
-int nctemp4286 = nctemp4284 + 1;
-int nctemp4288 = nctemp4286 + 1;
-int nctemp4290 = nctemp4288 + nfrac;
-int nctemp4270=nctemp4290;
-if((0>nctemp4290)||(nctemp4290>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1580,nctemp4290,0,s->d[0]-1);
-}
-char nctemp4292=(char)(0);
-s->a[nctemp4270] =nctemp4292;
+int nctemp2431 = tp + nexp;
+int nctemp2433 = nctemp2431 + 1;
+int nctemp2435 = nctemp2433 + 1;
+int nctemp2437 = nctemp2435 + nfrac;
+int nctemp2417=nctemp2437;
+char nctemp2439=(char)(0);
+s->a[nctemp2417] =nctemp2439;
 }
 }
 else{
 {
-int nctemp4306 = tp + nexp;
-int nctemp4308 = nctemp4306 + 1;
-int nctemp4298=nctemp4308;
-if((0>nctemp4308)||(nctemp4308>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1582,nctemp4308,0,s->d[0]-1);
-}
-char nctemp4310=(char)(0);
-s->a[nctemp4298] =nctemp4310;
+int nctemp2453 = tp + nexp;
+int nctemp2455 = nctemp2453 + 1;
+int nctemp2445=nctemp2455;
+char nctemp2457=(char)(0);
+s->a[nctemp2445] =nctemp2457;
 }
 }
 }
 }
 else{
 {
-int nctemp4316= -nexp;
-nexp =nctemp4316;
-int nctemp4320= -1;
-int nctemp4317 = (sign ==nctemp4320);
-if(nctemp4317)
+nexp =  -nexp;
+int nctemp2463= -1;
+int nctemp2460 = (sign ==nctemp2463);
+if(nctemp2460)
 {
 {
-int nctemp4324=tp;
-if((0>tp)||(tp>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1587,tp,0,s->d[0]-1);
-}
-char nctemp4327=(char)('-');
-s->a[nctemp4324] =nctemp4327;
-int nctemp4338 = tp + 1;
-tp =nctemp4338;
+int nctemp2467=tp;
+char nctemp2470=(char)('-');
+s->a[nctemp2467] =nctemp2470;
+tp = (tp + 1);
 }
 }
-int nctemp4342=tp;
-if((0>tp)||(tp>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1589,tp,0,s->d[0]-1);
-}
-char nctemp4345=(char)('0');
-s->a[nctemp4342] =nctemp4345;
-int nctemp4356 = tp + 1;
-int nctemp4351=nctemp4356;
-if((0>nctemp4356)||(nctemp4356>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1590,nctemp4356,0,s->d[0]-1);
-}
-char nctemp4358=(char)('.');
-s->a[nctemp4351] =nctemp4358;
+int nctemp2476=tp;
+char nctemp2479=(char)('0');
+s->a[nctemp2476] =nctemp2479;
+int nctemp2490 = tp + 1;
+int nctemp2485=nctemp2490;
+char nctemp2492=(char)('.');
+s->a[nctemp2485] =nctemp2492;
 for(i = 0;i < (nexp - 1);i = (i + 1)){
 {
-int nctemp4372 = i + tp;
-int nctemp4374 = nctemp4372 + 2;
-int nctemp4364=nctemp4374;
-if((0>nctemp4374)||(nctemp4374>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1592,nctemp4374,0,s->d[0]-1);
-}
-char nctemp4376=(char)('0');
-s->a[nctemp4364] =nctemp4376;
+int nctemp2506 = i + tp;
+int nctemp2508 = nctemp2506 + 2;
+int nctemp2498=nctemp2508;
+char nctemp2510=(char)('0');
+s->a[nctemp2498] =nctemp2510;
 }
 }
 for(i = 0;i < ((nfrac - nexp) + 1);i = (i + 1)){
 {
-int nctemp4396 = tp + 2;
-int nctemp4398 = nctemp4396 + i;
-int nctemp4400 = nctemp4398 + nexp;
-int nctemp4402 = nctemp4400 - 1;
-int nctemp4382=nctemp4402;
-if((0>nctemp4402)||(nctemp4402>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1594,nctemp4402,0,s->d[0]-1);
-}
-int nctemp4404=i;
-if((0>i)||(i>=t->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e t %d %d %d %d \n " ,1594,i,0,t->d[0]-1);
-}
-s->a[nctemp4382] =t->a[nctemp4404];
+s->a[(((tp + 2) + i) + nexp) - 1] = t->a[i];
 }
 }
-int nctemp4417 = tp + 2;
-int nctemp4419 = nctemp4417 + nfrac;
-int nctemp4409=nctemp4419;
-if((0>nctemp4419)||(nctemp4419>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1595,nctemp4419,0,s->d[0]-1);
-}
-char nctemp4421=(char)(0);
-s->a[nctemp4409] =nctemp4421;
+int nctemp2524 = tp + 2;
+int nctemp2526 = nctemp2524 + nfrac;
+int nctemp2516=nctemp2526;
+char nctemp2528=(char)(0);
+s->a[nctemp2516] =nctemp2528;
 }
 }
 return 1;
@@ -2850,211 +2355,161 @@ int i;
 int l;
 nctempchar1 *t;
 {
-int nctemp4425 = (mant < 0);
-if(nctemp4425)
+int nctemp2532 = (mant < 0);
+if(nctemp2532)
 {
 {
-int nctemp4432= -mant;
-mant =nctemp4432;
-int nctemp4436= -1;
-sign =nctemp4436;
+mant =  -mant;
+sign =  -1;
 }
 }
 else{
 {
-sign =1;
+sign = 1;
 }
 }
-int nctemp4444=s->d[0];int nctemp4471 = 1 + 1;
-int nctemp4473 = nctemp4471 + 1;
-int nctemp4475 = nctemp4473 + nfrac;
-int nctemp4477 = nctemp4475 + 1;
-int nctemp4479 = nctemp4477 + 1;
-int nctemp4481 = nctemp4479 + 2;
-int nctemp4483 = nctemp4481 + 1;
-int nctemp4441 = (nctemp4444 < nctemp4483);
-if(nctemp4441)
+int nctemp2539=s->d[0];int nctemp2566 = 1 + 1;
+int nctemp2568 = nctemp2566 + 1;
+int nctemp2570 = nctemp2568 + nfrac;
+int nctemp2572 = nctemp2570 + 1;
+int nctemp2574 = nctemp2572 + 1;
+int nctemp2576 = nctemp2574 + 2;
+int nctemp2578 = nctemp2576 + 1;
+int nctemp2536 = (nctemp2539 < nctemp2578);
+if(nctemp2536)
 {
 {
 return 0;
 }
 }
-int nctemp4493=s->d[0];int nctemp4491=nctemp4493;
-nctempchar1 *nctemp4490;
-nctemp4490=(nctempchar1*)RunMalloc(sizeof(nctempchar1));
-int nctemp4498=s->d[0];nctemp4490->d[0]=nctemp4498;
-nctemp4490->a=(char *)RunMalloc(sizeof(char)*nctemp4491);
-t=nctemp4490;
-int nctemp4525 = 1 + 1;
-int nctemp4527 = nctemp4525 + nfrac;
-int nctemp4529 = nctemp4527 + 1;
-int nctemp4531 = nctemp4529 + 1;
-int nctemp4533 = nctemp4531 + 2;
-int nctemp4535 = nctemp4533 + 1;
-l =nctemp4535;
-int nctemp4536 = (sign < 0);
-if(nctemp4536)
+int nctemp2588=s->d[0];int nctemp2586=nctemp2588;
+nctempchar1 *nctemp2585;
+nctemp2585=(nctempchar1*)RunMalloc(sizeof(nctempchar1));
+int nctemp2593=s->d[0];nctemp2585->d[0]=nctemp2593;
+nctemp2585->a=(char *)RunMalloc(sizeof(char)*nctemp2586);
+t=nctemp2585;
+l = ((((((1 + 1) + nfrac) + 1) + 1) + 2) + 1);
+int nctemp2597 = (sign < 0);
+if(nctemp2597)
 {
 {
-int nctemp4548 = l + 1;
-l =nctemp4548;
+l = (l + 1);
 }
 }
-int nctemp4549 = (nfield < l);
-if(nctemp4549)
+int nctemp2601 = (nfield < l);
+if(nctemp2601)
 {
 {
 for(i = 0;i < nfield;i = (i + 1)){
 {
-int nctemp4556=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1643,i,0,s->d[0]-1);
-}
-char nctemp4559=(char)('*');
-s->a[nctemp4556] =nctemp4559;
+int nctemp2608=i;
+char nctemp2611=(char)('*');
+s->a[nctemp2608] =nctemp2611;
 }
 }
-int nctemp4565=nfield;
-if((0>nfield)||(nfield>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1645,nfield,0,s->d[0]-1);
-}
-char nctemp4568=(char)(0);
-s->a[nctemp4565] =nctemp4568;
+int nctemp2617=nfield;
+char nctemp2620=(char)(0);
+s->a[nctemp2617] =nctemp2620;
 return 0;
 }
 }
 else{
 {
-int nctemp4580 = nfield - l;
-tp =nctemp4580;
+tp = (nfield - l);
 }
 }
 for(i = 0;i < tp;i = (i + 1)){
 {
-int nctemp4584=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1651,i,0,s->d[0]-1);
-}
-char nctemp4587=(char)(' ');
-s->a[nctemp4584] =nctemp4587;
+int nctemp2627=i;
+char nctemp2630=(char)(' ');
+s->a[nctemp2627] =nctemp2630;
 }
 }
-int nctemp4591= mant;
-nctempchar1* nctemp4593= t;
-int nctemp4596=LibeItoa(nctemp4591,nctemp4593);
-int nctemp4597 = (sign < 0);
-if(nctemp4597)
+int nctemp2634= mant;
+nctempchar1* nctemp2636= t;
+int nctemp2639=LibeItoa(nctemp2634,nctemp2636);
+int nctemp2640 = (sign < 0);
+if(nctemp2640)
 {
 {
-int nctemp4604=tp;
-if((0>tp)||(tp>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1656,tp,0,s->d[0]-1);
-}
-char nctemp4607=(char)('-');
-s->a[nctemp4604] =nctemp4607;
-int nctemp4618 = tp + 1;
-tp =nctemp4618;
+int nctemp2647=tp;
+char nctemp2650=(char)('-');
+s->a[nctemp2647] =nctemp2650;
+tp = (tp + 1);
 }
 }
-int nctemp4622=tp;
-if((0>tp)||(tp>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1659,tp,0,s->d[0]-1);
-}
-int nctemp4625=0;
-if((0>0)||(0>=t->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e t %d %d %d %d \n " ,1659,0,0,t->d[0]-1);
-}
-s->a[nctemp4622] =t->a[nctemp4625];
-int nctemp4635 = tp + 1;
-int nctemp4630=nctemp4635;
-if((0>nctemp4635)||(nctemp4635>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1660,nctemp4635,0,s->d[0]-1);
-}
-char nctemp4637=(char)('.');
-s->a[nctemp4630] =nctemp4637;
+s->a[tp] = t->a[0];
+int nctemp2661 = tp + 1;
+int nctemp2656=nctemp2661;
+char nctemp2663=(char)('.');
+s->a[nctemp2656] =nctemp2663;
 for(i = 0;i < nfrac;i = (i + 1)){
 {
-int nctemp4651 = tp + 2;
-int nctemp4653 = nctemp4651 + i;
-int nctemp4643=nctemp4653;
-if((0>nctemp4653)||(nctemp4653>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1663,nctemp4653,0,s->d[0]-1);
-}
-int nctemp4660 = i + 1;
-int nctemp4655=nctemp4660;
-if((0>nctemp4660)||(nctemp4660>=t->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e t %d %d %d %d \n " ,1663,nctemp4660,0,t->d[0]-1);
-}
-s->a[nctemp4643] =t->a[nctemp4655];
+s->a[(tp + 2) + i] = t->a[i + 1];
 }
 }
-int nctemp4672 = tp + 2;
-int nctemp4674 = nctemp4672 + nfrac;
-int nctemp4664=nctemp4674;
-if((0>nctemp4674)||(nctemp4674>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1665,nctemp4674,0,s->d[0]-1);
-}
-char nctemp4676=(char)(0);
-s->a[nctemp4664] =nctemp4676;
-sign =1;
-int nctemp4683 = (nexp < 0);
-if(nctemp4683)
+int nctemp2677 = tp + 2;
+int nctemp2679 = nctemp2677 + nfrac;
+int nctemp2669=nctemp2679;
+char nctemp2681=(char)(0);
+s->a[nctemp2669] =nctemp2681;
+sign = 1;
+int nctemp2684 = (nexp < 0);
+if(nctemp2684)
 {
 {
-int nctemp4690= -1;
-sign =nctemp4690;
-int nctemp4694= -nexp;
-nexp =nctemp4694;
+sign =  -1;
+nexp =  -nexp;
 }
 }
-struct nctempchar1 *nctemp4698;
-static struct nctempchar1 nctemp4699 = {{ 2}, (char*)"e\0"};
-nctemp4698=&nctemp4699;
-nctempchar1* nctemp4696= nctemp4698;
-nctempchar1* nctemp4700= s;
-int nctemp4703=LibeStrcat(nctemp4696,nctemp4700);
-int nctemp4704 = (sign > 0);
-if(nctemp4704)
+struct nctempchar1 *nctemp2691;
+static struct nctempchar1 nctemp2692 = {{ 2}, (char*)"e\0"};
+nctemp2691=&nctemp2692;
+nctempchar1* nctemp2689= nctemp2691;
+nctempchar1* nctemp2693= s;
+int nctemp2696=LibeStrcat(nctemp2689,nctemp2693);
+int nctemp2697 = (sign > 0);
+if(nctemp2697)
 {
 {
-struct nctempchar1 *nctemp4711;
-static struct nctempchar1 nctemp4712 = {{ 2}, (char*)"+\0"};
-nctemp4711=&nctemp4712;
-nctempchar1* nctemp4709= nctemp4711;
-nctempchar1* nctemp4713= s;
-int nctemp4716=LibeStrcat(nctemp4709,nctemp4713);
+struct nctempchar1 *nctemp2704;
+static struct nctempchar1 nctemp2705 = {{ 2}, (char*)"+\0"};
+nctemp2704=&nctemp2705;
+nctempchar1* nctemp2702= nctemp2704;
+nctempchar1* nctemp2706= s;
+int nctemp2709=LibeStrcat(nctemp2702,nctemp2706);
 }
 }
 else{
 {
-struct nctempchar1 *nctemp4720;
-static struct nctempchar1 nctemp4721 = {{ 2}, (char*)"-\0"};
-nctemp4720=&nctemp4721;
-nctempchar1* nctemp4718= nctemp4720;
-nctempchar1* nctemp4722= s;
-int nctemp4725=LibeStrcat(nctemp4718,nctemp4722);
+struct nctempchar1 *nctemp2713;
+static struct nctempchar1 nctemp2714 = {{ 2}, (char*)"-\0"};
+nctemp2713=&nctemp2714;
+nctempchar1* nctemp2711= nctemp2713;
+nctempchar1* nctemp2715= s;
+int nctemp2718=LibeStrcat(nctemp2711,nctemp2715);
 }
 }
-int nctemp4727= nexp;
-nctempchar1* nctemp4729= t;
-int nctemp4732=LibeItoa(nctemp4727,nctemp4729);
-nctempchar1* nctemp4736= t;
-int nctemp4739=LibeStrlen(nctemp4736);
-int nctemp4733 = (nctemp4739 ==1);
-if(nctemp4733)
+int nctemp2720= nexp;
+nctempchar1* nctemp2722= t;
+int nctemp2725=LibeItoa(nctemp2720,nctemp2722);
+nctempchar1* nctemp2729= t;
+int nctemp2732=LibeStrlen(nctemp2729);
+int nctemp2726 = (nctemp2732 ==1);
+if(nctemp2726)
 {
 {
-struct nctempchar1 *nctemp4744;
-static struct nctempchar1 nctemp4745 = {{ 2}, (char*)"0\0"};
-nctemp4744=&nctemp4745;
-nctempchar1* nctemp4742= nctemp4744;
-nctempchar1* nctemp4746= s;
-int nctemp4749=LibeStrcat(nctemp4742,nctemp4746);
+struct nctempchar1 *nctemp2737;
+static struct nctempchar1 nctemp2738 = {{ 2}, (char*)"0\0"};
+nctemp2737=&nctemp2738;
+nctempchar1* nctemp2735= nctemp2737;
+nctempchar1* nctemp2739= s;
+int nctemp2742=LibeStrcat(nctemp2735,nctemp2739);
 }
 }
-nctempchar1* nctemp4751= t;
-nctempchar1* nctemp4754= s;
-int nctemp4757=LibeStrcat(nctemp4751,nctemp4754);
+nctempchar1* nctemp2744= t;
+nctempchar1* nctemp2747= s;
+int nctemp2750=LibeStrcat(nctemp2744,nctemp2747);
 RunFree(t->a);
 RunFree(t);
 return 1;
@@ -3073,116 +2528,86 @@ int ndigit;
 int nfield;
 int nfrac;
 {
-int nctemp4762 = (f !=f);
-if(nctemp4762)
+int nctemp2755 = (f !=f);
+if(nctemp2755)
 {
 {
-int nctemp4769=0;
-if((0>0)||(0>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1728,0,0,s->d[0]-1);
-}
-char nctemp4772=(char)('N');
-s->a[nctemp4769] =nctemp4772;
-int nctemp4778=1;
-if((0>1)||(1>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1729,1,0,s->d[0]-1);
-}
-char nctemp4781=(char)('a');
-s->a[nctemp4778] =nctemp4781;
-int nctemp4787=2;
-if((0>2)||(2>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1730,2,0,s->d[0]-1);
-}
-char nctemp4790=(char)('N');
-s->a[nctemp4787] =nctemp4790;
-int nctemp4796=3;
-if((0>3)||(3>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1731,3,0,s->d[0]-1);
-}
-char nctemp4799=(char)(0);
-s->a[nctemp4796] =nctemp4799;
+int nctemp2762=0;
+char nctemp2765=(char)('N');
+s->a[nctemp2762] =nctemp2765;
+int nctemp2771=1;
+char nctemp2774=(char)('a');
+s->a[nctemp2771] =nctemp2774;
+int nctemp2780=2;
+char nctemp2783=(char)('N');
+s->a[nctemp2780] =nctemp2783;
+int nctemp2789=3;
+char nctemp2792=(char)(0);
+s->a[nctemp2789] =nctemp2792;
 return 1;
 }
 }
-int nctemp4806=s->d[0];int nctemp4811=fmt->d[0];int nctemp4803 = (nctemp4806 < nctemp4811);
-if(nctemp4803)
+int nctemp2799=s->d[0];int nctemp2804=fmt->d[0];int nctemp2796 = (nctemp2799 < nctemp2804);
+if(nctemp2796)
 {
 {
 return 0;
 }
 }
-int nctemp4823=fmt->d[0];int nctemp4828 = nctemp4823 - 2;
-l =nctemp4828;
-p =0;
-q =0;
-int nctemp4844=p;
-if((0>p)||(p>=fmt->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e fmt %d %d %d %d \n " ,1742,p,0,fmt->d[0]-1);
-}
-int nctemp4841=(int)(fmt->a[nctemp4844]);
-c =nctemp4841;
-int nctemp4846 = (c =='g');
-if(nctemp4846)
+int nctemp2816=fmt->d[0];int nctemp2821 = nctemp2816 - 2;
+l =nctemp2821;
+p = 0;
+q = 0;
+int nctemp2829=p;
+int nctemp2826=(int)(fmt->a[nctemp2829]);
+c =nctemp2826;
+int nctemp2831 = (c =='g');
+if(nctemp2831)
 {
 {
-mode ='g';
+mode = 'g';
 }
 }
 else{
 {
-int nctemp4857= c;
-int nctemp4859=LibeIsdigit(nctemp4857);
-int nctemp4854 = (nctemp4859 ==1);
-if(nctemp4854)
+int nctemp2838= c;
+int nctemp2840=LibeIsdigit(nctemp2838);
+int nctemp2835 = (nctemp2840 ==1);
+if(nctemp2835)
 {
 {
-int nctemp4864= c;
-int nctemp4866=LibeIsdigit(nctemp4864);
-int nctemp4861 = (nctemp4866 ==1);
-int nctemp4868=nctemp4861;
-while(nctemp4868)
+int nctemp2845= c;
+int nctemp2847=LibeIsdigit(nctemp2845);
+int nctemp2842 = (nctemp2847 ==1);
+int nctemp2849=nctemp2842;
+while(nctemp2849)
 {{
 {
-int nctemp4872=q;
-if((0>q)||(q>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1749,q,0,s->d[0]-1);
-}
-int nctemp4875=p;
-if((0>p)||(p>=fmt->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e fmt %d %d %d %d \n " ,1749,p,0,fmt->d[0]-1);
-}
-s->a[nctemp4872] =fmt->a[nctemp4875];
-int nctemp4888 = p + 1;
-p =nctemp4888;
-int nctemp4877 = (p > l);
-if(nctemp4877)
+s->a[q] = fmt->a[p];
+int nctemp2861 = p + 1;
+p =nctemp2861;
+int nctemp2850 = (p > l);
+if(nctemp2850)
 {
 {
 return 0;
 }
 }
-int nctemp4899 = q + 1;
-q =nctemp4899;
-int nctemp4907=p;
-if((0>p)||(p>=fmt->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e fmt %d %d %d %d \n " ,1753,p,0,fmt->d[0]-1);
-}
-int nctemp4904=(int)(fmt->a[nctemp4907]);
-c =nctemp4904;
+q = (q + 1);
+int nctemp2871=p;
+int nctemp2868=(int)(fmt->a[nctemp2871]);
+c =nctemp2868;
 }
 }
-int nctemp4912= c;
-int nctemp4914=LibeIsdigit(nctemp4912);
-int nctemp4909 = (nctemp4914 ==1);
-nctemp4868=nctemp4909;}int nctemp4919=q;
-if((0>q)||(q>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1754,q,0,s->d[0]-1);
-}
-char nctemp4922=(char)(0);
-s->a[nctemp4919] =nctemp4922;
-nctempchar1* nctemp4929= s;
-int nctemp4932=LibeAtoi(nctemp4929);
-nfield =nctemp4932;
+int nctemp2876= c;
+int nctemp2878=LibeIsdigit(nctemp2876);
+int nctemp2873 = (nctemp2878 ==1);
+nctemp2849=nctemp2873;}int nctemp2883=q;
+char nctemp2886=(char)(0);
+s->a[nctemp2883] =nctemp2886;
+nctempchar1* nctemp2893= s;
+int nctemp2896=LibeAtoi(nctemp2893);
+nfield =nctemp2896;
 }
 }
 else{
@@ -3190,82 +2615,64 @@ else{
 return 0;
 }
 }
-int nctemp4934 = (c !='.');
-if(nctemp4934)
+int nctemp2898 = (c !='.');
+if(nctemp2898)
 {
 {
 return 0;
 }
 }
-int nctemp4950 = p + 1;
-p =nctemp4950;
-int nctemp4939 = (p > l);
-if(nctemp4939)
+int nctemp2914 = p + 1;
+p =nctemp2914;
+int nctemp2903 = (p > l);
+if(nctemp2903)
 {
 {
 return 0;
 }
 }
-int nctemp4960=p;
-if((0>p)||(p>=fmt->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e fmt %d %d %d %d \n " ,1764,p,0,fmt->d[0]-1);
-}
-int nctemp4957=(int)(fmt->a[nctemp4960]);
-c =nctemp4957;
-q =0;
-int nctemp4969= c;
-int nctemp4971=LibeIsdigit(nctemp4969);
-int nctemp4966 = (nctemp4971 ==1);
-if(nctemp4966)
+int nctemp2924=p;
+int nctemp2921=(int)(fmt->a[nctemp2924]);
+c =nctemp2921;
+q = 0;
+int nctemp2929= c;
+int nctemp2931=LibeIsdigit(nctemp2929);
+int nctemp2926 = (nctemp2931 ==1);
+if(nctemp2926)
 {
 {
-int nctemp4976= c;
-int nctemp4978=LibeIsdigit(nctemp4976);
-int nctemp4973 = (nctemp4978 ==1);
-int nctemp4980=nctemp4973;
-while(nctemp4980)
+int nctemp2936= c;
+int nctemp2938=LibeIsdigit(nctemp2936);
+int nctemp2933 = (nctemp2938 ==1);
+int nctemp2940=nctemp2933;
+while(nctemp2940)
 {{
 {
-int nctemp4984=q;
-if((0>q)||(q>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1769,q,0,s->d[0]-1);
-}
-int nctemp4987=p;
-if((0>p)||(p>=fmt->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e fmt %d %d %d %d \n " ,1769,p,0,fmt->d[0]-1);
-}
-s->a[nctemp4984] =fmt->a[nctemp4987];
-int nctemp5000 = p + 1;
-p =nctemp5000;
-int nctemp4989 = (p > l);
-if(nctemp4989)
+s->a[q] = fmt->a[p];
+int nctemp2952 = p + 1;
+p =nctemp2952;
+int nctemp2941 = (p > l);
+if(nctemp2941)
 {
 {
 return 0;
 }
 }
-int nctemp5011 = q + 1;
-q =nctemp5011;
-int nctemp5019=p;
-if((0>p)||(p>=fmt->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e fmt %d %d %d %d \n " ,1773,p,0,fmt->d[0]-1);
-}
-int nctemp5016=(int)(fmt->a[nctemp5019]);
-c =nctemp5016;
+q = (q + 1);
+int nctemp2962=p;
+int nctemp2959=(int)(fmt->a[nctemp2962]);
+c =nctemp2959;
 }
 }
-int nctemp5024= c;
-int nctemp5026=LibeIsdigit(nctemp5024);
-int nctemp5021 = (nctemp5026 ==1);
-nctemp4980=nctemp5021;}int nctemp5031=q;
-if((0>q)||(q>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,1774,q,0,s->d[0]-1);
-}
-char nctemp5034=(char)(0);
-s->a[nctemp5031] =nctemp5034;
-nctempchar1* nctemp5041= s;
-int nctemp5044=LibeAtoi(nctemp5041);
-nfrac =nctemp5044;
+int nctemp2967= c;
+int nctemp2969=LibeIsdigit(nctemp2967);
+int nctemp2964 = (nctemp2969 ==1);
+nctemp2940=nctemp2964;}int nctemp2974=q;
+char nctemp2977=(char)(0);
+s->a[nctemp2974] =nctemp2977;
+nctempchar1* nctemp2984= s;
+int nctemp2987=LibeAtoi(nctemp2984);
+nfrac =nctemp2987;
 }
 }
 else{
@@ -3273,20 +2680,20 @@ else{
 return 0;
 }
 }
-int nctemp5046 = (c =='f');
-if(nctemp5046)
+int nctemp2989 = (c =='f');
+if(nctemp2989)
 {
 {
-mode ='f';
+mode = 'f';
 }
 }
 else{
 {
-int nctemp5054 = (c =='e');
-if(nctemp5054)
+int nctemp2993 = (c =='e');
+if(nctemp2993)
 {
 {
-mode ='e';
+mode = 'e';
 }
 }
 else{
@@ -3298,83 +2705,72 @@ return 0;
 }
 }
 }
-int nctemp5063 = (mode =='g');
-if(nctemp5063)
+int nctemp2998 = (mode =='g');
+if(nctemp2998)
 {
 {
-float nctemp5071= f;
-int nctemp5073=LibeGetmaxdig(nctemp5071);
-nfrac =nctemp5073;
-int nctemp5100 = 1 + 1;
-int nctemp5102 = nctemp5100 + 1;
-int nctemp5104 = nctemp5102 + 1;
-int nctemp5106 = nctemp5104 + nfrac;
-int nctemp5108 = nctemp5106 + 1;
-int nctemp5110 = nctemp5108 + 1;
-int nctemp5112 = nctemp5110 + 2;
-nfield =nctemp5112;
-int nctemp5121 = nfrac + 1;
-ndigit =nctemp5121;
-float nctemp5126= f;
-int nctemp5128= ndigit;
-int nctemp5130=LibeGetfman(nctemp5126,nctemp5128);
-mant =nctemp5130;
-float nctemp5135= f;
-int nctemp5137=LibeGetfexp(nctemp5135);
-nexp =nctemp5137;
-int nctemp5139= mant;
-int nctemp5141= nexp;
-int nctemp5143= nfield;
-int nctemp5145= nfrac;
-nctempchar1* nctemp5147= s;
-int nctemp5150=LibeFtoae(nctemp5139,nctemp5141,nctemp5143,nctemp5145,nctemp5147);
+float nctemp3006= f;
+int nctemp3008=LibeGetmaxdig(nctemp3006);
+nfrac =nctemp3008;
+nfield = (((((((1 + 1) + 1) + 1) + nfrac) + 1) + 1) + 2);
+ndigit = (nfrac + 1);
+float nctemp3013= f;
+int nctemp3015= ndigit;
+int nctemp3017=LibeGetfman(nctemp3013,nctemp3015);
+mant =nctemp3017;
+float nctemp3022= f;
+int nctemp3024=LibeGetfexp(nctemp3022);
+nexp =nctemp3024;
+int nctemp3026= mant;
+int nctemp3028= nexp;
+int nctemp3030= nfield;
+int nctemp3032= nfrac;
+nctempchar1* nctemp3034= s;
+int nctemp3037=LibeFtoae(nctemp3026,nctemp3028,nctemp3030,nctemp3032,nctemp3034);
 }
 }
 else{
 {
-int nctemp5151 = (mode =='e');
-if(nctemp5151)
+int nctemp3038 = (mode =='e');
+if(nctemp3038)
 {
 {
-int nctemp5163 = nfrac + 1;
-ndigit =nctemp5163;
-float nctemp5168= f;
-int nctemp5170= ndigit;
-int nctemp5172=LibeGetfman(nctemp5168,nctemp5170);
-mant =nctemp5172;
-float nctemp5177= f;
-int nctemp5179=LibeGetfexp(nctemp5177);
-nexp =nctemp5179;
-int nctemp5181= mant;
-int nctemp5183= nexp;
-int nctemp5185= nfield;
-int nctemp5187= nfrac;
-nctempchar1* nctemp5189= s;
-int nctemp5192=LibeFtoae(nctemp5181,nctemp5183,nctemp5185,nctemp5187,nctemp5189);
+ndigit = (nfrac + 1);
+float nctemp3046= f;
+int nctemp3048= ndigit;
+int nctemp3050=LibeGetfman(nctemp3046,nctemp3048);
+mant =nctemp3050;
+float nctemp3055= f;
+int nctemp3057=LibeGetfexp(nctemp3055);
+nexp =nctemp3057;
+int nctemp3059= mant;
+int nctemp3061= nexp;
+int nctemp3063= nfield;
+int nctemp3065= nfrac;
+nctempchar1* nctemp3067= s;
+int nctemp3070=LibeFtoae(nctemp3059,nctemp3061,nctemp3063,nctemp3065,nctemp3067);
 }
 }
 else{
 {
-int nctemp5193 = (mode =='f');
-if(nctemp5193)
+int nctemp3071 = (mode =='f');
+if(nctemp3071)
 {
 {
-float nctemp5201= f;
-int nctemp5203=LibeGetfexp(nctemp5201);
-nexp =nctemp5203;
-int nctemp5215 = nexp + nfrac;
-int nctemp5217 = nctemp5215 + 1;
-ndigit =nctemp5217;
-float nctemp5222= f;
-int nctemp5224= ndigit;
-int nctemp5226=LibeGetfman(nctemp5222,nctemp5224);
-mant =nctemp5226;
-int nctemp5228= mant;
-int nctemp5230= nexp;
-int nctemp5232= nfield;
-int nctemp5234= nfrac;
-nctempchar1* nctemp5236= s;
-int nctemp5239=LibeFtoaf(nctemp5228,nctemp5230,nctemp5232,nctemp5234,nctemp5236);
+float nctemp3079= f;
+int nctemp3081=LibeGetfexp(nctemp3079);
+nexp =nctemp3081;
+ndigit = ((nexp + nfrac) + 1);
+float nctemp3086= f;
+int nctemp3088= ndigit;
+int nctemp3090=LibeGetfman(nctemp3086,nctemp3088);
+mant =nctemp3090;
+int nctemp3092= mant;
+int nctemp3094= nexp;
+int nctemp3096= nfield;
+int nctemp3098= nfrac;
+nctempchar1* nctemp3100= s;
+int nctemp3103=LibeFtoaf(nctemp3092,nctemp3094,nctemp3096,nctemp3098,nctemp3100);
 }
 }
 }
@@ -3405,139 +2801,57 @@ int LibeIoinit ()
 {
 int i;
 {
-int nctemp5247=40;
-struct nctempLibeFdescr1 *nctemp5246;
-nctemp5246=(struct nctempLibeFdescr1*)RunMalloc(sizeof(struct nctempLibeFdescr1));
-nctemp5246->d[0]=40;
-nctemp5246->a=(struct LibeFdescr*)RunMalloc(sizeof(struct LibeFdescr)*nctemp5247);
-LibeFarr=nctemp5246;
-nctempLibeFdescr1 *nctemp5251 =LibeFarr;
-int nctemp5250 =(nctemp5251==0);
-if(nctemp5250)
+int nctemp3111=40;
+struct nctempLibeFdescr1 *nctemp3110;
+nctemp3110=(struct nctempLibeFdescr1*)RunMalloc(sizeof(struct nctempLibeFdescr1));
+nctemp3110->d[0]=40;
+nctemp3110->a=(struct LibeFdescr*)RunMalloc(sizeof(struct LibeFdescr)*nctemp3111);
+LibeFarr=nctemp3110;
+nctempLibeFdescr1 *nctemp3115 =LibeFarr;
+int nctemp3114 =(nctemp3115==0);
+if(nctemp3114)
 {
 {
-LibeErrno =-100;
+LibeErrno = -100;
 return 0;
 }
 }
 for(i = 0;i < 40;i = (i + 1)){
 {
-int nctemp5263=i;
-if((0>i)||(i>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,1902,i,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp5263].cnt =0;
-int nctemp5269=i;
-if((0>i)||(i>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,1903,i,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp5269].ptr =0;
-int nctemp5275=i;
-if((0>i)||(i>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,1904,i,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp5275].bufsize =0;
-int nctemp5281=i;
-if((0>i)||(i>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,1905,i,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp5281].base=(0);
-int nctemp5288=i;
-if((0>i)||(i>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,1906,i,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp5288].readflg =0;
-int nctemp5294=i;
-if((0>i)||(i>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,1907,i,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp5294].writflg =0;
-int nctemp5300=i;
-if((0>i)||(i>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,1908,i,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp5300].unbflg =0;
-int nctemp5306=i;
-if((0>i)||(i>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,1909,i,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp5306].errflg =1;
-int nctemp5312=i;
-if((0>i)||(i>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,1910,i,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp5312].eoflg =0;
-int nctemp5318=i;
-if((0>i)||(i>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,1911,i,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp5318].fd =0;
+LibeFarr->a[i].cnt = 0;
+LibeFarr->a[i].ptr = 0;
+LibeFarr->a[i].bufsize = 0;
+LibeFarr->a[i].base  = 0;
+LibeFarr->a[i].readflg = 0;
+LibeFarr->a[i].writflg = 0;
+LibeFarr->a[i].unbflg = 0;
+LibeFarr->a[i].errflg = 1;
+LibeFarr->a[i].eoflg = 0;
+LibeFarr->a[i].fd = 0;
 }
 }
-int nctemp5324=0;
-if((0>0)||(0>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,1915,0,0,LibeFarr->d[0]-1);
-}
-int nctemp5326= -1;
-LibeFarr->a[nctemp5324].fd =nctemp5326;
-int nctemp5330=0;
-if((0>0)||(0>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,1916,0,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp5330].readflg =1;
-int nctemp5336=1;
-if((0>1)||(1>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,1917,1,0,LibeFarr->d[0]-1);
-}
-int nctemp5338= -1;
-LibeFarr->a[nctemp5336].fd =nctemp5338;
-int nctemp5342=1;
-if((0>1)||(1>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,1918,1,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp5342].readflg =1;
-int nctemp5348=2;
-if((0>2)||(2>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,1923,2,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp5348].fd =0;
-int nctemp5354=2;
-if((0>2)||(2>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,1924,2,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp5354].readflg =1;
-int nctemp5360=3;
-if((0>3)||(3>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,1925,3,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp5360].fd =1;
-int nctemp5366=3;
-if((0>3)||(3>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,1926,3,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp5366].writflg =1;
-int nctemp5372=4;
-if((0>4)||(4>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,1927,4,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp5372].fd =2;
-int nctemp5378=4;
-if((0>4)||(4>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,1928,4,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp5378].writflg =1;
-int nctemp5387=64;
-nctempchar1 *nctemp5386;
-nctemp5386=(nctempchar1*)RunMalloc(sizeof(nctempchar1));
-nctemp5386->d[0]=64;
-nctemp5386->a=(char *)RunMalloc(sizeof(char)*nctemp5387);
-LibeTmpstr=nctemp5386;
-nctempchar1 *nctemp5391 =LibeTmpstr;
-int nctemp5390 =(nctemp5391==0);
-if(nctemp5390)
+LibeFarr->a[0].fd =  -1;
+LibeFarr->a[0].readflg = 1;
+LibeFarr->a[1].fd =  -1;
+LibeFarr->a[1].readflg = 1;
+LibeFarr->a[2].fd = 0;
+LibeFarr->a[2].readflg = 1;
+LibeFarr->a[3].fd = 1;
+LibeFarr->a[3].writflg = 1;
+LibeFarr->a[4].fd = 2;
+LibeFarr->a[4].writflg = 1;
+int nctemp3126=64;
+nctempchar1 *nctemp3125;
+nctemp3125=(nctempchar1*)RunMalloc(sizeof(nctempchar1));
+nctemp3125->d[0]=64;
+nctemp3125->a=(char *)RunMalloc(sizeof(char)*nctemp3126);
+LibeTmpstr=nctemp3125;
+nctempchar1 *nctemp3130 =LibeTmpstr;
+int nctemp3129 =(nctemp3130==0);
+if(nctemp3129)
 {
 {
-LibeErrno =-100;
+LibeErrno = -100;
 return 0;
 }
 }
@@ -3549,150 +2863,90 @@ int LibeFlushbuff (int fp)
 int st;
 int size;
 {
-int nctemp5404=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,1961,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp5401 = (LibeFarr->a[nctemp5404].writflg !=1);
-if(nctemp5401)
+int nctemp3139=fp;
+int nctemp3136 = (LibeFarr->a[nctemp3139].writflg !=1);
+if(nctemp3136)
 {
 {
-struct nctempchar1 *nctemp5412;
-static struct nctempchar1 nctemp5413 = {{ 28}, (char*)"file not open for writing\n\0"};
-nctemp5412=&nctemp5413;
-LibeErrstr=nctemp5412;
-LibeErrno =-110;
+struct nctempchar1 *nctemp3147;
+static struct nctempchar1 nctemp3148 = {{ 28}, (char*)"file not open for writing\n\0"};
+nctemp3147=&nctemp3148;
+LibeErrstr=nctemp3147;
+LibeErrno = -110;
 return 0;
 }
 }
-int nctemp5422=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,1966,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp5419 = (LibeFarr->a[nctemp5422].unbflg ==1);
-if(nctemp5419)
+int nctemp3153=fp;
+int nctemp3150 = (LibeFarr->a[nctemp3153].unbflg ==1);
+if(nctemp3150)
 {
 {
-int nctemp5428=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,1967,fp,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp5428].bufsize =1;
+LibeFarr->a[fp].bufsize = 1;
 }
 }
 else{
 {
-int nctemp5434=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,1969,fp,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp5434].bufsize =1024;
+LibeFarr->a[fp].bufsize = 1024;
 }
 }
-int nctemp5440=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,1971,fp,0,LibeFarr->d[0]-1);
-}
-nctempchar1 *nctemp5438 =LibeFarr->a[nctemp5440].base;
-int nctemp5437 =(nctemp5438==0);
-if(nctemp5437)
+int nctemp3159=fp;
+nctempchar1 *nctemp3157 =LibeFarr->a[nctemp3159].base;
+int nctemp3156 =(nctemp3157==0);
+if(nctemp3156)
 {
 {
-int nctemp5448=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,1972,fp,0,LibeFarr->d[0]-1);
-}
-size =LibeFarr->a[nctemp5448].bufsize;
-int nctemp5456=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,1973,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp5461=size;
-nctempchar1 *nctemp5460;
-nctemp5460=(nctempchar1*)RunMalloc(sizeof(nctempchar1));
-nctemp5460->d[0]=size;
-nctemp5460->a=(char *)RunMalloc(sizeof(char)*nctemp5461);
-LibeFarr->a[nctemp5456].base=nctemp5460;
-nctempchar1 *nctemp5451 =LibeFarr->a[nctemp5456].base;
-int nctemp5450 =(nctemp5451==0);
-if(nctemp5450)
+size = LibeFarr->a[fp].bufsize;
+int nctemp3169=fp;
+int nctemp3174=size;
+nctempchar1 *nctemp3173;
+nctemp3173=(nctempchar1*)RunMalloc(sizeof(nctempchar1));
+nctemp3173->d[0]=size;
+nctemp3173->a=(char *)RunMalloc(sizeof(char)*nctemp3174);
+LibeFarr->a[nctemp3169].base=nctemp3173;
+nctempchar1 *nctemp3164 =LibeFarr->a[nctemp3169].base;
+int nctemp3163 =(nctemp3164==0);
+if(nctemp3163)
 {
 {
-struct nctempchar1 *nctemp5470;
-static struct nctempchar1 nctemp5471 = {{ 24}, (char*)"can not allocate buffer\0"};
-nctemp5470=&nctemp5471;
-LibeErrstr=nctemp5470;
-LibeErrno =-113;
+struct nctempchar1 *nctemp3183;
+static struct nctempchar1 nctemp3184 = {{ 24}, (char*)"can not allocate buffer\0"};
+nctemp3183=&nctemp3184;
+LibeErrstr=nctemp3183;
+LibeErrno = -113;
 return 0;
 }
 }
 }
 }
-int nctemp5480=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,1978,fp,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp5480].ptr =0;
-int nctemp5489=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,1979,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp5487= LibeFarr->a[nctemp5489].fd;
-int nctemp5493=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,1979,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp5491= LibeFarr->a[nctemp5493].cnt;
-int nctemp5497=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,1979,fp,0,LibeFarr->d[0]-1);
-}
-nctempchar1* nctemp5495= LibeFarr->a[nctemp5497].base;
-int nctemp5500=RunWrite(nctemp5487,nctemp5491,nctemp5495);
-st =nctemp5500;
-int nctemp5505=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,1980,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp5501 = (st !=LibeFarr->a[nctemp5505].cnt);
-if(nctemp5501)
+LibeFarr->a[fp].ptr = 0;
+int nctemp3192=fp;
+int nctemp3190= LibeFarr->a[nctemp3192].fd;
+int nctemp3196=fp;
+int nctemp3194= LibeFarr->a[nctemp3196].cnt;
+int nctemp3200=fp;
+nctempchar1* nctemp3198= LibeFarr->a[nctemp3200].base;
+int nctemp3203=RunWrite(nctemp3190,nctemp3194,nctemp3198);
+st =nctemp3203;
+int nctemp3208=fp;
+int nctemp3204 = (st !=LibeFarr->a[nctemp3208].cnt);
+if(nctemp3204)
 {
 {
-int nctemp5510=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,1981,fp,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp5510].errflg =1;
-struct nctempchar1 *nctemp5518;
-static struct nctempchar1 nctemp5519 = {{ 12}, (char*)"write error\0"};
-nctemp5518=&nctemp5519;
-LibeErrstr=nctemp5518;
-LibeErrno =-112;
-int nctemp5527=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,1984,fp,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp5527].cnt =0;
-int nctemp5533=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,1985,fp,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp5533].ptr =0;
+LibeFarr->a[fp].errflg = 1;
+struct nctempchar1 *nctemp3215;
+static struct nctempchar1 nctemp3216 = {{ 12}, (char*)"write error\0"};
+nctemp3215=&nctemp3216;
+LibeErrstr=nctemp3215;
+LibeErrno = -112;
+LibeFarr->a[fp].cnt = 0;
+LibeFarr->a[fp].ptr = 0;
 return 0;
 }
 }
 else{
 {
-int nctemp5540=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,1988,fp,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp5540].cnt =0;
-int nctemp5546=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,1989,fp,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp5546].ptr =0;
+LibeFarr->a[fp].cnt = 0;
+LibeFarr->a[fp].ptr = 0;
 return 1;
 }
 }
@@ -3703,201 +2957,116 @@ int LibeFillbuff (int fp)
 int size;
 int rval;
 {
-int nctemp5553=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2012,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp5550 = (LibeFarr->a[nctemp5553].readflg !=1);
-if(nctemp5550)
+int nctemp3222=fp;
+int nctemp3219 = (LibeFarr->a[nctemp3222].readflg !=1);
+if(nctemp3219)
 {
 {
-struct nctempchar1 *nctemp5561;
-static struct nctempchar1 nctemp5562 = {{ 28}, (char*)"file not open for reading\n\0"};
-nctemp5561=&nctemp5562;
-LibeErrstr=nctemp5561;
-LibeErrno =-110;
+struct nctempchar1 *nctemp3230;
+static struct nctempchar1 nctemp3231 = {{ 28}, (char*)"file not open for reading\n\0"};
+nctemp3230=&nctemp3231;
+LibeErrstr=nctemp3230;
+LibeErrno = -110;
 return -1;
 }
 }
-int nctemp5571=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2017,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp5568 = (LibeFarr->a[nctemp5571].unbflg ==1);
-if(nctemp5568)
+int nctemp3236=fp;
+int nctemp3233 = (LibeFarr->a[nctemp3236].unbflg ==1);
+if(nctemp3233)
 {
 {
-int nctemp5577=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2018,fp,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp5577].bufsize =1;
+LibeFarr->a[fp].bufsize = 1;
 }
 }
 else{
 {
-int nctemp5583=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2020,fp,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp5583].bufsize =1024;
+LibeFarr->a[fp].bufsize = 1024;
 }
 }
-int nctemp5589=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2021,fp,0,LibeFarr->d[0]-1);
-}
-nctempchar1 *nctemp5587 =LibeFarr->a[nctemp5589].base;
-int nctemp5586 =(nctemp5587==0);
-if(nctemp5586)
+int nctemp3242=fp;
+nctempchar1 *nctemp3240 =LibeFarr->a[nctemp3242].base;
+int nctemp3239 =(nctemp3240==0);
+if(nctemp3239)
 {
 {
-int nctemp5597=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2022,fp,0,LibeFarr->d[0]-1);
-}
-size =LibeFarr->a[nctemp5597].bufsize;
-int nctemp5605=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2023,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp5610=size;
-nctempchar1 *nctemp5609;
-nctemp5609=(nctempchar1*)RunMalloc(sizeof(nctempchar1));
-nctemp5609->d[0]=size;
-nctemp5609->a=(char *)RunMalloc(sizeof(char)*nctemp5610);
-LibeFarr->a[nctemp5605].base=nctemp5609;
-nctempchar1 *nctemp5600 =LibeFarr->a[nctemp5605].base;
-int nctemp5599 =(nctemp5600==0);
-if(nctemp5599)
+size = LibeFarr->a[fp].bufsize;
+int nctemp3252=fp;
+int nctemp3257=size;
+nctempchar1 *nctemp3256;
+nctemp3256=(nctempchar1*)RunMalloc(sizeof(nctempchar1));
+nctemp3256->d[0]=size;
+nctemp3256->a=(char *)RunMalloc(sizeof(char)*nctemp3257);
+LibeFarr->a[nctemp3252].base=nctemp3256;
+nctempchar1 *nctemp3247 =LibeFarr->a[nctemp3252].base;
+int nctemp3246 =(nctemp3247==0);
+if(nctemp3246)
 {
 {
-struct nctempchar1 *nctemp5619;
-static struct nctempchar1 nctemp5620 = {{ 24}, (char*)"Can not allocate buffer\0"};
-nctemp5619=&nctemp5620;
-LibeErrstr=nctemp5619;
-LibeErrno =-113;
+struct nctempchar1 *nctemp3266;
+static struct nctempchar1 nctemp3267 = {{ 24}, (char*)"Can not allocate buffer\0"};
+nctemp3266=&nctemp3267;
+LibeErrstr=nctemp3266;
+LibeErrno = -113;
 return -1;
 }
 }
 }
 }
-int nctemp5629=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2028,fp,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp5629].ptr =0;
-int nctemp5635=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2029,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp5640=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2029,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp5638= LibeFarr->a[nctemp5640].fd;
-int nctemp5644=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2029,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp5642= LibeFarr->a[nctemp5644].bufsize;
-int nctemp5648=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2030,fp,0,LibeFarr->d[0]-1);
-}
-nctempchar1* nctemp5646= LibeFarr->a[nctemp5648].base;
-int nctemp5651=RunRead(nctemp5638,nctemp5642,nctemp5646);
-LibeFarr->a[nctemp5635].cnt =nctemp5651;
-int nctemp5655=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2031,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp5652 = (LibeFarr->a[nctemp5655].cnt <= 0);
-if(nctemp5652)
+LibeFarr->a[fp].ptr = 0;
+int nctemp3272=fp;
+int nctemp3277=fp;
+int nctemp3275= LibeFarr->a[nctemp3277].fd;
+int nctemp3281=fp;
+int nctemp3279= LibeFarr->a[nctemp3281].bufsize;
+int nctemp3285=fp;
+nctempchar1* nctemp3283= LibeFarr->a[nctemp3285].base;
+int nctemp3288=RunRead(nctemp3275,nctemp3279,nctemp3283);
+LibeFarr->a[nctemp3272].cnt =nctemp3288;
+int nctemp3292=fp;
+int nctemp3289 = (LibeFarr->a[nctemp3292].cnt <= 0);
+if(nctemp3289)
 {
 {
-int nctemp5661=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2032,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp5658 = (LibeFarr->a[nctemp5661].cnt ==-1);
-if(nctemp5658)
+int nctemp3298=fp;
+int nctemp3295 = (LibeFarr->a[nctemp3298].cnt ==-1);
+if(nctemp3295)
 {
 {
-int nctemp5667=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2033,fp,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp5667].eoflg =1;
-rval =-1;
+LibeFarr->a[fp].eoflg = 1;
+rval = -1;
 }
 }
 else{
 {
-int nctemp5677=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2036,fp,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp5677].errflg =1;
-struct nctempchar1 *nctemp5685;
-static struct nctempchar1 nctemp5686 = {{ 11}, (char*)"read error\0"};
-nctemp5685=&nctemp5686;
-LibeErrstr=nctemp5685;
-LibeErrno =-111;
-rval =-1;
+LibeFarr->a[fp].errflg = 1;
+struct nctempchar1 *nctemp3306;
+static struct nctempchar1 nctemp3307 = {{ 11}, (char*)"read error\0"};
+nctemp3306=&nctemp3307;
+LibeErrstr=nctemp3306;
+LibeErrno = -111;
+rval = -1;
 }
 }
-int nctemp5698=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2041,fp,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp5698].cnt =0;
+LibeFarr->a[fp].cnt = 0;
 return rval;
 }
 }
-int nctemp5705=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2044,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp5711=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2044,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp5714 = LibeFarr->a[nctemp5711].ptr + 1;
-LibeFarr->a[nctemp5705].ptr =nctemp5714;
-int nctemp5718=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2045,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp5724=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2045,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp5727 = LibeFarr->a[nctemp5724].cnt - 1;
-LibeFarr->a[nctemp5718].cnt =nctemp5727;
-int nctemp5732=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2046,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp5738=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2046,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp5741 = LibeFarr->a[nctemp5738].ptr - 1;
-int nctemp5734=nctemp5741;
-if((0>nctemp5741)||(nctemp5741>=LibeFarr->a[nctemp5732].base->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr->a[nctemp5732].base %d %d %d %d \n " ,2046,nctemp5741,0,LibeFarr->a[nctemp5732].base->d[0]-1);
-}
-int nctemp5729=(int)(LibeFarr->a[nctemp5732].base->a[nctemp5734]);
-return nctemp5729;
+LibeFarr->a[fp].ptr = (LibeFarr->a[fp].ptr + 1);
+LibeFarr->a[fp].cnt = (LibeFarr->a[fp].cnt - 1);
+int nctemp3313=fp;
+int nctemp3319=fp;
+int nctemp3322 = LibeFarr->a[nctemp3319].ptr - 1;
+int nctemp3315=nctemp3322;
+int nctemp3310=(int)(LibeFarr->a[nctemp3313].base->a[nctemp3315]);
+return nctemp3310;
 }
 }
 int LibeFlush (int fp)
 {
 {
-int nctemp5743= fp;
-int nctemp5745=LibeFlushbuff(nctemp5743);
-return nctemp5745;
+int nctemp3324= fp;
+int nctemp3326=LibeFlushbuff(nctemp3324);
+return nctemp3326;
 }
 }
 int LibeOpen (nctempchar1 *name,nctempchar1 *mode)
@@ -3906,38 +3075,29 @@ int fd;
 int slot;
 int i;
 {
-int nctemp5749=0;
-if((0>0)||(0>=mode->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e mode %d %d %d %d \n " ,2099,0,0,mode->d[0]-1);
-}
-char nctemp5752=(char)('r');
-int nctemp5746 = (mode->a[nctemp5749] !=nctemp5752);
-if(nctemp5746)
+int nctemp3330=0;
+char nctemp3333=(char)('r');
+int nctemp3327 = (mode->a[nctemp3330] !=nctemp3333);
+if(nctemp3327)
 {
 {
-int nctemp5758=0;
-if((0>0)||(0>=mode->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e mode %d %d %d %d \n " ,2100,0,0,mode->d[0]-1);
-}
-char nctemp5761=(char)('w');
-int nctemp5755 = (mode->a[nctemp5758] !=nctemp5761);
-if(nctemp5755)
+int nctemp3339=0;
+char nctemp3342=(char)('w');
+int nctemp3336 = (mode->a[nctemp3339] !=nctemp3342);
+if(nctemp3336)
 {
 {
-int nctemp5767=0;
-if((0>0)||(0>=mode->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e mode %d %d %d %d \n " ,2101,0,0,mode->d[0]-1);
-}
-char nctemp5770=(char)('a');
-int nctemp5764 = (mode->a[nctemp5767] !=nctemp5770);
-if(nctemp5764)
+int nctemp3348=0;
+char nctemp3351=(char)('a');
+int nctemp3345 = (mode->a[nctemp3348] !=nctemp3351);
+if(nctemp3345)
 {
 {
-struct nctempchar1 *nctemp5778;
-static struct nctempchar1 nctemp5779 = {{ 20}, (char*)"Unknown file mode\n\0"};
-nctemp5778=&nctemp5779;
-LibeErrstr=nctemp5778;
-LibeErrno =-103;
+struct nctempchar1 *nctemp3359;
+static struct nctempchar1 nctemp3360 = {{ 20}, (char*)"Unknown file mode\n\0"};
+nctemp3359=&nctemp3360;
+LibeErrstr=nctemp3359;
+LibeErrno = -103;
 return 0;
 }
 }
@@ -3945,124 +3105,107 @@ return 0;
 }
 }
 }
-i =0;
-int nctemp5792= -1;
-slot =nctemp5792;
-int nctemp5796 = (slot < 0);
-int nctemp5801 = (i < 40);
-int nctemp5793 = (nctemp5796 && nctemp5801);
-int nctemp5805=nctemp5793;
-while(nctemp5805)
+i = 0;
+slot =  -1;
+int nctemp3365 = (slot < 0);
+int nctemp3370 = (i < 40);
+int nctemp3362 = (nctemp3365 && nctemp3370);
+int nctemp3374=nctemp3362;
+while(nctemp3374)
 {{
 {
-int nctemp5812=i;
-if((0>i)||(i>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2111,i,0,LibeFarr->d[0]-1);
-}
-int nctemp5809 = (LibeFarr->a[nctemp5812].readflg ==0);
-int nctemp5819=i;
-if((0>i)||(i>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2111,i,0,LibeFarr->d[0]-1);
-}
-int nctemp5816 = (LibeFarr->a[nctemp5819].writflg ==0);
-int nctemp5806 = (nctemp5809 && nctemp5816);
-if(nctemp5806)
+int nctemp3381=i;
+int nctemp3378 = (LibeFarr->a[nctemp3381].readflg ==0);
+int nctemp3388=i;
+int nctemp3385 = (LibeFarr->a[nctemp3388].writflg ==0);
+int nctemp3375 = (nctemp3378 && nctemp3385);
+if(nctemp3375)
 {
 {
-slot =i;
+slot = i;
 }
 }
-int nctemp5834 = i + 1;
-i =nctemp5834;
+i = (i + 1);
 }
 }
-int nctemp5838 = (slot < 0);
-int nctemp5843 = (i < 40);
-int nctemp5835 = (nctemp5838 && nctemp5843);
-nctemp5805=nctemp5835;}int nctemp5847 = (slot < 0);
-if(nctemp5847)
+int nctemp3394 = (slot < 0);
+int nctemp3399 = (i < 40);
+int nctemp3391 = (nctemp3394 && nctemp3399);
+nctemp3374=nctemp3391;}int nctemp3403 = (slot < 0);
+if(nctemp3403)
 {
 {
-struct nctempchar1 *nctemp5856;
-static struct nctempchar1 nctemp5857 = {{ 22}, (char*)"Too many open files\n\0"};
-nctemp5856=&nctemp5857;
-LibeErrstr=nctemp5856;
-LibeErrno =-104;
+struct nctempchar1 *nctemp3412;
+static struct nctempchar1 nctemp3413 = {{ 22}, (char*)"Too many open files\n\0"};
+nctemp3412=&nctemp3413;
+LibeErrstr=nctemp3412;
+LibeErrno = -104;
 return 0;
 }
 }
-int nctemp5869=0;
-if((0>0)||(0>=mode->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e mode %d %d %d %d \n " ,2124,0,0,mode->d[0]-1);
-}
-int nctemp5866=(int)(mode->a[nctemp5869]);
-int nctemp5863 = (nctemp5866 =='w');
-if(nctemp5863)
+int nctemp3421=0;
+int nctemp3418=(int)(mode->a[nctemp3421]);
+int nctemp3415 = (nctemp3418 =='w');
+if(nctemp3415)
 {
 {
-nctempchar1* nctemp5876= name;
-int nctemp5879=RunCreate(nctemp5876);
-fd =nctemp5879;
+nctempchar1* nctemp3428= name;
+int nctemp3431=RunCreate(nctemp3428);
+fd =nctemp3431;
 }
 }
 else{
 {
-int nctemp5886=0;
-if((0>0)||(0>=mode->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e mode %d %d %d %d \n " ,2126,0,0,mode->d[0]-1);
-}
-int nctemp5883=(int)(mode->a[nctemp5886]);
-int nctemp5880 = (nctemp5883 =='a');
-if(nctemp5880)
+int nctemp3438=0;
+int nctemp3435=(int)(mode->a[nctemp3438]);
+int nctemp3432 = (nctemp3435 =='a');
+if(nctemp3432)
 {
 {
-nctempchar1* nctemp5896= name;
-nctempchar1* nctemp5899= mode;
-int nctemp5902=RunOpen(nctemp5896,nctemp5899);
-fd =nctemp5902;
-int nctemp5889 = (fd ==0);
-if(nctemp5889)
+nctempchar1* nctemp3448= name;
+nctempchar1* nctemp3451= mode;
+int nctemp3454=RunOpen(nctemp3448,nctemp3451);
+fd =nctemp3454;
+int nctemp3441 = (fd ==0);
+if(nctemp3441)
 {
 {
-nctempchar1* nctemp5908= name;
-int nctemp5911=RunCreate(nctemp5908);
-fd =nctemp5911;
+nctempchar1* nctemp3460= name;
+int nctemp3463=RunCreate(nctemp3460);
+fd =nctemp3463;
 }
 }
 else{
 {
-nctempchar1* nctemp5916= name;
-nctempchar1* nctemp5919= mode;
-int nctemp5922=RunOpen(nctemp5916,nctemp5919);
-fd =nctemp5922;
+nctempchar1* nctemp3468= name;
+nctempchar1* nctemp3471= mode;
+int nctemp3474=RunOpen(nctemp3468,nctemp3471);
+fd =nctemp3474;
 }
 }
 }
 }
 else{
 {
-int nctemp5929=0;
-if((0>0)||(0>=mode->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e mode %d %d %d %d \n " ,2131,0,0,mode->d[0]-1);
-}
-int nctemp5926=(int)(mode->a[nctemp5929]);
-int nctemp5923 = (nctemp5926 =='r');
-if(nctemp5923)
+int nctemp3481=0;
+int nctemp3478=(int)(mode->a[nctemp3481]);
+int nctemp3475 = (nctemp3478 =='r');
+if(nctemp3475)
 {
 {
-nctempchar1* nctemp5936= name;
-nctempchar1* nctemp5939= mode;
-int nctemp5942=RunOpen(nctemp5936,nctemp5939);
-fd =nctemp5942;
+nctempchar1* nctemp3488= name;
+nctempchar1* nctemp3491= mode;
+int nctemp3494=RunOpen(nctemp3488,nctemp3491);
+fd =nctemp3494;
 }
 }
 else{
 {
-struct nctempchar1 *nctemp5948;
-static struct nctempchar1 nctemp5949 = {{ 20}, (char*)"Unknown file mode\n\0"};
-nctemp5948=&nctemp5949;
-LibeErrstr=nctemp5948;
-LibeErrno =-103;
+struct nctempchar1 *nctemp3500;
+static struct nctempchar1 nctemp3501 = {{ 20}, (char*)"Unknown file mode\n\0"};
+nctemp3500=&nctemp3501;
+LibeErrstr=nctemp3500;
+LibeErrno = -103;
 return 0;
 }
 }
@@ -4070,56 +3213,33 @@ return 0;
 }
 }
 }
-int nctemp5955 = (fd ==0);
-if(nctemp5955)
+int nctemp3503 = (fd ==0);
+if(nctemp3503)
 {
 {
-struct nctempchar1 *nctemp5964;
-static struct nctempchar1 nctemp5965 = {{ 20}, (char*)"Could not open file\0"};
-nctemp5964=&nctemp5965;
-LibeErrstr=nctemp5964;
-LibeErrno =-105;
+struct nctempchar1 *nctemp3512;
+static struct nctempchar1 nctemp3513 = {{ 20}, (char*)"Could not open file\0"};
+nctemp3512=&nctemp3513;
+LibeErrstr=nctemp3512;
+LibeErrno = -105;
 return 0;
 }
 }
-int nctemp5974=slot;
-if((0>slot)||(slot>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2148,slot,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp5974].fd =fd;
-int nctemp5980=slot;
-if((0>slot)||(slot>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2149,slot,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp5980].cnt =0;
-int nctemp5986=slot;
-if((0>slot)||(slot>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2150,slot,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp5986].base=(0);
-int nctemp5996=0;
-if((0>0)||(0>=mode->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e mode %d %d %d %d \n " ,2155,0,0,mode->d[0]-1);
-}
-int nctemp5993=(int)(mode->a[nctemp5996]);
-int nctemp5990 = (nctemp5993 =='r');
-if(nctemp5990)
+LibeFarr->a[slot].fd = fd;
+LibeFarr->a[slot].cnt = 0;
+LibeFarr->a[slot].base  = 0;
+int nctemp3521=0;
+int nctemp3518=(int)(mode->a[nctemp3521]);
+int nctemp3515 = (nctemp3518 =='r');
+if(nctemp3515)
 {
 {
-int nctemp6002=slot;
-if((0>slot)||(slot>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2156,slot,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp6002].readflg =1;
+LibeFarr->a[slot].readflg = 1;
 }
 }
 else{
 {
-int nctemp6008=slot;
-if((0>slot)||(slot>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2158,slot,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp6008].writflg =1;
+LibeFarr->a[slot].writflg = 1;
 }
 }
 return slot;
@@ -4130,167 +3250,80 @@ int LibeClose (int fp)
 int fd;
 int stat;
 {
-int nctemp6015=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2188,fp,0,LibeFarr->d[0]-1);
-}
-nctempchar1 *nctemp6013 =LibeFarr->a[nctemp6015].base;
-int nctemp6012 =(nctemp6013!=0);
-if(nctemp6012)
+int nctemp3528=fp;
+nctempchar1 *nctemp3526 =LibeFarr->a[nctemp3528].base;
+int nctemp3525 =(nctemp3526!=0);
+if(nctemp3525)
 {
 {
-int nctemp6020= fp;
-int nctemp6022=LibeFlush(nctemp6020);
+int nctemp3533= fp;
+int nctemp3535=LibeFlush(nctemp3533);
 }
 }
-int nctemp6027=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2193,fp,0,LibeFarr->d[0]-1);
-}
-fd =LibeFarr->a[nctemp6027].fd;
-int nctemp6033= fd;
-int nctemp6035=RunClose(nctemp6033);
-stat =nctemp6035;
-int nctemp6036 = (stat ==0);
-if(nctemp6036)
+fd = LibeFarr->a[fp].fd;
+int nctemp3540= fd;
+int nctemp3542=RunClose(nctemp3540);
+stat =nctemp3542;
+int nctemp3543 = (stat ==0);
+if(nctemp3543)
 {
 {
-int nctemp6043=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2196,fp,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp6043].errflg =1;
-struct nctempchar1 *nctemp6051;
-static struct nctempchar1 nctemp6052 = {{ 21}, (char*)"Could not close file\0"};
-nctemp6051=&nctemp6052;
-LibeErrstr=nctemp6051;
-LibeErrno =-106;
+LibeFarr->a[fp].errflg = 1;
+struct nctempchar1 *nctemp3552;
+static struct nctempchar1 nctemp3553 = {{ 21}, (char*)"Could not close file\0"};
+nctemp3552=&nctemp3553;
+LibeErrstr=nctemp3552;
+LibeErrno = -106;
 return 0;
 }
 }
-int nctemp6061=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2203,fp,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp6061].cnt =0;
-int nctemp6067=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2204,fp,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp6067].ptr =0;
-int nctemp6073=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2205,fp,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp6073].bufsize =0;
-int nctemp6079=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2206,fp,0,LibeFarr->d[0]-1);
-}
-nctempchar1 *nctemp6077 =LibeFarr->a[nctemp6079].base;
-int nctemp6076 =(nctemp6077!=0);
-if(nctemp6076)
+LibeFarr->a[fp].cnt = 0;
+LibeFarr->a[fp].ptr = 0;
+LibeFarr->a[fp].bufsize = 0;
+int nctemp3558=fp;
+nctempchar1 *nctemp3556 =LibeFarr->a[nctemp3558].base;
+int nctemp3555 =(nctemp3556!=0);
+if(nctemp3555)
 {
 {
-int nctemp6085=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2207,fp,0,LibeFarr->d[0]-1);
-}
-RunFree(LibeFarr->a[nctemp6085].base->a);
-RunFree(LibeFarr->a[nctemp6085].base);
+int nctemp3564=fp;
+RunFree(LibeFarr->a[nctemp3564].base->a);
+RunFree(LibeFarr->a[nctemp3564].base);
 }
 }
-int nctemp6091=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2209,fp,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp6091].base=(0);
-int nctemp6098=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2210,fp,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp6098].readflg =0;
-int nctemp6104=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2211,fp,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp6104].writflg =0;
-int nctemp6110=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2212,fp,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp6110].unbflg =0;
-int nctemp6116=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2213,fp,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp6116].errflg =0;
-int nctemp6122=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2214,fp,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp6122].eoflg =0;
-int nctemp6128=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2215,fp,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp6128].fd =0;
+LibeFarr->a[fp].base  = 0;
+LibeFarr->a[fp].readflg = 0;
+LibeFarr->a[fp].writflg = 0;
+LibeFarr->a[fp].unbflg = 0;
+LibeFarr->a[fp].errflg = 0;
+LibeFarr->a[fp].eoflg = 0;
+LibeFarr->a[fp].fd = 0;
 return 1;
 }
 }
 int LibeGetc (int fp)
 {
 {
-int nctemp6135=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2240,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp6132 = (LibeFarr->a[nctemp6135].cnt ==0);
-if(nctemp6132)
+int nctemp3571=fp;
+int nctemp3568 = (LibeFarr->a[nctemp3571].cnt ==0);
+if(nctemp3568)
 {
 {
-int nctemp6139= fp;
-int nctemp6141=LibeFillbuff(nctemp6139);
-return nctemp6141;
+int nctemp3575= fp;
+int nctemp3577=LibeFillbuff(nctemp3575);
+return nctemp3577;
 }
 }
 else{
 {
-int nctemp6145=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2243,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp6151=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2243,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp6154 = LibeFarr->a[nctemp6151].cnt - 1;
-LibeFarr->a[nctemp6145].cnt =nctemp6154;
-int nctemp6158=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2244,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp6164=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2244,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp6167 = LibeFarr->a[nctemp6164].ptr + 1;
-LibeFarr->a[nctemp6158].ptr =nctemp6167;
-int nctemp6172=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2245,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp6178=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2245,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp6181 = LibeFarr->a[nctemp6178].ptr - 1;
-int nctemp6174=nctemp6181;
-if((0>nctemp6181)||(nctemp6181>=LibeFarr->a[nctemp6172].base->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr->a[nctemp6172].base %d %d %d %d \n " ,2245,nctemp6181,0,LibeFarr->a[nctemp6172].base->d[0]-1);
-}
-int nctemp6169=(int)(LibeFarr->a[nctemp6172].base->a[nctemp6174]);
-return nctemp6169;
+LibeFarr->a[fp].cnt = (LibeFarr->a[fp].cnt - 1);
+LibeFarr->a[fp].ptr = (LibeFarr->a[fp].ptr + 1);
+int nctemp3582=fp;
+int nctemp3588=fp;
+int nctemp3591 = LibeFarr->a[nctemp3588].ptr - 1;
+int nctemp3584=nctemp3591;
+int nctemp3579=(int)(LibeFarr->a[nctemp3582].base->a[nctemp3584]);
+return nctemp3579;
 }
 }
 }
@@ -4298,106 +3331,55 @@ return nctemp6169;
 int LibeUngetc (int fp)
 {
 {
-int nctemp6185=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2289,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp6182 = (LibeFarr->a[nctemp6185].eoflg ==1);
-if(nctemp6182)
+int nctemp3595=fp;
+int nctemp3592 = (LibeFarr->a[nctemp3595].eoflg ==1);
+if(nctemp3592)
 {
 {
 return -1;
 }
 }
-int nctemp6192=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2294,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp6195=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2294,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp6189 = (LibeFarr->a[nctemp6192].cnt < LibeFarr->a[nctemp6195].bufsize);
-if(nctemp6189)
+int nctemp3602=fp;
+int nctemp3605=fp;
+int nctemp3599 = (LibeFarr->a[nctemp3602].cnt < LibeFarr->a[nctemp3605].bufsize);
+if(nctemp3599)
 {
 {
-int nctemp6200=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2295,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp6206=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2295,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp6209 = LibeFarr->a[nctemp6206].cnt + 1;
-LibeFarr->a[nctemp6200].cnt =nctemp6209;
-int nctemp6213=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2296,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp6219=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2296,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp6222 = LibeFarr->a[nctemp6219].ptr - 1;
-LibeFarr->a[nctemp6213].ptr =nctemp6222;
-int nctemp6226=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2300,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp6232=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2300,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp6235 = LibeFarr->a[nctemp6232].bufsize - 1;
-int nctemp6223 = (LibeFarr->a[nctemp6226].ptr ==nctemp6235);
-if(nctemp6223)
+LibeFarr->a[fp].cnt = (LibeFarr->a[fp].cnt + 1);
+LibeFarr->a[fp].ptr = (LibeFarr->a[fp].ptr - 1);
+int nctemp3610=fp;
+int nctemp3616=fp;
+int nctemp3619 = LibeFarr->a[nctemp3616].bufsize - 1;
+int nctemp3607 = (LibeFarr->a[nctemp3610].ptr ==nctemp3619);
+if(nctemp3607)
 {
 {
-int nctemp6240=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2301,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp6244=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2301,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp6242=LibeFarr->a[nctemp6244].ptr;
-if((0>LibeFarr->a[nctemp6244].ptr)||(LibeFarr->a[nctemp6244].ptr>=LibeFarr->a[nctemp6240].base->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr->a[nctemp6240].base %d %d %d %d \n " ,2301,LibeFarr->a[nctemp6244].ptr,0,LibeFarr->a[nctemp6240].base->d[0]-1);
-}
-int nctemp6237=(int)(LibeFarr->a[nctemp6240].base->a[nctemp6242]);
-return nctemp6237;
+int nctemp3624=fp;
+int nctemp3628=fp;
+int nctemp3626=LibeFarr->a[nctemp3628].ptr;
+int nctemp3621=(int)(LibeFarr->a[nctemp3624].base->a[nctemp3626]);
+return nctemp3621;
 }
 }
 else{
 {
-int nctemp6250=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2303,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp6256=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2303,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp6259 = LibeFarr->a[nctemp6256].ptr + 1;
-int nctemp6252=nctemp6259;
-if((0>nctemp6259)||(nctemp6259>=LibeFarr->a[nctemp6250].base->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr->a[nctemp6250].base %d %d %d %d \n " ,2303,nctemp6259,0,LibeFarr->a[nctemp6250].base->d[0]-1);
-}
-int nctemp6247=(int)(LibeFarr->a[nctemp6250].base->a[nctemp6252]);
-return nctemp6247;
+int nctemp3634=fp;
+int nctemp3640=fp;
+int nctemp3643 = LibeFarr->a[nctemp3640].ptr + 1;
+int nctemp3636=nctemp3643;
+int nctemp3631=(int)(LibeFarr->a[nctemp3634].base->a[nctemp3636]);
+return nctemp3631;
 }
 }
 }
 }
 else{
 {
-struct nctempchar1 *nctemp6265;
-static struct nctempchar1 nctemp6266 = {{ 15}, (char*)"Pushback error\0"};
-nctemp6265=&nctemp6266;
-LibeErrstr=nctemp6265;
-LibeErrno =-107;
+struct nctempchar1 *nctemp3649;
+static struct nctempchar1 nctemp3650 = {{ 15}, (char*)"Pushback error\0"};
+nctemp3649=&nctemp3650;
+LibeErrstr=nctemp3649;
+LibeErrno = -107;
 return -1;
 }
 }
@@ -4409,85 +3391,78 @@ int p;
 int ch;
 int lim;
 {
-int nctemp6276=text->d[0];lim =nctemp6276;
-p =0;
-int nctemp6285=LibeClearerr();
-int nctemp6299= fp;
-int nctemp6301=LibeGetc(nctemp6299);
-ch =nctemp6301;
-int nctemp6292 = (ch ==32);
-int nctemp6304 = (ch ==9);
-int nctemp6289 = (nctemp6292 || nctemp6304);
-int nctemp6309 = (ch ==10);
-int nctemp6286 = (nctemp6289 || nctemp6309);
-int nctemp6313=nctemp6286;
-while(nctemp6313)
+int nctemp3656=text->d[0];lim =nctemp3656;
+p = 0;
+int nctemp3661=LibeClearerr();
+int nctemp3675= fp;
+int nctemp3677=LibeGetc(nctemp3675);
+ch =nctemp3677;
+int nctemp3668 = (ch ==32);
+int nctemp3680 = (ch ==9);
+int nctemp3665 = (nctemp3668 || nctemp3680);
+int nctemp3685 = (ch ==10);
+int nctemp3662 = (nctemp3665 || nctemp3685);
+int nctemp3689=nctemp3662;
+while(nctemp3689)
 {{
 {
-p =0;
+p = 0;
 }
 }
-int nctemp6331= fp;
-int nctemp6333=LibeGetc(nctemp6331);
-ch =nctemp6333;
-int nctemp6324 = (ch ==32);
-int nctemp6336 = (ch ==9);
-int nctemp6321 = (nctemp6324 || nctemp6336);
-int nctemp6341 = (ch ==10);
-int nctemp6318 = (nctemp6321 || nctemp6341);
-nctemp6313=nctemp6318;}int nctemp6346= fp;
-int nctemp6348=LibeUngetc(nctemp6346);
-int nctemp6359= fp;
-int nctemp6361=LibeGetc(nctemp6359);
-ch =nctemp6361;
-int nctemp6352 = (ch !=-1);
-int nctemp6364 = (p < lim);
-int nctemp6349 = (nctemp6352 && nctemp6364);
-int nctemp6368=nctemp6349;
-while(nctemp6368)
+int nctemp3703= fp;
+int nctemp3705=LibeGetc(nctemp3703);
+ch =nctemp3705;
+int nctemp3696 = (ch ==32);
+int nctemp3708 = (ch ==9);
+int nctemp3693 = (nctemp3696 || nctemp3708);
+int nctemp3713 = (ch ==10);
+int nctemp3690 = (nctemp3693 || nctemp3713);
+nctemp3689=nctemp3690;}int nctemp3718= fp;
+int nctemp3720=LibeUngetc(nctemp3718);
+int nctemp3731= fp;
+int nctemp3733=LibeGetc(nctemp3731);
+ch =nctemp3733;
+int nctemp3724 = (ch !=-1);
+int nctemp3736 = (p < lim);
+int nctemp3721 = (nctemp3724 && nctemp3736);
+int nctemp3740=nctemp3721;
+while(nctemp3740)
 {{
 {
-int nctemp6375 = (ch ==32);
-int nctemp6380 = (ch ==9);
-int nctemp6372 = (nctemp6375 || nctemp6380);
-int nctemp6385 = (ch ==10);
-int nctemp6369 = (nctemp6372 || nctemp6385);
-if(nctemp6369)
+int nctemp3747 = (ch ==32);
+int nctemp3752 = (ch ==9);
+int nctemp3744 = (nctemp3747 || nctemp3752);
+int nctemp3757 = (ch ==10);
+int nctemp3741 = (nctemp3744 || nctemp3757);
+if(nctemp3741)
 {
 {
-int nctemp6390= fp;
-int nctemp6392=LibeUngetc(nctemp6390);
-int nctemp6396=p;
-if((0>p)||(p>=text->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e text %d %d %d %d \n " ,2340,p,0,text->d[0]-1);
-}
-char nctemp6399=(char)(0);
-text->a[nctemp6396] =nctemp6399;
+int nctemp3762= fp;
+int nctemp3764=LibeUngetc(nctemp3762);
+int nctemp3768=p;
+char nctemp3771=(char)(0);
+text->a[nctemp3768] =nctemp3771;
 return 1;
 }
 }
 else{
 {
-int nctemp6406=p;
-if((0>p)||(p>=text->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e text %d %d %d %d \n " ,2343,p,0,text->d[0]-1);
-}
-char nctemp6409=(char)(ch);
-text->a[nctemp6406] =nctemp6409;
-int nctemp6420 = p + 1;
-p =nctemp6420;
+int nctemp3778=p;
+char nctemp3781=(char)(ch);
+text->a[nctemp3778] =nctemp3781;
+p = (p + 1);
 }
 }
 }
 }
-int nctemp6431= fp;
-int nctemp6433=LibeGetc(nctemp6431);
-ch =nctemp6433;
-int nctemp6424 = (ch !=-1);
-int nctemp6436 = (p < lim);
-int nctemp6421 = (nctemp6424 && nctemp6436);
-nctemp6368=nctemp6421;}int nctemp6440 = (p >= lim);
-if(nctemp6440)
+int nctemp3794= fp;
+int nctemp3796=LibeGetc(nctemp3794);
+ch =nctemp3796;
+int nctemp3787 = (ch !=-1);
+int nctemp3799 = (p < lim);
+int nctemp3784 = (nctemp3787 && nctemp3799);
+nctemp3740=nctemp3784;}int nctemp3803 = (p >= lim);
+if(nctemp3803)
 {
 {
 return 0;
@@ -4495,8 +3470,8 @@ return 0;
 }
 else{
 {
-int nctemp6445 = (ch ==-1);
-if(nctemp6445)
+int nctemp3808 = (ch ==-1);
+if(nctemp3808)
 {
 {
 return -1;
@@ -4515,106 +3490,43 @@ int LibePutc (int fp,int c)
 {
 int rval;
 {
-int nctemp6454=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2382,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp6451 = (LibeFarr->a[nctemp6454].cnt ==0);
-if(nctemp6451)
+int nctemp3817=fp;
+int nctemp3814 = (LibeFarr->a[nctemp3817].cnt ==0);
+if(nctemp3814)
 {
 {
-int nctemp6458= fp;
-int nctemp6460=LibeFlushbuff(nctemp6458);
+int nctemp3821= fp;
+int nctemp3823=LibeFlushbuff(nctemp3821);
 }
 }
-int nctemp6464=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2385,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp6467=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2385,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp6461 = (LibeFarr->a[nctemp6464].cnt ==LibeFarr->a[nctemp6467].bufsize);
-if(nctemp6461)
+int nctemp3827=fp;
+int nctemp3830=fp;
+int nctemp3824 = (LibeFarr->a[nctemp3827].cnt ==LibeFarr->a[nctemp3830].bufsize);
+if(nctemp3824)
 {
 {
-int nctemp6473= fp;
-int nctemp6475=LibeFlushbuff(nctemp6473);
-rval =nctemp6475;
-int nctemp6479=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2387,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp6483=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2387,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp6481=LibeFarr->a[nctemp6483].ptr;
-if((0>LibeFarr->a[nctemp6483].ptr)||(LibeFarr->a[nctemp6483].ptr>=LibeFarr->a[nctemp6479].base->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr->a[nctemp6479].base %d %d %d %d \n " ,2387,LibeFarr->a[nctemp6483].ptr,0,LibeFarr->a[nctemp6479].base->d[0]-1);
-}
-char nctemp6486=(char)(c);
-LibeFarr->a[nctemp6479].base->a[nctemp6481] =nctemp6486;
-int nctemp6492=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2388,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp6498=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2388,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp6501 = LibeFarr->a[nctemp6498].ptr + 1;
-LibeFarr->a[nctemp6492].ptr =nctemp6501;
-int nctemp6505=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2389,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp6511=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2389,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp6514 = LibeFarr->a[nctemp6511].cnt + 1;
-LibeFarr->a[nctemp6505].cnt =nctemp6514;
+int nctemp3836= fp;
+int nctemp3838=LibeFlushbuff(nctemp3836);
+rval =nctemp3838;
+int nctemp3842=fp;
+int nctemp3846=fp;
+int nctemp3844=LibeFarr->a[nctemp3846].ptr;
+char nctemp3849=(char)(c);
+LibeFarr->a[nctemp3842].base->a[nctemp3844] =nctemp3849;
+LibeFarr->a[fp].ptr = (LibeFarr->a[fp].ptr + 1);
+LibeFarr->a[fp].cnt = (LibeFarr->a[fp].cnt + 1);
 return rval;
 }
 }
 else{
 {
-int nctemp6519=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2392,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp6523=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2392,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp6521=LibeFarr->a[nctemp6523].ptr;
-if((0>LibeFarr->a[nctemp6523].ptr)||(LibeFarr->a[nctemp6523].ptr>=LibeFarr->a[nctemp6519].base->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr->a[nctemp6519].base %d %d %d %d \n " ,2392,LibeFarr->a[nctemp6523].ptr,0,LibeFarr->a[nctemp6519].base->d[0]-1);
-}
-char nctemp6526=(char)(c);
-LibeFarr->a[nctemp6519].base->a[nctemp6521] =nctemp6526;
-int nctemp6532=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2393,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp6538=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2393,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp6541 = LibeFarr->a[nctemp6538].cnt + 1;
-LibeFarr->a[nctemp6532].cnt =nctemp6541;
-int nctemp6545=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2394,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp6551=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2394,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp6554 = LibeFarr->a[nctemp6551].ptr + 1;
-LibeFarr->a[nctemp6545].ptr =nctemp6554;
+int nctemp3856=fp;
+int nctemp3860=fp;
+int nctemp3858=LibeFarr->a[nctemp3860].ptr;
+char nctemp3863=(char)(c);
+LibeFarr->a[nctemp3856].base->a[nctemp3858] =nctemp3863;
+LibeFarr->a[fp].cnt = (LibeFarr->a[fp].cnt + 1);
+LibeFarr->a[fp].ptr = (LibeFarr->a[fp].ptr + 1);
 return 1;
 }
 }
@@ -4625,114 +3537,104 @@ int LibePuts (int fp,nctempchar1 *s)
 int ls;
 int i;
 {
-int nctemp6560=s->d[0];ls =nctemp6560;
-i =0;
-int nctemp6577=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,2420,i,0,s->d[0]-1);
-}
-int nctemp6574=(int)(s->a[nctemp6577]);
-int nctemp6571 = (nctemp6574 !=0);
-int nctemp6581 = (i < ls);
-int nctemp6568 = (nctemp6571 && nctemp6581);
-int nctemp6585=nctemp6568;
-while(nctemp6585)
+int nctemp3871=s->d[0];ls =nctemp3871;
+i = 0;
+int nctemp3884=i;
+int nctemp3881=(int)(s->a[nctemp3884]);
+int nctemp3878 = (nctemp3881 !=0);
+int nctemp3888 = (i < ls);
+int nctemp3875 = (nctemp3878 && nctemp3888);
+int nctemp3892=nctemp3875;
+while(nctemp3892)
 {{
 {
-int nctemp6589= fp;
-int nctemp6596=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,2421,i,0,s->d[0]-1);
-}
-int nctemp6593=(int)(s->a[nctemp6596]);
-int nctemp6591= nctemp6593;
-int nctemp6598=LibePutc(nctemp6589,nctemp6591);
-int nctemp6586 = (nctemp6598 ==0);
-if(nctemp6586)
+int nctemp3896= fp;
+int nctemp3903=i;
+int nctemp3900=(int)(s->a[nctemp3903]);
+int nctemp3898= nctemp3900;
+int nctemp3905=LibePutc(nctemp3896,nctemp3898);
+int nctemp3893 = (nctemp3905 ==0);
+if(nctemp3893)
 {
 {
-struct nctempchar1 *nctemp6605;
-static struct nctempchar1 nctemp6606 = {{ 12}, (char*)"write error\0"};
-nctemp6605=&nctemp6606;
-LibeErrstr=nctemp6605;
-LibeErrno =0;
+struct nctempchar1 *nctemp3912;
+static struct nctempchar1 nctemp3913 = {{ 12}, (char*)"write error\0"};
+nctemp3912=&nctemp3913;
+LibeErrstr=nctemp3912;
+LibeErrno = 0;
 return 0;
 }
 }
 else{
 {
-int nctemp6620 = i + 1;
-i =nctemp6620;
+i = (i + 1);
 }
 }
 }
 }
-int nctemp6630=i;
-if((0>i)||(i>=s->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e s %d %d %d %d \n " ,2420,i,0,s->d[0]-1);
-}
-int nctemp6627=(int)(s->a[nctemp6630]);
-int nctemp6624 = (nctemp6627 !=0);
-int nctemp6634 = (i < ls);
-int nctemp6621 = (nctemp6624 && nctemp6634);
-nctemp6585=nctemp6621;}int nctemp6639= fp;
-int nctemp6641=LibeFlushbuff(nctemp6639);
+int nctemp3924=i;
+int nctemp3921=(int)(s->a[nctemp3924]);
+int nctemp3918 = (nctemp3921 !=0);
+int nctemp3928 = (i < ls);
+int nctemp3915 = (nctemp3918 && nctemp3928);
+nctemp3892=nctemp3915;}int nctemp3933= fp;
+int nctemp3935=LibeFlushbuff(nctemp3933);
 return 1;
 }
 }
 int LibePuti (int fp,int ival)
 {
 {
-int nctemp6644= ival;
-nctempchar1* nctemp6646= LibeTmpstr;
-int nctemp6649=LibeItoa(nctemp6644,nctemp6646);
-int nctemp6651= fp;
-nctempchar1* nctemp6653= LibeTmpstr;
-int nctemp6656=LibePuts(nctemp6651,nctemp6653);
-return nctemp6656;
+int nctemp3938= ival;
+nctempchar1* nctemp3940= LibeTmpstr;
+int nctemp3943=LibeItoa(nctemp3938,nctemp3940);
+int nctemp3945= fp;
+nctempchar1* nctemp3947= LibeTmpstr;
+int nctemp3950=LibePuts(nctemp3945,nctemp3947);
+return nctemp3950;
 }
 }
 int LibePutf (int fp,float fval,nctempchar1 *form)
 {
 {
-float nctemp6658= fval;
-nctempchar1* nctemp6660= form;
-nctempchar1* nctemp6663= LibeTmpstr;
-int nctemp6666=LibeFtoa(nctemp6658,nctemp6660,nctemp6663);
-int nctemp6668= fp;
-nctempchar1* nctemp6670= LibeTmpstr;
-int nctemp6673=LibePuts(nctemp6668,nctemp6670);
-return nctemp6673;
+float nctemp3952= fval;
+nctempchar1* nctemp3954= form;
+nctempchar1* nctemp3957= LibeTmpstr;
+int nctemp3960=LibeFtoa(nctemp3952,nctemp3954,nctemp3957);
+int nctemp3962= fp;
+nctempchar1* nctemp3964= LibeTmpstr;
+int nctemp3967=LibePuts(nctemp3962,nctemp3964);
+return nctemp3967;
 }
 }
 int LibePs (nctempchar1 *s)
 {
 {
-int nctemp6675= 3;
-nctempchar1* nctemp6677= s;
-int nctemp6680=LibePuts(nctemp6675,nctemp6677);
+int nctemp3969= 3;
+nctempchar1* nctemp3971= s;
+int nctemp3974=LibePuts(nctemp3969,nctemp3971);
 return 1;
 }
 }
 int LibePi (int n)
 {
 {
-int nctemp6683= 3;
-int nctemp6685= n;
-int nctemp6687=LibePuti(nctemp6683,nctemp6685);
+int nctemp3977= 3;
+int nctemp3979= n;
+int nctemp3981=LibePuti(nctemp3977,nctemp3979);
 return 1;
 }
 }
 int LibePf (float r)
 {
 {
-int nctemp6690= 3;
-float nctemp6692= r;
-struct nctempchar1 *nctemp6696;
-static struct nctempchar1 nctemp6697 = {{ 2}, (char*)"g\0"};
-nctemp6696=&nctemp6697;
-nctempchar1* nctemp6694= nctemp6696;
-int nctemp6698=LibePutf(nctemp6690,nctemp6692,nctemp6694);
+int nctemp3984= 3;
+float nctemp3986= r;
+struct nctempchar1 *nctemp3990;
+static struct nctempchar1 nctemp3991 = {{ 2}, (char*)"g\0"};
+nctemp3990=&nctemp3991;
+nctempchar1* nctemp3988= nctemp3990;
+int nctemp3992=LibePutf(nctemp3984,nctemp3986,nctemp3988);
 return 1;
 }
 }
@@ -4740,77 +3642,59 @@ int LibeRead (int fp,int n,nctempchar1 *buffer)
 {
 int rval;
 {
-int nctemp6703=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2557,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp6700 = (LibeFarr->a[nctemp6703].readflg !=1);
-if(nctemp6700)
+int nctemp3997=fp;
+int nctemp3994 = (LibeFarr->a[nctemp3997].readflg !=1);
+if(nctemp3994)
 {
 {
-struct nctempchar1 *nctemp6711;
-static struct nctempchar1 nctemp6712 = {{ 26}, (char*)"File not open for reading\0"};
-nctemp6711=&nctemp6712;
-LibeErrstr=nctemp6711;
-LibeErrno =-109;
+struct nctempchar1 *nctemp4005;
+static struct nctempchar1 nctemp4006 = {{ 26}, (char*)"File not open for reading\0"};
+nctemp4005=&nctemp4006;
+LibeErrstr=nctemp4005;
+LibeErrno = -109;
 return -1;
 }
 }
-int nctemp6722=buffer->d[0];int nctemp6718 = (n > nctemp6722);
-if(nctemp6718)
+int nctemp4012=buffer->d[0];int nctemp4008 = (n > nctemp4012);
+if(nctemp4008)
 {
 {
-LibeErrno =-108;
-struct nctempchar1 *nctemp6735;
-static struct nctempchar1 nctemp6736 = {{ 30}, (char*)"The buffer array is too small\0"};
-nctemp6735=&nctemp6736;
-LibeErrstr=nctemp6735;
+LibeErrno = -108;
+struct nctempchar1 *nctemp4021;
+static struct nctempchar1 nctemp4022 = {{ 30}, (char*)"The buffer array is too small\0"};
+nctemp4021=&nctemp4022;
+LibeErrstr=nctemp4021;
 return 0;
 }
 }
-int nctemp6744=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2567,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp6742= LibeFarr->a[nctemp6744].fd;
-int nctemp6746= n;
-nctempchar1* nctemp6748= buffer;
-int nctemp6751=RunRead(nctemp6742,nctemp6746,nctemp6748);
-rval =nctemp6751;
-int nctemp6752 = (rval ==-1);
-if(nctemp6752)
+int nctemp4030=fp;
+int nctemp4028= LibeFarr->a[nctemp4030].fd;
+int nctemp4032= n;
+nctempchar1* nctemp4034= buffer;
+int nctemp4037=RunRead(nctemp4028,nctemp4032,nctemp4034);
+rval =nctemp4037;
+int nctemp4038 = (rval ==-1);
+if(nctemp4038)
 {
 {
-int nctemp6759=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2569,fp,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp6759].eoflg =1;
-rval =-1;
+LibeFarr->a[fp].eoflg = 1;
+rval = -1;
 }
 }
 else{
 {
-int nctemp6766 = (rval ==0);
-if(nctemp6766)
+int nctemp4042 = (rval ==0);
+if(nctemp4042)
 {
 {
-int nctemp6773=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2573,fp,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp6773].errflg =1;
-struct nctempchar1 *nctemp6781;
-static struct nctempchar1 nctemp6782 = {{ 11}, (char*)"read error\0"};
-nctemp6781=&nctemp6782;
-LibeErrstr=nctemp6781;
-LibeErrno =0;
-int nctemp6790=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2576,fp,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp6790].errflg =0;
-rval =0;
+LibeFarr->a[fp].errflg = 1;
+struct nctempchar1 *nctemp4051;
+static struct nctempchar1 nctemp4052 = {{ 11}, (char*)"read error\0"};
+nctemp4051=&nctemp4052;
+LibeErrstr=nctemp4051;
+LibeErrno = 0;
+LibeFarr->a[fp].errflg = 0;
+rval = 0;
 }
 }
 }
@@ -4822,63 +3706,49 @@ int LibeWrite (int fp,int n,nctempchar1 *buffer)
 {
 int rval;
 {
-int nctemp6802=buffer->d[0];int nctemp6798 = (n > nctemp6802);
-if(nctemp6798)
+int nctemp4058=buffer->d[0];int nctemp4054 = (n > nctemp4058);
+if(nctemp4054)
 {
 {
-LibeErrno =-108;
-struct nctempchar1 *nctemp6815;
-static struct nctempchar1 nctemp6816 = {{ 30}, (char*)"The buffer array is too small\0"};
-nctemp6815=&nctemp6816;
-LibeErrstr=nctemp6815;
+LibeErrno = -108;
+struct nctempchar1 *nctemp4067;
+static struct nctempchar1 nctemp4068 = {{ 30}, (char*)"The buffer array is too small\0"};
+nctemp4067=&nctemp4068;
+LibeErrstr=nctemp4067;
 return 0;
 }
 }
-int nctemp6821=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2619,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp6818 = (LibeFarr->a[nctemp6821].writflg !=1);
-if(nctemp6818)
+int nctemp4073=fp;
+int nctemp4070 = (LibeFarr->a[nctemp4073].writflg !=1);
+if(nctemp4070)
 {
 {
-struct nctempchar1 *nctemp6829;
-static struct nctempchar1 nctemp6830 = {{ 26}, (char*)"file not open for writing\0"};
-nctemp6829=&nctemp6830;
-LibeErrstr=nctemp6829;
-LibeErrno =-110;
+struct nctempchar1 *nctemp4081;
+static struct nctempchar1 nctemp4082 = {{ 26}, (char*)"file not open for writing\0"};
+nctemp4081=&nctemp4082;
+LibeErrstr=nctemp4081;
+LibeErrno = -110;
 return 0;
 }
 }
-int nctemp6842=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2625,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp6840= LibeFarr->a[nctemp6842].fd;
-int nctemp6844= n;
-nctempchar1* nctemp6846= buffer;
-int nctemp6849=RunWrite(nctemp6840,nctemp6844,nctemp6846);
-rval =nctemp6849;
-int nctemp6850 = (rval ==0);
-if(nctemp6850)
+int nctemp4090=fp;
+int nctemp4088= LibeFarr->a[nctemp4090].fd;
+int nctemp4092= n;
+nctempchar1* nctemp4094= buffer;
+int nctemp4097=RunWrite(nctemp4088,nctemp4092,nctemp4094);
+rval =nctemp4097;
+int nctemp4098 = (rval ==0);
+if(nctemp4098)
 {
 {
-int nctemp6857=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2627,fp,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp6857].errflg =1;
-struct nctempchar1 *nctemp6865;
-static struct nctempchar1 nctemp6866 = {{ 12}, (char*)"write error\0"};
-nctemp6865=&nctemp6866;
-LibeErrstr=nctemp6865;
-LibeErrno =0;
-int nctemp6874=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2630,fp,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp6874].errflg =0;
-rval =0;
+LibeFarr->a[fp].errflg = 1;
+struct nctempchar1 *nctemp4107;
+static struct nctempchar1 nctemp4108 = {{ 12}, (char*)"write error\0"};
+nctemp4107=&nctemp4108;
+LibeErrstr=nctemp4107;
+LibeErrno = 0;
+LibeFarr->a[fp].errflg = 0;
+rval = 0;
 }
 }
 return rval;
@@ -4888,35 +3758,24 @@ int LibeSeek (int fp,int pos,int flag)
 {
 int rval;
 {
-int nctemp6888=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2651,fp,0,LibeFarr->d[0]-1);
-}
-int nctemp6886= LibeFarr->a[nctemp6888].fd;
-int nctemp6890= pos;
-int nctemp6892= flag;
-int nctemp6894=RunSeek(nctemp6886,nctemp6890,nctemp6892);
-rval =nctemp6894;
-int nctemp6895 = (rval ==0);
-if(nctemp6895)
+int nctemp4116=fp;
+int nctemp4114= LibeFarr->a[nctemp4116].fd;
+int nctemp4118= pos;
+int nctemp4120= flag;
+int nctemp4122=RunSeek(nctemp4114,nctemp4118,nctemp4120);
+rval =nctemp4122;
+int nctemp4123 = (rval ==0);
+if(nctemp4123)
 {
 {
-int nctemp6902=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2653,fp,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp6902].errflg =1;
-struct nctempchar1 *nctemp6910;
-static struct nctempchar1 nctemp6911 = {{ 11}, (char*)"Seek error\0"};
-nctemp6910=&nctemp6911;
-LibeErrstr=nctemp6910;
-LibeErrno =0;
-int nctemp6919=fp;
-if((0>fp)||(fp>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2656,fp,0,LibeFarr->d[0]-1);
-}
-LibeFarr->a[nctemp6919].errflg =0;
-rval =0;
+LibeFarr->a[fp].errflg = 1;
+struct nctempchar1 *nctemp4132;
+static struct nctempchar1 nctemp4133 = {{ 11}, (char*)"Seek error\0"};
+nctemp4132=&nctemp4133;
+LibeErrstr=nctemp4132;
+LibeErrno = 0;
+LibeFarr->a[fp].errflg = 0;
+rval = 0;
 }
 }
 return rval;
@@ -4930,52 +3789,42 @@ int i;
 {
 RunFree(LibeTmpstr->a);
 RunFree(LibeTmpstr);
-stat =1;
+stat = 1;
 for(i = 0;i < 40;i = (i + 1)){
 {
-int nctemp6937=i;
-if((0>i)||(i>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2684,i,0,LibeFarr->d[0]-1);
-}
-nctempchar1 *nctemp6935 =LibeFarr->a[nctemp6937].base;
-int nctemp6934 =(nctemp6935!=0);
-if(nctemp6934)
+int nctemp4141=i;
+nctempchar1 *nctemp4139 =LibeFarr->a[nctemp4141].base;
+int nctemp4138 =(nctemp4139!=0);
+if(nctemp4138)
 {
 {
-int nctemp6941 = (i > 4);
-if(nctemp6941)
+int nctemp4145 = (i > 4);
+if(nctemp4145)
 {
 {
-int nctemp6949=i;
-if((0>i)||(i>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2687,i,0,LibeFarr->d[0]-1);
-}
-fd =LibeFarr->a[nctemp6949].fd;
-int nctemp6955= fd;
-int nctemp6957=RunClose(nctemp6955);
-stat =nctemp6957;
-int nctemp6958 = (stat ==0);
-if(nctemp6958)
+fd = LibeFarr->a[i].fd;
+int nctemp4153= fd;
+int nctemp4155=RunClose(nctemp4153);
+stat =nctemp4155;
+int nctemp4156 = (stat ==0);
+if(nctemp4156)
 {
 {
-struct nctempchar1 *nctemp6967;
-static struct nctempchar1 nctemp6968 = {{ 21}, (char*)"Could not close file\0"};
-nctemp6967=&nctemp6968;
-LibeErrstr=nctemp6967;
-LibeErrno =-106;
+struct nctempchar1 *nctemp4165;
+static struct nctempchar1 nctemp4166 = {{ 21}, (char*)"Could not close file\0"};
+nctemp4165=&nctemp4166;
+LibeErrstr=nctemp4165;
+LibeErrno = -106;
 }
 }
 }
 }
-int nctemp6977= i;
-int nctemp6979=LibeFlush(nctemp6977);
-stat =nctemp6979;
-int nctemp6982=i;
-if((0>i)||(i>=LibeFarr->d[0])){
-printf("***Out of bounds error (file,array,line,index,rank,bound:libe.e LibeFarr %d %d %d %d \n " ,2693,i,0,LibeFarr->d[0]-1);
-}
-RunFree(LibeFarr->a[nctemp6982].base->a);
-RunFree(LibeFarr->a[nctemp6982].base);
+int nctemp4171= i;
+int nctemp4173=LibeFlush(nctemp4171);
+stat =nctemp4173;
+int nctemp4176=i;
+RunFree(LibeFarr->a[nctemp4176].base->a);
+RunFree(LibeFarr->a[nctemp4176].base);
 }
 }
 }
@@ -4990,14 +3839,14 @@ static int NTHREADS;
 int LibeSetnb (int nb)
 {
 {
-NBLOCKS =nb;
+NBLOCKS = nb;
 return 1;
 }
 }
 int LibeSetnt (int nt)
 {
 {
-NTHREADS =nt;
+NTHREADS = nt;
 return 1;
 }
 }
@@ -5016,85 +3865,85 @@ return NTHREADS;
 int LibeArrayex (int line,nctempchar1 *name,int ival,int index,int bound)
 {
 {
-int nctemp7002= 4;
-struct nctempchar1 *nctemp7006;
-static struct nctempchar1 nctemp7007 = {{ 37}, (char*)"Array index out of bond at line no: \0"};
-nctemp7006=&nctemp7007;
-nctempchar1* nctemp7004= nctemp7006;
-int nctemp7008=LibePuts(nctemp7002,nctemp7004);
-int nctemp7010= 4;
-int nctemp7012= line;
-int nctemp7014=LibePuti(nctemp7010,nctemp7012);
-int nctemp7016= 4;
-struct nctempchar1 *nctemp7020;
-static struct nctempchar1 nctemp7021 = {{ 3}, (char*)"\n\0"};
-nctemp7020=&nctemp7021;
-nctempchar1* nctemp7018= nctemp7020;
-int nctemp7022=LibePuts(nctemp7016,nctemp7018);
-int nctemp7024= 4;
-struct nctempchar1 *nctemp7028;
-static struct nctempchar1 nctemp7029 = {{ 13}, (char*)"Array name: \0"};
-nctemp7028=&nctemp7029;
-nctempchar1* nctemp7026= nctemp7028;
-int nctemp7030=LibePuts(nctemp7024,nctemp7026);
-int nctemp7032= 4;
-nctempchar1* nctemp7034= name;
-int nctemp7037=LibePuts(nctemp7032,nctemp7034);
-int nctemp7039= 4;
-struct nctempchar1 *nctemp7043;
-static struct nctempchar1 nctemp7044 = {{ 3}, (char*)"\n\0"};
-nctemp7043=&nctemp7044;
-nctempchar1* nctemp7041= nctemp7043;
-int nctemp7045=LibePuts(nctemp7039,nctemp7041);
-int nctemp7047= 4;
-struct nctempchar1 *nctemp7051;
-static struct nctempchar1 nctemp7052 = {{ 11}, (char*)"Index no: \0"};
-nctemp7051=&nctemp7052;
-nctempchar1* nctemp7049= nctemp7051;
-int nctemp7053=LibePuts(nctemp7047,nctemp7049);
-int nctemp7055= 4;
-int nctemp7057= index;
-int nctemp7059=LibePuti(nctemp7055,nctemp7057);
-int nctemp7061= 4;
-struct nctempchar1 *nctemp7065;
-static struct nctempchar1 nctemp7066 = {{ 3}, (char*)"\n\0"};
-nctemp7065=&nctemp7066;
-nctempchar1* nctemp7063= nctemp7065;
-int nctemp7067=LibePuts(nctemp7061,nctemp7063);
-int nctemp7069= 4;
-struct nctempchar1 *nctemp7073;
-static struct nctempchar1 nctemp7074 = {{ 14}, (char*)"Index value: \0"};
-nctemp7073=&nctemp7074;
-nctempchar1* nctemp7071= nctemp7073;
-int nctemp7075=LibePuts(nctemp7069,nctemp7071);
-int nctemp7077= 4;
-int nctemp7079= ival;
-int nctemp7081=LibePuti(nctemp7077,nctemp7079);
-int nctemp7083= 4;
-struct nctempchar1 *nctemp7087;
-static struct nctempchar1 nctemp7088 = {{ 3}, (char*)"\n\0"};
-nctemp7087=&nctemp7088;
-nctempchar1* nctemp7085= nctemp7087;
-int nctemp7089=LibePuts(nctemp7083,nctemp7085);
-int nctemp7091= 4;
-struct nctempchar1 *nctemp7095;
-static struct nctempchar1 nctemp7096 = {{ 16}, (char*)"Index bound: 0-\0"};
-nctemp7095=&nctemp7096;
-nctempchar1* nctemp7093= nctemp7095;
-int nctemp7097=LibePuts(nctemp7091,nctemp7093);
-int nctemp7099= 4;
-int nctemp7106 = bound - 1;
-int nctemp7101= nctemp7106;
-int nctemp7107=LibePuti(nctemp7099,nctemp7101);
-int nctemp7109= 4;
-struct nctempchar1 *nctemp7113;
-static struct nctempchar1 nctemp7114 = {{ 3}, (char*)"\n\0"};
-nctemp7113=&nctemp7114;
-nctempchar1* nctemp7111= nctemp7113;
-int nctemp7115=LibePuts(nctemp7109,nctemp7111);
-int nctemp7117= 4;
-int nctemp7119=LibeFlush(nctemp7117);
-int nctemp7121=RunExit();
+int nctemp4188= 4;
+struct nctempchar1 *nctemp4192;
+static struct nctempchar1 nctemp4193 = {{ 37}, (char*)"Array index out of bond at line no: \0"};
+nctemp4192=&nctemp4193;
+nctempchar1* nctemp4190= nctemp4192;
+int nctemp4194=LibePuts(nctemp4188,nctemp4190);
+int nctemp4196= 4;
+int nctemp4198= line;
+int nctemp4200=LibePuti(nctemp4196,nctemp4198);
+int nctemp4202= 4;
+struct nctempchar1 *nctemp4206;
+static struct nctempchar1 nctemp4207 = {{ 3}, (char*)"\n\0"};
+nctemp4206=&nctemp4207;
+nctempchar1* nctemp4204= nctemp4206;
+int nctemp4208=LibePuts(nctemp4202,nctemp4204);
+int nctemp4210= 4;
+struct nctempchar1 *nctemp4214;
+static struct nctempchar1 nctemp4215 = {{ 13}, (char*)"Array name: \0"};
+nctemp4214=&nctemp4215;
+nctempchar1* nctemp4212= nctemp4214;
+int nctemp4216=LibePuts(nctemp4210,nctemp4212);
+int nctemp4218= 4;
+nctempchar1* nctemp4220= name;
+int nctemp4223=LibePuts(nctemp4218,nctemp4220);
+int nctemp4225= 4;
+struct nctempchar1 *nctemp4229;
+static struct nctempchar1 nctemp4230 = {{ 3}, (char*)"\n\0"};
+nctemp4229=&nctemp4230;
+nctempchar1* nctemp4227= nctemp4229;
+int nctemp4231=LibePuts(nctemp4225,nctemp4227);
+int nctemp4233= 4;
+struct nctempchar1 *nctemp4237;
+static struct nctempchar1 nctemp4238 = {{ 11}, (char*)"Index no: \0"};
+nctemp4237=&nctemp4238;
+nctempchar1* nctemp4235= nctemp4237;
+int nctemp4239=LibePuts(nctemp4233,nctemp4235);
+int nctemp4241= 4;
+int nctemp4243= index;
+int nctemp4245=LibePuti(nctemp4241,nctemp4243);
+int nctemp4247= 4;
+struct nctempchar1 *nctemp4251;
+static struct nctempchar1 nctemp4252 = {{ 3}, (char*)"\n\0"};
+nctemp4251=&nctemp4252;
+nctempchar1* nctemp4249= nctemp4251;
+int nctemp4253=LibePuts(nctemp4247,nctemp4249);
+int nctemp4255= 4;
+struct nctempchar1 *nctemp4259;
+static struct nctempchar1 nctemp4260 = {{ 14}, (char*)"Index value: \0"};
+nctemp4259=&nctemp4260;
+nctempchar1* nctemp4257= nctemp4259;
+int nctemp4261=LibePuts(nctemp4255,nctemp4257);
+int nctemp4263= 4;
+int nctemp4265= ival;
+int nctemp4267=LibePuti(nctemp4263,nctemp4265);
+int nctemp4269= 4;
+struct nctempchar1 *nctemp4273;
+static struct nctempchar1 nctemp4274 = {{ 3}, (char*)"\n\0"};
+nctemp4273=&nctemp4274;
+nctempchar1* nctemp4271= nctemp4273;
+int nctemp4275=LibePuts(nctemp4269,nctemp4271);
+int nctemp4277= 4;
+struct nctempchar1 *nctemp4281;
+static struct nctempchar1 nctemp4282 = {{ 16}, (char*)"Index bound: 0-\0"};
+nctemp4281=&nctemp4282;
+nctempchar1* nctemp4279= nctemp4281;
+int nctemp4283=LibePuts(nctemp4277,nctemp4279);
+int nctemp4285= 4;
+int nctemp4292 = bound - 1;
+int nctemp4287= nctemp4292;
+int nctemp4293=LibePuti(nctemp4285,nctemp4287);
+int nctemp4295= 4;
+struct nctempchar1 *nctemp4299;
+static struct nctempchar1 nctemp4300 = {{ 3}, (char*)"\n\0"};
+nctemp4299=&nctemp4300;
+nctempchar1* nctemp4297= nctemp4299;
+int nctemp4301=LibePuts(nctemp4295,nctemp4297);
+int nctemp4303= 4;
+int nctemp4305=LibeFlush(nctemp4303);
+int nctemp4307=RunExit();
 return 1;
 }
 }
@@ -5102,9 +3951,9 @@ int LibeSystem (nctempchar1 *cmd)
 {
 int rval;
 {
-nctempchar1* nctemp7127= cmd;
-int nctemp7130=RunSystem(nctemp7127);
-rval =nctemp7130;
+nctempchar1* nctemp4313= cmd;
+int nctemp4316=RunSystem(nctemp4313);
+rval =nctemp4316;
 return rval;
 }
 }
@@ -5112,32 +3961,32 @@ int LibeInit ()
 {
 int rval;
 {
-int nctemp7136=LibeErrinit();
-rval =nctemp7136;
-int nctemp7141=LibeIoinit();
-rval =nctemp7141;
-int nctemp7146=LibeMathinit();
-rval =nctemp7146;
-int nctemp7151= 1024;
-int nctemp7153=LibeSetnb(nctemp7151);
-rval =nctemp7153;
-int nctemp7158= 1024;
-int nctemp7160=LibeSetnt(nctemp7158);
-rval =nctemp7160;
+int nctemp4322=LibeErrinit();
+rval =nctemp4322;
+int nctemp4327=LibeIoinit();
+rval =nctemp4327;
+int nctemp4332=LibeMathinit();
+rval =nctemp4332;
+int nctemp4337= 1024;
+int nctemp4339=LibeSetnb(nctemp4337);
+rval =nctemp4339;
+int nctemp4344= 1024;
+int nctemp4346=LibeSetnt(nctemp4344);
+rval =nctemp4346;
 return rval;
 }
 }
 int LibeExit ()
 {
 {
-int nctemp7163=RunExit();
+int nctemp4349=RunExit();
 return 1;
 }
 }
 nctempchar1 * LibeDate ()
 {
 {
-nctempchar1* nctemp7166=RunDate();
-return nctemp7166;
+nctempchar1* nctemp4352=RunDate();
+return nctemp4352;
 }
 }
