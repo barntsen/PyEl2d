@@ -5,6 +5,8 @@ typedef struct nctempfloat1 { int d[1]; float *a;} nctempfloat1;
 typedef struct nctempint1 { int d[1]; int *a;} nctempint1; 
 typedef struct nctempchar1 { int d[1]; char *a;} nctempchar1; 
 typedef struct nctempcomplex1 { int d[1]; complex *a;} nctempcomplex1; 
+static struct nctempchar1 nctempstringx = {0, NULL};
+static struct nctempchar1 *nctempstring = &nctempstringx;
 typedef struct nctempfloat2 { int d[2]; float *a;} nctempfloat2; 
 typedef struct nctempint2 { int d[2]; int *a;} nctempint2; 
 typedef struct nctempchar2 { int d[2]; char *a;} nctempchar2; 
@@ -146,6 +148,9 @@ nctemp7->d[0]=nctemp18;
 nctemp7->a=(char *)RunMalloc(sizeof(char)*nctemp8);
 str=nctemp7;
 int nctemp22=Nx;
+if((0>Nx)||(Nx>=str->d[0])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:pyeps.e str %d %d %d %d \n " ,21,Nx,0,str->d[0]-1);
+}
 char nctemp25=(char)(0);
 str->a[nctemp22] =nctemp25;
 return str;
@@ -167,7 +172,15 @@ int i;
 int nctemp38=out->d[0];nx =nctemp38;
 for(i = 0;i < nx;i = (i + 1)){
 {
-out->a[i] = arr->a[i];
+int nctemp45=i;
+if((0>i)||(i>=out->d[0])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:pyeps.e out %d %d %d %d \n " ,53,i,0,out->d[0]-1);
+}
+int nctemp48=i;
+if((0>i)||(i>=arr->d[0])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:pyeps.e arr %d %d %d %d \n " ,53,i,0,arr->d[0]-1);
+}
+out->a[nctemp45] =arr->a[nctemp48];
 }
 }
 return 1;
@@ -177,12 +190,12 @@ nctempint1 * PyepsCre1di (int Nx)
 {
 nctempint1 *tmp;
 {
-int nctemp49=Nx;
-nctempint1 *nctemp48;
-nctemp48=(nctempint1*)RunMalloc(sizeof(nctempint1));
-nctemp48->d[0]=Nx;
-nctemp48->a=(int *)RunMalloc(sizeof(int)*nctemp49);
-tmp=nctemp48;
+int nctemp57=Nx;
+nctempint1 *nctemp56;
+nctemp56=(nctempint1*)RunMalloc(sizeof(nctempint1));
+nctemp56->d[0]=Nx;
+nctemp56->a=(int *)RunMalloc(sizeof(int)*nctemp57);
+tmp=nctemp56;
 return tmp;
 }
 }
@@ -199,10 +212,18 @@ int PyepsCopy1di (nctempint1 *arr,nctempint1 *out)
 int nx;
 int i;
 {
-int nctemp62=out->d[0];nx =nctemp62;
+int nctemp70=out->d[0];nx =nctemp70;
 for(i = 0;i < nx;i = (i + 1)){
 {
-out->a[i] = arr->a[i];
+int nctemp77=i;
+if((0>i)||(i>=out->d[0])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:pyeps.e out %d %d %d %d \n " ,97,i,0,out->d[0]-1);
+}
+int nctemp80=i;
+if((0>i)||(i>=arr->d[0])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:pyeps.e arr %d %d %d %d \n " ,97,i,0,arr->d[0]-1);
+}
+out->a[nctemp77] =arr->a[nctemp80];
 }
 }
 return 1;
@@ -211,14 +232,14 @@ return 1;
 nctempint2 * PyepsCre2di (int Nx,int Ny)
 {
 {
-int nctemp69=Nx;
-nctemp69=nctemp69*Ny;
-nctempint2 *nctemp68;
-nctemp68=(nctempint2*)RunMalloc(sizeof(nctempint2));
-nctemp68->d[0]=Nx;
-nctemp68->d[1]=Ny;
-nctemp68->a=(int *)RunMalloc(sizeof(int)*nctemp69);
-return nctemp68;
+int nctemp85=Nx;
+nctemp85=nctemp85*Ny;
+nctempint2 *nctemp84;
+nctemp84=(nctempint2*)RunMalloc(sizeof(nctempint2));
+nctemp84->d[0]=Nx;
+nctemp84->d[1]=Ny;
+nctemp84->a=(int *)RunMalloc(sizeof(int)*nctemp85);
+return nctemp84;
 }
 }
 int PyepsDel2di (nctempint2 *arr)
@@ -236,13 +257,29 @@ int ny;
 int i;
 int j;
 {
-int nctemp82=out->d[0];nx =nctemp82;
-int nctemp90=out->d[1];ny =nctemp90;
+int nctemp98=out->d[0];nx =nctemp98;
+int nctemp106=out->d[1];ny =nctemp106;
 for(j = 0;j < ny;j = (j + 1)){
 {
 for(i = 0;i < nx;i = (i + 1)){
 {
-out->a[i+out->d[0]*(j)] = arr->a[i+arr->d[0]*(j)];
+int nctemp113=i;
+if((0>i)||(i>=out->d[0])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:pyeps.e out %d %d %d %d \n " ,146,i,0,out->d[0]-1);
+}
+nctemp113=j*out->d[0]+nctemp113;
+if((0>j)||(j>=out->d[1])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:pyeps.e out %d %d %d %d \n " ,146,j,1,out->d[1]-1);
+}
+int nctemp117=i;
+if((0>i)||(i>=arr->d[0])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:pyeps.e arr %d %d %d %d \n " ,146,i,0,arr->d[0]-1);
+}
+nctemp117=j*arr->d[0]+nctemp117;
+if((0>j)||(j>=arr->d[1])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:pyeps.e arr %d %d %d %d \n " ,146,j,1,arr->d[1]-1);
+}
+out->a[nctemp113] =arr->a[nctemp117];
 }
 }
 }
@@ -254,12 +291,12 @@ nctempfloat1 * PyepsCre1df (int Nx)
 {
 nctempfloat1 *tmp;
 {
-int nctemp101=Nx;
-nctempfloat1 *nctemp100;
-nctemp100=(nctempfloat1*)RunMalloc(sizeof(nctempfloat1));
-nctemp100->d[0]=Nx;
-nctemp100->a=(float *)RunMalloc(sizeof(float)*nctemp101);
-tmp=nctemp100;
+int nctemp127=Nx;
+nctempfloat1 *nctemp126;
+nctemp126=(nctempfloat1*)RunMalloc(sizeof(nctempfloat1));
+nctemp126->d[0]=Nx;
+nctemp126->a=(float *)RunMalloc(sizeof(float)*nctemp127);
+tmp=nctemp126;
 return tmp;
 }
 }
@@ -276,10 +313,18 @@ int PyepsCopy1df (nctempfloat1 *arr,nctempfloat1 *out)
 int nx;
 int i;
 {
-int nctemp114=out->d[0];nx =nctemp114;
+int nctemp140=out->d[0];nx =nctemp140;
 for(i = 0;i < nx;i = (i + 1)){
 {
-out->a[i] = arr->a[i];
+int nctemp147=i;
+if((0>i)||(i>=out->d[0])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:pyeps.e out %d %d %d %d \n " ,191,i,0,out->d[0]-1);
+}
+int nctemp150=i;
+if((0>i)||(i>=arr->d[0])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:pyeps.e arr %d %d %d %d \n " ,191,i,0,arr->d[0]-1);
+}
+out->a[nctemp147] =arr->a[nctemp150];
 }
 }
 return 1;
@@ -288,14 +333,14 @@ return 1;
 nctempfloat2 * PyepsCre2df (int Nx,int Ny)
 {
 {
-int nctemp121=Nx;
-nctemp121=nctemp121*Ny;
-nctempfloat2 *nctemp120;
-nctemp120=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp120->d[0]=Nx;
-nctemp120->d[1]=Ny;
-nctemp120->a=(float *)RunMalloc(sizeof(float)*nctemp121);
-return nctemp120;
+int nctemp155=Nx;
+nctemp155=nctemp155*Ny;
+nctempfloat2 *nctemp154;
+nctemp154=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp154->d[0]=Nx;
+nctemp154->d[1]=Ny;
+nctemp154->a=(float *)RunMalloc(sizeof(float)*nctemp155);
+return nctemp154;
 }
 }
 int PyepsDel2df (nctempfloat2 *arr)
@@ -313,13 +358,29 @@ int ny;
 int i;
 int j;
 {
-int nctemp134=out->d[0];nx =nctemp134;
-int nctemp142=out->d[1];ny =nctemp142;
+int nctemp168=out->d[0];nx =nctemp168;
+int nctemp176=out->d[1];ny =nctemp176;
 for(j = 0;j < ny;j = (j + 1)){
 {
 for(i = 0;i < nx;i = (i + 1)){
 {
-out->a[i+out->d[0]*(j)] = arr->a[i+arr->d[0]*(j)];
+int nctemp183=i;
+if((0>i)||(i>=out->d[0])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:pyeps.e out %d %d %d %d \n " ,241,i,0,out->d[0]-1);
+}
+nctemp183=j*out->d[0]+nctemp183;
+if((0>j)||(j>=out->d[1])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:pyeps.e out %d %d %d %d \n " ,241,j,1,out->d[1]-1);
+}
+int nctemp187=i;
+if((0>i)||(i>=arr->d[0])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:pyeps.e arr %d %d %d %d \n " ,241,i,0,arr->d[0]-1);
+}
+nctemp187=j*arr->d[0]+nctemp187;
+if((0>j)||(j>=arr->d[1])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:pyeps.e arr %d %d %d %d \n " ,241,j,1,arr->d[1]-1);
+}
+out->a[nctemp183] =arr->a[nctemp187];
 }
 }
 }

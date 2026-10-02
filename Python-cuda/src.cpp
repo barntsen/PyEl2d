@@ -5,6 +5,8 @@ typedef struct nctempfloat1 { int d[1]; float *a;} nctempfloat1;
 typedef struct nctempint1 { int d[1]; int *a;} nctempint1; 
 typedef struct nctempchar1 { int d[1]; char *a;} nctempchar1; 
 typedef struct nctempcomplex1 { int d[1]; complex *a;} nctempcomplex1; 
+static struct nctempchar1 nctempstringx = {0, NULL};
+static struct nctempchar1 *nctempstring = &nctempstringx;
 typedef struct nctempfloat2 { int d[2]; float *a;} nctempfloat2; 
 typedef struct nctempint2 { int d[2]; int *a;} nctempint2; 
 typedef struct nctempchar2 { int d[2]; char *a;} nctempchar2; 
@@ -146,14 +148,14 @@ struct src* Src;
 {
 struct src *nctemp5=(struct src*)RunMalloc(sizeof(struct src));
 Src =nctemp5;
-Src->Sx = sx;
-Src->Sy = sy;
-Src->Sfx = sfx;
-Src->Sfy = sfy;
-Src->Sqxx = sqxx;
-Src->Sqyy = sqyy;
-Src->Sqxy = sqxy;
-int nctemp11=sx->d[0];Src->Ns =nctemp11;
+Src->Sx=sx;
+Src->Sy=sy;
+Src->Sfx=sfx;
+Src->Sfy=sfy;
+Src->Sqxx=sqxx;
+Src->Sqyy=sqyy;
+Src->Sqxy=sqxy;
+int nctemp53=sx->d[0];Src->Ns =nctemp53;
 return Src;
 }
 }
@@ -172,23 +174,29 @@ float arg;
 {
 for(i = 0;i < nt;i = (i + 1)){
 {
-float nctemp29=(float)(i);
-float nctemp33 = nctemp29 * dt;
-float nctemp35 = nctemp33 - t0;
-t =nctemp35;
-w0 = ((2.0 * 3.14159) * f0);
-arg = (w0 * t);
-int nctemp39=i;
-float nctemp56 = 0.5 * arg;
-float nctemp58 = nctemp56 * arg;
-float nctemp59 = 1.0 - nctemp58;
-float nctemp67= -0.25;
-float nctemp69 = nctemp67 * arg;
-float nctemp71 = nctemp69 * arg;
-float nctemp61= nctemp71;
-float nctemp72=exp(nctemp61);
-float nctemp73 = nctemp59 * nctemp72;
-source->a[nctemp39] =nctemp73;
+float nctemp71=(float)(i);
+float nctemp75 = nctemp71 * dt;
+float nctemp77 = nctemp75 - t0;
+t =nctemp77;
+float nctemp89 = 2.0 * 3.14159;
+float nctemp91 = nctemp89 * f0;
+w0 =nctemp91;
+float nctemp100 = w0 * t;
+arg =nctemp100;
+int nctemp104=i;
+if((0>i)||(i>=source->d[0])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:src.e source %d %d %d %d \n " ,81,i,0,source->d[0]-1);
+}
+float nctemp121 = 0.5 * arg;
+float nctemp123 = nctemp121 * arg;
+float nctemp124 = 1.0 - nctemp123;
+float nctemp132= -0.25;
+float nctemp134 = nctemp132 * arg;
+float nctemp136 = nctemp134 * arg;
+float nctemp126= nctemp136;
+float nctemp137=exp(nctemp126);
+float nctemp138 = nctemp124 * nctemp137;
+source->a[nctemp104] =nctemp138;
 }
 }
 return 1;

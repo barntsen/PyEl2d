@@ -57,6 +57,47 @@ class model :
 
     return(tauex,tauey,tausx,tausy)
 
+  def staggerx(self, a):
+
+    ''' staggerx will interpolate a 2D array halfway between gridpoints 
+
+    Parameters: 
+      a: 2D Input array
+
+    Returns:
+      Output array interpolated half way beteen gridpoints:
+      output = (a[i,j]+a[i+1,j])/2
+      The last gridpoint is unchanged.
+    
+    ''' 
+
+    b=pyeps.Fzeros(a.shape)
+    for i in range(0,shape[0]-1):
+      for j in range(0,shape[1]):
+        b[i,j]=(a[i,j]+a[i+1,j])/2.0
+        
+    return(b)
+
+  def staggery(self, a):
+    ''' staggery will interpolate a 2D array halfway between gridpoints 
+
+    Parameters: 
+      a: 2D Input array
+
+    Returns:
+      Output array interpolated half way beteen gridpoints:
+      output = (a[i,j]+a[i,j+1])/2
+      The last gridpoint is unchanged.
+    
+    ''' 
+
+    b=pyeps.Fzeros(a.shape)
+    for i in range(0,shape[0]):
+      for j in range(0,shape[1]-1):
+        b[i,j]=(a[i,j]+a[i,j+1])/2.0
+        
+    return(b)
+
   def __init__(self,vp,vs,rho,dx,dt,w0,nb=35,rheol=2,
                freesurface=1, **kwargs):
     ''' Initialization of the model object
@@ -136,7 +177,7 @@ class model :
                 self.tauborder(taue1dx,taue1dy,taus1dx,taus1dy,nx,ny) 
     etaex,etaey,etasx,etasy = \
                 self.tauborder(taue1dx,taue1dy,taus1dx,taus1dy,nx,ny) 
-    
+
     # Create eps model object.
     model.mod=modelw.ModelNew(vp,vs,rho,dx,w0,dt,nb,
                          freesurface,tausx,tausy,tauex,tauey,

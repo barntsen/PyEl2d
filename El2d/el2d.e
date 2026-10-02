@@ -262,7 +262,7 @@ def int El2dSnap(struct el2d El2d,int it) :
     
     if(El2d.snpflags[1] == 1):
       tmp = cast(char [4*n],El2d.vx) 
-      err=LibeWrite(El2d.fdvx,4*n,tmp) 
+      LibeWrite(El2d.fdvx,4*n,tmp) 
     
     if(El2d.snpflags[2] == 1):
       tmp = cast(char [4*n],El2d.vy) 
@@ -320,8 +320,6 @@ def int El2dSolve(struct el2d El2d, struct model Model, struct src Src, \
 
 
   Diff = DiffNew(l)   # Create differentiator object
-  tmp1 = new(float[Model.nx, Model.ny]) 
-  tmp2 = new(float[Model.nx, Model.ny]) 
 
   oldperc=0.0 
   ns=El2d.ts          #Get current timestep 
@@ -391,11 +389,6 @@ def int El2dSolve(struct el2d El2d, struct model Model, struct src Src, \
 
   # Update the time variable
   El2d.ts = El2d.ts+ne 
-  #DEBUG
-  #for k in range(0,Model.nx):
-  #  for l in range(0,Model.ny):
-  #    LibePf(Rec.p[k,l])
-  #    LibePs("\n")
 
   return(OK) 
 

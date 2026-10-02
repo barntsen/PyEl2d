@@ -17,13 +17,13 @@ ny      = 300      #No of gridpoints in y-direction
 dx      = 2.5      #Grid interval
 dt      = 0.0005    #Time sampling interval
 nt      = 2501      #No of time steps
-f0      = 15.0      #Q-model peak frequency
+f0      = 15.0        #Q-model peak frequency
 w0      = 2.0*pi*f0  #Q-model peak angular frequency
 resamp  = 1          #Resampling factor (relative to no of timesteps) for data
 sresamp = 10         #Resampling factor (relative to timesteps)for snapshots
 nb      = 35         #No of PML boundary points
 l       = 6          #Length of differentiator
-freesurface = 0      # =1: Use freesurface =0: No free surface
+freesurface = 1      # =1: Use freesurface =0: No free surface
 fvp     = "vp.bin"   #Vp file name
 fvs     = "vs.bin"   #Vp file name
 frho    = "rho.bin"  #Rho file name
@@ -43,16 +43,16 @@ fqm      = ""        # Qm file name (default Qm=100000)
 sx       = np.zeros(1, dtype=np.int32) #Source x-position
 sy       = np.zeros(1, dtype=np.int32) #Source y-position
 sx[0]    = nx/2 
-sy[0]    = int(250.0/dx)
+sy[0]    = nb+10
 
 #Source flags 
 srcflags = np.zeros(5, dtype=np.int32)
 
-#srcflags[0] = 1   #Set diagonal stress source
-#srcflags[1] = 1   #Set diagonal stress source
+srcflags[0] = 1   #Set diagonal stress source
+srcflags[1] = 1   #Set diagonal stress source
 #srcflags[2] = 1   #Set non-diagonal stress source
 #srcflags[3] = 1    #Set horisontal force source
-srcflags[4] = 1   #Set vertical force source
+#srcflags[4] = 1   #Set vertical force source
 
 #Receiver positions
 nr = nx
@@ -60,13 +60,13 @@ rx=np.zeros((nr), dtype=np.int32)
 ry=np.zeros((nr), dtype=np.int32)
 for i in range(0,nr):
   rx[i] = i
-  ry[i] = int(450.0/dx)
+  ry[i] = nb+15
  
 #Snapshost (0=flag not set, 1=flag set)
-snpflags = np.zeros(6, dtype=np.int32)
+snpflags = np.zeros(7, dtype=np.int32)
 
-#snpflags[0] = 1 #Store p on file "snp-p.bin"
-snpflags[1] = 1 #Store vx     on file "snp-vx.bin"
+snpflags[0] = 1 #Store p on file "snp-p.bin"
+#snpflags[1] = 1 #Store vx     on file "snp-vx.bin"
 #snpflags[2] = 1 #Store vy      on file "snp-vy.bin"
 #snpflags[3] = 1 #Store sxx     on file "snp-sxx.bin"
 #snpflags[4] = 1 #Store syy     on file "snp-syy.bin"

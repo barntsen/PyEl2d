@@ -63,6 +63,7 @@ def int RecReceiver(struct rec Rec, int it, float [*,*] field, int dtype):
   #
   # Returns  : OK or ERR
   
+  Rec.pit = it/Rec.resamp
   if(Rec.pit > Rec.nt-1):
     return(ERR)
 
@@ -72,8 +73,6 @@ def int RecReceiver(struct rec Rec, int it, float [*,*] field, int dtype):
       iyr=Rec.ry[pos]
       if(dtype == 1) :
         Rec.p[Rec.pit,pos]   = field[ixr,iyr]
-        LibePf(field[ixr,iyr])
-        LibePs("\n")
       elif(dtype == 2) :
         Rec.vx[Rec.pit,pos]  = field[ixr,iyr]
       elif(dtype == 3) :
@@ -87,8 +86,6 @@ def int RecReceiver(struct rec Rec, int it, float [*,*] field, int dtype):
       else :
         return(ERR)
 
-    Rec.pit = Rec.pit+1
-  
   return(OK)
 
 def int RecCopy(float [*,*] a, float [*,*] b):

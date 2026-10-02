@@ -26,12 +26,12 @@ vs[:,nd:ny] = 1280.0
 rho = fzeros((nx,ny))
 rho[:,:] = 1000.0
 
-#pl.imshow(vp.T)
+pl.imshow(vp.T)
 #pl.show()
 #pl.imshow(vs.T)
 #pl.show()
 #pl.imshow(rho.T)
-#pl.show()
+pl.show()
 
 
 fd=ba.bin("vp.bin",'w')

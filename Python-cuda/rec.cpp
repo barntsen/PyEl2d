@@ -5,6 +5,8 @@ typedef struct nctempfloat1 { int d[1]; float *a;} nctempfloat1;
 typedef struct nctempint1 { int d[1]; int *a;} nctempint1; 
 typedef struct nctempchar1 { int d[1]; char *a;} nctempchar1; 
 typedef struct nctempcomplex1 { int d[1]; complex *a;} nctempcomplex1; 
+static struct nctempchar1 nctempstringx = {0, NULL};
+static struct nctempchar1 *nctempstring = &nctempstringx;
 typedef struct nctempfloat2 { int d[2]; float *a;} nctempfloat2; 
 typedef struct nctempint2 { int d[2]; int *a;} nctempint2; 
 typedef struct nctempchar2 { int d[2]; char *a;} nctempchar2; 
@@ -153,59 +155,59 @@ struct rec* Rec;
 struct rec *nctemp5=(struct rec*)RunMalloc(sizeof(struct rec));
 Rec =nctemp5;
 int nctemp11=rx->d[0];Rec->nr =nctemp11;
-Rec->rx = rx;
-Rec->ry = ry;
-Rec->nt = nt;
-int nctemp21=Rec->nt;
-nctemp21=nctemp21*Rec->nr;
-nctempfloat2 *nctemp20;
-nctemp20=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp20->d[0]=Rec->nt;
-nctemp20->d[1]=Rec->nr;
-nctemp20->a=(float *)RunMalloc(sizeof(float)*nctemp21);
-Rec->p=nctemp20;
-int nctemp32=Rec->nt;
-nctemp32=nctemp32*Rec->nr;
-nctempfloat2 *nctemp31;
-nctemp31=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp31->d[0]=Rec->nt;
-nctemp31->d[1]=Rec->nr;
-nctemp31->a=(float *)RunMalloc(sizeof(float)*nctemp32);
-Rec->vx=nctemp31;
-int nctemp43=Rec->nt;
-nctemp43=nctemp43*Rec->nr;
-nctempfloat2 *nctemp42;
-nctemp42=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp42->d[0]=Rec->nt;
-nctemp42->d[1]=Rec->nr;
-nctemp42->a=(float *)RunMalloc(sizeof(float)*nctemp43);
-Rec->vy=nctemp42;
-int nctemp54=Rec->nt;
-nctemp54=nctemp54*Rec->nr;
-nctempfloat2 *nctemp53;
-nctemp53=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp53->d[0]=Rec->nt;
-nctemp53->d[1]=Rec->nr;
-nctemp53->a=(float *)RunMalloc(sizeof(float)*nctemp54);
-Rec->sxx=nctemp53;
-int nctemp65=Rec->nt;
-nctemp65=nctemp65*Rec->nr;
-nctempfloat2 *nctemp64;
-nctemp64=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp64->d[0]=Rec->nt;
-nctemp64->d[1]=Rec->nr;
-nctemp64->a=(float *)RunMalloc(sizeof(float)*nctemp65);
-Rec->syy=nctemp64;
-int nctemp76=Rec->nt;
-nctemp76=nctemp76*Rec->nr;
-nctempfloat2 *nctemp75;
-nctemp75=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp75->d[0]=Rec->nt;
-nctemp75->d[1]=Rec->nr;
-nctemp75->a=(float *)RunMalloc(sizeof(float)*nctemp76);
-Rec->sxy=nctemp75;
-Rec->resamp = resamp;
-Rec->pit = 0;
+Rec->rx=rx;
+Rec->ry=ry;
+Rec->nt =nt;
+int nctemp37=Rec->nt;
+nctemp37=nctemp37*Rec->nr;
+nctempfloat2 *nctemp36;
+nctemp36=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp36->d[0]=Rec->nt;
+nctemp36->d[1]=Rec->nr;
+nctemp36->a=(float *)RunMalloc(sizeof(float)*nctemp37);
+Rec->p=nctemp36;
+int nctemp48=Rec->nt;
+nctemp48=nctemp48*Rec->nr;
+nctempfloat2 *nctemp47;
+nctemp47=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp47->d[0]=Rec->nt;
+nctemp47->d[1]=Rec->nr;
+nctemp47->a=(float *)RunMalloc(sizeof(float)*nctemp48);
+Rec->vx=nctemp47;
+int nctemp59=Rec->nt;
+nctemp59=nctemp59*Rec->nr;
+nctempfloat2 *nctemp58;
+nctemp58=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp58->d[0]=Rec->nt;
+nctemp58->d[1]=Rec->nr;
+nctemp58->a=(float *)RunMalloc(sizeof(float)*nctemp59);
+Rec->vy=nctemp58;
+int nctemp70=Rec->nt;
+nctemp70=nctemp70*Rec->nr;
+nctempfloat2 *nctemp69;
+nctemp69=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp69->d[0]=Rec->nt;
+nctemp69->d[1]=Rec->nr;
+nctemp69->a=(float *)RunMalloc(sizeof(float)*nctemp70);
+Rec->sxx=nctemp69;
+int nctemp81=Rec->nt;
+nctemp81=nctemp81*Rec->nr;
+nctempfloat2 *nctemp80;
+nctemp80=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp80->d[0]=Rec->nt;
+nctemp80->d[1]=Rec->nr;
+nctemp80->a=(float *)RunMalloc(sizeof(float)*nctemp81);
+Rec->syy=nctemp80;
+int nctemp92=Rec->nt;
+nctemp92=nctemp92*Rec->nr;
+nctempfloat2 *nctemp91;
+nctemp91=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
+nctemp91->d[0]=Rec->nt;
+nctemp91->d[1]=Rec->nr;
+nctemp91->a=(float *)RunMalloc(sizeof(float)*nctemp92);
+Rec->sxy=nctemp91;
+Rec->resamp =resamp;
+Rec->pit =0;
 return Rec;
 }
 }
@@ -215,84 +217,181 @@ int pos;
 int ixr;
 int iyr;
 {
-int nctemp90 = Rec->nt - 1;
-int nctemp82 = (Rec->pit > nctemp90);
-if(nctemp82)
+int nctemp114 = it / Rec->resamp;
+Rec->pit =nctemp114;
+int nctemp123 = Rec->nt - 1;
+int nctemp115 = (Rec->pit > nctemp123);
+if(nctemp115)
 {
 {
 return 0;
 }
 }
-int nctemp95= it;
-int nctemp97= Rec->resamp;
-int nctemp99=LibeMod(nctemp95,nctemp97);
-int nctemp92 = (nctemp99 ==0);
-if(nctemp92)
+int nctemp128= it;
+int nctemp130= Rec->resamp;
+int nctemp132=LibeMod(nctemp128,nctemp130);
+int nctemp125 = (nctemp132 ==0);
+if(nctemp125)
 {
 {
 for(pos = 0;pos < Rec->nr;pos = (pos + 1)){
 {
-ixr = Rec->rx->a[pos];
-iyr = Rec->ry->a[pos];
-int nctemp101 = (dtype ==1);
-if(nctemp101)
+int nctemp138=pos;
+if((0>pos)||(pos>=Rec->rx->d[0])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:rec.e Rec->rx %d %d %d %d \n " ,72,pos,0,Rec->rx->d[0]-1);
+}
+ixr =Rec->rx->a[nctemp138];
+int nctemp144=pos;
+if((0>pos)||(pos>=Rec->ry->d[0])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:rec.e Rec->ry %d %d %d %d \n " ,73,pos,0,Rec->ry->d[0]-1);
+}
+iyr =Rec->ry->a[nctemp144];
+int nctemp146 = (dtype ==1);
+if(nctemp146)
 {
 {
-Rec->p->a[Rec->pit+Rec->p->d[0]*(pos)] = field->a[ixr+field->d[0]*(iyr)];
-int nctemp108=ixr;
-nctemp108=iyr*field->d[0]+nctemp108;
-float nctemp106= field->a[nctemp108];
-int nctemp111=LibePf(nctemp106);
-struct nctempchar1 *nctemp115;
-static struct nctempchar1 nctemp116 = {{ 3}, (char*)"\n\0"};
-nctemp115=&nctemp116;
-nctempchar1* nctemp113= nctemp115;
-int nctemp117=LibePs(nctemp113);
+int nctemp153=Rec->pit;
+if((0>Rec->pit)||(Rec->pit>=Rec->p->d[0])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:rec.e Rec->p %d %d %d %d \n " ,75,Rec->pit,0,Rec->p->d[0]-1);
+}
+nctemp153=pos*Rec->p->d[0]+nctemp153;
+if((0>pos)||(pos>=Rec->p->d[1])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:rec.e Rec->p %d %d %d %d \n " ,75,pos,1,Rec->p->d[1]-1);
+}
+int nctemp157=ixr;
+if((0>ixr)||(ixr>=field->d[0])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:rec.e field %d %d %d %d \n " ,75,ixr,0,field->d[0]-1);
+}
+nctemp157=iyr*field->d[0]+nctemp157;
+if((0>iyr)||(iyr>=field->d[1])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:rec.e field %d %d %d %d \n " ,75,iyr,1,field->d[1]-1);
+}
+Rec->p->a[nctemp153] =field->a[nctemp157];
 }
 }
 else{
 {
-int nctemp118 = (dtype ==2);
-if(nctemp118)
+int nctemp160 = (dtype ==2);
+if(nctemp160)
 {
 {
-Rec->vx->a[Rec->pit+Rec->vx->d[0]*(pos)] = field->a[ixr+field->d[0]*(iyr)];
+int nctemp167=Rec->pit;
+if((0>Rec->pit)||(Rec->pit>=Rec->vx->d[0])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:rec.e Rec->vx %d %d %d %d \n " ,77,Rec->pit,0,Rec->vx->d[0]-1);
+}
+nctemp167=pos*Rec->vx->d[0]+nctemp167;
+if((0>pos)||(pos>=Rec->vx->d[1])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:rec.e Rec->vx %d %d %d %d \n " ,77,pos,1,Rec->vx->d[1]-1);
+}
+int nctemp171=ixr;
+if((0>ixr)||(ixr>=field->d[0])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:rec.e field %d %d %d %d \n " ,77,ixr,0,field->d[0]-1);
+}
+nctemp171=iyr*field->d[0]+nctemp171;
+if((0>iyr)||(iyr>=field->d[1])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:rec.e field %d %d %d %d \n " ,77,iyr,1,field->d[1]-1);
+}
+Rec->vx->a[nctemp167] =field->a[nctemp171];
 }
 }
 else{
 {
-int nctemp122 = (dtype ==3);
-if(nctemp122)
+int nctemp174 = (dtype ==3);
+if(nctemp174)
 {
 {
-Rec->vy->a[Rec->pit+Rec->vy->d[0]*(pos)] = field->a[ixr+field->d[0]*(iyr)];
+int nctemp181=Rec->pit;
+if((0>Rec->pit)||(Rec->pit>=Rec->vy->d[0])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:rec.e Rec->vy %d %d %d %d \n " ,79,Rec->pit,0,Rec->vy->d[0]-1);
+}
+nctemp181=pos*Rec->vy->d[0]+nctemp181;
+if((0>pos)||(pos>=Rec->vy->d[1])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:rec.e Rec->vy %d %d %d %d \n " ,79,pos,1,Rec->vy->d[1]-1);
+}
+int nctemp185=ixr;
+if((0>ixr)||(ixr>=field->d[0])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:rec.e field %d %d %d %d \n " ,79,ixr,0,field->d[0]-1);
+}
+nctemp185=iyr*field->d[0]+nctemp185;
+if((0>iyr)||(iyr>=field->d[1])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:rec.e field %d %d %d %d \n " ,79,iyr,1,field->d[1]-1);
+}
+Rec->vy->a[nctemp181] =field->a[nctemp185];
 }
 }
 else{
 {
-int nctemp126 = (dtype ==4);
-if(nctemp126)
+int nctemp188 = (dtype ==4);
+if(nctemp188)
 {
 {
-Rec->sxx->a[Rec->pit+Rec->sxx->d[0]*(pos)] = field->a[ixr+field->d[0]*(iyr)];
+int nctemp195=Rec->pit;
+if((0>Rec->pit)||(Rec->pit>=Rec->sxx->d[0])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:rec.e Rec->sxx %d %d %d %d \n " ,81,Rec->pit,0,Rec->sxx->d[0]-1);
+}
+nctemp195=pos*Rec->sxx->d[0]+nctemp195;
+if((0>pos)||(pos>=Rec->sxx->d[1])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:rec.e Rec->sxx %d %d %d %d \n " ,81,pos,1,Rec->sxx->d[1]-1);
+}
+int nctemp199=ixr;
+if((0>ixr)||(ixr>=field->d[0])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:rec.e field %d %d %d %d \n " ,81,ixr,0,field->d[0]-1);
+}
+nctemp199=iyr*field->d[0]+nctemp199;
+if((0>iyr)||(iyr>=field->d[1])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:rec.e field %d %d %d %d \n " ,81,iyr,1,field->d[1]-1);
+}
+Rec->sxx->a[nctemp195] =field->a[nctemp199];
 }
 }
 else{
 {
-int nctemp130 = (dtype ==5);
-if(nctemp130)
+int nctemp202 = (dtype ==5);
+if(nctemp202)
 {
 {
-Rec->syy->a[Rec->pit+Rec->syy->d[0]*(pos)] = field->a[ixr+field->d[0]*(iyr)];
+int nctemp209=Rec->pit;
+if((0>Rec->pit)||(Rec->pit>=Rec->syy->d[0])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:rec.e Rec->syy %d %d %d %d \n " ,83,Rec->pit,0,Rec->syy->d[0]-1);
+}
+nctemp209=pos*Rec->syy->d[0]+nctemp209;
+if((0>pos)||(pos>=Rec->syy->d[1])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:rec.e Rec->syy %d %d %d %d \n " ,83,pos,1,Rec->syy->d[1]-1);
+}
+int nctemp213=ixr;
+if((0>ixr)||(ixr>=field->d[0])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:rec.e field %d %d %d %d \n " ,83,ixr,0,field->d[0]-1);
+}
+nctemp213=iyr*field->d[0]+nctemp213;
+if((0>iyr)||(iyr>=field->d[1])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:rec.e field %d %d %d %d \n " ,83,iyr,1,field->d[1]-1);
+}
+Rec->syy->a[nctemp209] =field->a[nctemp213];
 }
 }
 else{
 {
-int nctemp134 = (dtype ==6);
-if(nctemp134)
+int nctemp216 = (dtype ==6);
+if(nctemp216)
 {
 {
-Rec->sxy->a[Rec->pit+Rec->sxy->d[0]*(pos)] = field->a[ixr+field->d[0]*(iyr)];
+int nctemp223=Rec->pit;
+if((0>Rec->pit)||(Rec->pit>=Rec->sxy->d[0])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:rec.e Rec->sxy %d %d %d %d \n " ,85,Rec->pit,0,Rec->sxy->d[0]-1);
+}
+nctemp223=pos*Rec->sxy->d[0]+nctemp223;
+if((0>pos)||(pos>=Rec->sxy->d[1])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:rec.e Rec->sxy %d %d %d %d \n " ,85,pos,1,Rec->sxy->d[1]-1);
+}
+int nctemp227=ixr;
+if((0>ixr)||(ixr>=field->d[0])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:rec.e field %d %d %d %d \n " ,85,ixr,0,field->d[0]-1);
+}
+nctemp227=iyr*field->d[0]+nctemp227;
+if((0>iyr)||(iyr>=field->d[1])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:rec.e field %d %d %d %d \n " ,85,iyr,1,field->d[1]-1);
+}
+Rec->sxy->a[nctemp223] =field->a[nctemp227];
 }
 }
 else{
@@ -312,7 +411,6 @@ return 0;
 }
 }
 }
-Rec->pit = (Rec->pit + 1);
 }
 }
 return 1;
@@ -324,29 +422,45 @@ int i;
 int j;
 {
 i =0;
-int nctemp148=a->d[0];int nctemp144 = (i < nctemp148);
-while(nctemp144){
+int nctemp240=a->d[0];int nctemp236 = (i < nctemp240);
+while(nctemp236){
 {
 {
 j =0;
-int nctemp160=a->d[1];int nctemp156 = (j < nctemp160);
-while(nctemp156){
+int nctemp252=a->d[1];int nctemp248 = (j < nctemp252);
+while(nctemp248){
 {
 {
-b->a[i+b->d[0]*(j)] = a->a[i+a->d[0]*(j)];
+int nctemp259=i;
+if((0>i)||(i>=b->d[0])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:rec.e b %d %d %d %d \n " ,103,i,0,b->d[0]-1);
+}
+nctemp259=j*b->d[0]+nctemp259;
+if((0>j)||(j>=b->d[1])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:rec.e b %d %d %d %d \n " ,103,j,1,b->d[1]-1);
+}
+int nctemp263=i;
+if((0>i)||(i>=a->d[0])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:rec.e a %d %d %d %d \n " ,103,i,0,a->d[0]-1);
+}
+nctemp263=j*a->d[0]+nctemp263;
+if((0>j)||(j>=a->d[1])){
+printf("***Out of bounds error (file,array,line,index,rank,bound:rec.e a %d %d %d %d \n " ,103,j,1,a->d[1]-1);
+}
+b->a[nctemp259] =a->a[nctemp263];
 }
 }
-int nctemp172 = j + 1;
-j =nctemp172;
-int nctemp177=a->d[1];int nctemp173 = (j < nctemp177);
-nctemp156=nctemp173;
+int nctemp274 = j + 1;
+j =nctemp274;
+int nctemp279=a->d[1];int nctemp275 = (j < nctemp279);
+nctemp248=nctemp275;
 }
 }
 }
-int nctemp189 = i + 1;
-i =nctemp189;
-int nctemp194=a->d[0];int nctemp190 = (i < nctemp194);
-nctemp144=nctemp190;
+int nctemp291 = i + 1;
+i =nctemp291;
+int nctemp296=a->d[0];int nctemp292 = (i < nctemp296);
+nctemp236=nctemp292;
 }
 return 1;
 }
@@ -354,75 +468,75 @@ return 1;
 int RecGetrec (struct rec* Rec,nctempfloat2 *data,int type)
 {
 {
-int nctemp199 = (type ==0);
-if(nctemp199)
+int nctemp301 = (type ==1);
+if(nctemp301)
 {
 {
-nctempfloat2* nctemp204= Rec->p;
-nctempfloat2* nctemp207= data;
-int nctemp210=RecCopy(nctemp204,nctemp207);
+nctempfloat2* nctemp306= Rec->p;
+nctempfloat2* nctemp309= data;
+int nctemp312=RecCopy(nctemp306,nctemp309);
 }
 }
 else{
 {
-int nctemp211 = (type ==1);
-if(nctemp211)
+int nctemp313 = (type ==2);
+if(nctemp313)
 {
 {
-nctempfloat2* nctemp216= Rec->vx;
-nctempfloat2* nctemp219= data;
-int nctemp222=RecCopy(nctemp216,nctemp219);
+nctempfloat2* nctemp318= Rec->vx;
+nctempfloat2* nctemp321= data;
+int nctemp324=RecCopy(nctemp318,nctemp321);
 }
 }
 else{
 {
-int nctemp223 = (type ==2);
-if(nctemp223)
+int nctemp325 = (type ==3);
+if(nctemp325)
 {
 {
-nctempfloat2* nctemp228= Rec->vy;
-nctempfloat2* nctemp231= data;
-int nctemp234=RecCopy(nctemp228,nctemp231);
+nctempfloat2* nctemp330= Rec->vy;
+nctempfloat2* nctemp333= data;
+int nctemp336=RecCopy(nctemp330,nctemp333);
 }
 }
 else{
 {
-int nctemp235 = (type ==3);
-if(nctemp235)
+int nctemp337 = (type ==4);
+if(nctemp337)
 {
 {
-nctempfloat2* nctemp240= Rec->sxx;
-nctempfloat2* nctemp243= data;
-int nctemp246=RecCopy(nctemp240,nctemp243);
+nctempfloat2* nctemp342= Rec->sxx;
+nctempfloat2* nctemp345= data;
+int nctemp348=RecCopy(nctemp342,nctemp345);
 }
 }
 else{
 {
-int nctemp247 = (type ==4);
-if(nctemp247)
+int nctemp349 = (type ==5);
+if(nctemp349)
 {
 {
-nctempfloat2* nctemp252= Rec->syy;
-nctempfloat2* nctemp255= data;
-int nctemp258=RecCopy(nctemp252,nctemp255);
+nctempfloat2* nctemp354= Rec->syy;
+nctempfloat2* nctemp357= data;
+int nctemp360=RecCopy(nctemp354,nctemp357);
 }
 }
 else{
 {
-int nctemp259 = (type ==5);
-if(nctemp259)
+int nctemp361 = (type ==6);
+if(nctemp361)
 {
 {
-nctempfloat2* nctemp264= Rec->sxy;
-nctempfloat2* nctemp267= data;
-int nctemp270=RecCopy(nctemp264,nctemp267);
+nctempfloat2* nctemp366= Rec->sxy;
+nctempfloat2* nctemp369= data;
+int nctemp372=RecCopy(nctemp366,nctemp369);
 }
 }
 else{
 {
-nctempfloat2* nctemp272= Rec->p;
-nctempfloat2* nctemp275= data;
-int nctemp278=RecCopy(nctemp272,nctemp275);
+nctempfloat2* nctemp374= Rec->p;
+nctempfloat2* nctemp377= data;
+int nctemp380=RecCopy(nctemp374,nctemp377);
 }
 }
 }

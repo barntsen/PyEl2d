@@ -10,22 +10,23 @@
 '''
 
 import numpy as np
+import pyeps
 
 pi      = 3.14159  #Constant pi
-nx      = 500      #No of grdipoints in x-direction
-ny      = 100      #No of gridpoints in y-direction
-dx      = 10.0      #Grid interval
+nx      = 400      #No of grdipoints in x-direction
+ny      = 200      #No of gridpoints in y-direction
+dx      = 5.0      #Grid interval
 dt      = 0.0005    #Time sampling interval
-nt      = 5001      #No of time steps
+nt      = 1501      #No of time steps
 f0      = 25.0        #Q-model peak frequency
 w0      = 2.0*pi*f0  #Q-model peak angular frequency
 resamp  = 1          #Resampling factor (relative to no of timesteps) for data
 sresamp = 10         #Resampling factor (relative to timesteps)for snapshots
-nb      = 25         #No of PML boundary points
+nb      = 15         #No of PML boundary points
 l       = 6          #Length of differentiator
 freesurface = 1      # =1: Use freesurface =0: No free surface
-fvp     = "cp.bin"   #Vp file name
-fvs     = "cs.bin"   #Vp file name
+fvp     = "vp.bin"   #Vp file name
+fvs     = "vs.bin"   #Vp file name
 frho    = "rho.bin"  #Rho file name
 fsrc    = "src.bin"  # Wavelet file name
 
@@ -40,13 +41,13 @@ fql      = ""        # Ql file name (default Ql=100000)
 fqm      = ""        # Qm file name (default Qm=100000)
 
 #Source position
-sx       = np.zeros(1, dtype=np.int32) #Source x-position
-sy       = np.zeros(1, dtype=np.int32) #Source y-position
+sx       = pyeps.Izeros((1,)) #Source x-position
+sy       = pyeps.Izeros((1,)) #Source y-position
 sx[0]    = nx/2 
-sy[0]    = 2
+sy[0]    = nb+5
 
 #Source flags 
-srcflags = np.zeros(5, dtype=np.int32)
+srcflags = pyeps.Izeros((5,))
 
 srcflags[0] = 1   #Set diagonal stress source
 srcflags[1] = 1   #Set diagonal stress source
@@ -56,14 +57,15 @@ srcflags[1] = 1   #Set diagonal stress source
 
 #Receiver positions
 nr = nx
-rx=np.zeros((nr), dtype=np.int32)
-ry=np.zeros((nr), dtype=np.int32)
+rx=pyeps.Izeros((nr,))
+ry=pyeps.Izeros((nr,))
 for i in range(0,nr):
   rx[i] = i
-  ry[i] = 3
+  ry[i] = 100
  
 #Snapshost (0=flag not set, 1=flag set)
-snpflags = np.zeros(6, dtype=np.int32)
+snpflags = pyeps.Izeros((6,))
+snpflags[:]=0
 
 snpflags[0] = 1 #Store p on file "snp-p.bin"
 #snpflags[1] = 1 #Store vx     on file "snp-vx.bin"
@@ -72,5 +74,3 @@ snpflags[0] = 1 #Store p on file "snp-p.bin"
 #snpflags[4] = 1 #Store syy     on file "snp-syy.bin"
 #snpflags[5] = 1 #Store sxy     on file "snp-sxy.bin"
 Qmin=0.5
-
-path="/home/barn/Dropbox/Src/PyEl2d/Bin"
