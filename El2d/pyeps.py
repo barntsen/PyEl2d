@@ -7,15 +7,18 @@
 
     Functions: 
           setup    Loads shared library
-          Izeros1di : Creates numpy 1D 32 bit integer array
-          Izeros2di : Creates numpy 2D 32 bit integer array
-          Fzeros1df : Creates numpy 32 bit float array
-          Fzeros2df : Creates numpy 32 bit float array
-          Fzeros    : Creates numpy 32 bit float array
-          Izeros    : Creates numpy 32 bit int array
+          Izeros1di : Creates numpy 1D 32  bit   integer numpy/eps array 
+          Izeros2di : Creates numpy 2D 32  bit   integer numpy/eps array
+          Fzeros1df : Creates numpy 32 bit float numpy/eps array
+          Fzeros2df : Creates numpy 32 bit float numpyeps  array
+          Fzeros    : Creates numpy 32 bit float numpy/eps array
+          fzeros    : Creates 32 bit float numpy array
+          Izeros    : Creates 32 bit int   numpy array
           Bytes     : Creates byte array 
           eps1di    : Convert 1D int numpy array to eps array
           num1di    : Convert 1D int eps   array to numpy array
+          eps1dc    : Convert 1D char numpy array to eps array
+          num1dc    : Convert 1D char eps   array to numpy array
           eps2di    : Convert 2D int numpy array to eps array
           num2di    : Convert 2D int eps   array to numpy array
           eps1df    : Convert 1D float numpy array to eps array
@@ -691,3 +694,8 @@ def Data2df(arr):
   data = (narr.contents).a
   data = cast(data,POINTER(c_void_p))
   return(data)
+
+def fzeros(dims) :
+    return(np.zeros(dims,dtype=np.float32,order='F'))
+def izeros(dims) :
+    return(np.zeros(dims,dtype=np.int32,order='F'))

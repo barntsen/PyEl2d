@@ -1,4 +1,4 @@
-//  Translated by epsc  version: Tue Sep 29 21:19:03 2026
+//  Translated by epsc  version: Sun Oct  4 18:44:46 2026
 
 #include <stddef.h>
 #include <stdio.h>
@@ -209,6 +209,7 @@ int pos;
 int ixr;
 int iyr;
 {
+Rec->pit = (it / Rec->resamp);
 int nctemp90 = Rec->nt - 1;
 int nctemp82 = (Rec->pit > nctemp90);
 if(nctemp82)
@@ -297,70 +298,116 @@ return 0;
 }
 }
 }
-Rec->pit = (Rec->pit + 1);
 }
 }
 return 1;
 }
 }
-nctempfloat2 * RecGetrec (struct rec* Rec,int data)
+int RecCopy (nctempfloat2 *a,nctempfloat2 *b)
+{
+int i;
+int j;
+{
+i =0;
+int nctemp135=a->d[0];int nctemp131 = (i < nctemp135);
+while(nctemp131){
 {
 {
-int nctemp127 = (data ==0);
-if(nctemp127)
+j =0;
+int nctemp147=a->d[1];int nctemp143 = (j < nctemp147);
+while(nctemp143){
 {
 {
-return Rec->p;
+b->a[i+b->d[0]*(j)] = a->a[i+a->d[0]*(j)];
+}
+}
+int nctemp159 = j + 1;
+j =nctemp159;
+int nctemp164=a->d[1];int nctemp160 = (j < nctemp164);
+nctemp143=nctemp160;
+}
+}
+}
+int nctemp176 = i + 1;
+i =nctemp176;
+int nctemp181=a->d[0];int nctemp177 = (i < nctemp181);
+nctemp131=nctemp177;
+}
+return 1;
+}
+}
+int RecGetrec (struct rec* Rec,nctempfloat2 *data,int type)
+{
+{
+int nctemp186 = (type ==1);
+if(nctemp186)
+{
+{
+nctempfloat2* nctemp191= Rec->p;
+nctempfloat2* nctemp194= data;
+int nctemp197=RecCopy(nctemp191,nctemp194);
 }
 }
 else{
 {
-int nctemp133 = (data ==1);
-if(nctemp133)
+int nctemp198 = (type ==2);
+if(nctemp198)
 {
 {
-return Rec->vx;
+nctempfloat2* nctemp203= Rec->vx;
+nctempfloat2* nctemp206= data;
+int nctemp209=RecCopy(nctemp203,nctemp206);
 }
 }
 else{
 {
-int nctemp139 = (data ==2);
-if(nctemp139)
+int nctemp210 = (type ==3);
+if(nctemp210)
 {
 {
-return Rec->vy;
+nctempfloat2* nctemp215= Rec->vy;
+nctempfloat2* nctemp218= data;
+int nctemp221=RecCopy(nctemp215,nctemp218);
 }
 }
 else{
 {
-int nctemp145 = (data ==3);
-if(nctemp145)
+int nctemp222 = (type ==4);
+if(nctemp222)
 {
 {
-return Rec->sxx;
+nctempfloat2* nctemp227= Rec->sxx;
+nctempfloat2* nctemp230= data;
+int nctemp233=RecCopy(nctemp227,nctemp230);
 }
 }
 else{
 {
-int nctemp151 = (data ==4);
-if(nctemp151)
+int nctemp234 = (type ==5);
+if(nctemp234)
 {
 {
-return Rec->syy;
+nctempfloat2* nctemp239= Rec->syy;
+nctempfloat2* nctemp242= data;
+int nctemp245=RecCopy(nctemp239,nctemp242);
 }
 }
 else{
 {
-int nctemp157 = (data ==5);
-if(nctemp157)
+int nctemp246 = (type ==6);
+if(nctemp246)
 {
 {
-return Rec->sxy;
+nctempfloat2* nctemp251= Rec->sxy;
+nctempfloat2* nctemp254= data;
+int nctemp257=RecCopy(nctemp251,nctemp254);
 }
 }
 else{
 {
-return Rec->p;
+nctempfloat2* nctemp259= Rec->p;
+nctempfloat2* nctemp262= data;
+int nctemp265=RecCopy(nctemp259,nctemp262);
 }
 }
 }
@@ -373,5 +420,6 @@ return Rec->p;
 }
 }
 }
+return 1;
 }
 }

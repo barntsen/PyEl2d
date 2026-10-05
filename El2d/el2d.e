@@ -124,16 +124,16 @@ def int El2dvx(struct el2d El2d, struct model Model) :
   # Scale with inverse density and advance one time step
 
   parallel(i=0:nx,j=0:ny):
-    El2d.vx[i,j] = dt*Model.nu[i,j]*(El2d.exx[i,j] + El2d.exy[i,j])        \
+    El2d.vx[i,j] = dt*Model.nux[i,j]*(El2d.exx[i,j] + El2d.exy[i,j])        \
                  + dt*(El2d.thetaxx[i,j]+El2d.thetaxy[i,j])                \
                  + El2d.vx[i,j]                           
 
     El2d.thetaxx[i,j] = El2d.thetaxx[i,j]*LibeExp(-dt/Model.etasx[i,j])     \
-                      + ((Model.nu[i,j]*(1.0-Model.etaex[i,j]               \
+                      + ((Model.nux[i,j]*(1.0-Model.etaex[i,j]               \
                         /Model.etasx[i,j])*dt)/Model.etaex[i,j])            \
                         *El2d.exx[i,j] 
     El2d.thetaxy[i,j] = El2d.thetaxy[i,j]*LibeExp(-dt/Model.etasy[i,j])     \
-                      + ((Model.nu[i,j]*(1.0-Model.etaey[i,j]               \
+                      + ((Model.nux[i,j]*(1.0-Model.etaey[i,j]               \
                         /Model.etasy[i,j])*dt)/Model.etaey[i,j])            \
                         *El2d.exy[i,j] 
 
@@ -156,16 +156,16 @@ def int El2dvy(struct el2d El2d, struct model Model) :
   # Scale with inverse density and advance one time step
 
   parallel(i=0:nx,j=0:ny):
-    El2d.vy[i,j] = dt*Model.nu[i,j]*(El2d.eyy[i,j] + El2d.eyx[i,j])        \
+    El2d.vy[i,j] = dt*Model.nuy[i,j]*(El2d.eyy[i,j] + El2d.eyx[i,j])        \
                  + dt*(El2d.thetayy[i,j]+El2d.thetayx[i,j])                \
                  + El2d.vy[i,j]                           
 
     El2d.thetayy[i,j] = El2d.thetayy[i,j]*LibeExp(-dt/Model.etasy[i,j])     \
-                      + ((Model.nu[i,j]*(1.0-Model.etaey[i,j]               \
+                      + ((Model.nuy[i,j]*(1.0-Model.etaey[i,j]               \
                         /Model.etasy[i,j])*dt)/Model.etaey[i,j])            \
                         *El2d.eyy[i,j] 
     El2d.thetayx[i,j] = El2d.thetayx[i,j]*LibeExp(-dt/Model.etasx[i,j])     \
-                      + ((Model.nu[i,j]*(1.0-Model.etaex[i,j]               \
+                      + ((Model.nuy[i,j]*(1.0-Model.etaex[i,j]               \
                         /Model.etasx[i,j])*dt)/Model.etaex[i,j])            \
                         *El2d.eyx[i,j] 
 
@@ -191,31 +191,31 @@ def int El2dstress(struct el2d El2d, struct model Model):
 
    El2d.sigmayy[i,j] = Model.dt*Model.lambda[i,j]                          \
                       *(El2d.exx[i,j]+El2d.eyy[i,j])                       \
-                      + Model.dt*2.0*Model.mu[i,j]*El2d.eyy[i,j]               \
+                      + Model.dt*2.0*Model.mu[i,j]*El2d.eyy[i,j]           \
                       + dt*(El2d.gammax[i,j]+El2d.gammay[i,j]              \
                       + El2d.alphay[i,j])                                  \
                       + El2d.sigmayy[i,j] 
 
    El2d.p[i,j]       = 0.5*(El2d.sigmaxx[i,j] + El2d.sigmayy[i,j]) 
 
-   El2d.sigmaxy[i,j] = Model.dt*Model.mu[i,j]*(El2d.exy[i,j]+El2d.eyx[i,j]) \
-                      + dt*(El2d.betaxy[i,j] + El2d.betayx[i,j])            \
+   El2d.sigmaxy[i,j] = Model.dt*Model.muxy[i,j]*(El2d.exy[i,j]+El2d.eyx[i,j]) \
+                      + dt*(El2d.betaxy[i,j] + El2d.betayx[i,j])              \
                       + El2d.sigmaxy[i,j] 
 
-   El2d.sigmayx[i,j] = Model.dt*Model.mu[i,j]*(El2d.eyx[i,j] +El2d.exy[i,j]) \
-                      + dt*(El2d.betayx[i,j]+El2d.betaxy[i,j])              \
+   El2d.sigmayx[i,j] = Model.dt*Model.muxy[i,j]*(El2d.eyx[i,j] +El2d.exy[i,j]) \
+                      + dt*(El2d.betayx[i,j]+El2d.betaxy[i,j])                 \
                       + El2d.sigmayx[i,j] 
    
    El2d.gammax[i,j]  = El2d.gammax[i,j]*LibeExp(-dt/Model.tausx[i,j])      \
                        + ((Model.lambda[i,j]*(1.0-Model.tauex[i,j]         \
                         /Model.tausx[i,j])*dt)/Model.tauex[i,j])           \
                         *El2d.exx[i,j] 
-
+ 
    El2d.gammay[i,j]  = El2d.gammay[i,j]*LibeExp(-dt/Model.tausy[i,j])      \
                        + ((Model.lambda[i,j]*(1.0-Model.tauey[i,j]         \
                         /Model.tausy[i,j])*dt)/Model.tauey[i,j])           \
                         *El2d.eyy[i,j] 
-
+ 
    El2d.alphax[i,j]  = El2d.alphax[i,j]*LibeExp(-dt/Model.chisx[i,j])     \
                        + ((Model.mu[i,j]*(1.0-Model.chiex[i,j]            \
                         /Model.chisx[i,j])*dt)/Model.chiex[i,j])          \
@@ -226,14 +226,14 @@ def int El2dstress(struct el2d El2d, struct model Model):
                         /Model.chisx[i,j])*dt)/Model.chiex[i,j])          \
                         *El2d.eyy[i,j] 
 
-   El2d.betaxy[i,j]  = El2d.betaxy[i,j]*LibeExp(-dt/Model.chisy[i,j])     \
-                       + ((Model.mu[i,j]*(1.0-Model.chiey[i,j]            \
-                        /Model.chisy[i,j])*dt)/Model.chiey[i,j])          \
+   El2d.betaxy[i,j]  = El2d.betaxy[i,j]*LibeExp(-dt/Model.chisyxy[i,j])      \
+                       + ((Model.muxy[i,j]*(1.0-Model.chieyxy[i,j]           \
+                        /Model.chisyxy[i,j])*dt)/Model.chieyxy[i,j])         \
                         *El2d.exy[i,j] 
 
-   El2d.betayx[i,j]  = El2d.betayx[i,j]*LibeExp(-dt/Model.chisx[i,j])     \
-                       + ((Model.mu[i,j]*(1.0-Model.chiex[i,j]            \
-                        /Model.chisx[i,j])*dt)/Model.chiex[i,j])          \
+   El2d.betayx[i,j]  = El2d.betayx[i,j]*LibeExp(-dt/Model.chisxxy[i,j])     \
+                       + ((Model.muxy[i,j]*(1.0-Model.chiexxy[i,j]          \
+                        /Model.chisxxy[i,j])*dt)/Model.chiexxy[i,j])        \
                         *El2d.eyx[i,j] 
                         
                         

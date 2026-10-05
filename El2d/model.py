@@ -70,12 +70,14 @@ class model :
       The last gridpoint is unchanged.
     
     ''' 
-
-    b=pyeps.Fzeros(a.shape)
-    for i in range(0,shape[0]-1):
-      for j in range(0,shape[1]):
+    nx=a.shape[0]
+    ny=a.shape[1]
+    b=pyeps.fzeros(a.shape)
+    for i in range(0,nx-1):
+      for j in range(0,ny):
         b[i,j]=(a[i,j]+a[i+1,j])/2.0
         
+    b[nx-1,:]=a[nx-1,:]
     return(b)
 
   def staggery(self, a):
@@ -91,11 +93,14 @@ class model :
     
     ''' 
 
-    b=pyeps.Fzeros(a.shape)
-    for i in range(0,shape[0]):
-      for j in range(0,shape[1]-1):
+    nx=a.shape[0]
+    ny=a.shape[1]
+    b=pyeps.fzeros(a.shape)
+    for i in range(0,nx):
+      for j in range(0,ny-1):
         b[i,j]=(a[i,j]+a[i,j+1])/2.0
         
+    b[:,ny-1]=a[:,ny-1]
     return(b)
 
   def __init__(self,vp,vs,rho,dx,dt,w0,nb=35,rheol=2,
@@ -166,9 +171,40 @@ class model :
     f0=w0/(2*np.pi)
     d0=349.1
     alphax,ddx=tau.alphad(f0,d0,nx,dx,nb)
-    taue1dx,taus1dx=tau.taucpml(Q0,f0,dt,ddx,alphax)
     alphay,ddy=tau.alphad(f0,d0,ny,dx,nb)
+
+    # Compute relaxation times corresponding to the
+    # alpha and d parameters.
+    taue1dx,taus1dx=tau.taucpml(Q0,f0,dt,ddx,alphax)
     taue1dy,taus1dy=tau.taucpml(Q0,f0,dt,ddy,alphay)
+
+    # Create inverse rho (nu)
+    nu=1.0/rho
+
+    # Allocate heap and python storage
+    # for lambda and mu
+    Lambda=pyeps.Fzeros((nx,ny))
+    mu    = pyeps.Fzeros((nx,ny))
+
+    # Compute lambda and mu 
+    tmp1     =vs*vs*(1.0/nu)
+    tmp2 = (1.0/nu)*(vp*vp - 2.0*vs*vs)
+    mu[:,:]=tmp1[:,:]
+    Lambda[:,:]=tmp2[:,:]
+
+    #compute staggered version of mu
+    tmp1 = self.staggerx(mu)
+    tmp2 = self.staggery(tmp1)
+    muxy = pyeps.Fzeros((nx,ny))
+    muxy[:,:] = tmp2[:,:]
+
+    # Compute staggered versions of nu with eps memory allocation
+    nux=pyeps.Fzeros((nx,ny))
+    nuy=pyeps.Fzeros((nx,ny))
+    tmp=self.staggerx(nu)
+    nux[:,:]=tmp
+    tmp=self.staggery(nu)
+    nuy[:,:]=tmp
 
     # Create 2D arrays with relaxation times 
     tauex,tauey,tausx,tausy = \
@@ -178,9 +214,31 @@ class model :
     etaex,etaey,etasx,etasy = \
                 self.tauborder(taue1dx,taue1dy,taus1dx,taus1dy,nx,ny) 
 
+    # Create staggered version of the chi arrays
+    chisxxy=pyeps.Fzeros((nx,ny))
+    tmp1=self.staggerx(chisx)
+    tmp2=self.staggery(tmp1)
+    chisxxy[:,:]=tmp2[:,:]
+
+    chisyxy=pyeps.Fzeros((nx,ny))
+    tmp1=self.staggerx(chisy)
+    tmp2=self.staggery(tmp1)
+    chisyxy[:,:]=tmp2[:,:]
+
+    chiexxy=pyeps.Fzeros((nx,ny))
+    tmp1=self.staggerx(chiex)
+    tmp2=self.staggery(tmp1)
+    chiexxy[:,:]=tmp2[:,:]
+
+    chieyxy=pyeps.Fzeros((nx,ny))
+    tmp1=self.staggerx(chiey)
+    tmp2=self.staggery(tmp1)
+    chieyxy[:,:]=tmp2[:,:]
+
     # Create eps model object.
-    model.mod=modelw.ModelNew(vp,vs,rho,dx,w0,dt,nb,
-                         freesurface,tausx,tausy,tauex,tauey,
-                         chisx,chisy,chiex,chiey,etasx,etasy,
-                         etaex,etaey)
+    model.mod=modelw.ModelNew(Lambda,mu,muxy,nux,nuy,dx,dt,w0,nb,
+                      freesurface,tausx,tausy,tauex,tauey,
+                      chisx,chisy,chiex,chiey,chisxxy,chisyxy,chiexxy,chieyxy,
+                      etasx,etasy,etaex,etaey)
+                         
 

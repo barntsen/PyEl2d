@@ -2,13 +2,15 @@ from ctypes import *
 import numpy as np
 import pyeps
 import config
-def ModelNew(vp,vs,rho,dx,w0,dt,nb,freesurface,tausx,tausy,tauex,tauey,chisx,chisy,chiex,chiey,etasx,etasy,etaex,etaey):
+def ModelNew(Lambda,mu,muxy,nux,nuy,dx,dt,w0,nb,freesurface,tausx,tausy,tauex,tauey,chisx,chisy,chiex,chiey,chisxxy,chisyxy,chiexxy,chieyxy,etasx,etasy,etaex,etaey):
  pylib=config.pylib
- pylib.ModelNew.argtypes =[c_void_p,c_void_p,c_void_p,c_float,c_float,c_float,c_int,c_int,c_void_p,c_void_p,c_void_p,c_void_p,c_void_p,c_void_p,c_void_p,c_void_p,c_void_p,c_void_p,c_void_p,c_void_p]
+ pylib.ModelNew.argtypes =[c_void_p,c_void_p,c_void_p,c_void_p,c_void_p,c_float,c_float,c_float,c_int,c_int,c_void_p,c_void_p,c_void_p,c_void_p,c_void_p,c_void_p,c_void_p,c_void_p,c_void_p,c_void_p,c_void_p,c_void_p,c_void_p,c_void_p,c_void_p,c_void_p]
  pylib.ModelNew.restype=c_void_p
- vp_eps=pyeps.eps2df(vp)
- vs_eps=pyeps.eps2df(vs)
- rho_eps=pyeps.eps2df(rho)
+ Lambda_eps=pyeps.eps2df(Lambda)
+ mu_eps=pyeps.eps2df(mu)
+ muxy_eps=pyeps.eps2df(muxy)
+ nux_eps=pyeps.eps2df(nux)
+ nuy_eps=pyeps.eps2df(nuy)
  tausx_eps=pyeps.eps2df(tausx)
  tausy_eps=pyeps.eps2df(tausy)
  tauex_eps=pyeps.eps2df(tauex)
@@ -17,14 +19,20 @@ def ModelNew(vp,vs,rho,dx,w0,dt,nb,freesurface,tausx,tausy,tauex,tauey,chisx,chi
  chisy_eps=pyeps.eps2df(chisy)
  chiex_eps=pyeps.eps2df(chiex)
  chiey_eps=pyeps.eps2df(chiey)
+ chisxxy_eps=pyeps.eps2df(chisxxy)
+ chisyxy_eps=pyeps.eps2df(chisyxy)
+ chiexxy_eps=pyeps.eps2df(chiexxy)
+ chieyxy_eps=pyeps.eps2df(chieyxy)
  etasx_eps=pyeps.eps2df(etasx)
  etasy_eps=pyeps.eps2df(etasy)
  etaex_eps=pyeps.eps2df(etaex)
  etaey_eps=pyeps.eps2df(etaey)
- r_val=pylib.ModelNew(vp_eps,vs_eps,rho_eps,dx,w0,dt,nb,freesurface,tausx_eps,tausy_eps,tauex_eps,tauey_eps,chisx_eps,chisy_eps,chiex_eps,chiey_eps,etasx_eps,etasy_eps,etaex_eps,etaey_eps)
- vp=pyeps.num2df(vp_eps)
- vs=pyeps.num2df(vs_eps)
- rho=pyeps.num2df(rho_eps)
+ r_val=pylib.ModelNew(Lambda_eps,mu_eps,muxy_eps,nux_eps,nuy_eps,dx,dt,w0,nb,freesurface,tausx_eps,tausy_eps,tauex_eps,tauey_eps,chisx_eps,chisy_eps,chiex_eps,chiey_eps,chisxxy_eps,chisyxy_eps,chiexxy_eps,chieyxy_eps,etasx_eps,etasy_eps,etaex_eps,etaey_eps)
+ Lambda=pyeps.num2df(Lambda_eps)
+ mu=pyeps.num2df(mu_eps)
+ muxy=pyeps.num2df(muxy_eps)
+ nux=pyeps.num2df(nux_eps)
+ nuy=pyeps.num2df(nuy_eps)
  tausx=pyeps.num2df(tausx_eps)
  tausy=pyeps.num2df(tausy_eps)
  tauex=pyeps.num2df(tauex_eps)
@@ -33,6 +41,10 @@ def ModelNew(vp,vs,rho,dx,w0,dt,nb,freesurface,tausx,tausy,tauex,tauey,chisx,chi
  chisy=pyeps.num2df(chisy_eps)
  chiex=pyeps.num2df(chiex_eps)
  chiey=pyeps.num2df(chiey_eps)
+ chisxxy=pyeps.num2df(chisxxy_eps)
+ chisyxy=pyeps.num2df(chisyxy_eps)
+ chiexxy=pyeps.num2df(chiexxy_eps)
+ chieyxy=pyeps.num2df(chieyxy_eps)
  etasx=pyeps.num2df(etasx_eps)
  etasy=pyeps.num2df(etasy_eps)
  etaex=pyeps.num2df(etaex_eps)

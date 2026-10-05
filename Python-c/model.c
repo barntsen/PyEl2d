@@ -1,4 +1,4 @@
-//  Translated by epsc  version: Tue Sep 29 21:19:03 2026
+//  Translated by epsc  version: Sun Oct  4 18:44:46 2026
 
 #include <stddef.h>
 #include <stdio.h>
@@ -129,13 +129,19 @@ nctempfloat2 *chisx;
 nctempfloat2 *chiex;
 nctempfloat2 *chisy;
 nctempfloat2 *chiey;
+nctempfloat2 *chisxxy;
+nctempfloat2 *chiexxy;
+nctempfloat2 *chisyxy;
+nctempfloat2 *chieyxy;
 nctempfloat2 *etasx;
 nctempfloat2 *etaex;
 nctempfloat2 *etasy;
 nctempfloat2 *etaey;
 nctempfloat2 *lambda;
+nctempfloat2 *nux;
+nctempfloat2 *nuy;
 nctempfloat2 *mu;
-nctempfloat2 *nu;
+nctempfloat2 *muxy;
 float dt;
 float dx;
 float w0;
@@ -148,42 +154,18 @@ typedef struct nctempmodel1 {int d[1]; struct model *a; } nctempmodel1;
 struct nctempmodel2 {int d[2]; struct model *a; } ;
 struct nctempmodel3 {int d[3]; struct model *a; } ;
 struct nctempmodel4 {int d[4]; struct model *a; } ;
-struct model* ModelNew (nctempfloat2 *vp,nctempfloat2 *vs,nctempfloat2 *rho,float dx,float w0,float dt,int nb,int freesurface,nctempfloat2 *tausx,nctempfloat2 *tausy,nctempfloat2 *tauex,nctempfloat2 *tauey,nctempfloat2 *chisx,nctempfloat2 *chisy,nctempfloat2 *chiex,nctempfloat2 *chiey,nctempfloat2 *etasx,nctempfloat2 *etasy,nctempfloat2 *etaex,nctempfloat2 *etaey)
+struct model* ModelNew (nctempfloat2 *Lambda,nctempfloat2 *mu,nctempfloat2 *muxy,nctempfloat2 *nux,nctempfloat2 *nuy,float dx,float dt,float w0,int nb,int freesurface,nctempfloat2 *tausx,nctempfloat2 *tausy,nctempfloat2 *tauex,nctempfloat2 *tauey,nctempfloat2 *chisx,nctempfloat2 *chisy,nctempfloat2 *chiex,nctempfloat2 *chiey,nctempfloat2 *chisxxy,nctempfloat2 *chisyxy,nctempfloat2 *chiexxy,nctempfloat2 *chieyxy,nctempfloat2 *etasx,nctempfloat2 *etasy,nctempfloat2 *etaex,nctempfloat2 *etaey)
 {
 int nx;
 int ny;
 struct model* m;
-int j;
 int i;
+int j;
 {
-int nctemp5=vp->d[0];nx =nctemp5;
-int nctemp13=vp->d[1];ny =nctemp13;
+int nctemp5=Lambda->d[0];nx =nctemp5;
+int nctemp13=Lambda->d[1];ny =nctemp13;
 struct model *nctemp21=(struct model*)RunMalloc(sizeof(struct model));
 m =nctemp21;
-int nctemp29=nx;
-nctemp29=nctemp29*ny;
-nctempfloat2 *nctemp28;
-nctemp28=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp28->d[0]=nx;
-nctemp28->d[1]=ny;
-nctemp28->a=(float *)RunMalloc(sizeof(float)*nctemp29);
-m->mu=nctemp28;
-int nctemp40=nx;
-nctemp40=nctemp40*ny;
-nctempfloat2 *nctemp39;
-nctemp39=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp39->d[0]=nx;
-nctemp39->d[1]=ny;
-nctemp39->a=(float *)RunMalloc(sizeof(float)*nctemp40);
-m->lambda=nctemp39;
-int nctemp51=nx;
-nctemp51=nctemp51*ny;
-nctempfloat2 *nctemp50;
-nctemp50=(nctempfloat2*)RunMalloc(sizeof(nctempfloat2));
-nctemp50->d[0]=nx;
-nctemp50->d[1]=ny;
-nctemp50->a=(float *)RunMalloc(sizeof(float)*nctemp51);
-m->nu=nctemp50;
 m->tausx = tausx;
 m->tausy = tausy;
 m->tauex = tauex;
@@ -192,21 +174,19 @@ m->chisx = chisx;
 m->chisy = chisy;
 m->chiex = chiex;
 m->chiey = chiey;
+m->chisxxy = chisxxy;
+m->chisyxy = chisyxy;
+m->chiexxy = chiexxy;
+m->chieyxy = chieyxy;
 m->etasx = etasx;
 m->etasy = etasy;
 m->etaex = etaex;
 m->etaey = etaey;
-for(j = 0;j < ny;j = (j + 1)){
-{
-for(i = 0;i < nx;i = (i + 1)){
-{
-m->nu->a[i+m->nu->d[0]*(j)] = (1.0 / rho->a[i+rho->d[0]*(j)]);
-m->mu->a[i+m->mu->d[0]*(j)] = ((vs->a[i+vs->d[0]*(j)] * vs->a[i+vs->d[0]*(j)]) * rho->a[i+rho->d[0]*(j)]);
-m->lambda->a[i+m->lambda->d[0]*(j)] = (rho->a[i+rho->d[0]*(j)] * ((vp->a[i+vp->d[0]*(j)] * vp->a[i+vp->d[0]*(j)]) - ((2.0 * vs->a[i+vs->d[0]*(j)]) * vs->a[i+vs->d[0]*(j)])));
-}
-}
-}
-}
+m->nux = nux;
+m->nuy = nuy;
+m->lambda = Lambda;
+m->mu = mu;
+m->muxy = muxy;
 m->dt = dt;
 m->w0 = w0;
 m->dx = dx;
@@ -214,6 +194,23 @@ m->nb = nb;
 m->freesurface = freesurface;
 m->nx = nx;
 m->ny = ny;
+for(i = 0;i < nx;i = (i + 1)){
+{
+for(j = 0;j < ny;j = (j + 1)){
+{
+int nctemp26=i;
+nctemp26=j*muxy->d[0]+nctemp26;
+float nctemp24= muxy->a[nctemp26];
+int nctemp29=LibePf(nctemp24);
+struct nctempchar1 *nctemp33;
+static struct nctempchar1 nctemp34 = {{ 3}, (char*)"\n\0"};
+nctemp33=&nctemp34;
+nctempchar1* nctemp31= nctemp33;
+int nctemp35=LibePs(nctemp31);
+}
+}
+}
+}
 return m;
 }
 }

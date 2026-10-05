@@ -10,17 +10,17 @@ cc=$1
 if  test $cc = cuda ; then
   opt="-x cuda "
   path=../Python-cuda
-  ec  $opt -c -z -C model.e
+  ec  $opt -c -z model.e
   cp             model.cpp $path
-  ec  $opt -c -z -C src.e
+  ec  $opt -c -z src.e
   cp             src.cpp   $path
-  ec  $opt -c -z -C rec.e
+  ec  $opt -c -z rec.e
   cp           rec.cpp   $path
   ec  $opt -c  diff.e
   cp           diff.cpp  $path
-  ec  $opt -c -z -C el2d.e
+  ec  $opt -c -z el2d.e
   cp           el2d.cpp  $path
-  ec  $opt -c  -C pyeps.e
+  ec  $opt -c  pyeps.e
   cp           pyeps.cpp $path
   ec  $opt -c  m.e
   cp           m.cpp    $path

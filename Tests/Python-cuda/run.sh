@@ -4,7 +4,7 @@
 # Path to Bin directory
 B=../../Bin
 
-./clean.sh
+#./clean.sh
 
 #Create wavelet
 nt=1501 #No of samples
@@ -28,6 +28,6 @@ $B/spike -n1 $n1 -n2 $n2 -val 1000.0 rho.bin
 export NTHREADS=1024
 export NBLOCKS=1024
 lib="/home/barn/Dropbox/Src/PyEl2d/Bin/pyel2dcuda.so"
-$B/el2dmod -m c -path $lib mod.py 
+$B/el2dmod -m cuda -path $lib mod.py 
 #./snp.sh
 
